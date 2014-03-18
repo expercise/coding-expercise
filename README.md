@@ -1,4 +1,4 @@
 kodility
 ========
 
-Free alternative to codility.
+Challenges for champion developers
