@@ -1,6 +1,6 @@
 kodility
 ========
 
-Challenges for champion developers
+Challenges for champion developers.
 
 http://kodility.com
