@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Kodility"/>
+    <meta name="author" content="Ufuk Uzun, Batuhan Bayrakçı"/>
+
+    <title>Kodility</title>
+
+    <link href="../../resources/css/bootstrap.css" th:href="@{/resources/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../../resources/css/application.css" th:href="@{/resources/css/application.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+    <!-- Header -->
+        <div class="header">
+            <h3 class="text-muted">Kodility <small>beta</small></h3>
+        </div>
+
+        <hr/>
+
+    <!-- Content -->
+        <div class="jumbotron">
+            <h1>Challenges for champion developers</h1>
+            <p>
+                <span class="qoute">"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."</span>
+                Martin Fowler, 2008
+            </p>
+            <p><a class="btn btn-primary btn-lg" role="button" href="challenge.html" th:href="@{/challenges/12}">Start</a></p>
+        </div>
+
+        <hr/>
+
+    <!-- Footer -->
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted credit">Challenges by <a href="https://github.com/ufukuzun/kodility/graphs/contributors" target="_blank">Kodility Team</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../resources/js/lib/jquery.js" th:src="@{/resources/js/lib/jquery.js}"></script>
+    <script type="text/javascript" src="../../resources/js/lib/bootstrap.js" th:src="@{/resources/js/lib/bootstrap.js}"></script>
+    <script type="text/javascript" src="../../resources/js/application.js" th:src="@{/resources/js/application.js}"></script>
+</body>
+</html>
