@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <meta name="description" content="Kodility">
-    <meta name="author" content="Ufuk Uzun">
+    <meta name="description" content="Kodility"/>
+    <meta name="author" content="Ufuk Uzun, Batuhan Bayrakçı"/>
 
     <title>Kodility</title>
 
-    <link href="../resources/css/bootstrap.css" rel="stylesheet">
-    <link href="../resources/css/application.css" rel="stylesheet">
+    <link href="../../resources/css/bootstrap.css" th:href="@{/resources/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../../resources/css/application.css" th:href="@{/resources/css/application.css}" rel="stylesheet"/>
 </head>
 <body>
     <div class="container">
@@ -17,7 +17,7 @@
             <h3 class="text-muted">Kodility <small>beta</small></h3>
         </div>
 
-        <hr />
+        <hr/>
 
     <!-- Content -->
         <div class="row">
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <hr />
+        <hr/>
 
     <!-- Footer -->
         <div id="footer">
@@ -66,8 +66,8 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="../resources/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../resources/js/lib/bootstrap.js"></script>
-    <script type="text/javascript" src="../resources/js/application.js"></script>
+    <script type="text/javascript" src="../../resources/js/lib/jquery.js" th:src="@{/resources/js/lib/jquery.js}"></script>
+    <script type="text/javascript" src="../../resources/js/lib/bootstrap.js" th:src="@{/resources/js/lib/bootstrap.js}"></script>
+    <script type="text/javascript" src="../../resources/js/application.js" th:src="@{/resources/js/application.js}"></script>
 </body>
 </html>
