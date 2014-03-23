@@ -17,6 +17,8 @@
         <spring.version>4.0.2.RELEASE</spring.version>
         <servlet.api.version>3.0.1</servlet.api.version>
         <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+        <thymeleaf.dialects.layout.version>1.2.2</thymeleaf.dialects.layout.version>
+        <jython.version>2.5.3</jython.version>
     </properties>
 
     <dependencies>
@@ -82,11 +84,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython</artifactId>
-            <version>2.5.3</version>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>${thymeleaf.dialects.layout.version}</version>
         </dependency>
 
+    <!-- Python Interpreter -->
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython</artifactId>
+            <version>${jython.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

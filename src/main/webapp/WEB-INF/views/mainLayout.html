@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Kodility"/>
+    <meta name="author" content="Ufuk Uzun, Batuhan Bayrakçı"/>
+
+    <title>Kodility</title>
+
+    <link th:href="@{/resources/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/resources/css/application.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <div th:replace="fragments/header :: header">Header</div>
+
+        <hr/>
+
+        <div layout:fragment="content">
+            Page Content
+        </div>
+
+        <hr/>
+
+        <div th:replace="fragments/footer :: footer">Footer</div>
+    </div>
+</body>
+</html>

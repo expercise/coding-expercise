@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.configuration.spring;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -18,6 +19,7 @@ public class ThymeleafConfiguration {
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setTemplateMode("HTML5");
+        templateResolver.setCacheable(false);   // TODO ufuk: set true for production
         return templateResolver;
     }
 
@@ -25,6 +27,7 @@ public class ThymeleafConfiguration {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.addDialect(new LayoutDialect());
         return templateEngine;
     }
 
