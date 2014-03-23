@@ -29,7 +29,7 @@ public class JavaScriptInterpreterTest {
     @Test
     public void shouldReturnExceptionMessageIfEvaluationCauseAnException() {
         Object result = interpreter.interpret("foo();");
-        assertThat(result.toString(), equalTo("sun.org.mozilla.javascript.internal.EcmaError: ReferenceError: \"foo\" is not defined. (<Unknown source>#1) in <Unknown source> at line number 1"));
+        assertThat(result.toString(), equalTo("\"foo\" is not defined. (solution.js#1) in solution.js at line number 1"));
     }
 
 }
