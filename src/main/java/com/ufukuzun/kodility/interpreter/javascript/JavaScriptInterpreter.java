@@ -16,9 +16,9 @@ public class JavaScriptInterpreter {
         try {
             result = javaScriptEngine.eval(script);
         } catch (ScriptException e) {
-            e.printStackTrace();
+            result = e.getMessage();
         }
-        return result;
+        return result != null ? result : "No Result";
     }
 
 }
