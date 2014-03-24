@@ -9,7 +9,7 @@
             <div class="pull-right">
                 Language:
                 <select id="languageSelection" name="languageSelection">
-                    <option selected="selected">JavaScript</option>
+                    <option th:each="lang : ${languages}" th:value="${lang.getShortName()}" th:text="${lang}"></option>
                 </select>
             </div>
         </div>
