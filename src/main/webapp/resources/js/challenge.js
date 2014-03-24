@@ -8,7 +8,7 @@ kodility.Challenge = {
         $('#runButton').click(function () {
             $.ajax({
                 type: 'POST', dataType: 'text', contentType: 'text/plain; charset=utf-8',
-                url: kodility.utils.urlFor('challenges/eval'),
+                url: kodility.utils.urlFor('challenges/eval/' + $('#languageSelection').val()),
                 data: $('#codeEditor').val(),
                 success: function (response) {
                     $('#resultsTextarea').val(response);
