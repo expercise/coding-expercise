@@ -17,7 +17,7 @@ public class JavaScriptInterpreter {
         try {
             result = javaScriptEngine.eval(script);
         } catch (ScriptException e) {
-            result = prepareErrorMessage(e);
+            result = prepareErrorMessage(e);    // TODO ufuk: line number wrong in error message
         }
         return result != null ? result : "No Result";
     }
