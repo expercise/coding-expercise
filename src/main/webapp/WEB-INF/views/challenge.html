@@ -9,7 +9,10 @@
             <div class="pull-right">
                 Language:
                 <select id="languageSelection" name="languageSelection">
-                    <option th:each="lang : ${languages}" th:value="${lang.getShortName()}" th:text="${lang}"></option>
+                    <option th:each="each : ${challenge.programmingLanguages}"
+                            th:value="${each.getShortName()}"
+                            th:text="${each}">
+                    </option>
                 </select>
             </div>
         </div>
@@ -17,13 +20,13 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <p>"a" and "b" are integer numbers. Write a function that sums "a" and "b", and returns.</p>
+            <p th:text="${challenge.getDescriptionFor('en')}"></p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-10">
-            <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${solutionTemplate}"></textarea>
+            <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${challenge.getSolutionFor(selectedProgrammingLanguage).solutionTemplate}"></textarea>
         </div>
         <div class="col-xs-2">
             <a id="runButton" class="editor-button btn btn-success btn-lg" role="button">Run</a>
