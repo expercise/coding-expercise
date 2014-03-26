@@ -6,10 +6,16 @@ kodility.Challenge = {
 
     bindEvents : function () {
         $('#runButton').click(function () {
+            var requestData = {
+                solution: $('#codeEditor').val(),
+                language: $('#languageSelection').val(),
+                challengeId: 1
+            };
+
             $.ajax({
-                type: 'POST', dataType: 'text', contentType: 'text/plain; charset=utf-8',
-                url: kodility.utils.urlFor('challenges/eval/' + $('#languageSelection').val()),
-                data: $('#codeEditor').val(),
+                type: 'POST', dataType: 'json', contentType: 'text/plain; charset=utf-8',
+                url: kodility.utils.urlFor('challenges/eval'),
+                data: requestData,
                 success: function (response) {
                     $('#resultsTextarea').val(response);
                 }
