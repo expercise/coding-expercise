@@ -1,28 +1,42 @@
 package com.ufukuzun.kodility.interpreter.python;
 
+import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PythonInterpreterTest {
-    // TODO ufuk: complete
-/*
+
     @InjectMocks
     private PythonInterpreter interpreter;
 
     @Test
     public void shouldEvaluatePythonFunction() {
-        String result = interpreter.interpret("def foo(a, b): return a + b;", "foo(3,4)");
+        InterpreterResult result = interpreter.interpret("def foo(a, b): return a + b;", "foo(3,4)");
 
-        assertThat(result, equalTo("7"));
+        assertTrue(result.isSuccess());
+        assertThat(result.getResult(), equalTo("7"));
     }
 
     @Test
-    @Ignore("What can I do sometimes ?")
     public void shouldSendErrorMessageWhenThereIsSyntaxError() {
-        String result = interpreter.interpret("def foo(a, b): Keturn a -+ b;", "foo(3,4)");
+        InterpreterResult result = interpreter.interpret("def foo(a, b): Keturn a -+ b;", "foo(3,4)");
 
-        assertThat(result, equalTo("SyntaxError: (\"mismatched input 'a' expecting NEWLINE\", ('<string>', 1, 22, 'def foo(a, b): Keturn a -+ b;\n'"));
+        assertFalse(result.isSuccess());
+        assertThat(result.getResult(), equalTo("Syntax Error"));
     }
-*/
+
+    @Test
+    public void shouldReturnNoResultErrorMessageIfTestCodeHasNoReturnValue() {
+        InterpreterResult result = interpreter.interpret("def foo(): return;", "foo()");
+
+        assertFalse(result.isSuccess());
+        assertThat(result.getResult(), equalTo("No Result"));
+    }
+
 }

@@ -13,24 +13,39 @@ kodility.Challenge = {
             };
 
             $.ajax({
-                type: 'POST', dataType: 'json', contentType: 'text/plain; charset=utf-8',
+                type: 'POST', dataType: 'json', contentType: 'application/json; charset=utf-8',
                 url: kodility.utils.urlFor('challenges/eval'),
-                data: requestData,
+                data: JSON.stringify(requestData),
                 success: function (response) {
-                    $('#resultsTextarea').val(response);
+                    kodility.Challenge.resetConsole();
+                    var $resultsTextarea = $('#resultsTextarea');
+                    if (response.success) {
+                        $resultsTextarea.val('Success');
+                        $resultsTextarea.addClass('successResult');
+                    } else {
+                        $resultsTextarea.val('Try again!');
+                        $resultsTextarea.addClass('failedResult');
+                    }
                 }
             });
         });
 
         $('#resetButton').click(function () {
             kodility.Challenge.initCodeEditorWithSolutionTemplate();
-            $('#resultsTextarea').val('');
+            kodility.Challenge.resetConsole();
         });
     },
 
     initCodeEditorWithSolutionTemplate : function () {
         var $codeEditor = $('#codeEditor');
         $codeEditor.val($codeEditor.data("solution-template"));
+    },
+
+    resetConsole : function () {
+        var $resultsTextarea = $('#resultsTextarea');
+        $resultsTextarea.val('');
+        $resultsTextarea.removeClass('successResult');
+        $resultsTextarea.removeClass('failedResult');
     }
 
 };

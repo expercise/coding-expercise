@@ -1,36 +1,53 @@
 package com.ufukuzun.kodility.interpreter.javascript;
 
-import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
-import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import org.springframework.stereotype.Component;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 @Component
 public class JavaScriptInterpreter implements Interpreter {
+
     @Override
     public boolean canInterpret(ProgrammingLanguage programmingLanguage) {
-        return false;
+        return ProgrammingLanguage.JavaScript == programmingLanguage;
     }
 
-    // TODO ufuk: complete
     @Override
-    public InterpreterResult interpret(Solution solutionForChallenge, SolutionFromUser solutionFromUser) {
-//        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-//        ScriptEngine javaScriptEngine = scriptEngineManager.getEngineByName("JavaScript");
-//        javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
-//        Object result;
-//        try {
-//            result = javaScriptEngine.eval(script);
-//        } catch (ScriptException e) {
-//            result = prepareErrorMessage(e);    // TODO ufuk: line number wrong in error message
-//        }
-//        return result != null ? result : "No Result";
+    public InterpreterResult interpret(String solution, String testCode) {
+        ScriptEngine javaScriptEngine = getScriptEngine();
 
-        return InterpreterResult.createSuccessResult("Success - JavaScript");
+        String script = prepareSourceCode(solution, testCode);
+
+        InterpreterResult result;
+        try {
+            Object evaluationResult = javaScriptEngine.eval(script);
+            if (evaluationResult != null) {
+                result = InterpreterResult.createSuccessResult(evaluationResult.toString());
+            } else {
+                result = InterpreterResult.createFailedResult("No Result");
+            }
+        } catch (ScriptException e) {
+            String errorMessage = prepareErrorMessage(e);   // TODO ufuk: line number wrong in error message
+            result = InterpreterResult.createFailedResult(errorMessage);
+        }
+
+        return result;
+    }
+
+    private String prepareSourceCode(String solution, String testCode) {
+        return solution.concat("\n").concat(testCode);
+    }
+
+    private ScriptEngine getScriptEngine() {
+        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+        ScriptEngine javaScriptEngine = scriptEngineManager.getEngineByName("JavaScript");
+        javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
+        return javaScriptEngine;
     }
 
     private String prepareErrorMessage(ScriptException exception) {

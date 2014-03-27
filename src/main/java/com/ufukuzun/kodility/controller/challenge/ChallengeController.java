@@ -2,8 +2,8 @@ package com.ufukuzun.kodility.controller.challenge;
 
 import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
-import com.ufukuzun.kodility.interpreter.javascript.JavaScriptInterpreter;
-import com.ufukuzun.kodility.interpreter.python.PythonInterpreter;
+import com.ufukuzun.kodility.service.challenge.SolutionValidationService;
+import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChallengeController {
 
     @Autowired
-    private JavaScriptInterpreter javaScriptInterpreter;
-
-    @Autowired
-    private PythonInterpreter pythonInterpreter;
+    private SolutionValidationService solutionValidationService;
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable Long challengeId) {
@@ -30,9 +27,8 @@ public class ChallengeController {
 
     @RequestMapping(value = "/eval", method = RequestMethod.POST)
     @ResponseBody
-    public String evaluate(@ModelAttribute SolutionFromUser solutionFromUser) {
-        // TODO ufuk: complete
-        return "No Result";
+    public SolutionValidationResult evaluate(@RequestBody SolutionFromUser solutionFromUser) {
+        return solutionValidationService.validateSolution(solutionFromUser);
     }
 
 }
