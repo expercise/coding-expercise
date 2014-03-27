@@ -2,6 +2,8 @@ package com.ufukuzun.kodility.domain.challenge;
 
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
+import java.util.List;
+
 public class Solution {
 
     private ProgrammingLanguage programmingLanguage;
@@ -43,4 +45,9 @@ public class Solution {
     public void setCallPattern(String callPattern) {
         this.callPattern = callPattern;
     }
+
+    public String getTestCodeFor(List<String> inputs) {
+        return String.format(callPattern, inputs.toArray());
+    }
+
 }

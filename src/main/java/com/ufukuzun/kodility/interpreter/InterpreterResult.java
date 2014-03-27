@@ -6,7 +6,7 @@ public class InterpreterResult {
 
     private boolean success;
 
-    public InterpreterResult(String result, boolean success) {
+    private InterpreterResult(String result, boolean success) {
         this.result = result;
         this.success = success;
     }
@@ -34,4 +34,13 @@ public class InterpreterResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
+    public boolean isValidResult(InterpreterResult other) {
+        return this.isSuccess() && other.isSuccess() && this.getResult().equals(other.getResult());
+    }
+
+    public boolean isNotValidResult(InterpreterResult other) {
+        return !isValidResult(other);
+    }
+
 }

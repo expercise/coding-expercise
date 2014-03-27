@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.domain.challenge;
 
+import com.ufukuzun.kodility.enums.Difficulty;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
@@ -17,6 +18,8 @@ public class Challenge {
     private List<Solution> solutions = new ArrayList<Solution>();
 
     private List<List<String>> inputs = new ArrayList<List<String>>();
+
+    private Difficulty difficulty;
 
     public Long getId() {
         return id;
@@ -48,6 +51,14 @@ public class Challenge {
 
     public void setInputs(List<List<String>> inputs) {
         this.inputs = inputs;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     // TODO ufuk: add test for this method
