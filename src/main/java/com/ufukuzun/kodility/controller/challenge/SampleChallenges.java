@@ -28,7 +28,7 @@ public class SampleChallenges {
             setSolutions(new ArrayList<Solution>() {{
                 add(new Solution() {{
                     setSolution("function solution(a, b) {return a + b;}");
-                    setSolutionTemplate("function solution(a, b) {\n    // solve\n}");
+                    setSolutionTemplate("function solution(a, b) {\n}");
                     setProgrammingLanguage(ProgrammingLanguage.JavaScript);
                     setCallPattern("solution(%s, %s);");
                 }});

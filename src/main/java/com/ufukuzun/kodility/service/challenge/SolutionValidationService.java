@@ -7,6 +7,7 @@ import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
+import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +22,9 @@ public class SolutionValidationService implements ApplicationContextAware {
 
     @Autowired
     private ChallengeService challengeService;
+
+    @Autowired
+    private MessageService messageService;
 
     private ApplicationContext applicationContext;
 
@@ -40,7 +44,11 @@ public class SolutionValidationService implements ApplicationContextAware {
             }
         }
 
-        return new SolutionValidationResult(success);
+        if (success) {
+            return SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
+        } else {
+            return SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));
+        }
     }
 
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {

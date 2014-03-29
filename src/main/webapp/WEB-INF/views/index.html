@@ -2,10 +2,9 @@
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
     <div class="jumbotron">
-        <h1>Challenges for champion developers</h1>
+        <h1 th:text="#{catchLine}"></h1>
         <p>
-            <span class="qoute">"Any fool can write code that a computer can understand. Good programmers write code that humans can understand."</span>
-            Martin Fowler, 2008
+            <span class="qoute" th:text="#{motto}"></span>
         </p>
         <p><a class="btn btn-primary btn-lg" role="button" href="challenge.html" th:href="@{/challenges/12}" th:text="#{button.start}">Start</a></p>
 

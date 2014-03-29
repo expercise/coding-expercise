@@ -19,11 +19,10 @@ kodility.Challenge = {
                 success: function (response) {
                     kodility.Challenge.resetConsole();
                     var $resultsTextarea = $('#resultsTextarea');
+                    $resultsTextarea.val(response.result);
                     if (response.success) {
-                        $resultsTextarea.val('Success');
                         $resultsTextarea.addClass('successResult');
                     } else {
-                        $resultsTextarea.val('Try again!');
                         $resultsTextarea.addClass('failedResult');
                     }
                 }
