@@ -1,7 +1,8 @@
 var modules = [
     kodility,
     kodility.utils,
-    kodility.Challenge
+    kodility.Challenge,
+    kodility.locale
 ];
 
 $(function () {
