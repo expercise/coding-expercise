@@ -2,14 +2,17 @@
 <html>
 <body>
     <div id="header" th:fragment="header">
-        <h3 id="projectName" class="text-muted">Kodility <small>beta</small></h3>
+        <div class="row">
+            <div class="col-xs-6">
+                <h3 id="projectName" class="text-muted">Kodility <small>beta</small></h3>
+            </div>
 
-        <div id="langSelectContainer">
-            <a href="?lingo=tr">Türkçe</a>
-            <a href="?lingo=en">English</a>
+            <div id="langSelectContainer" class="col-xs-6">
+                <a th:href="@{?lingo=tr}">Tr</a>
+                <span> | </span>
+                <a th:href="@{?lingo=en}">Eng</a>
+            </div>
         </div>
-
     </div>
-
 </body>
 </html>

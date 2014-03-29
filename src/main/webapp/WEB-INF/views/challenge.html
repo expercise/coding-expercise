@@ -3,7 +3,7 @@
 <body layout:fragment="content" th:remove="tag">
     <div class="row">
         <div class="col-xs-6">
-            <h4 th:text="#{challenge.challengeHeader}">Challenge</h4>
+            <h4 th:text="|#{challenge.challengeHeader} #${challenge.id}|"></h4>
         </div>
         <div class="col-xs-6">
             <div class="pull-right">
@@ -42,7 +42,7 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <textarea id="resultsTextarea" class="console" disabled="disabled" placeholder="Result" th:text="#{challenge.resultHeader}"></textarea>
+            <textarea id="resultsTextarea" class="console" disabled="disabled" th:placeholder="#{challenge.resultHeader}"></textarea>
         </div>
     </div>
 </body>

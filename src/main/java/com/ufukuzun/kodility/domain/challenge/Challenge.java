@@ -71,7 +71,7 @@ public class Challenge {
     }
 
     // TODO ufuk: add test for this method
-    public String getDescriptionFor(String lingoShortName) {    // TODO ufuk: get parameter as Lingo after i18n configuration
+    public String getDescriptionFor(String lingoShortName) {
         Lingo lingo = Lingo.getLingo(lingoShortName);
         return descriptions.get(lingo);
     }
