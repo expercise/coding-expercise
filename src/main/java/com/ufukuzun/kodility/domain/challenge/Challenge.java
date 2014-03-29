@@ -61,7 +61,6 @@ public class Challenge {
         this.difficulty = difficulty;
     }
 
-    // TODO ufuk: add test for this method
     public List<ProgrammingLanguage> getProgrammingLanguages() {
         List<ProgrammingLanguage> programmingLanguages = new ArrayList<ProgrammingLanguage>();
         for (Solution solution : solutions) {
@@ -70,13 +69,11 @@ public class Challenge {
         return programmingLanguages;
     }
 
-    // TODO ufuk: add test for this method
     public String getDescriptionFor(String lingoShortName) {
         Lingo lingo = Lingo.getLingo(lingoShortName);
         return descriptions.get(lingo);
     }
 
-    // TODO ufuk: add test for this method
     public Solution getSolutionFor(ProgrammingLanguage programmingLanguage) {
         for (Solution solution : solutions) {
             if (solution.getProgrammingLanguage() == programmingLanguage) {
