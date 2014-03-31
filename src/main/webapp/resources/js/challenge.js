@@ -9,7 +9,7 @@ kodility.Challenge = {
             var requestData = {
                 solution: $('#codeEditor').val(),
                 language: $('#languageSelection').val(),
-                challengeId: 1
+                challengeId: $('#challengeId').val()
             };
 
             $.ajax({

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
+    <input id="challengeId" type="hidden" th:value="${challenge.id}"/>
+
     <div class="row">
         <div class="col-xs-6">
-            <h4 th:text="|#{challenge.challengeHeader} #${challenge.id}|"></h4>
+            <h4 th:text="#{challenge.challengeHeader}"></h4>
         </div>
         <div class="col-xs-6">
             <div class="pull-right">

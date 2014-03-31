@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.controller.challenge;
 
 import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.service.challenge.ChallengeService;
 import com.ufukuzun.kodility.service.challenge.SolutionValidationService;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChallengeController {
 
     @Autowired
+    private ChallengeService challengeService;
+
+    @Autowired
     private SolutionValidationService solutionValidationService;
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
-    public ModelAndView challengePage(@PathVariable Long challengeId) {
+    public ModelAndView challengePage(@PathVariable String challengeId) {
         ModelAndView modelAndView = new ModelAndView("challenge");
-        Challenge sampleChallenge = SampleChallenges.sampleChallenges.get(0);
-        modelAndView.addObject("challenge", sampleChallenge);
-        modelAndView.addObject("selectedProgrammingLanguage", sampleChallenge.getProgrammingLanguages().get(0));
+
+        Challenge challenge = challengeService.findById(challengeId);
+        modelAndView.addObject("challenge", challenge);
+
+        // TODO ufuk: handle selected programming language
+        modelAndView.addObject("selectedProgrammingLanguage", challenge.getProgrammingLanguages().get(0));
+
         return modelAndView;
     }
 
