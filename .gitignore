@@ -9,3 +9,4 @@ target
 .externalToolBuilders
 .cache
 .springBeans
+production.properties

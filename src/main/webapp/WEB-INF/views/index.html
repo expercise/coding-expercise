@@ -6,8 +6,7 @@
         <p>
             <span class="qoute" th:text="#{motto}"></span>
         </p>
-        <p><a class="btn btn-primary btn-lg" role="button" href="challenge.html" th:href="@{/challenges/12}" th:text="#{button.start}">Start</a></p>
-
+        <p><a class="btn btn-primary btn-lg" role="button" th:href="@{'/challenges/'+ ${startingChallengeId}}" th:text="#{button.start}">Start</a></p>
     </div>
 </body>
 </html>

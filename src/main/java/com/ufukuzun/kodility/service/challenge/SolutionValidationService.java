@@ -28,7 +28,6 @@ public class SolutionValidationService implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    // TODO ufuk: add test for this method
     public SolutionValidationResult validateSolution(SolutionFromUser solutionFromUser) {
         Challenge challenge = challengeService.findById(solutionFromUser.getChallengeId());
         Solution solution = challenge.getSolutionFor(solutionFromUser.getProgrammingLanguage());

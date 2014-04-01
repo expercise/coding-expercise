@@ -8,7 +8,7 @@ public class SolutionFromUser {
 
     private String language;
 
-    private Long challengeId;
+    private String challengeId;
 
     public String getSolution() {
         return solution;
@@ -22,11 +22,11 @@ public class SolutionFromUser {
         this.language = language;
     }
 
-    public Long getChallengeId() {
+    public String getChallengeId() {
         return challengeId;
     }
 
-    public void setChallengeId(Long challengeId) {
+    public void setChallengeId(String challengeId) {
         this.challengeId = challengeId;
     }
 

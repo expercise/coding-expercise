@@ -3,6 +3,7 @@ package com.ufukuzun.kodility.domain.challenge;
 import com.ufukuzun.kodility.enums.Difficulty;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +12,8 @@ import java.util.Map;
 
 public class Challenge {
 
-    private Long id;
+    @Id
+    private String id;
 
     private Map<Lingo, String> descriptions = new HashMap<Lingo, String>();
 
@@ -21,11 +23,11 @@ public class Challenge {
 
     private Difficulty difficulty;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
