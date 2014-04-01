@@ -1,6 +1,8 @@
 package com.ufukuzun.kodility.configuration.spring;
 
+import com.ufukuzun.kodility.utils.EnvironmentUtils;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
@@ -12,6 +14,9 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @Configuration
 public class ThymeleafConfiguration {
 
+    @Value("${environment}")
+    private String environment;
+
     @Bean
     public TemplateResolver templateResolver() {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
@@ -19,7 +24,7 @@ public class ThymeleafConfiguration {
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setTemplateMode("HTML5");
-        templateResolver.setCacheable(false);   // TODO ufuk: set true for production
+        templateResolver.setCacheable(EnvironmentUtils.isProduction(environment));
         return templateResolver;
     }
 
