@@ -4,10 +4,10 @@ kodility.Challenge = {
         this.initCodeEditorWithSolutionTemplate();
     },
 
-    bindEvents : function () {
+    bindEvents: function () {
         $('#runButton').click(function () {
             var requestData = {
-                solution: $('#codeEditor').val(),
+                solution: kodility.CodeEditor.getSolution(),
                 language: $('#languageSelection').val(),
                 challengeId: $('#challengeId').val()
             };
@@ -35,12 +35,11 @@ kodility.Challenge = {
         });
     },
 
-    initCodeEditorWithSolutionTemplate : function () {
-        var $codeEditor = $('#codeEditor');
-        $codeEditor.val($codeEditor.data("solution-template"));
+    initCodeEditorWithSolutionTemplate: function () {
+        kodility.CodeEditor.setSolution($('#codeEditor').data("solution-template"));
     },
 
-    resetConsole : function () {
+    resetConsole: function () {
         var $resultsTextarea = $('#resultsTextarea');
         $resultsTextarea.val('');
         $resultsTextarea.removeClass('successResult');

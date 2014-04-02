@@ -1,6 +1,7 @@
 var modules = [
     kodility,
     kodility.utils,
+    kodility.CodeEditor,
     kodility.Challenge,
     kodility.locale
 ];

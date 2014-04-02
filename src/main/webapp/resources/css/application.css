@@ -23,14 +23,6 @@ textarea.code-editor {
     resize: none;
 }
 
-textarea.console {
-    width: 100%;
-    height: 100%;
-    min-height: 100px;
-    font-family: Helvetica;
-    resize: none;
-}
-
 .editor-button {
     width: 95px;
     text-align: center;
@@ -41,18 +33,23 @@ textarea.console {
     cursor: pointer;
 }
 
+textarea.console {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    font-family: Helvetica;
+    resize: none;
+    border: 1px solid #ccc;
+}
+
 textarea.successResult {
-    border-color: #3c763d;
+    border: 1px solid #3c763d;
     color: #3c763d;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
 
 textarea.failedResult {
-    border-color: #a94442;
+    border: 1px solid #a94442;
     color: #a94442;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
 
 #langSelectContainer {

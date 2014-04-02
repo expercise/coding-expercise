@@ -15,13 +15,13 @@ kodility.locale = {
     },
 
     keepValues: function() {
-        $.cookie('solution', $('#codeEditor').val());
+        $.cookie('solution', kodility.CodeEditor.getSolution());
     },
 
     reloadValues: function() {
         var savedSolution = $.cookie('solution');
         if (savedSolution !== undefined) {
-            $('#codeEditor').val(savedSolution);
+            kodility.CodeEditor.setSolution(savedSolution);
         }
     }
 
