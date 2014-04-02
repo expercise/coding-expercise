@@ -57,7 +57,8 @@ public class SolutionValidationService implements ApplicationContextAware {
                 return interpreter;
             }
         }
-        return null;
+
+        throw new IllegalArgumentException("There is no such programming language as this.");
     }
 
     @Override
