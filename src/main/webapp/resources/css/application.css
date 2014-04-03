@@ -56,3 +56,8 @@ textarea.failedResult {
     padding-top: 20px;
     text-align: right;
 }
+
+#fullScreenButton, #themeButton {
+    margin-left: 5px;
+    cursor: pointer;
+}

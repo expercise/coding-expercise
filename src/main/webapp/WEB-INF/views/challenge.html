@@ -28,6 +28,14 @@
 
     <div class="row">
         <div class="col-xs-10">
+            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right"></span>
+            <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
+        </div>
+        <br />
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
             <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${challenge.getSolutionFor(selectedProgrammingLanguage).solutionTemplate}"></textarea>
         </div>
         <div class="col-xs-2">

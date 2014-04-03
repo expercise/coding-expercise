@@ -6,7 +6,7 @@ kodility.locale = {
     },
 
     clearCookies: function() {
-        $.removeCookie('solution');
+        $.removeCookie("solution");
     },
 
     bindEvents: function () {
@@ -15,11 +15,11 @@ kodility.locale = {
     },
 
     keepValues: function() {
-        $.cookie('solution', kodility.CodeEditor.getSolution());
+        $.cookie("solution", kodility.CodeEditor.getSolution());
     },
 
     reloadValues: function() {
-        var savedSolution = $.cookie('solution');
+        var savedSolution = $.cookie("solution");
         if (savedSolution !== undefined) {
             kodility.CodeEditor.setSolution(savedSolution);
         }
