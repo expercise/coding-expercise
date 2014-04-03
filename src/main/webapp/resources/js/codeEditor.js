@@ -13,6 +13,7 @@ kodility.CodeEditor = {
             kodility.CodeEditor.toggleTheme();
         });
         $('#fullScreenButton').click(function () {
+            kodility.CodeEditor.codeEditor.focus();
             $('.CodeMirror').fullscreen();
         });
     },
