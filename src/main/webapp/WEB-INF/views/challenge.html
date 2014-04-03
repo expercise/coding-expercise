@@ -28,19 +28,18 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right"></span>
-            <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
-        </div>
-        <br />
-    </div>
-
-    <div class="row">
-        <div class="col-xs-10">
             <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${challenge.getSolutionFor(selectedProgrammingLanguage).solutionTemplate}"></textarea>
         </div>
         <div class="col-xs-2">
             <a id="runButton" th:text="#{button.run}" class="editor-button btn btn-success btn-lg" role="button">Run</a>
             <a id="resetButton" th:text="#{button.reset}" class="editor-button btn btn-default btn-lg" role="button">Reset</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
+            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right"></span>
+            <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
         </div>
     </div>
 
