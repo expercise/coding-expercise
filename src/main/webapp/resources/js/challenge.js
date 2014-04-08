@@ -33,6 +33,23 @@ kodility.Challenge = {
             kodility.Challenge.initCodeEditorWithSolutionTemplate();
             kodility.Challenge.resetConsole();
         });
+
+        $('#languageSelection').change(function() {
+            var requestData = {
+                language: $('#languageSelection').val(),
+                challengeId: $('#challengeId').val()
+            };
+
+            $.ajax({
+                type: 'POST', dataType: 'text', contentType: 'application/json; charset=utf-8',
+                url: kodility.utils.urlFor('challenges/changeLanguage'),
+                data: JSON.stringify(requestData),
+                success: function (response) {
+                    kodility.Challenge.resetConsole();
+                    kodility.CodeEditor.setSolution(response);
+                }
+            });
+        });
     },
 
     initCodeEditorWithSolutionTemplate: function () {

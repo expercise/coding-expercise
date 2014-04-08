@@ -20,11 +20,21 @@ public class ChallengeService {
 
     @PostConstruct  // TODO ufuk: remove after "Challenge Management" page
     public void init() {
-        if (challengeRepository.findAll().iterator().hasNext()) {
-            return;
-        }
+//        if (challengeRepository.findAll().iterator().hasNext()) {
+//            return;
+//        }
 
+//        challengeRepository.save(challenge);
+    }
+
+    public Challenge findById(String id) {
+        return getSampleChallenge();
+    }
+
+    private Challenge getSampleChallenge() {
         Challenge challenge = new Challenge();
+
+        challenge.setId("123123");
 
         HashMap<Lingo, String> descriptions = new HashMap<Lingo, String>();
         descriptions.put(Lingo.English, "\"a\" and \"b\" are integer numbers. Write a function that sums \"a\" and \"b\", and returns.");
@@ -32,37 +42,21 @@ public class ChallengeService {
         challenge.setDescriptions(descriptions);
 
         TestCase testCase = new TestCase();
-        List<Object> inp = new ArrayList<Object>();
-        inp.add(12);
-        inp.add(23);
-        testCase.setInputs(inp);
+        List<Object> inputValues = new ArrayList<Object>();
+        inputValues.add(12);
+        inputValues.add(23);
+        testCase.setInputs(inputValues);
         testCase.setOutput(35);
 
         challenge.addTestCase(testCase);
+
         List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(Integer.TYPE);
-        inputTypes.add(Integer.TYPE);
+        inputTypes.add(Integer.class);
+        inputTypes.add(Integer.class);
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.TYPE);
+        challenge.setOutputType(Integer.class);
 
-//        challenge.setInputs(Arrays.asList(
-//                Arrays.asList("1", "2"),
-//                Arrays.asList("3", "4"),
-//                Arrays.asList("250", "-5")
-//        ));
-//
-//        Solution solution = new Solution();
-//        solution.setSolution("function solution(a, b) {return a + b;}");
-//        solution.setSolutionTemplate("function solution(a, b) {\n}");
-//        solution.setProgrammingLanguage(ProgrammingLanguage.JavaScript);
-//        solution.setCallPattern("solution(%s, %s);");
-//        challenge.setSolutions(Arrays.asList(solution));
-
-        challengeRepository.save(challenge);
-    }
-
-    public Challenge findById(String id) {
-        return challengeRepository.findById(id);
+        return challenge;
     }
 
     // TODO ufuk: complete - order by difficulty and find easiest challenge

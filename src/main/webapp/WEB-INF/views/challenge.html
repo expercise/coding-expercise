@@ -11,7 +11,7 @@
             <div class="pull-right">
                 <span th:text="#{challenge.language}">Language</span>:
                 <select id="languageSelection" name="languageSelection">
-                    <option th:each="each : ${progLangs}"
+                    <option th:each="each : ${programmingLanguages}"
                             th:value="${each.getShortName()}"
                             th:text="${each}">
                     </option>

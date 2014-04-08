@@ -28,8 +28,8 @@ public class ChallengeController {
         Challenge challenge = challengeService.findById(challengeId);
         modelAndView.addObject("challenge", challenge);
 
-        modelAndView.addObject("solutionTemplate", "function():::");
-        modelAndView.addObject("progLangs", ProgrammingLanguage.values());
+        modelAndView.addObject("solutionTemplate", "function solution() {\n}");
+        modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
 
         return modelAndView;
     }
@@ -38,6 +38,51 @@ public class ChallengeController {
     @ResponseBody
     public SolutionValidationResult evaluate(@RequestBody SolutionFromUser solutionFromUser) {
         return solutionValidationService.validateSolution(solutionFromUser);
+    }
+
+    @RequestMapping(value = "/changeLanguage", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeLanguage(@RequestBody LanguageChoice languageChoice) {
+        ProgrammingLanguage programmingLanguage = ProgrammingLanguage.getLanguage(languageChoice.getLanguage());
+
+        Challenge challenge = challengeService.findById(languageChoice.getChallengeId());
+
+        if (programmingLanguage == ProgrammingLanguage.Python) {
+            return generateCallPatternForPython(challenge);
+        }
+        return generateCallPatternForJavaScript(challenge);
+    }
+
+    private String generateCallPatternForPython(Challenge challenge) {
+        int inputSize = challenge.getInputTypes().size();
+        String[] letters = new String[] {"a", "b", "c", "d"};
+        String solutionTemplate;
+        solutionTemplate = "def solution(";
+        for (int i = 0; i < inputSize; i++) {
+            solutionTemplate += letters[i];
+            if (i != inputSize - 1) {
+                solutionTemplate += ", ";
+            }
+        }
+
+        solutionTemplate += "):\n";
+        return solutionTemplate;
+    }
+
+    private String generateCallPatternForJavaScript(Challenge challenge) {
+        int inputSize = challenge.getInputTypes().size();
+        String[] letters = new String[] {"a", "b", "c", "d"};
+        String solutionTemplate;
+        solutionTemplate = "function solution(";
+        for (int i = 0; i < inputSize; i++) {
+            solutionTemplate += letters[i];
+            if (i != inputSize - 1) {
+                solutionTemplate += ", ";
+            }
+        }
+
+        solutionTemplate += "){\n}";
+        return solutionTemplate;
     }
 
 }
