@@ -73,9 +73,8 @@ public class PythonInterpreter implements Interpreter {
                 if (type == Integer.class) {
                     type = int.class;
                 }
-                Constructor<? extends PyObject> declaredConstructor = null;
                 try {
-                    declaredConstructor = instanceType.getDeclaredConstructor(type);
+                    Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(type);
                     pyObjects[i] = declaredConstructor.newInstance(testCase.getInputs().get(i));
                 } catch (Exception e) {
                     return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));

@@ -6,6 +6,8 @@ import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
 import com.ufukuzun.kodility.service.challenge.SolutionValidationService;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
+import com.ufukuzun.kodility.service.language.JavaScriptSignatureGenerator;
+import com.ufukuzun.kodility.service.language.PythonSignatureGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,12 @@ public class ChallengeController {
     @Autowired
     private SolutionValidationService solutionValidationService;
 
+    @Autowired
+    private PythonSignatureGenerator pythonSignatureGenerator;
+
+    @Autowired
+    private JavaScriptSignatureGenerator javaScriptSignatureGenerator;
+
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable String challengeId) {
         ModelAndView modelAndView = new ModelAndView("challenge");
@@ -28,7 +36,7 @@ public class ChallengeController {
         Challenge challenge = challengeService.findById(challengeId);
         modelAndView.addObject("challenge", challenge);
 
-        modelAndView.addObject("solutionTemplate", "function solution() {\n}");
+        modelAndView.addObject("solutionTemplate", javaScriptSignatureGenerator.generate(challenge));
         modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
 
         return modelAndView;
@@ -48,41 +56,9 @@ public class ChallengeController {
         Challenge challenge = challengeService.findById(languageChoice.getChallengeId());
 
         if (programmingLanguage == ProgrammingLanguage.Python) {
-            return generateCallPatternForPython(challenge);
+            return pythonSignatureGenerator.generate(challenge);
         }
-        return generateCallPatternForJavaScript(challenge);
-    }
-
-    private String generateCallPatternForPython(Challenge challenge) {
-        int inputSize = challenge.getInputTypes().size();
-        String[] letters = new String[] {"a", "b", "c", "d"};
-        String solutionTemplate;
-        solutionTemplate = "def solution(";
-        for (int i = 0; i < inputSize; i++) {
-            solutionTemplate += letters[i];
-            if (i != inputSize - 1) {
-                solutionTemplate += ", ";
-            }
-        }
-
-        solutionTemplate += "):\n";
-        return solutionTemplate;
-    }
-
-    private String generateCallPatternForJavaScript(Challenge challenge) {
-        int inputSize = challenge.getInputTypes().size();
-        String[] letters = new String[] {"a", "b", "c", "d"};
-        String solutionTemplate;
-        solutionTemplate = "function solution(";
-        for (int i = 0; i < inputSize; i++) {
-            solutionTemplate += letters[i];
-            if (i != inputSize - 1) {
-                solutionTemplate += ", ";
-            }
-        }
-
-        solutionTemplate += "){\n}";
-        return solutionTemplate;
+        return javaScriptSignatureGenerator.generate(challenge);
     }
 
 }
