@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.controller.challenge;
 
 import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
 import com.ufukuzun.kodility.service.challenge.SolutionValidationService;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
@@ -27,8 +28,8 @@ public class ChallengeController {
         Challenge challenge = challengeService.findById(challengeId);
         modelAndView.addObject("challenge", challenge);
 
-        // TODO ufuk: handle selected programming language
-        modelAndView.addObject("selectedProgrammingLanguage", challenge.getProgrammingLanguages().get(0));
+        modelAndView.addObject("solutionTemplate", "function():::");
+        modelAndView.addObject("progLangs", ProgrammingLanguage.values());
 
         return modelAndView;
     }

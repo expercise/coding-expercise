@@ -1,8 +1,6 @@
 package com.ufukuzun.kodility.domain.challenge;
 
-import com.ufukuzun.kodility.enums.Difficulty;
 import com.ufukuzun.kodility.enums.Lingo;
-import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
@@ -17,11 +15,13 @@ public class Challenge {
 
     private Map<Lingo, String> descriptions = new HashMap<Lingo, String>();
 
-    private List<Solution> solutions = new ArrayList<Solution>();
+//    private List<Solution> solutions = new ArrayList<Solution>();
+
+    private List<Class> inputTypes = new ArrayList<Class>();
+    private Class<?> outputType;
+    private List<TestCase> testCases = new ArrayList<TestCase>();
 
     private List<List<String>> inputs = new ArrayList<List<String>>();
-
-    private Difficulty difficulty;
 
     public String getId() {
         return id;
@@ -39,13 +39,13 @@ public class Challenge {
         this.descriptions = descriptions;
     }
 
-    public List<Solution> getSolutions() {
-        return solutions;
-    }
-
-    public void setSolutions(List<Solution> solutions) {
-        this.solutions = solutions;
-    }
+//    public List<Solution> getSolutions() {
+//        return solutions;
+//    }
+//
+//    public void setSolutions(List<Solution> solutions) {
+//        this.solutions = solutions;
+//    }
 
     public List<List<String>> getInputs() {
         return inputs;
@@ -55,34 +55,56 @@ public class Challenge {
         this.inputs = inputs;
     }
 
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public List<ProgrammingLanguage> getProgrammingLanguages() {
-        List<ProgrammingLanguage> programmingLanguages = new ArrayList<ProgrammingLanguage>();
-        for (Solution solution : solutions) {
-            programmingLanguages.add(solution.getProgrammingLanguage());
-        }
-        return programmingLanguages;
-    }
+//    public List<ProgrammingLanguage> getProgrammingLanguages() {
+//        List<ProgrammingLanguage> programmingLanguages = new ArrayList<ProgrammingLanguage>();
+//        for (Solution solution : solutions) {
+//            programmingLanguages.add(solution.getProgrammingLanguage());
+//        }
+//        return programmingLanguages;
+//    }
 
     public String getDescriptionFor(String lingoShortName) {
         Lingo lingo = Lingo.getLingo(lingoShortName);
         return descriptions.get(lingo);
     }
 
-    public Solution getSolutionFor(ProgrammingLanguage programmingLanguage) {
-        for (Solution solution : solutions) {
-            if (solution.getProgrammingLanguage() == programmingLanguage) {
-                return solution;
-            }
-        }
-        return null;
+//    public Solution getSolutionFor(ProgrammingLanguage programmingLanguage) {
+//        for (Solution solution : solutions) {
+//            if (solution.getProgrammingLanguage() == programmingLanguage) {
+//                return solution;
+//            }
+//        }
+//        return null;
+//    }
+
+    //
+
+
+    public List<TestCase> getTestCases() {
+        return testCases;
     }
 
+    public void setTestCases(List<TestCase> testCases) {
+        this.testCases = testCases;
+    }
+
+    public List<Class> getInputTypes() {
+        return inputTypes;
+    }
+
+    public void setInputTypes(List<Class> inputTypes) {
+        this.inputTypes = inputTypes;
+    }
+
+    public Class<?> getOutputType() {
+        return outputType;
+    }
+
+    public void setOutputType(Class<?> outputType) {
+        this.outputType = outputType;
+    }
+
+    public void addTestCase(TestCase testCase) {
+        testCases.add(testCase);
+    }
 }

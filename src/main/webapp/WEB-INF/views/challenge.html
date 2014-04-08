@@ -11,7 +11,7 @@
             <div class="pull-right">
                 <span th:text="#{challenge.language}">Language</span>:
                 <select id="languageSelection" name="languageSelection">
-                    <option th:each="each : ${challenge.programmingLanguages}"
+                    <option th:each="each : ${progLangs}"
                             th:value="${each.getShortName()}"
                             th:text="${each}">
                     </option>
@@ -28,7 +28,7 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${challenge.getSolutionFor(selectedProgrammingLanguage).solutionTemplate}"></textarea>
+            <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${solutionTemplate}"></textarea>
         </div>
         <div class="col-xs-2">
             <a id="runButton" th:text="#{button.run}" class="editor-button btn btn-success btn-lg" role="button">Run</a>

@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.interpreter.javascript;
 
+import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
@@ -23,25 +24,25 @@ public class JavaScriptInterpreter implements Interpreter {
     }
 
     @Override
-    public InterpreterResult interpret(String solution, String testCode) {
-        ScriptEngine javaScriptEngine = getScriptEngine();
-
-        String script = prepareSourceCode(solution, testCode);
-
-        InterpreterResult result;
-        try {
-            Object evaluationResult = javaScriptEngine.eval(script);
-            if (evaluationResult != null) {
-                result = InterpreterResult.createSuccessResult(evaluationResult.toString());
-            } else {
-                result = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-            }
-        } catch (ScriptException e) {
-            String errorMessage = prepareErrorMessage(e);   // TODO ufuk: line number wrong in error message
-            result = InterpreterResult.createFailedResult(errorMessage);
-        }
-
-        return result;
+    public InterpreterResult interpret(String solution, Challenge challenge) {
+//        ScriptEngine javaScriptEngine = getScriptEngine();
+//
+//        String script = prepareSourceCode(solution, testCode);
+//
+//        InterpreterResult result;
+//        try {
+//            Object evaluationResult = javaScriptEngine.eval(script);
+//            if (evaluationResult != null) {
+//                result = InterpreterResult.createSuccessResult(evaluationResult.toString());
+//            } else {
+//                result = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+//            }
+//        } catch (ScriptException e) {
+//            String errorMessage = prepareErrorMessage(e);   // TODO ufuk: line number wrong in error message
+//            result = InterpreterResult.createFailedResult(errorMessage);
+//        }
+//
+        return null;
     }
 
     private String prepareSourceCode(String solution, String testCode) {

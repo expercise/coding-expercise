@@ -2,15 +2,15 @@ package com.ufukuzun.kodility.service.challenge;
 
 import com.ufukuzun.kodility.dao.challenge.ChallengeRepository;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
-import com.ufukuzun.kodility.domain.challenge.Solution;
+import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.Lingo;
-import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ChallengeService {
@@ -31,18 +31,32 @@ public class ChallengeService {
         descriptions.put(Lingo.Turkish, "\"a\" ve \"b\" iki tamsayıdır. \"a\" ve \"b\" tamsayılarını toplayan ve sonucu dönen bir fonksiyon yazınız.");
         challenge.setDescriptions(descriptions);
 
-        challenge.setInputs(Arrays.asList(
-                Arrays.asList("1", "2"),
-                Arrays.asList("3", "4"),
-                Arrays.asList("250", "-5")
-        ));
+        TestCase testCase = new TestCase();
+        List<Object> inp = new ArrayList<Object>();
+        inp.add(12);
+        inp.add(23);
+        testCase.setInputs(inp);
+        testCase.setOutput(35);
 
-        Solution solution = new Solution();
-        solution.setSolution("function solution(a, b) {return a + b;}");
-        solution.setSolutionTemplate("function solution(a, b) {\n}");
-        solution.setProgrammingLanguage(ProgrammingLanguage.JavaScript);
-        solution.setCallPattern("solution(%s, %s);");
-        challenge.setSolutions(Arrays.asList(solution));
+        challenge.addTestCase(testCase);
+        List<Class> inputTypes = new ArrayList<Class>();
+        inputTypes.add(Integer.TYPE);
+        inputTypes.add(Integer.TYPE);
+        challenge.setInputTypes(inputTypes);
+        challenge.setOutputType(Integer.TYPE);
+
+//        challenge.setInputs(Arrays.asList(
+//                Arrays.asList("1", "2"),
+//                Arrays.asList("3", "4"),
+//                Arrays.asList("250", "-5")
+//        ));
+//
+//        Solution solution = new Solution();
+//        solution.setSolution("function solution(a, b) {return a + b;}");
+//        solution.setSolutionTemplate("function solution(a, b) {\n}");
+//        solution.setProgrammingLanguage(ProgrammingLanguage.JavaScript);
+//        solution.setCallPattern("solution(%s, %s);");
+//        challenge.setSolutions(Arrays.asList(solution));
 
         challengeRepository.save(challenge);
     }
