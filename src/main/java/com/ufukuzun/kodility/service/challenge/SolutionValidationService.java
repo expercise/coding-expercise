@@ -34,6 +34,7 @@ public class SolutionValidationService implements ApplicationContextAware {
         if (resultForUser.isSuccess()) {
             return SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
         }
+
         return SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));
     }
 

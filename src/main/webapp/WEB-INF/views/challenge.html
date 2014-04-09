@@ -7,17 +7,6 @@
         <div class="col-xs-6">
             <h4 th:text="#{challenge.challengeHeader}"></h4>
         </div>
-        <div class="col-xs-6">
-            <div class="pull-right">
-                <span th:text="#{challenge.language}">Language</span>:
-                <select id="languageSelection" name="languageSelection">
-                    <option th:each="each : ${programmingLanguages}"
-                            th:value="${each.getShortName()}"
-                            th:text="${each}">
-                    </option>
-                </select>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -28,7 +17,7 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <textarea id="codeEditor" class="code-editor" th:attr="data-solution-template=${solutionTemplate}"></textarea>
+            <textarea id="codeEditor" class="code-editor"></textarea>
         </div>
         <div class="col-xs-2">
             <a id="runButton" th:text="#{button.run}" class="editor-button btn btn-success btn-lg" role="button">Run</a>
@@ -37,7 +26,14 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-10 editorOptions">
+            <span th:text="#{challenge.language}"></span>:
+            <select id="languageSelection" name="languageSelection">
+                <option th:each="each : ${programmingLanguages}"
+                        th:value="${each.getShortName()}"
+                        th:text="${each}">
+                </option>
+            </select>
             <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right"></span>
             <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
         </div>

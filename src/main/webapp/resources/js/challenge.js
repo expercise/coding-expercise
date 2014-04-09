@@ -1,7 +1,7 @@
 kodility.Challenge = {
 
     constructor: function () {
-        this.initCodeEditorWithSolutionTemplate();
+        this.adjustProgrammingLanguage();
     },
 
     bindEvents: function () {
@@ -30,30 +30,29 @@ kodility.Challenge = {
         });
 
         $('#resetButton').click(function () {
-            kodility.Challenge.initCodeEditorWithSolutionTemplate();
+            kodility.Challenge.adjustProgrammingLanguage();
             kodility.Challenge.resetConsole();
         });
 
-        $('#languageSelection').change(function() {
-            var requestData = {
-                language: $('#languageSelection').val(),
-                challengeId: $('#challengeId').val()
-            };
-
-            $.ajax({
-                type: 'POST', dataType: 'text', contentType: 'application/json; charset=utf-8',
-                url: kodility.utils.urlFor('challenges/changeLanguage'),
-                data: JSON.stringify(requestData),
-                success: function (response) {
-                    kodility.Challenge.resetConsole();
-                    kodility.CodeEditor.setSolution(response);
-                }
-            });
-        });
+        $('#languageSelection').change(this.adjustProgrammingLanguage);
     },
 
-    initCodeEditorWithSolutionTemplate: function () {
-        kodility.CodeEditor.setSolution($('#codeEditor').data("solution-template"));
+    adjustProgrammingLanguage: function () {
+        var requestData = {
+            language: $('#languageSelection').val(),
+            challengeId: $('#challengeId').val()
+        };
+
+        $.ajax({
+            type: 'POST', dataType: 'text', contentType: 'application/json; charset=utf-8',
+            url: kodility.utils.urlFor('challenges/changeLanguage'),
+            data: JSON.stringify(requestData),
+            success: function (response) {
+                kodility.Challenge.resetConsole();
+                kodility.CodeEditor.setSolution(response);
+                kodility.CodeEditor.changeMode(requestData.language);
+            }
+        });
     },
 
     resetConsole: function () {

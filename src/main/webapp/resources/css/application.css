@@ -60,4 +60,13 @@ textarea.failedResult {
 #fullScreenButton, #themeButton {
     margin-left: 5px;
     cursor: pointer;
+    line-height: 20px !important;
+}
+
+.editorOptions {
+    border: 1px solid #ccc;
+    padding: 2px;
+    margin-left: 15px;
+    width: 595px;
+    border-top: 0px;
 }

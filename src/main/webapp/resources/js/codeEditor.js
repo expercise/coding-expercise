@@ -4,6 +4,8 @@ kodility.CodeEditor = {
 
     theme: "default",
 
+    mode: "javascript",
+
     constructor: function () {
         this.initCodeEditor();
     },
@@ -23,10 +25,16 @@ kodility.CodeEditor = {
         if (savedTheme) {
             this.theme = savedTheme;
         }
+
+        var savedMode = $.cookie("editorMode");
+        if (savedMode) {
+            this.mode = savedMode;
+        }
+
         this.codeEditor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
             lineNumbers: true,
             theme: this.theme,
-            mode: "javascript",
+            mode: this.mode,
             indentUnit: 4,
             indentWithTabs: true
         });
@@ -42,8 +50,24 @@ kodility.CodeEditor = {
 
     toggleTheme: function () {
         this.theme = this.theme == "default" ? "ambiance" : "default";
+
         this.codeEditor.setOption("theme", this.theme);
         $.cookie("editorTheme", this.theme);
+    },
+
+    changeMode: function (mode) {
+        if (mode == "js") {
+            this.mode = "javascript";
+        } else if (mode == "py") {
+            this.mode = "python";
+        }
+
+        this.codeEditor.setOption("mode", this.mode);
+        $.cookie("editorMode", this.mode);
+    },
+
+    resetMode: function () {
+        $.removeCookie("editorMode");
     }
 
 };

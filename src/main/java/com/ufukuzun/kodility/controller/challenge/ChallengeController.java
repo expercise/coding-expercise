@@ -35,8 +35,6 @@ public class ChallengeController {
 
         Challenge challenge = challengeService.findById(challengeId);
         modelAndView.addObject("challenge", challenge);
-
-        modelAndView.addObject("solutionTemplate", javaScriptSignatureGenerator.generate(challenge));
         modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
 
         return modelAndView;

@@ -1,28 +1,10 @@
 kodility.locale = {
 
-    constructor: function() {
-        this.reloadValues()
-        this.clearCookies();
-    },
-
-    clearCookies: function() {
-        $.removeCookie("solution");
-    },
-
     bindEvents: function () {
-        var langs = $('#langSelectContainer').find('a');
-        langs.click(this.keepValues);
-    },
-
-    keepValues: function() {
-        $.cookie("solution", kodility.CodeEditor.getSolution());
-    },
-
-    reloadValues: function() {
-        var savedSolution = $.cookie("solution");
-        if (savedSolution !== undefined) {
-            kodility.CodeEditor.setSolution(savedSolution);
-        }
+        $('#langSelectContainer').find('a').click(function () {
+            // TODO ufuk: add a warning message about losing current solution (I know, there is an issue for this) :)
+            kodility.CodeEditor.resetMode();
+        });
     }
 
 };
