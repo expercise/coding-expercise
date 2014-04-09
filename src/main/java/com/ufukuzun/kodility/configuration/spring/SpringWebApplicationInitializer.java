@@ -14,7 +14,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-        webApplicationContext.register(SpringConfiguration.class);
+        webApplicationContext.register(SpringWebMvcConfiguration.class);
         webApplicationContext.setDisplayName("Kodility");
 
         FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", new CharacterEncodingFilter());

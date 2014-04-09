@@ -1,6 +1,6 @@
 package com.ufukuzun.kodility.service.challenge;
 
-import com.ufukuzun.kodility.dao.challenge.ChallengeRepository;
+import com.ufukuzun.kodility.dao.challenge.ChallengeDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.Lingo;
@@ -16,25 +16,28 @@ import java.util.List;
 public class ChallengeService {
 
     @Autowired
-    private ChallengeRepository challengeRepository;
+    private ChallengeDao challengeDao;
 
     @PostConstruct  // TODO ufuk: remove after "Challenge Management" page
     public void init() {
-//        if (challengeRepository.findAll().iterator().hasNext()) {
-//            return;
-//        }
+        if (challengeDao.findAll().iterator().hasNext()) {
+            return;
+        }
 
-//        challengeRepository.save(challenge);
+        challengeDao.save(getSampleChallenge());
     }
 
     public Challenge findById(String id) {
-        return getSampleChallenge();
+        return challengeDao.findById(id);
+    }
+
+    // TODO ufuk: complete - order by difficulty and find easiest challenge
+    public Challenge findEasiestOne() {
+        return challengeDao.findAll().iterator().next();
     }
 
     private Challenge getSampleChallenge() {
         Challenge challenge = new Challenge();
-
-        challenge.setId("123123");
 
         HashMap<Lingo, String> descriptions = new HashMap<Lingo, String>();
         descriptions.put(Lingo.English, "\"a\" and \"b\" are integer numbers. Write a function that sums \"a\" and \"b\", and returns.");
@@ -50,18 +53,13 @@ public class ChallengeService {
 
         challenge.addTestCase(testCase);
 
-        List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(Integer.class);
-        inputTypes.add(Integer.class);
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(Integer.class.getName());
+        inputTypes.add(Integer.class.getName());
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class);
+        challenge.setOutputType(Integer.class.getName());
 
         return challenge;
-    }
-
-    // TODO ufuk: complete - order by difficulty and find easiest challenge
-    public Challenge findEasiestOne() {
-        return challengeRepository.findAll().iterator().next();
     }
 
 }

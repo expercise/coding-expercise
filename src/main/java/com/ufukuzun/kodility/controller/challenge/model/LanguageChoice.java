@@ -1,8 +1,9 @@
-package com.ufukuzun.kodility.controller.challenge;
+package com.ufukuzun.kodility.controller.challenge.model;
 
 public class LanguageChoice {
 
     private String challengeId;
+
     private String language;
 
     public String getChallengeId() {

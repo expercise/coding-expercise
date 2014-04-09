@@ -6,6 +6,7 @@ import java.util.List;
 public class TestCase {
 
     private List<Object> inputs = new ArrayList<Object>();
+
     private Object output;
 
     public List<Object> getInputs() {

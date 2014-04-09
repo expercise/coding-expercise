@@ -24,14 +24,13 @@ public class PythonSignatureGeneratorTest {
     public void shouldGeneratePatternWithMultipleParameters() {
         Challenge challenge = new Challenge();
 
-        List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(Integer.class);
-        inputTypes.add(Integer.class);
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(Integer.class.getName());
+        inputTypes.add(Integer.class.getName());
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class);
+        challenge.setOutputType(Integer.class.getName());
 
         assertThat(signatureGenerator.generate(challenge), equalTo("def solution(a, b):\n"));
     }
-
 
 }

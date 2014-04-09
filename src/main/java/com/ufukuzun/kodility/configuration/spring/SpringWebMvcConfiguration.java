@@ -18,7 +18,7 @@ import java.util.Locale;
 @EnableWebMvc
 @ComponentScan("com.ufukuzun.kodility")
 @Import({ThymeleafConfiguration.class})
-public class SpringConfiguration extends WebMvcConfigurerAdapter {
+public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

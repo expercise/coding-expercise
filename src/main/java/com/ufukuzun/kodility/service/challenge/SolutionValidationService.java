@@ -46,7 +46,7 @@ public class SolutionValidationService implements ApplicationContextAware {
             }
         }
 
-        throw new IllegalArgumentException("There is no such programming language as this.");
+        throw new IllegalArgumentException("Unsupported programming language: " + programmingLanguage);
     }
 
     @Override

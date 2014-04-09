@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.controller.challenge;
 
+import com.ufukuzun.kodility.controller.challenge.model.LanguageChoice;
 import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
@@ -56,6 +57,7 @@ public class ChallengeController {
         if (programmingLanguage == ProgrammingLanguage.Python) {
             return pythonSignatureGenerator.generate(challenge);
         }
+
         return javaScriptSignatureGenerator.generate(challenge);
     }
 

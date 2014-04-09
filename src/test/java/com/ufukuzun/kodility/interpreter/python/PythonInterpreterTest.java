@@ -44,12 +44,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(Integer.class);
-        inputTypes.add(Integer.class);
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(Integer.class.getName());
+        inputTypes.add(Integer.class.getName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class);
+        challenge.setOutputType(Integer.class.getName());
 
         TestCase testCase = new TestCase();
 
@@ -72,12 +72,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(Integer.class);
-        inputTypes.add(Integer.class);
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(Integer.class.getName());
+        inputTypes.add(Integer.class.getName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class);
+        challenge.setOutputType(Integer.class.getName());
 
         TestCase testCase1 = new TestCase();
 
@@ -109,12 +109,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<Class> inputTypes = new ArrayList<Class>();
-        inputTypes.add(String.class);
-        inputTypes.add(String.class);
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(String.class.getName());
+        inputTypes.add(String.class.getName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(String.class);
+        challenge.setOutputType(String.class.getName());
 
         TestCase testCase = new TestCase();
 

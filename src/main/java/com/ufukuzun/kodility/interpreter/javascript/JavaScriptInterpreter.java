@@ -38,7 +38,7 @@ public class JavaScriptInterpreter implements Interpreter {
 //                result = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
 //            }
 //        } catch (ScriptException e) {
-//            String errorMessage = prepareErrorMessage(e);   // TODO ufuk: line number wrong in error message
+//            String errorMessage = prepareErrorMessage(e);
 //            result = InterpreterResult.createFailedResult(errorMessage);
 //        }
 //

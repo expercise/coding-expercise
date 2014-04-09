@@ -16,7 +16,7 @@ public class HomeController {
     @RequestMapping
     public ModelAndView homePage() {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("startingChallengeId", challengeService.findById("123").getId());
+        modelAndView.addObject("startingChallengeId", challengeService.findEasiestOne().getId());
         return modelAndView;
     }
 

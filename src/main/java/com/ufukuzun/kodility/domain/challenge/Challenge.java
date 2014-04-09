@@ -15,11 +15,11 @@ public class Challenge {
 
     private Map<Lingo, String> descriptions = new HashMap<Lingo, String>();
 
-    private List<Class> inputTypes = new ArrayList<Class>();
-    private Class<?> outputType;
-    private List<TestCase> testCases = new ArrayList<TestCase>();
+    private List<String> inputTypes = new ArrayList<String>();
 
-    private List<List<String>> inputs = new ArrayList<List<String>>();
+    private String outputType;
+
+    private List<TestCase> testCases = new ArrayList<TestCase>();
 
     public String getId() {
         return id;
@@ -37,14 +37,6 @@ public class Challenge {
         this.descriptions = descriptions;
     }
 
-    public List<List<String>> getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(List<List<String>> inputs) {
-        this.inputs = inputs;
-    }
-
     public String getDescriptionFor(String lingoShortName) {
         Lingo lingo = Lingo.getLingo(lingoShortName);
         return descriptions.get(lingo);
@@ -58,19 +50,19 @@ public class Challenge {
         this.testCases = testCases;
     }
 
-    public List<Class> getInputTypes() {
+    public List<String> getInputTypes() {
         return inputTypes;
     }
 
-    public void setInputTypes(List<Class> inputTypes) {
+    public void setInputTypes(List<String> inputTypes) {
         this.inputTypes = inputTypes;
     }
 
-    public Class<?> getOutputType() {
+    public String getOutputType() {
         return outputType;
     }
 
-    public void setOutputType(Class<?> outputType) {
+    public void setOutputType(String outputType) {
         this.outputType = outputType;
     }
 

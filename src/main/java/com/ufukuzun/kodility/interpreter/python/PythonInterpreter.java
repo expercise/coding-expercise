@@ -28,9 +28,9 @@ public class PythonInterpreter implements Interpreter {
         return ProgrammingLanguage.Python == programmingLanguage;
     }
 
-    Map<Class<?>, Class<? extends PyObject>> typeMap = new HashMap<Class<?>, Class<? extends PyObject>>() {{
-        put(Integer.class, PyInteger.class);
-        put(String.class, PyString.class);
+    Map<String, Class<? extends PyObject>> typeMap = new HashMap<String, Class<? extends PyObject>>() {{
+        put(Integer.class.getName(), PyInteger.class);
+        put(String.class.getName(), PyString.class);
     }};
 
     public InterpreterResult interpret(String source, Challenge challenge) {
@@ -68,13 +68,14 @@ public class PythonInterpreter implements Interpreter {
             PyObject[] pyObjects = new PyObject[argSize];
 
             for (int i = 0; i < argSize; i++) {
-                Class<?> type = challenge.getInputTypes().get(i);
-                Class<? extends PyObject> instanceType = typeMap.get(type);
-                if (type == Integer.class) {
-                    type = int.class;
-                }
                 try {
-                    Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(type);
+                    String type = challenge.getInputTypes().get(i);
+                    Class<?> clazz = Class.forName(type);
+                    Class<? extends PyObject> instanceType = typeMap.get(type);
+                    if (type.equals(Integer.class.getName())) {
+                        clazz = int.class;
+                    }
+                    Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
                     pyObjects[i] = declaredConstructor.newInstance(testCase.getInputs().get(i));
                 } catch (Exception e) {
                     return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
