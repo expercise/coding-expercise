@@ -82,7 +82,12 @@ public class PythonInterpreter implements Interpreter {
                 }
             }
 
+            try {
             resultObject = funcToCall.__call__(pyObjects);
+            } catch (PyException e) {
+                return InterpreterResult.createFailedResult(e.value.asString());
+            }
+            
             Object value = null;
             Class<? extends PyObject> outputType = typeMap.get(challenge.getOutputType());
             if (outputType.isAssignableFrom(PyInteger.class)) {
