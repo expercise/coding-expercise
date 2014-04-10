@@ -39,7 +39,7 @@ public class JavaScriptInterpreter implements Interpreter {
         List<TestCase> testCases = challenge.getTestCases();
         for (TestCase testCase : testCases) {
             try {
-                Object evaluationResult = ((RhinoScriptEngine)javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
+                Object evaluationResult = ((RhinoScriptEngine) javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
 
                 boolean testCaseFailed = false;
 
@@ -64,7 +64,7 @@ public class JavaScriptInterpreter implements Interpreter {
             }
         }
 
-        return InterpreterResult.createSuccessResult("basarili");
+        return InterpreterResult.createSuccessResult("");
     }
 
     private ScriptEngine getScriptEngine() {

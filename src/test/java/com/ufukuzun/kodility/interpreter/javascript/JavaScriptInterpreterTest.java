@@ -33,7 +33,7 @@ public class JavaScriptInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
+        List<String> inputTypes = new ArrayList<>();
         inputTypes.add(Integer.class.getName());
         inputTypes.add(Integer.class.getName());
 
@@ -42,7 +42,7 @@ public class JavaScriptInterpreterTest {
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<Object>();
+        List<Object> inputValues = new ArrayList<>();
         inputValues.add(12);
         inputValues.add(23);
         testCase.setInputs(inputValues);
