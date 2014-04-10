@@ -87,7 +87,7 @@ public class PythonInterpreter implements Interpreter {
             } catch (PyException e) {
                 return InterpreterResult.createFailedResult(e.value.asString());
             }
-            
+
             Object value = null;
             Class<? extends PyObject> outputType = typeMap.get(challenge.getOutputType());
             if (outputType.isAssignableFrom(PyInteger.class)) {

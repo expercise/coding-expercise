@@ -131,4 +131,33 @@ public class PythonInterpreterTest {
         assertTrue(interpreterResult.isSuccess());
     }
 
+    @Test
+    public void shouldReturnExceptionMessageIfEvaluationCauseAnException() {
+        String concatSolution = "def solution(a, b): return a+BB";
+
+        Challenge challenge = new Challenge();
+
+        List<String> inputTypes = new ArrayList<String>();
+        inputTypes.add(String.class.getName());
+        inputTypes.add(String.class.getName());
+
+        challenge.setInputTypes(inputTypes);
+        challenge.setOutputType(String.class.getName());
+
+        TestCase testCase = new TestCase();
+
+        List<Object> inputValues = new ArrayList<Object>();
+        inputValues.add("ahmet");
+        inputValues.add("mehmet");
+        testCase.setInputs(inputValues);
+        testCase.setOutput("ahmetmehmet");
+
+        challenge.addTestCase(testCase);
+
+        InterpreterResult interpreterResult = interpreter.interpret(concatSolution, challenge);
+
+        assertFalse(interpreterResult.isSuccess());
+        assertThat(interpreterResult.getResult(), equalTo("global name 'BB' is not defined"));
+    }
+
 }
