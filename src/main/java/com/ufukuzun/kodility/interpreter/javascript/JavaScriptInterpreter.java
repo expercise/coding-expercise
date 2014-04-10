@@ -1,6 +1,5 @@
 package com.ufukuzun.kodility.interpreter.javascript;
 
-import com.sun.script.javascript.RhinoScriptEngine;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
@@ -10,6 +9,7 @@ import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -39,7 +39,7 @@ public class JavaScriptInterpreter implements Interpreter {
         List<TestCase> testCases = challenge.getTestCases();
         for (TestCase testCase : testCases) {
             try {
-                Object evaluationResult = ((RhinoScriptEngine) javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
+                Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
 
                 boolean testCaseFailed = false;
 
