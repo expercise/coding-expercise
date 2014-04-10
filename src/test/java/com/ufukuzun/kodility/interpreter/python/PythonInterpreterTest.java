@@ -39,7 +39,7 @@ public class PythonInterpreterTest {
     }
 
     @Test
-    public void should4() {
+    public void shouldEvaluatePythonCodeWithSingleTestCaseForSuccessfulCase() {
         String sumSolution = "def solution(a, b): return a+b";
 
         Challenge challenge = new Challenge();
@@ -67,7 +67,7 @@ public class PythonInterpreterTest {
     }
 
     @Test
-    public void shouldbirdencoktestcase() {
+    public void shouldEvaluateMultipleTestCaseWithPythonSourceCodeForSuccessfulCase() {
         String sumSolution = "def solution(a, b): return a+b";
 
         Challenge challenge = new Challenge();
@@ -104,7 +104,7 @@ public class PythonInterpreterTest {
     }
 
     @Test
-    public void should5() {
+    public void shouldEvaluateCodeForConcatenationCodeOfStringInputs() {
         String concatSolution = "def solution(a, b): return a+b";
 
         Challenge challenge = new Challenge();

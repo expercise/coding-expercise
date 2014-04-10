@@ -1,6 +1,8 @@
 package com.ufukuzun.kodility.interpreter.javascript;
 
+import com.sun.script.javascript.RhinoScriptEngine;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.util.List;
 
 @Component
 public class JavaScriptInterpreter implements Interpreter {
@@ -24,29 +27,44 @@ public class JavaScriptInterpreter implements Interpreter {
     }
 
     @Override
-    public InterpreterResult interpret(String solution, Challenge challenge) {
-//        ScriptEngine javaScriptEngine = getScriptEngine();
-//
-//        String script = prepareSourceCode(solution, testCode);
-//
-//        InterpreterResult result;
-//        try {
-//            Object evaluationResult = javaScriptEngine.eval(script);
-//            if (evaluationResult != null) {
-//                result = InterpreterResult.createSuccessResult(evaluationResult.toString());
-//            } else {
-//                result = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-//            }
-//        } catch (ScriptException e) {
-//            String errorMessage = prepareErrorMessage(e);
-//            result = InterpreterResult.createFailedResult(errorMessage);
-//        }
-//
-        return null;
-    }
+    public InterpreterResult interpret(String source, Challenge challenge) {
+        ScriptEngine javaScriptEngine = getScriptEngine();
 
-    private String prepareSourceCode(String solution, String testCode) {
-        return solution.concat("\n").concat(testCode);
+        try {
+            javaScriptEngine.eval(source);
+        } catch (ScriptException e) {
+            return InterpreterResult.createFailedResult(prepareErrorMessage(e));
+        }
+
+        List<TestCase> testCases = challenge.getTestCases();
+        for (TestCase testCase : testCases) {
+            try {
+                Object evaluationResult = ((RhinoScriptEngine)javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
+
+                boolean testCaseFailed = false;
+
+                if (challenge.getOutputType().equals("java.lang.Integer")) {
+                    if (evaluationResult instanceof Double) {
+                        Double evaluationResultAsDouble = (Double) evaluationResult;
+                        testCaseFailed = !testCase.getOutput().equals(evaluationResultAsDouble.intValue());
+                    }
+                } else if (challenge.getOutputType().equals("java.lang.String")) {
+                    String evaluationResultAsString = (String) evaluationResult;
+                    testCaseFailed = !evaluationResultAsString.equals(evaluationResult);
+                }
+
+                if (testCaseFailed) {
+                    return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                }
+
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (ScriptException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return InterpreterResult.createSuccessResult("basarili");
     }
 
     private ScriptEngine getScriptEngine() {
