@@ -83,7 +83,7 @@ public class PythonInterpreter implements Interpreter {
             }
 
             try {
-            resultObject = funcToCall.__call__(pyObjects);
+                resultObject = funcToCall.__call__(pyObjects);
             } catch (PyException e) {
                 return InterpreterResult.createFailedResult(e.value.asString());
             }
