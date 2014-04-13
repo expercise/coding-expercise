@@ -63,4 +63,30 @@ public class JavaScriptInterpreterTest {
         assertThat(result.getResult(), equalTo("missing ; before statement (solution.js#1) in solution.js at line number 1"));
     }
 
+    @Test
+    public void shouldReturnFailedResultIfSolutionHasNoResult() {
+        Challenge challenge = new Challenge();
+
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(Integer.class.getName());
+        inputTypes.add(Integer.class.getName());
+
+        challenge.setInputTypes(inputTypes);
+        challenge.setOutputType(Integer.class.getName());
+
+        TestCase testCase = new TestCase();
+
+        List<Object> inputValues = new ArrayList<>();
+        inputValues.add(12);
+        inputValues.add(23);
+        testCase.setInputs(inputValues);
+        testCase.setOutput(35);
+
+        challenge.addTestCase(testCase);
+
+        InterpreterResult result = interpreter.interpret("function solution(a, b) {}", challenge);
+
+        assertFalse(result.isSuccess());
+    }
+
 }

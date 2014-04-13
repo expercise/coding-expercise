@@ -41,6 +41,10 @@ public class JavaScriptInterpreter implements Interpreter {
             try {
                 Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
 
+                if (evaluationResult == null) {
+                    return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                }
+
                 boolean testCaseFailed = false;
 
                 if (challenge.getOutputType().equals("java.lang.Integer")) {
@@ -56,11 +60,8 @@ public class JavaScriptInterpreter implements Interpreter {
                 if (testCaseFailed) {
                     return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
                 }
-
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (ScriptException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                return InterpreterResult.createFailedResult("");
             }
         }
 
