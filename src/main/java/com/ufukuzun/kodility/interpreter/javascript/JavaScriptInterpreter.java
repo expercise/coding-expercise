@@ -48,7 +48,7 @@ public class JavaScriptInterpreter implements Interpreter {
                 boolean testCaseFailed = false;
 
                 if (challenge.getOutputType().equals("java.lang.Integer")) {
-                    if (evaluationResult instanceof Double) {
+                    if (evaluationResult instanceof Number) {
                         Double evaluationResultAsDouble = (Double) evaluationResult;
                         testCaseFailed = !testCase.getOutput().equals(evaluationResultAsDouble.intValue());
                     }
@@ -58,7 +58,7 @@ public class JavaScriptInterpreter implements Interpreter {
                 }
 
                 if (testCaseFailed) {
-                    return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                    return InterpreterResult.createFailedResult("");
                 }
             } catch (Exception e) {
                 return InterpreterResult.createFailedResult("");
