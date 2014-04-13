@@ -13,13 +13,13 @@ public class Challenge {
     @Id
     private String id;
 
-    private Map<Lingo, String> descriptions = new HashMap<Lingo, String>();
+    private Map<Lingo, String> descriptions = new HashMap<>();
 
-    private List<String> inputTypes = new ArrayList<String>();
+    private List<String> inputTypes = new ArrayList<>();
 
     private String outputType;
 
-    private List<TestCase> testCases = new ArrayList<TestCase>();
+    private List<TestCase> testCases = new ArrayList<>();
 
     public String getId() {
         return id;
