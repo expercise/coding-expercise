@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
-    <input id="challengeId" type="hidden" th:value="${challenge.id}"/>
 
-    <div class="row">
-        <div class="col-xs-6">
-            <h4 th:text="#{challenge.challengeHeader}"></h4>
-        </div>
-    </div>
+    <legend th:text="#{challenge.challengeHeader}"></legend>
 
     <div class="row">
         <div class="col-xs-12">
@@ -50,5 +45,7 @@
             <textarea id="resultsTextarea" class="console" disabled="disabled" th:placeholder="#{challenge.resultHeader}"></textarea>
         </div>
     </div>
+
+    <input id="challengeId" type="hidden" th:value="${challenge.id}"/>
 </body>
 </html>

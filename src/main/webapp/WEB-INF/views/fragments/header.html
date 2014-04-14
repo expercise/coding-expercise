@@ -8,9 +8,21 @@
             </div>
 
             <div id="langSelectContainer" class="col-xs-6">
+                <span> ‹ </span>
                 <a th:href="@{?lingo=tr}">Tr</a>
-                <span> | </span>
-                <a th:href="@{?lingo=en}">Eng</a>
+                <span> · </span>
+                <a th:href="@{?lingo=en}">En</a>
+                <span> › </span>
+
+                <br />
+
+                <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}" th:text="#{button.logout}"></a>
+
+                <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                    <a th:href="@{/login}" th:text="#{button.login}"></a>
+                    <span> · </span>
+                    <a th:href="@{/register}" th:text="#{button.register}"></a>
+                </div>
             </div>
         </div>
     </div>
