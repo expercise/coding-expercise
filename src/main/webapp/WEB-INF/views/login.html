@@ -8,6 +8,7 @@
         <div class="col-xs-12">
             <p class="alert alert-danger" th:if="${param.error}" th:text="#{login.failedMessage}"></p>
             <p class="alert alert-info" th:if="${param.logout}" th:text="#{login.logoutMessage}"></p>
+            <p class="alert alert-success" th:if="${param.newMember}" th:text="#{login.register.welcome}"></p>
 
             <form th:action="@{/login}" method="POST" class="form-horizontal">
                 <div class="form-group">
