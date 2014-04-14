@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.configuration.spring;
+package com.ufukuzun.kodility.configuration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

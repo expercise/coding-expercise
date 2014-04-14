@@ -24,6 +24,7 @@
         <thymeleaf.dialects.layout.version>1.2.2</thymeleaf.dialects.layout.version>
         <jython.version>2.5.3</jython.version>
         <jackson.mapper.version>2.3.2</jackson.mapper.version>
+        <hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
     </properties>
 
     <dependencies>
@@ -142,6 +143,13 @@
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
             <version>${jython.version}</version>
+        </dependency>
+
+        <!-- Hibernate Validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
         </dependency>
     </dependencies>
 

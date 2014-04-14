@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.configuration.spring;
+package com.ufukuzun.kodility.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

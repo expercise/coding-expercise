@@ -70,3 +70,7 @@ textarea.failedResult {
     width: 595px;
     border-top: 0px;
 }
+
+a.lingo, #langSelectContainer > span {
+    color: #999;
+}

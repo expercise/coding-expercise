@@ -1,7 +1,10 @@
 package com.ufukuzun.kodility.domain.user;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +13,17 @@ public class User {
     @Id
     private String id;
 
+    @Size(min = 2, max = 15)
     private String firstName;
 
+    @Size(min = 2, max = 15)
     private String lastName;
 
+    @NotEmpty
+    @Email
     private String email;
 
+    @Size(min = 5, max = 10)
     private String password;
 
     private List<String> roles = new ArrayList<>();

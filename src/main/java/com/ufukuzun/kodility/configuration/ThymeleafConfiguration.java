@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.configuration.spring;
+package com.ufukuzun.kodility.configuration;
 
 import com.ufukuzun.kodility.utils.EnvironmentUtils;
 import nz.net.ultraq.thymeleaf.LayoutDialect;

@@ -6,37 +6,41 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form method="POST" class="form-horizontal">
-                <div class="form-group">
+            <form th:action="@{/register}" th:object="${user}" method="POST" class="form-horizontal">
+                <div th:class="'form-group' + (${#fields.hasErrors('firstName')} ? ' has-error' : '')">
                     <label for="firstName" class="col-xs-2 control-label" th:text="#{label.firstName}"></label>
 
                     <div class="col-xs-4">
-                        <input type="text" id="firstName" name="firstName" class="form-control"/>
+                        <input type="text" id="firstName" name="firstName" class="form-control" th:field="*{firstName}"/>
                     </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                 </div>
 
-                <div class="form-group">
+                <div th:class="'form-group' + (${#fields.hasErrors('lastName')} ? ' has-error' : '')">
                     <label for="lastName" class="col-xs-2 control-label" th:text="#{label.lastName}"></label>
 
                     <div class="col-xs-4">
-                        <input type="text" id="lastName" name="lastName" class="form-control"/>
+                        <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}"/>
                     </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                 </div>
 
-                <div class="form-group">
+                <div th:class="'form-group' + (${#fields.hasErrors('email')} ? ' has-error' : '')">
                     <label for="email" class="col-xs-2 control-label" th:text="#{label.email}"></label>
 
                     <div class="col-xs-4">
-                        <input type="text" id="email" name="username" class="form-control"/>
+                        <input type="text" id="email" name="email" class="form-control" th:field="*{email}"/>
                     </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
 
-                <div class="form-group">
+                <div th:class="'form-group' + (${#fields.hasErrors('password')} ? ' has-error' : '')">
                     <label for="password" class="col-xs-2 control-label" th:text="#{label.password}"></label>
 
                     <div class="col-xs-4">
-                        <input type="password" id="password" name="password" class="form-control"/>
+                        <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
                     </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
 
                 <div class="form-group">

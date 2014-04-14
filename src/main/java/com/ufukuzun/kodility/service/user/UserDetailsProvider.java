@@ -1,25 +1,45 @@
 package com.ufukuzun.kodility.service.user;
 
+import com.ufukuzun.kodility.domain.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings("UnusedDeclaration")
 @Service
 public class UserDetailsProvider implements UserDetailsService {
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDetails = new User("user", "pass", Arrays.asList(
-                new SimpleGrantedAuthority("ROLE_USER")
-        ));
+    @Autowired
+    private UserService userService;
 
-        return userDetails;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userService.findByEmail(email);
+
+        if (user != null) {
+            return createUserDetailsFrom(user);
+        }
+
+        throw new UsernameNotFoundException("User not found");
+    }
+
+    private UserDetails createUserDetailsFrom(User user) {
+        List<GrantedAuthority> authorities = getAuthorities(user);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    }
+
+    private List<GrantedAuthority> getAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
     }
 
 }

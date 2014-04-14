@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.configuration.spring;
+package com.ufukuzun.kodility.configuration;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
