@@ -1,6 +1,9 @@
 kodility.Challenge = {
 
+    solutionSignatures: {},
+
     constructor: function () {
+        this.solutionSignatures = JSON.parse($('#solutionSignatures').val());
         this.adjustProgrammingLanguage();
     },
 
@@ -38,21 +41,10 @@ kodility.Challenge = {
     },
 
     adjustProgrammingLanguage: function () {
-        var requestData = {
-            language: $('#languageSelection').val(),
-            challengeId: $('#challengeId').val()
-        };
-
-        $.ajax({
-            type: 'POST', dataType: 'text', contentType: 'application/json; charset=utf-8',
-            url: kodility.utils.urlFor('challenges/changeLanguage'),
-            data: JSON.stringify(requestData),
-            success: function (response) {
-                kodility.Challenge.resetConsole();
-                kodility.CodeEditor.setSolution(response);
-                kodility.CodeEditor.changeMode(requestData.language);
-            }
-        });
+        kodility.Challenge.resetConsole();
+        var selectedLanguage = $('#languageSelection').val();
+        kodility.CodeEditor.setSolution(kodility.Challenge.solutionSignatures[selectedLanguage]);
+        kodility.CodeEditor.changeMode(selectedLanguage);
     },
 
     resetConsole: function () {

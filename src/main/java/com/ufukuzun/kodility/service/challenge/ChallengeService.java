@@ -4,6 +4,8 @@ import com.ufukuzun.kodility.dao.challenge.ChallengeDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.Lingo;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
+import com.ufukuzun.kodility.service.language.SignatureGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +13,16 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChallengeService {
 
     @Autowired
     private ChallengeDao challengeDao;
+
+    @Autowired
+    private SignatureGeneratorService signatureGeneratorService;
 
     @PostConstruct  // TODO ufuk: remove after "Challenge Management" page
     public void init() {
@@ -36,16 +42,25 @@ public class ChallengeService {
         return challengeDao.findAll().iterator().next();
     }
 
-    private Challenge getSampleChallenge() {
+    public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
+        Map<String, String> signatures = new HashMap<>();
+        for (ProgrammingLanguage language : ProgrammingLanguage.values()) {
+            String signature = signatureGeneratorService.generatorSignatureFor(challenge, language);
+            signatures.put(language.getShortName(), signature);
+        }
+        return signatures;
+    }
+
+    private Challenge getSampleChallenge() {  // TODO ufuk: remove after "Challenge Management" page
         Challenge challenge = new Challenge();
 
-        HashMap<Lingo, String> descriptions = new HashMap<Lingo, String>();
+        HashMap<Lingo, String> descriptions = new HashMap<>();
         descriptions.put(Lingo.English, "\"a\" and \"b\" are integer numbers. Write a function that sums \"a\" and \"b\", and returns.");
         descriptions.put(Lingo.Turkish, "\"a\" ve \"b\" iki tamsayıdır. \"a\" ve \"b\" tamsayılarını toplayan ve sonucu dönen bir fonksiyon yazınız.");
         challenge.setDescriptions(descriptions);
 
         TestCase testCase = new TestCase();
-        List<Object> inputValues = new ArrayList<Object>();
+        List<Object> inputValues = new ArrayList<>();
         inputValues.add(12);
         inputValues.add(23);
         testCase.setInputs(inputValues);
@@ -53,7 +68,7 @@ public class ChallengeService {
 
         challenge.addTestCase(testCase);
 
-        List<String> inputTypes = new ArrayList<String>();
+        List<String> inputTypes = new ArrayList<>();
         inputTypes.add(Integer.class.getName());
         inputTypes.add(Integer.class.getName());
         challenge.setInputTypes(inputTypes);
