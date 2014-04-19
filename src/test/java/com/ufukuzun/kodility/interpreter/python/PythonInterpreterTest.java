@@ -4,7 +4,7 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
-import com.ufukuzun.kodility.testutils.TestUtils;
+import com.ufukuzun.kodility.testutils.InterpreterTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -41,7 +41,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluatePythonCodeWithSingleTestCaseForSuccessfulCase() {
-        String sumSolution = TestUtils.getSourceFrom("/pytest/simplePlus.py");
+        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
@@ -69,7 +69,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluateMultipleTestCaseWithPythonSourceCodeForSuccessfulCase() {
-        String sumSolution = TestUtils.getSourceFrom("/pytest/simplePlus.py");
+        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
@@ -106,7 +106,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluateCodeForConcatenationCodeOfStringInputs() {
-        String concatSolution = TestUtils.getSourceFrom("/pytest/simplePlus.py");
+        String concatSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
