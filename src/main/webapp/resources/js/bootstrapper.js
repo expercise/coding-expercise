@@ -1,19 +1,31 @@
-var modules = [
+var coreModules = [
     kodility,
     kodility.utils,
-    kodility.CodeEditor,
-    kodility.Challenge,
     kodility.locale
 ];
 
 $(function () {
-    modules.forEach(function (eachModule) {
-        if (eachModule.constructor) {
-            eachModule.constructor();
-        }
-
-        if (eachModule.bindEvents) {
-            eachModule.bindEvents();
-        }
-    });
+    initCoreModules();
+    initPageSpecificModules();
 });
+
+function initCoreModules() {
+    coreModules.forEach(function (eachModule) {
+        initModule(eachModule);
+    });
+}
+
+function initPageSpecificModules() {
+    var $moduleNamesHolder = $('#javaScriptModules');
+    if ($moduleNamesHolder.length) {
+        var pageSpecificModules = $moduleNamesHolder.val().split(" ");
+        pageSpecificModules.forEach(function (eachModule) {
+            initModule(kodility[eachModule]);
+        });
+    }
+}
+
+function initModule(module) {
+    module.constructor && module.constructor();
+    module.bindEvents && module.bindEvents();
+}
