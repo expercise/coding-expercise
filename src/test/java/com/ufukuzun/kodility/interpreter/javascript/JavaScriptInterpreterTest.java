@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.interpreter.javascript;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
+import com.ufukuzun.kodility.enums.DataTypes;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.junit.Test;
@@ -34,11 +35,11 @@ public class JavaScriptInterpreterTest {
         Challenge challenge = new Challenge();
 
         List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         TestCase testCase = new TestCase();
 
@@ -62,11 +63,11 @@ public class JavaScriptInterpreterTest {
         Challenge challenge = new Challenge();
 
         List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         TestCase testCase = new TestCase();
 
@@ -96,11 +97,11 @@ public class JavaScriptInterpreterTest {
         Challenge challenge = new Challenge();
 
         List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         TestCase testCase = new TestCase();
 

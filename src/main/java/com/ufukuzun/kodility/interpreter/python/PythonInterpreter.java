@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.interpreter.python;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
+import com.ufukuzun.kodility.enums.DataTypes;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
@@ -29,8 +30,8 @@ public class PythonInterpreter implements Interpreter {
     }
 
     Map<String, Class<? extends PyObject>> typeMap = new HashMap<String, Class<? extends PyObject>>() {{
-        put(Integer.class.getName(), PyInteger.class);
-        put(String.class.getName(), PyString.class);
+        put(DataTypes.Integer.getClassName(), PyInteger.class);
+        put(DataTypes.Text.getClassName(), PyString.class);
     }};
 
     public InterpreterResult interpret(String source, Challenge challenge) {
@@ -72,7 +73,7 @@ public class PythonInterpreter implements Interpreter {
                     String type = challenge.getInputTypes().get(i);
                     Class<?> clazz = Class.forName(type);
                     Class<? extends PyObject> instanceType = typeMap.get(type);
-                    if (type.equals(Integer.class.getName())) {
+                    if (type.equals(DataTypes.Integer.getClassName())) {
                         clazz = int.class;
                     }
                     Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);

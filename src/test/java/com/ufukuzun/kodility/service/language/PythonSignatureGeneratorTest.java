@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.service.language;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.enums.DataTypes;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -24,11 +25,11 @@ public class PythonSignatureGeneratorTest {
     public void shouldGeneratePatternWithMultipleParameters() {
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         assertThat(signatureGenerator.generate(challenge), equalTo("def solution(a, b):\n"));
     }

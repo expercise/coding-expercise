@@ -15,7 +15,7 @@
     font-style: oblique;
 }
 
-textarea.code-editor {
+textarea.codeEditor {
     width: 100%;
     height: 100%;
     min-height: 225px;
@@ -23,10 +23,23 @@ textarea.code-editor {
     resize: none;
 }
 
-.editor-button {
+textarea.description {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    resize: none;
+}
+
+.editorButton {
     width: 95px;
     text-align: center;
     margin-bottom: 5px;
+}
+
+.saveButton {
+    width: 95px;
+    text-align: center;
+    margin-top: 84px;
 }
 
 #projectName {
@@ -73,4 +86,8 @@ textarea.failedResult {
 
 a.lingo, #langSelectContainer > span {
     color: #999;
+}
+
+#testCasesTable > tbody > tr > td {
+    vertical-align: middle;
 }

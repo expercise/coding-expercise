@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.interpreter.python;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
+import com.ufukuzun.kodility.enums.DataTypes;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import com.ufukuzun.kodility.testutils.InterpreterTestUtils;
@@ -45,16 +46,16 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<Object>();
+        List<Object> inputValues = new ArrayList<>();
         inputValues.add(12);
         inputValues.add(23);
         testCase.setInputs(inputValues);
@@ -73,16 +74,16 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
-        inputTypes.add(Integer.class.getName());
-        inputTypes.add(Integer.class.getName());
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(DataTypes.Integer.getClassName());
+        inputTypes.add(DataTypes.Integer.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(Integer.class.getName());
+        challenge.setOutputType(DataTypes.Integer.getClassName());
 
         TestCase testCase1 = new TestCase();
 
-        List<Object> inputValues1 = new ArrayList<Object>();
+        List<Object> inputValues1 = new ArrayList<>();
         inputValues1.add(12);
         inputValues1.add(23);
         testCase1.setInputs(inputValues1);
@@ -90,7 +91,7 @@ public class PythonInterpreterTest {
 
         TestCase testCase2 = new TestCase();
 
-        List<Object> inputValues2 = new ArrayList<Object>();
+        List<Object> inputValues2 = new ArrayList<>();
         inputValues2.add(120);
         inputValues2.add(23);
         testCase2.setInputs(inputValues2);
@@ -110,16 +111,16 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
-        inputTypes.add(String.class.getName());
-        inputTypes.add(String.class.getName());
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(DataTypes.Text.getClassName());
+        inputTypes.add(DataTypes.Text.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(String.class.getName());
+        challenge.setOutputType(DataTypes.Text.getClassName());
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<Object>();
+        List<Object> inputValues = new ArrayList<>();
         inputValues.add("ahmet");
         inputValues.add("mehmet");
         testCase.setInputs(inputValues);
@@ -138,16 +139,16 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<String>();
-        inputTypes.add(String.class.getName());
-        inputTypes.add(String.class.getName());
+        List<String> inputTypes = new ArrayList<>();
+        inputTypes.add(DataTypes.Text.getClassName());
+        inputTypes.add(DataTypes.Text.getClassName());
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(String.class.getName());
+        challenge.setOutputType(DataTypes.Text.getClassName());
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<Object>();
+        List<Object> inputValues = new ArrayList<>();
         inputValues.add("ahmet");
         inputValues.add("mehmet");
         testCase.setInputs(inputValues);

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestCase {
 
-    private List<Object> inputs = new ArrayList<Object>();
+    private List<Object> inputs = new ArrayList<>();
 
     private Object output;
 
