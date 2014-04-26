@@ -6,16 +6,24 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <h3 th:text="#{challengeManagement.descriptions}"></h3>
+            <h3 th:text="#{challengeManagement.title}"></h3>
 
-            <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
-                <h4 th:text="${#messages.msg(lingo.name())}"></h4>
-                <textarea class="description" name="description"></textarea>
-            </div>
+            <input type="text" class="form-control" name="title"/>
         </div>
 
         <div class="col-xs-2">
             <a href="#" id="saveButton" th:text="#{button.save}" class="saveButton btn btn-success btn-lg" role="button"></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
+            <h3 th:text="#{challengeManagement.descriptions}"></h3>
+
+            <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
+                <h4 th:text="${#messages.msg(lingo.name())}"></h4>
+                <textarea class="form-control description" name="description" rows="4"></textarea>
+            </div>
         </div>
     </div>
 
@@ -96,12 +104,12 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" name="inputValue"/>
+                            <input class="form-control" type="text" name="inputValue"/>
                             <p></p>
-                            <input type="text" name="inputValue"/>
+                            <input class="form-control" type="text" name="inputValue"/>
                         </td>
                         <td>
-                            <input type="text" name="outputValue"/>
+                            <input class="form-control" type="text" name="outputValue"/>
                         </td>
                         <td>
                             <a href="#" class="removeTestCase" th:text="#{button.remove}"></a>
