@@ -24,7 +24,7 @@ public class ChallengeController {
     @Autowired
     private SolutionValidationService solutionValidationService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping
     public ModelAndView listChallenges() {
         ModelAndView modelAndView = new ModelAndView("challenge/challengeList");
         List<Challenge> challenges = challengeService.findAll();
