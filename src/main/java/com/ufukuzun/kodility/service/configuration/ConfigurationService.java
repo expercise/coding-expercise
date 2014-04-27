@@ -29,8 +29,12 @@ public class ConfigurationService {
         }
     }
 
+    public String getValue(String key) {
+        return CONFIGURATIONS.get(key);
+    }
+
     public String getGoogleAnalyticsScript() {
-        return CONFIGURATIONS.get("google.analytics.script");
+        return getValue("google.analytics.script");
     }
 
     public boolean isProduction() {
