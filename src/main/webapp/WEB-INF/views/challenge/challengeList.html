@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+
+    <legend th:text="#{challengeList.header}"></legend>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{challengeList.table.header.challenge}"></th>
+            <th th:text="#{challengeList.table.header.solveCount}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="challenge : ${challenges}">
+            <td>
+                <a th:href="@{'/challenges/'+ ${challenge.id}}" th:text="${challenge.title}"></a>
+            </td>
+            <td th:text="42"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

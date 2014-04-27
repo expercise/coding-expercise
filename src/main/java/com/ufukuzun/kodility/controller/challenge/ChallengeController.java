@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/challenges")
 public class ChallengeController {
@@ -21,6 +23,16 @@ public class ChallengeController {
 
     @Autowired
     private SolutionValidationService solutionValidationService;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView listChallenges() {
+        ModelAndView modelAndView = new ModelAndView("challenge/challengeList");
+        List<Challenge> challenges = challengeService.findAll();
+
+        modelAndView.addObject("challenges", challenges);
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable String challengeId) {
