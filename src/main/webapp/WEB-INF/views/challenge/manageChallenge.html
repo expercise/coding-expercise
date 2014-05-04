@@ -8,7 +8,10 @@
         <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.title}"></h3>
 
-            <input type="text" class="form-control" name="title"/>
+            <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
+                <h4 th:text="${#messages.msg(lingo.name())}"></h4>
+                <input type="text" class="form-control" name="title"/>
+            </div>
         </div>
 
         <div class="col-xs-2">

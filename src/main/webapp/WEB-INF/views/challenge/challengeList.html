@@ -14,9 +14,9 @@
         <tbody>
         <tr th:each="challenge : ${challenges}">
             <td>
-                <a th:href="@{'/challenges/'+ ${challenge.id}}" th:text="${challenge.title}"></a>
+                <a th:href="@{'/challenges/'+ ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
             </td>
-            <td th:text="42"></td>
+            <td>0</td>
         </tr>
         </tbody>
     </table>

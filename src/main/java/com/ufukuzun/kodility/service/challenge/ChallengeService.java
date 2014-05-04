@@ -63,7 +63,10 @@ public class ChallengeService {
     private Challenge getSampleChallenge() {  // TODO ufuk: remove after "Challenge Management" page
         Challenge challenge = new Challenge();
 
-        challenge.setTitle("Sum problem");
+        HashMap<Lingo, String> titles = new HashMap<>();
+        titles.put(Lingo.English, "Summation problem");
+        titles.put(Lingo.Turkish, "Toplama problemi");
+        challenge.setTitles(titles);
 
         HashMap<Lingo, String> descriptions = new HashMap<>();
         descriptions.put(Lingo.English, "\"a\" and \"b\" are integer numbers. Write a function that sums \"a\" and \"b\", and returns.");
@@ -91,7 +94,10 @@ public class ChallengeService {
     private Challenge getSecondSampleChallenge() {  // TODO ufuk: remove after "Challenge Management" page
         Challenge challenge = new Challenge();
 
-        challenge.setTitle("Subtract problem");
+        HashMap<Lingo, String> titles = new HashMap<>();
+        titles.put(Lingo.English, "Subtraction problem");
+        titles.put(Lingo.Turkish, "Çıkarma problemi");
+        challenge.setTitles(titles);
 
         HashMap<Lingo, String> descriptions = new HashMap<>();
         descriptions.put(Lingo.English, "\"a\" and \"b\" are integer numbers. Write a function that subtracts \"a\" and \"b\", and returns.");

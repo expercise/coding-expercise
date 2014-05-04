@@ -13,7 +13,7 @@ public class Challenge {
     @Id
     private String id;
 
-    private String title;
+    private Map<Lingo, String> titles = new HashMap<>();
 
     private Map<Lingo, String> descriptions = new HashMap<>();
 
@@ -31,12 +31,17 @@ public class Challenge {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Map<Lingo, String> getTitles() {
+        return titles;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitles(Map<Lingo, String> titles) {
+        this.titles = titles;
+    }
+
+    public String getTitleFor(String lingoShortName) {
+        Lingo lingo = Lingo.getLingo(lingoShortName);
+        return titles.get(lingo);
     }
 
     public Map<Lingo, String> getDescriptions() {
