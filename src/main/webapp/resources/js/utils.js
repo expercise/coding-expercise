@@ -6,6 +6,10 @@ kodility.utils = {
 
     goToMainPage: function () {
         window.location = this.urlFor("");
+    },
+
+    i18n: function (key) {
+        return messages[key];
     }
 
 };

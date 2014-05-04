@@ -88,3 +88,11 @@ a.lingo, #langSelectContainer > span {
 #testCasesTable > tbody > tr > td {
     vertical-align: middle;
 }
+
+.removeInput, #addNewInput, .removeTestCase, #addNewTestCase {
+    cursor: pointer;
+}
+
+#testCasesTable > tbody > tr > td > input {
+    margin-bottom: 5px;
+}
