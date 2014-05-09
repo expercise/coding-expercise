@@ -8,6 +8,8 @@ kodility.ChallengeManagement = {
         $('#addNewInput').click(this.addNewInputAction);
 
         $('#addNewTestCase').click(this.addNewTestCaseAction);
+
+        $('#saveButton').click(this.saveChallenge);
     },
 
     removeInputAction: function () {
@@ -21,8 +23,8 @@ kodility.ChallengeManagement = {
             + '<tr>'
             + '   <td>'
             + '       <select name="inputType">'
-            + '           <option value="java.lang.Integer">' + kodility.utils.i18n('Integer') + '</option>'
-            + '           <option value="java.lang.String">' + kodility.utils.i18n('Text') + '</option>'
+            + '           <option value="Integer">' + kodility.utils.i18n('Integer') + '</option>'
+            + '           <option value="Text">' + kodility.utils.i18n('Text') + '</option>'
             + '       </select>'
             + '   </td>'
             + '   <td>'
@@ -78,6 +80,64 @@ kodility.ChallengeManagement = {
             + '</tr>';
 
         $(this).parents('table').find('tbody').append($(testCaseRow));
+    },
+
+    saveChallenge: function () {
+        var titles = [];
+        $('input[name="title"]').each(function () {
+            var lingo = $(this).parent('div').data('lingo');
+            var title = $(this).val();
+            titles.push({
+                lingo: lingo,
+                title: title
+            });
+        });
+
+        var descriptions = [];
+        $('textarea[name="description"]').each(function () {
+            var lingo = $(this).parent('div').data('lingo');
+            var description = $(this).val();
+            descriptions.push({
+                lingo: lingo,
+                description: description
+            });
+        });
+
+        var inputTypes = [];
+        $('#inputsTable select[name="inputType"]').each(function () {
+            inputTypes.push($(this).val());
+        });
+
+        var outputType = $('select[name="outputType"]').val();
+
+        var testCases = [];
+        $('#testCasesTable tbody tr').each(function () {
+            var $columns = $(this).find('td');
+
+            var inputValues = [];
+            $($columns[0]).find('input').each(function () {
+                inputValues.push($(this).val());
+            });
+
+            var outputValue = $($columns[1]).find('input').val();
+
+            testCases.push({
+                inputValues: inputValues,
+                outputValue: outputValue
+            });
+        });
+
+        var requestData = {
+            titles: titles,
+            descriptions: descriptions,
+            inputTypes: inputTypes,
+            outputType: outputType,
+            testCases: testCases
+        }
+
+        kodility.utils.post('challenges/saveChallenge', requestData, function (response) {
+            alert("Katkıların için tişikkirlir sipirmin");
+        });
     }
 
 };

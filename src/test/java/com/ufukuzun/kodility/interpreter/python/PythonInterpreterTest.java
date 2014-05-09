@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.interpreter.python;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
-import com.ufukuzun.kodility.enums.DataTypes;
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import com.ufukuzun.kodility.testutils.InterpreterTestUtils;
@@ -46,12 +46,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Integer.getClassName());
-        inputTypes.add(DataTypes.Integer.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Integer.getClassName());
+        challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
@@ -74,12 +74,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Integer.getClassName());
-        inputTypes.add(DataTypes.Integer.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Integer.getClassName());
+        challenge.setOutputType(DataType.Integer);
 
         TestCase testCase1 = new TestCase();
 
@@ -111,12 +111,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Text.getClassName());
-        inputTypes.add(DataTypes.Text.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Text);
+        inputTypes.add(DataType.Text);
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Text.getClassName());
+        challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
 
@@ -139,12 +139,12 @@ public class PythonInterpreterTest {
 
         Challenge challenge = new Challenge();
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Text.getClassName());
-        inputTypes.add(DataTypes.Text.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Text);
+        inputTypes.add(DataType.Text);
 
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Text.getClassName());
+        challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
 

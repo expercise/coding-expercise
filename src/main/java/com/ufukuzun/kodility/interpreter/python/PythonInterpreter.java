@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.interpreter.python;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
-import com.ufukuzun.kodility.enums.DataTypes;
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
@@ -29,9 +29,9 @@ public class PythonInterpreter implements Interpreter {
         return ProgrammingLanguage.Python == programmingLanguage;
     }
 
-    Map<String, Class<? extends PyObject>> typeMap = new HashMap<String, Class<? extends PyObject>>() {{
-        put(DataTypes.Integer.getClassName(), PyInteger.class);
-        put(DataTypes.Text.getClassName(), PyString.class);
+    Map<DataType, Class<? extends PyObject>> typeMap = new HashMap<DataType, Class<? extends PyObject>>() {{
+        put(DataType.Integer, PyInteger.class);
+        put(DataType.Text, PyString.class);
     }};
 
     public InterpreterResult interpret(String source, Challenge challenge) {
@@ -70,10 +70,10 @@ public class PythonInterpreter implements Interpreter {
 
             for (int i = 0; i < argSize; i++) {
                 try {
-                    String type = challenge.getInputTypes().get(i);
-                    Class<?> clazz = Class.forName(type);
+                    DataType type = challenge.getInputTypes().get(i);
+                    Class<?> clazz = Class.forName(type.getClassName());
                     Class<? extends PyObject> instanceType = typeMap.get(type);
-                    if (type.equals(DataTypes.Integer.getClassName())) {
+                    if (type.equals(DataType.Integer)) {
                         clazz = int.class;
                     }
                     Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);

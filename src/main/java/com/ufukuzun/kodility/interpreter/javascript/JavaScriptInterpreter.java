@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.interpreter.javascript;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
-import com.ufukuzun.kodility.enums.DataTypes;
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
@@ -48,12 +48,12 @@ public class JavaScriptInterpreter implements Interpreter {
 
                 boolean testCaseFailed = false;
 
-                if (challenge.getOutputType().equals(DataTypes.Integer.getClassName())) {
+                if (challenge.getOutputType().equals(DataType.Integer)) {
                     if (evaluationResult instanceof Number) {
                         Double evaluationResultAsDouble = (Double) evaluationResult;
                         testCaseFailed = !testCase.getOutput().equals(evaluationResultAsDouble.intValue());
                     }
-                } else if (challenge.getOutputType().equals(DataTypes.Text.getClassName())) {
+                } else if (challenge.getOutputType().equals(DataType.Text)) {
                     String evaluationResultAsString = (String) evaluationResult;
                     testCaseFailed = !evaluationResultAsString.equals(evaluationResult);
                 }

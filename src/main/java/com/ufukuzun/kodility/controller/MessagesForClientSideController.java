@@ -20,7 +20,7 @@ public class MessagesForClientSideController {
 
     @RequestMapping(value = "/messages.js", produces = "application/javascript; charset=utf-8")
     @ResponseBody
-    public String getMessages() {
+    public String getMessages() {   // TODO ufuk: performance ? caching ? not modified response ?
         return prepareMessagesForClientSide();
     }
 

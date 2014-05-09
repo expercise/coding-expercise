@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-xs-2">
-            <a href="#" id="saveButton" th:text="#{button.save}" class="saveButton btn btn-success btn-lg" role="button"></a>
+            <a id="saveButton" th:text="#{button.save}" class="saveButton btn btn-success btn-lg" role="button"></a>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
                     <tr>
                         <td>
                             <select name="inputType">
-                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.className}"></option>
+                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
                         <td>
@@ -55,7 +55,7 @@
                     <tr>
                         <td>
                             <select name="inputType">
-                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.className}"></option>
+                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
                         <td>
@@ -83,7 +83,7 @@
                     <tr>
                         <td>
                             <select name="outputType">
-                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.className}"></option>
+                                <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
                     </tr>

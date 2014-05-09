@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.domain.challenge;
 
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import org.springframework.data.annotation.Id;
 
@@ -17,9 +18,9 @@ public class Challenge {
 
     private Map<Lingo, String> descriptions = new HashMap<>();
 
-    private List<String> inputTypes = new ArrayList<>();
+    private List<DataType> inputTypes = new ArrayList<>();
 
-    private String outputType;
+    private DataType outputType;
 
     private List<TestCase> testCases = new ArrayList<>();
 
@@ -65,23 +66,31 @@ public class Challenge {
         this.testCases = testCases;
     }
 
-    public List<String> getInputTypes() {
+    public List<DataType> getInputTypes() {
         return inputTypes;
     }
 
-    public void setInputTypes(List<String> inputTypes) {
+    public void setInputTypes(List<DataType> inputTypes) {
         this.inputTypes = inputTypes;
     }
 
-    public String getOutputType() {
+    public DataType getOutputType() {
         return outputType;
     }
 
-    public void setOutputType(String outputType) {
+    public void setOutputType(DataType outputType) {
         this.outputType = outputType;
     }
 
     public void addTestCase(TestCase testCase) {
         testCases.add(testCase);
     }
+
+    public void addTestCase(List<Object> inputs, Object output) {
+        TestCase testCase = new TestCase();
+        testCase.setInputs(inputs);
+        testCase.setOutput(output);
+        addTestCase(testCase);
+    }
+
 }

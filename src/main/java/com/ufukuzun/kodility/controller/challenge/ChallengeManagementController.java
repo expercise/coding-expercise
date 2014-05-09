@@ -1,15 +1,15 @@
 package com.ufukuzun.kodility.controller.challenge;
 
+import com.ufukuzun.kodility.controller.challenge.model.SaveChallengeRequest;
 import com.ufukuzun.kodility.controller.challenge.model.ManagementMode;
+import com.ufukuzun.kodility.controller.challenge.model.SaveChallengeResponse;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
-import com.ufukuzun.kodility.enums.DataTypes;
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,9 +25,18 @@ public class ChallengeManagementController {
 
         addManagementMode(modelAndView, ManagementMode.Add);
         modelAndView.addObject("lingos", Lingo.values());
-        modelAndView.addObject("dataTypes", DataTypes.values());
+        modelAndView.addObject("dataTypes", DataType.values());
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/saveChallenge", method = RequestMethod.POST)
+    @ResponseBody
+    public SaveChallengeResponse saveChallenge(@RequestBody SaveChallengeRequest saveChallengeRequest) {
+        // TODO ufuk: validation
+
+        challengeService.saveChallenge(saveChallengeRequest.createChallenge());
+        return SaveChallengeResponse.successResponse();
     }
 
     @RequestMapping(value = "/updateChallenge/{challengeId}", method = RequestMethod.GET)

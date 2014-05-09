@@ -3,7 +3,7 @@ package com.ufukuzun.kodility.service.challenge;
 import com.ufukuzun.kodility.dao.challenge.ChallengeDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
-import com.ufukuzun.kodility.enums.DataTypes;
+import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.language.SignatureGeneratorService;
@@ -82,11 +82,11 @@ public class ChallengeService {
 
         challenge.addTestCase(testCase);
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Integer.getClassName());
-        inputTypes.add(DataTypes.Integer.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Integer.getClassName());
+        challenge.setOutputType(DataType.Integer);
 
         return challenge;
     }
@@ -113,13 +113,19 @@ public class ChallengeService {
 
         challenge.addTestCase(testCase);
 
-        List<String> inputTypes = new ArrayList<>();
-        inputTypes.add(DataTypes.Integer.getClassName());
-        inputTypes.add(DataTypes.Integer.getClassName());
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
         challenge.setInputTypes(inputTypes);
-        challenge.setOutputType(DataTypes.Integer.getClassName());
+        challenge.setOutputType(DataType.Integer);
 
         return challenge;
+    }
+
+    public void saveChallenge(Challenge challenge) {
+        // TODO ufuk: complete
+
+        challengeDao.save(challenge);
     }
 
 }
