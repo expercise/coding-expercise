@@ -39,10 +39,6 @@ textarea.description {
     margin-top: 84px;
 }
 
-#projectName {
-    cursor: pointer;
-}
-
 textarea.console {
     width: 100%;
     height: 100%;
@@ -95,4 +91,12 @@ a.lingo, #langSelectContainer > span {
 
 #testCasesTable > tbody > tr > td > input {
     margin-bottom: 5px;
+}
+
+h2#projectName > a {
+    color: #999;
+}
+
+h2#projectName > a:hover {
+    text-decoration: none;
 }
