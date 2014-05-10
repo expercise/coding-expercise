@@ -28,4 +28,17 @@ public enum DataType {
         return className;
     }
 
+    public boolean isProperTypeFor(String rawValue) {
+        try {
+            convert(rawValue);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isNotProperTypeFor(String rawValue) {
+        return !isProperTypeFor(rawValue);
+    }
+
 }

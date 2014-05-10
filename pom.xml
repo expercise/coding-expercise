@@ -28,6 +28,9 @@
         <mysql.connector.version>5.1.30</mysql.connector.version>
         <hibernate.orm.version>4.3.5.Final</hibernate.orm.version>
         <javassist.version>3.18.1-GA</javassist.version>
+        <apache.commons.io.version>2.4</apache.commons.io.version>
+        <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
+        <apache.commons.collections.version>3.2.1</apache.commons.collections.version>
     </properties>
 
     <dependencies>
@@ -165,13 +168,19 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <version>${apache.commons.io.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>${apache.commons.lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${apache.commons.collections.version}</version>
         </dependency>
 
         <!-- Hibernate -->

@@ -100,3 +100,15 @@ h2#projectName > a {
 h2#projectName > a:hover {
     text-decoration: none;
 }
+
+.hide {
+    display: none !important;
+}
+
+#validationMessages {
+    padding-top: 5px;
+}
+
+#validationMessages > div > .alert {
+    margin-bottom: 0px;
+}

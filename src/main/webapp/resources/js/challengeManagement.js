@@ -89,7 +89,7 @@ kodility.ChallengeManagement = {
             var title = $(this).val();
             titles.push({
                 lingo: lingo,
-                title: title
+                text: title
             });
         });
 
@@ -99,7 +99,7 @@ kodility.ChallengeManagement = {
             var description = $(this).val();
             descriptions.push({
                 lingo: lingo,
-                description: description
+                text: description
             });
         });
 
@@ -135,9 +135,28 @@ kodility.ChallengeManagement = {
             testCases: testCases
         }
 
-        kodility.utils.post('challenges/saveChallenge', requestData, function (response) {
-            alert("Katkıların için tişikkirlir sipirmin");
-        });
+        location.hash = '';
+        kodility.utils.post(
+            'challenges/saveChallenge',
+            requestData,
+            function (response) {
+                if (response.success) {
+                    kodility.utils.go(kodility.utils.urlFor('challenges/' + response.challengeId));
+                } else {
+                    var containerId = '#validationMessages';
+                    var $validationMessages = $(containerId);
+                    $validationMessages.removeClass('hide');
+
+                    var $messageList = $validationMessages.find('ul');
+                    $messageList.find('li').remove();
+                    response.errorCodes.forEach(function (errorCode) {
+                        $messageList.append('<li>' + kodility.utils.i18n(errorCode) + '</li>');
+                    });
+
+                    location.hash = containerId;
+                }
+            }
+        );
     }
 
 };

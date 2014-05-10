@@ -5,7 +5,11 @@ kodility.utils = {
     },
 
     goToMainPage: function () {
-        window.location = this.urlFor("");
+        kodility.utils.go(kodility.utils.urlFor(""));
+    },
+
+    go: function (url) {
+        window.location = url;
     },
 
     i18n: function (key) {

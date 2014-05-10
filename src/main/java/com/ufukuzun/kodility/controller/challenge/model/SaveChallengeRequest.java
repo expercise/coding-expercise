@@ -3,15 +3,16 @@ package com.ufukuzun.kodility.controller.challenge.model;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SaveChallengeRequest {
 
-    private List<Title> titles = new ArrayList<>();
+    private List<MultiLingoText> titles = new ArrayList<>();
 
-    private List<Description> descriptions = new ArrayList<>();
+    private List<MultiLingoText> descriptions = new ArrayList<>();
 
     private List<DataType> inputTypes = new ArrayList<>();
 
@@ -19,20 +20,20 @@ public class SaveChallengeRequest {
 
     private List<TestCase> testCases = new ArrayList<>();
 
-    public List<Title> getTitles() {
-        return titles;
-    }
-
-    public void setTitles(List<Title> titles) {
-        this.titles = titles;
-    }
-
-    public List<Description> getDescriptions() {
+    public List<MultiLingoText> getDescriptions() {
         return descriptions;
     }
 
-    public void setDescriptions(List<Description> descriptions) {
+    public void setDescriptions(List<MultiLingoText> descriptions) {
         this.descriptions = descriptions;
+    }
+
+    public List<MultiLingoText> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<MultiLingoText> titles) {
+        this.titles = titles;
     }
 
     public List<DataType> getInputTypes() {
@@ -47,6 +48,10 @@ public class SaveChallengeRequest {
         return outputType;
     }
 
+    public boolean hasOutputType() {
+        return outputType != null;
+    }
+
     public void setOutputType(DataType outputType) {
         this.outputType = outputType;
     }
@@ -59,15 +64,32 @@ public class SaveChallengeRequest {
         this.testCases = testCases;
     }
 
+    public String getTitleFor(Lingo lingo) {
+        return filterByLingo(lingo, titles);
+    }
+
+    public String getDescriptionFor(Lingo lingo) {
+        return filterByLingo(lingo, descriptions);
+    }
+
+    private String filterByLingo(Lingo lingo, List<MultiLingoText> descriptions1) {
+        for (MultiLingoText multiLingoText : descriptions1) {
+            if (lingo == multiLingoText.getLingo()) {
+                return multiLingoText.getText();
+            }
+        }
+        return StringUtils.EMPTY;
+    }
+
     public Challenge createChallenge() {
         Challenge challenge = new Challenge();
 
-        for (Title title : titles) {
-            challenge.getTitles().put(title.getLingo(), title.getTitle());
+        for (MultiLingoText title : titles) {
+            challenge.getTitles().put(title.getLingo(), title.getText());
         }
 
-        for (Description description : descriptions) {
-            challenge.getDescriptions().put(description.getLingo(), description.getDescription());
+        for (MultiLingoText description : descriptions) {
+            challenge.getDescriptions().put(description.getLingo(), description.getText());
         }
 
         challenge.setInputTypes(inputTypes);
@@ -86,11 +108,11 @@ public class SaveChallengeRequest {
         return challenge;
     }
 
-    public static class Title {
+    public static class MultiLingoText {
 
         private Lingo lingo;
 
-        private String title;
+        private String text;
 
         public Lingo getLingo() {
             return lingo;
@@ -100,36 +122,12 @@ public class SaveChallengeRequest {
             this.lingo = lingo;
         }
 
-        public String getTitle() {
-            return title;
+        public String getText() {
+            return text;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-    }
-
-    public static class Description {
-
-        private Lingo lingo;
-
-        private String description;
-
-        public Lingo getLingo() {
-            return lingo;
-        }
-
-        public void setLingo(Lingo lingo) {
-            this.lingo = lingo;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
+        public void setText(String text) {
+            this.text = text;
         }
 
     }

@@ -4,6 +4,15 @@
 
     <legend th:text="${mode.name() == 'Add'} ? #{challengeManagement.addNewChallenge}: #{challengeManagement.updateChallenge}"></legend>
 
+    <div id="validationMessages" class="hide row">
+        <div class="col-xs-12">
+            <div class="alert alert-danger">
+                <strong>Ups!</strong>
+                <ul></ul>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.title}"></h3>
@@ -65,10 +74,12 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>
-                            <a id="addNewInput" th:text="#{challengeManagement.addNewInput}"></a>
+                        <td colspan="2">
+                            <a id="addNewInput">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span th:text="#{challengeManagement.addNewInput}"></span>
+                            </a>
                         </td>
-                        <td></td>
                     </tr>
                 </tfoot>
             </table>
@@ -120,11 +131,12 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td>
-                            <a id="addNewTestCase" th:text="#{challengeManagement.addNewTestCase}"></a>
+                        <td colspan="3">
+                            <a id="addNewTestCase">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <span th:text="#{challengeManagement.addNewTestCase}"></span>
+                            </a>
                         </td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </tfoot>
             </table>

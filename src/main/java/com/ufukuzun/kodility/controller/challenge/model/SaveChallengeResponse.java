@@ -1,12 +1,27 @@
 package com.ufukuzun.kodility.controller.challenge.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SaveChallengeResponse {
 
     private boolean success = false;
 
-    public static SaveChallengeResponse successResponse() {
+    private String challengeId;
+
+    private List<String> errorCodes = new ArrayList<>();
+
+    public static SaveChallengeResponse successResponse(String challengeId) {
         SaveChallengeResponse response = new SaveChallengeResponse();
         response.setSuccess(true);
+        response.setChallengeId(challengeId);
+        return response;
+    }
+
+    public static SaveChallengeResponse failedResponse(List<String> errorCodes) {
+        SaveChallengeResponse response = new SaveChallengeResponse();
+        response.setSuccess(false);
+        response.setErrorCodes(errorCodes);
         return response;
     }
 
@@ -16,6 +31,22 @@ public class SaveChallengeResponse {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(String challengeId) {
+        this.challengeId = challengeId;
+    }
+
+    public List<String> getErrorCodes() {
+        return errorCodes;
+    }
+
+    public void setErrorCodes(List<String> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
 }

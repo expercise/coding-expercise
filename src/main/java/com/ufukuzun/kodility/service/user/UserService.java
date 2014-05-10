@@ -24,8 +24,8 @@ public class UserService {
         return userDao.findByEmail(email);
     }
 
-    public boolean isEmailAlreadyRegistered(String email) {
-        return findByEmail(email) != null;
+    public boolean emailNotRegisteredYet(String email) {
+        return findByEmail(email) == null;
     }
 
 }

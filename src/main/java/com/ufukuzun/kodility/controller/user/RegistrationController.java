@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.controller.user;
 
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.user.UserService;
-import com.ufukuzun.kodility.utils.validator.RegistrationExtraValidator;
+import com.ufukuzun.kodility.utils.validation.RegistrationExtraValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

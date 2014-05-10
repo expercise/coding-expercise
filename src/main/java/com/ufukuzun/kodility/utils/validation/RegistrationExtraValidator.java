@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.utils.validator;
+package com.ufukuzun.kodility.utils.validation;
 
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.user.UserService;
@@ -18,7 +18,7 @@ public class RegistrationExtraValidator extends AbstractValidator<User> {
     }
 
     private void validateWhetherEmailAddressIsAlreadyRegistered(User user, BindingResult bindingResult) {
-        validateField(!userService.isEmailAlreadyRegistered(user.getEmail()), bindingResult, "user", "email", user.getEmail(), new String[]{"NotUnique.user.email"});
+        validateField(userService.emailNotRegisteredYet(user.getEmail()), bindingResult, "user", "email", user.getEmail(), new String[]{"NotUnique.user.email"});
     }
 
 }

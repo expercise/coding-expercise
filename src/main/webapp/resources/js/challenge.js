@@ -15,16 +15,20 @@ kodility.Challenge = {
                 challengeId: $('#challengeId').val()
             };
 
-            kodility.utils.post('challenges/eval', requestData, function (response) {
-                kodility.Challenge.resetConsole();
-                var $resultsTextarea = $('#resultsTextarea');
-                $resultsTextarea.val(response.result);
-                if (response.success) {
-                    $resultsTextarea.addClass('successResult');
-                } else {
-                    $resultsTextarea.addClass('failedResult');
+            kodility.utils.post(
+                'challenges/eval',
+                requestData,
+                function (response) {
+                    kodility.Challenge.resetConsole();
+                    var $resultsTextarea = $('#resultsTextarea');
+                    $resultsTextarea.val(response.result);
+                    if (response.success) {
+                        $resultsTextarea.addClass('successResult');
+                    } else {
+                        $resultsTextarea.addClass('failedResult');
+                    }
                 }
-            });
+            );
         });
 
         $('#resetButton').click(function () {
