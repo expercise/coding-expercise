@@ -83,6 +83,8 @@ kodility.ChallengeManagement = {
     },
 
     saveChallenge: function () {
+        var $saveButton = $(this);
+
         var titles = [];
         $('input[name="title"]').each(function () {
             var lingo = $(this).parent('div').data('lingo');
@@ -135,11 +137,13 @@ kodility.ChallengeManagement = {
             testCases: testCases
         }
 
-        location.hash = '';
+        var loadingStateConfig = kodility.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});
+        kodility.utils.resetHash();
         kodility.utils.post(
             'challenges/saveChallenge',
             requestData,
             function (response) {
+                kodility.utils.resetLoadingState(loadingStateConfig);
                 if (response.success) {
                     kodility.utils.go(kodility.utils.urlFor('challenges/' + response.challengeId));
                 } else {

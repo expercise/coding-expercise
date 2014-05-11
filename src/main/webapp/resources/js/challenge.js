@@ -9,16 +9,20 @@ kodility.Challenge = {
 
     bindEvents: function () {
         $('#runButton').click(function () {
+            var $runButton = $(this);
+
             var requestData = {
                 solution: kodility.CodeEditor.getSolution(),
                 language: $('#languageSelection').val(),
                 challengeId: $('#challengeId').val()
             };
 
+            var loadingStateConfig = kodility.utils.setLoadingState({element: $runButton, icon: 'refresh'});
             kodility.utils.post(
                 'challenges/eval',
                 requestData,
                 function (response) {
+                    kodility.utils.resetLoadingState(loadingStateConfig);
                     kodility.Challenge.resetConsole();
                     var $resultsTextarea = $('#resultsTextarea');
                     $resultsTextarea.val(response.result);
