@@ -118,4 +118,48 @@ public class JavaScriptInterpreterTest {
         assertFalse(result.isSuccess());
     }
 
+    @Test
+    public void shouldWorkWithTextParameters() {
+        String sumsolution = "function solution(a) { return a.length; }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Text);
+
+        challenge.setInputTypes(inputTypes);
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+
+        List<Object> inputValues = new ArrayList<>();
+        inputValues.add("abc");
+        testCase.setInputs(inputValues);
+        testCase.setOutput(3);
+
+        challenge.addTestCase(testCase);
+
+        InterpreterResult interpreterResult = interpreter.interpret(sumsolution, challenge);
+
+        assertTrue(interpreterResult.isSuccess());
+    }
+
+    @Test
+    public void shouldReturnTextValue() {
+        String solution = "function solution(a) { return 'Hello World' }";
+
+        Challenge challenge = new Challenge();
+
+        challenge.setOutputType(DataType.Text);
+
+        TestCase testCase = new TestCase();
+        testCase.setOutput("Hello World");
+
+        challenge.addTestCase(testCase);
+
+        InterpreterResult interpreterResult = interpreter.interpret(solution, challenge);
+
+        assertTrue(interpreterResult.isSuccess());
+    }
+
 }

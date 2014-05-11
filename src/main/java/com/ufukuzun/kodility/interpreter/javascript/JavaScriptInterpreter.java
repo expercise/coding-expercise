@@ -49,7 +49,9 @@ public class JavaScriptInterpreter implements Interpreter {
                 boolean testCaseFailed = false;
 
                 if (challenge.getOutputType().equals(DataType.Integer)) {
-                    if (evaluationResult instanceof Number) {
+                    if (evaluationResult instanceof Integer) {
+                        testCaseFailed = !testCase.getOutput().equals(evaluationResult);
+                    } else if (evaluationResult instanceof Double) {
                         Double evaluationResultAsDouble = (Double) evaluationResult;
                         testCaseFailed = !testCase.getOutput().equals(evaluationResultAsDouble.intValue());
                     }
