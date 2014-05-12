@@ -92,9 +92,9 @@ public class PythonInterpreter implements Interpreter {
             Object value = null;
             Class<? extends PyObject> outputType = typeMap.get(challenge.getOutputType());
             if (outputType.isAssignableFrom(PyInteger.class)) {
-                value = resultObject.__tojava__(Integer.class);
+                value = resultObject.asInt();
             } else if (outputType.isAssignableFrom(PyString.class)) {
-                value = resultObject.__tojava__(String.class);
+                value = resultObject.asString();
             }
 
             if (!testCase.getOutput().equals(value)) {

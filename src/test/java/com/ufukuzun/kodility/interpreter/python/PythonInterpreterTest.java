@@ -69,6 +69,32 @@ public class PythonInterpreterTest {
     }
 
     @Test
+    public void shouldEvaluatePythonCodeFromImportedModule() {
+        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simpleImport.py");
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+
+        challenge.setInputTypes(inputTypes);
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+
+        List<Object> inputValues = new ArrayList<>();
+        inputValues.add(11);
+        testCase.setInputs(inputValues);
+        testCase.setOutput(121);
+
+        challenge.addTestCase(testCase);
+
+        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+
+        assertTrue(interpreterResult.isSuccess());
+    }
+
+    @Test
     public void shouldEvaluateMultipleTestCaseWithPythonSourceCodeForSuccessfulCase() {
         String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
 
