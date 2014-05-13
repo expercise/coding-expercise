@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.domain.user;
 
+import com.ufukuzun.kodility.controller.user.model.UniqueEmail;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,7 @@ public class User {
 
     @NotEmpty
     @Email
+    @UniqueEmail
     private String email;
 
     @Size(min = 5, max = 10)

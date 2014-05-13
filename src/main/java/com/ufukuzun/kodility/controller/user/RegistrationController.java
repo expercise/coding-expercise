@@ -2,7 +2,6 @@ package com.ufukuzun.kodility.controller.user;
 
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.user.UserService;
-import com.ufukuzun.kodility.utils.validation.RegistrationExtraValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,9 +18,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RegistrationExtraValidator registrationExtraValidator;
-
     @RequestMapping("/register")
     public ModelAndView registrationPage() {
         ModelAndView modelAndView = new ModelAndView("register");
@@ -31,8 +27,6 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, ModelAndView modelAndView) {
-        registrationExtraValidator.validate(user, bindingResult);
-
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
             return modelAndView;
