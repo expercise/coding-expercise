@@ -6,16 +6,17 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target( { FIELD, ANNOTATION_TYPE })
+@Target({FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailUniqueValidator.class)
+@Constraint(validatedBy = EmailUniquenessValidator.class)
 @Documented
 public @interface UniqueEmail {
 
-    String message() default "{email.unique}";
+    String message() default "{UniqueEmail.message}";
 
     Class<?>[] groups() default {};
 
