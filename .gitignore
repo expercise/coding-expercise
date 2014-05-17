@@ -10,3 +10,4 @@ target
 .cache
 .springBeans
 production.properties
+development.local.properties
