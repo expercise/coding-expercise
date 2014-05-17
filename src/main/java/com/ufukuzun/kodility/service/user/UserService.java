@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.service.user;
 
 import com.ufukuzun.kodility.dao.user.UserDao;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UserService {
 
     public void saveNewUser(User user) {
         user.setRoles(new ArrayList<String>() {{
-            add("ROLE_USER");
+            add(UserRole.User.getRole());
         }});
         userDao.save(user);
     }
