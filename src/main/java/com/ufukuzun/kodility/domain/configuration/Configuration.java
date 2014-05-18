@@ -1,30 +1,36 @@
 package com.ufukuzun.kodility.domain.configuration;
 
-import org.springframework.data.annotation.Id;
+import com.ufukuzun.kodility.domain.AbstractEntity;
 
-public class Configuration {
+import javax.persistence.*;
+
+@Entity
+public class Configuration extends AbstractEntity {
 
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
 
-    private String key;
+    @Column(unique = true, nullable = false)
+    private String name;
 
+    @Column(nullable = false)
     private String value;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {

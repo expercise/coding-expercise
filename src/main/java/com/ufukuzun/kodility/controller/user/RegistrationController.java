@@ -1,6 +1,6 @@
 package com.ufukuzun.kodility.controller.user;
 
-import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.controller.user.model.UserModel;
 import com.ufukuzun.kodility.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,17 +21,17 @@ public class RegistrationController {
     @RequestMapping("/register")
     public ModelAndView registrationPage() {
         ModelAndView modelAndView = new ModelAndView("register");
-        modelAndView.addObject("user", new User());
+        modelAndView.addObject("user", new UserModel());
         return modelAndView;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute @Valid User user, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView register(@ModelAttribute("user") @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
             return modelAndView;
         } else {
-            userService.saveNewUser(user);
+            userService.saveNewUser(userModel.createUser());
             return new ModelAndView("redirect:/login?newMember");
         }
     }

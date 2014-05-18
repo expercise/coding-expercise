@@ -1,7 +1,9 @@
 package com.ufukuzun.kodility.interpreter.python;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
+import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
@@ -50,16 +52,16 @@ public class PythonInterpreterTest {
         inputTypes.add(DataType.Integer);
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
-        inputValues.add(12);
-        inputValues.add(23);
-        testCase.setInputs(inputValues);
-        testCase.setOutput(35);
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        inputValues.add("23");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
 
         challenge.addTestCase(testCase);
 
@@ -77,15 +79,15 @@ public class PythonInterpreterTest {
         List<DataType> inputTypes = new ArrayList<>();
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
-        inputValues.add(11);
-        testCase.setInputs(inputValues);
-        testCase.setOutput(121);
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("11");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("121");
 
         challenge.addTestCase(testCase);
 
@@ -104,24 +106,24 @@ public class PythonInterpreterTest {
         inputTypes.add(DataType.Integer);
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase1 = new TestCase();
 
-        List<Object> inputValues1 = new ArrayList<>();
-        inputValues1.add(12);
-        inputValues1.add(23);
-        testCase1.setInputs(inputValues1);
-        testCase1.setOutput(35);
+        List<String> inputValues1 = new ArrayList<>();
+        inputValues1.add("12");
+        inputValues1.add("23");
+        testCase1.setInputs(TestCaseInputValue.createFrom(inputValues1));
+        testCase1.setOutput("35");
 
         TestCase testCase2 = new TestCase();
 
-        List<Object> inputValues2 = new ArrayList<>();
-        inputValues2.add(120);
-        inputValues2.add(23);
-        testCase2.setInputs(inputValues2);
-        testCase2.setOutput(143);
+        List<String> inputValues2 = new ArrayList<>();
+        inputValues2.add("120");
+        inputValues2.add("23");
+        testCase2.setInputs(TestCaseInputValue.createFrom(inputValues2));
+        testCase2.setOutput("143");
 
         challenge.addTestCase(testCase1);
         challenge.addTestCase(testCase2);
@@ -141,15 +143,15 @@ public class PythonInterpreterTest {
         inputTypes.add(DataType.Text);
         inputTypes.add(DataType.Text);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
+        List<String> inputValues = new ArrayList<>();
         inputValues.add("ahmet");
         inputValues.add("mehmet");
-        testCase.setInputs(inputValues);
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
         testCase.setOutput("ahmetmehmet");
 
         challenge.addTestCase(testCase);
@@ -169,15 +171,15 @@ public class PythonInterpreterTest {
         inputTypes.add(DataType.Text);
         inputTypes.add(DataType.Text);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
+        List<String> inputValues = new ArrayList<>();
         inputValues.add("ahmet");
         inputValues.add("mehmet");
-        testCase.setInputs(inputValues);
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
         testCase.setOutput("ahmetmehmet");
 
         challenge.addTestCase(testCase);
@@ -197,15 +199,15 @@ public class PythonInterpreterTest {
         List<DataType> inputTypes = new ArrayList<>();
         inputTypes.add(DataType.Text);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
+        List<String> inputValues = new ArrayList<>();
         inputValues.add("abc");
-        testCase.setInputs(inputValues);
-        testCase.setOutput(3);
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("3");
 
         challenge.addTestCase(testCase);
 

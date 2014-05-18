@@ -7,7 +7,9 @@ import com.ufukuzun.kodility.service.language.SignatureGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChallengeService {
@@ -19,22 +21,11 @@ public class ChallengeService {
     private SignatureGeneratorService signatureGeneratorService;
 
     public List<Challenge> findAll() {
-        List<Challenge> allChallenges = new ArrayList<>();
-        Iterator<Challenge> iterator = challengeDao.findAll().iterator();
-        while (iterator.hasNext()) {
-            allChallenges.add(iterator.next());
-        }
-
-        return allChallenges;
+        return challengeDao.findAll();
     }
 
-    public Challenge findById(String id) {
-        return challengeDao.findById(id);
-    }
-
-    // TODO ufuk: complete - order by difficulty and find easiest challenge
-    public Challenge findEasiestOne() {
-        return challengeDao.findAll().iterator().next();
+    public Challenge findById(Long id) {
+        return challengeDao.findOne(id);
     }
 
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
@@ -46,8 +37,9 @@ public class ChallengeService {
         return signatures;
     }
 
-    public String saveChallenge(Challenge challenge) {
-        return challengeDao.save(challenge).getId();
+    public Long saveChallenge(Challenge challenge) {
+        challengeDao.save(challenge);
+        return challenge.getId();
     }
 
 }

@@ -1,18 +1,54 @@
 package com.ufukuzun.kodility.domain.challenge;
 
+import com.ufukuzun.kodility.domain.AbstractEntity;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class Solution {
+@Entity
+public class Solution extends AbstractEntity {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Challenge challenge;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ProgrammingLanguage programmingLanguage;
 
+    @Column(nullable = false)
     private String solution;
 
-    private String solutionTemplate;
+    public Long getId() {
+        return id;
+    }
 
-    private String callPattern;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+    }
 
     public ProgrammingLanguage getProgrammingLanguage() {
         return programmingLanguage;
@@ -28,26 +64,6 @@ public class Solution {
 
     public void setSolution(String solution) {
         this.solution = solution;
-    }
-
-    public String getSolutionTemplate() {
-        return solutionTemplate;
-    }
-
-    public void setSolutionTemplate(String solutionTemplate) {
-        this.solutionTemplate = solutionTemplate;
-    }
-
-    public String getCallPattern() {
-        return callPattern;
-    }
-
-    public void setCallPattern(String callPattern) {
-        this.callPattern = callPattern;
-    }
-
-    public String getTestCodeFor(List<String> inputs) {
-        return String.format(callPattern, inputs.toArray());
     }
 
 }

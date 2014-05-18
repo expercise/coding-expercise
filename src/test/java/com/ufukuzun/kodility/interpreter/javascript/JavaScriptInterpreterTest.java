@@ -1,7 +1,9 @@
 package com.ufukuzun.kodility.interpreter.javascript;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
+import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.i18n.MessageService;
@@ -16,8 +18,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JavaScriptInterpreterTest {
@@ -38,16 +40,16 @@ public class JavaScriptInterpreterTest {
         inputTypes.add(DataType.Integer);
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
-        inputValues.add(12);
-        inputValues.add(23);
-        testCase.setInputs(inputValues);
-        testCase.setOutput(35);
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        inputValues.add("23");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
 
         challenge.addTestCase(testCase);
 
@@ -66,16 +68,16 @@ public class JavaScriptInterpreterTest {
         inputTypes.add(DataType.Integer);
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
-        inputValues.add(12);
-        inputValues.add(23);
-        testCase.setInputs(inputValues);
-        testCase.setOutput(35);
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        inputValues.add("23");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
 
         challenge.addTestCase(testCase);
 
@@ -100,16 +102,16 @@ public class JavaScriptInterpreterTest {
         inputTypes.add(DataType.Integer);
         inputTypes.add(DataType.Integer);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
-        inputValues.add(12);
-        inputValues.add(23);
-        testCase.setInputs(inputValues);
-        testCase.setOutput(35);
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        inputValues.add("23");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
 
         challenge.addTestCase(testCase);
 
@@ -127,15 +129,15 @@ public class JavaScriptInterpreterTest {
         List<DataType> inputTypes = new ArrayList<>();
         inputTypes.add(DataType.Text);
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
         TestCase testCase = new TestCase();
 
-        List<Object> inputValues = new ArrayList<>();
+        List<String> inputValues = new ArrayList<>();
         inputValues.add("abc");
-        testCase.setInputs(inputValues);
-        testCase.setOutput(3);
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("3");
 
         challenge.addTestCase(testCase);
 

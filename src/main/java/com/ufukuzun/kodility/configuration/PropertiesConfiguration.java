@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource({"classpath:${targetEnvironment:development}.properties", "classpath:${targetEnvironment:development.local}.properties"})
+@PropertySource({"classpath:${targetEnvironment:development}.properties", "classpath:developerSpecific.properties"})
 public class PropertiesConfiguration {
 
     @Bean

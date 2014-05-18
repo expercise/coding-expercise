@@ -3,27 +3,17 @@ package com.ufukuzun.kodility.testutils.builder;
 import com.ufukuzun.kodility.domain.configuration.Configuration;
 import org.thymeleaf.util.StringUtils;
 
-public class ConfigurationBuilder {
+public class ConfigurationBuilder extends AbstractEntityBuilder<Configuration, ConfigurationBuilder> {
 
-    private String id;
     private String key = StringUtils.randomAlphanumeric(10);
+
     private String value = StringUtils.randomAlphanumeric(16);
 
-    public Configuration build() {
+    public Configuration doBuild() {
         Configuration configuration = new Configuration();
-        configuration.setId(id);
-        configuration.setKey(key);
+        configuration.setName(key);
         configuration.setValue(value);
         return configuration;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public ConfigurationBuilder id(String id) {
-        this.id = id;
-        return this;
     }
 
     public ConfigurationBuilder key(String key) {

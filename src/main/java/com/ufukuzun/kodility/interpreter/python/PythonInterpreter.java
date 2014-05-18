@@ -70,14 +70,14 @@ public class PythonInterpreter implements Interpreter {
 
             for (int i = 0; i < argSize; i++) {
                 try {
-                    DataType type = challenge.getInputTypes().get(i);
+                    DataType type = challenge.getInputTypes().get(i).getInputType();
                     Class<?> clazz = Class.forName(type.getClassName());
                     Class<? extends PyObject> instanceType = typeMap.get(type);
                     if (type.equals(DataType.Integer)) {
                         clazz = int.class;
                     }
                     Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
-                    pyObjects[i] = declaredConstructor.newInstance(testCase.getInputs().get(i));
+                    pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
                 } catch (Exception e) {
                     return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
                 }
@@ -97,7 +97,7 @@ public class PythonInterpreter implements Interpreter {
                 value = resultObject.asString();
             }
 
-            if (!testCase.getOutput().equals(value)) {
+            if (!challenge.getOutputType().convert(testCase.getOutput()).equals(value)) {
                 return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
             }
 

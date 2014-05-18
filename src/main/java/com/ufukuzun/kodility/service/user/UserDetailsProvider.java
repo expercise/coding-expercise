@@ -36,9 +36,7 @@ public class UserDetailsProvider implements UserDetailsService {
 
     private List<GrantedAuthority> getAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (String role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole().getRole()));
         return authorities;
     }
 

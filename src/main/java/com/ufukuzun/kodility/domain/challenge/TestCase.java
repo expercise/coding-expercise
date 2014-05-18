@@ -1,27 +1,61 @@
 package com.ufukuzun.kodility.domain.challenge;
 
+import com.ufukuzun.kodility.domain.AbstractEntity;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestCase {
+@Entity
+public class TestCase extends AbstractEntity {
 
-    private List<Object> inputs = new ArrayList<>();
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private Object output;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Challenge challenge;
 
-    public List<Object> getInputs() {
+    @OneToMany(mappedBy = "testCase", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OrderBy("priority")
+    private List<TestCaseInputValue> inputs = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String output;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+    }
+
+    public List<TestCaseInputValue> getInputs() {
         return inputs;
     }
 
-    public void setInputs(List<Object> inputs) {
+    public void setInputs(List<TestCaseInputValue> inputs) {
+        for (TestCaseInputValue input : inputs) {
+            input.setTestCase(this);
+        }
         this.inputs = inputs;
     }
 
-    public Object getOutput() {
+    public String getOutput() {
         return output;
     }
 
-    public void setOutput(Object output) {
+    public void setOutput(String output) {
         this.output = output;
     }
+
 }

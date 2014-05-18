@@ -1,0 +1,30 @@
+package com.ufukuzun.kodility.testutils.builder;
+
+import com.ufukuzun.kodility.domain.AbstractEntity;
+
+import java.util.Random;
+
+public abstract class AbstractEntityBuilder<T extends AbstractEntity, B extends AbstractEntityBuilder> {
+
+    private Long id;
+
+    public abstract T doBuild();
+
+    public T build() {
+        T entity = doBuild();
+        entity.setId(id);
+        return entity;
+    }
+
+    public T buildWithRandomId() {
+        T entity = build();
+        entity.setId(new Random().nextLong());
+        return entity;
+    }
+
+    public B id(Long id) {
+        this.id = id;
+        return (B) this;
+    }
+
+}

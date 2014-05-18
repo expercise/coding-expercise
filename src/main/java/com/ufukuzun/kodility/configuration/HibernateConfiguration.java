@@ -1,12 +1,12 @@
 package com.ufukuzun.kodility.configuration;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -36,6 +36,9 @@ public class HibernateConfiguration {
     @Value("${hibernate.dialect}")
     private String dialect;
 
+    @Value("${hibernate.show_sql}")
+    private String showSql;
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -48,7 +51,7 @@ public class HibernateConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
         dataSource.setUsername(user);
@@ -59,8 +62,8 @@ public class HibernateConfiguration {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+    public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
+        final HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory);
 
         return transactionManager;
@@ -76,7 +79,8 @@ public class HibernateConfiguration {
             {
                 setProperty("hibernate.hbm2ddl.auto", hbm2ddlMode);
                 setProperty("hibernate.dialect", dialect);
-                setProperty("hibernate.globally_quoted_identifiers", "true");
+                setProperty("hibernate.show_sql", showSql);
+                setProperty("hibernate.format_sql", "true");
             }
         };
     }

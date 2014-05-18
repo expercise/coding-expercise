@@ -18,4 +18,14 @@ public class ChallengeTest {
         assertThat(challenge.getDescriptionFor(Lingo.Turkish.getShortName()), equalTo("Açıklama"));
     }
 
+    @Test
+    public void shouldGetTitleByLingo() {
+        Challenge challenge = new Challenge();
+        challenge.getTitles().put(Lingo.English, "Title");
+        challenge.getTitles().put(Lingo.Turkish, "Başlık");
+
+        assertThat(challenge.getTitleFor(Lingo.English.getShortName()), equalTo("Title"));
+        assertThat(challenge.getTitleFor(Lingo.Turkish.getShortName()), equalTo("Başlık"));
+    }
+
 }

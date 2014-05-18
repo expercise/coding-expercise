@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.controller.user.model;
+package com.ufukuzun.kodility.utils.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

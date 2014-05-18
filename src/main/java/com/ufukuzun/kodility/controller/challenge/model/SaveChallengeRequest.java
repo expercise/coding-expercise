@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.controller.challenge.model;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import org.apache.commons.lang3.StringUtils;
@@ -92,17 +93,12 @@ public class SaveChallengeRequest {
             challenge.getDescriptions().put(description.getLingo(), description.getText());
         }
 
-        challenge.setInputTypes(inputTypes);
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
 
         challenge.setOutputType(outputType);
 
         for (TestCase testCase : testCases) {
-            List<Object> inputs = new ArrayList<>();
-            for (int inputType = 0; inputType < inputTypes.size(); inputType++) {
-                inputs.add(inputTypes.get(inputType).convert(testCase.getInputValues().get(inputType)));
-            }
-
-            challenge.addTestCase(inputs, outputType.convert(testCase.outputValue));
+            challenge.addTestCase(testCase.getInputValues(), testCase.outputValue);
         }
 
         return challenge;

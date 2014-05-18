@@ -6,6 +6,10 @@ import com.ufukuzun.kodility.utils.EnvironmentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -19,14 +23,15 @@ public class ConfigurationService {
     @Autowired
     private ConfigurationDao configurationDao;
 
+    @Autowired
+    private PlatformTransactionManager transactionManager;
+
     @Value("${environment}")
     private String environment;
 
     @PostConstruct
     public void init() {
-        for (Configuration configuration : configurationDao.findAll()) {
-            CONFIGURATIONS.put(configuration.getKey(), configuration.getValue());
-        }
+        populateConfigurationsMap();
     }
 
     public String getValue(String key) {
@@ -39,6 +44,19 @@ public class ConfigurationService {
 
     public boolean isProduction() {
         return EnvironmentUtils.isProduction(environment);
+    }
+
+    private void populateConfigurationsMap() {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.execute(new TransactionCallback<Object>() {
+            @Override
+            public Object doInTransaction(TransactionStatus status) {
+                for (Configuration configuration : configurationDao.findAll()) {
+                    CONFIGURATIONS.put(configuration.getName(), configuration.getValue());
+                }
+                return null;
+            }
+        });
     }
 
 }

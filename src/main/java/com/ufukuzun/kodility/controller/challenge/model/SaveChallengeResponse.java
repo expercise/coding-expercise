@@ -7,11 +7,11 @@ public class SaveChallengeResponse {
 
     private boolean success = false;
 
-    private String challengeId;
+    private Long challengeId;
 
     private List<String> errorCodes = new ArrayList<>();
 
-    public static SaveChallengeResponse successResponse(String challengeId) {
+    public static SaveChallengeResponse successResponse(Long challengeId) {
         SaveChallengeResponse response = new SaveChallengeResponse();
         response.setSuccess(true);
         response.setChallengeId(challengeId);
@@ -33,11 +33,11 @@ public class SaveChallengeResponse {
         this.success = success;
     }
 
-    public String getChallengeId() {
+    public Long getChallengeId() {
         return challengeId;
     }
 
-    public void setChallengeId(String challengeId) {
+    public void setChallengeId(Long challengeId) {
         this.challengeId = challengeId;
     }
 

@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.controller.user.model;
+package com.ufukuzun.kodility.utils.validation;
 
 import com.ufukuzun.kodility.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

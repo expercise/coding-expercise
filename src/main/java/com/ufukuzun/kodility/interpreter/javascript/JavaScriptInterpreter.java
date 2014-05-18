@@ -40,7 +40,8 @@ public class JavaScriptInterpreter implements Interpreter {
         List<TestCase> testCases = challenge.getTestCases();
         for (TestCase testCase : testCases) {
             try {
-                Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", testCase.getInputs().toArray());
+                Object[] convertedInputValues = challenge.getConvertedInputValues(testCase.getInputs()).toArray();
+                Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
 
                 if (evaluationResult == null) {
                     return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
@@ -50,7 +51,7 @@ public class JavaScriptInterpreter implements Interpreter {
 
                 if (challenge.getOutputType().equals(DataType.Integer)) {
                     int evaluationResultAsInteger = ((Number) evaluationResult).intValue();
-                    int expectedValue = ((Number) testCase.getOutput()).intValue();
+                    int expectedValue = ((Number) Double.parseDouble(testCase.getOutput())).intValue();
                     testCaseFailed = evaluationResultAsInteger != expectedValue;
                 } else if (challenge.getOutputType().equals(DataType.Text)) {
                     String evaluationResultAsString = (String) evaluationResult;

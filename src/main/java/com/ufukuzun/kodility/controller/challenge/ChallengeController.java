@@ -35,7 +35,7 @@ public class ChallengeController {
     }
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
-    public ModelAndView challengePage(@PathVariable String challengeId) {
+    public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {
         ModelAndView modelAndView = new ModelAndView("challenge/challenge");
 
         Challenge challenge = challengeService.findById(challengeId);

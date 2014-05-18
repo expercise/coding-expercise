@@ -1,39 +1,37 @@
-package com.ufukuzun.kodility.domain.user;
+package com.ufukuzun.kodility.controller.user.model;
 
-import com.ufukuzun.kodility.domain.AbstractEntity;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.UserRole;
+import com.ufukuzun.kodility.utils.validation.UniqueEmail;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.validation.constraints.Size;
 
-@Entity
-public class User extends AbstractEntity {
+public class UserModel {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(nullable = false)
+    @Size(min = 2, max = 15)
     private String firstName;
 
-    @Column(nullable = false)
+    @Size(min = 2, max = 15)
     private String lastName;
 
-    @Column(nullable = false)
+    @NotEmpty
+    @Email
+    @UniqueEmail
     private String email;
 
-    @Column(nullable = false)
+    @Size(min = 5, max = 10)
     private String password;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public User createUser() {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setUserRole(UserRole.User);
+        return user;
     }
 
     public String getFirstName() {
@@ -66,14 +64,6 @@ public class User extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
     }
 
 }

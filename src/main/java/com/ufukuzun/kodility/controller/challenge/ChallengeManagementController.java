@@ -1,7 +1,7 @@
 package com.ufukuzun.kodility.controller.challenge;
 
 import com.ufukuzun.kodility.controller.challenge.model.SaveChallengeRequest;
-import com.ufukuzun.kodility.controller.challenge.model.ManagementMode;
+import com.ufukuzun.kodility.enums.ManagementMode;
 import com.ufukuzun.kodility.controller.challenge.model.SaveChallengeResponse;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.DataType;
@@ -45,13 +45,13 @@ public class ChallengeManagementController {
             return SaveChallengeResponse.failedResponse(ValidationUtils.extractAllErrorCodes(bindingResult));
         }
 
-        String challengeId = challengeService.saveChallenge(saveChallengeRequest.createChallenge());
+        Long challengeId = challengeService.saveChallenge(saveChallengeRequest.createChallenge());
 
         return SaveChallengeResponse.successResponse(challengeId);
     }
 
     @RequestMapping(value = "/updateChallenge/{challengeId}", method = RequestMethod.GET)
-    public ModelAndView updateChallengePage(@PathVariable String challengeId) {
+    public ModelAndView updateChallengePage(@PathVariable("challengeId") long challengeId) {
         ModelAndView modelAndView = new ModelAndView("challenge/manageChallenge");
 
         Challenge challenge = challengeService.findById(challengeId);

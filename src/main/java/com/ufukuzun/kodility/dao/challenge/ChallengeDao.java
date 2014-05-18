@@ -1,10 +1,16 @@
 package com.ufukuzun.kodility.dao.challenge;
 
+import com.ufukuzun.kodility.dao.AbstractHibernateDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ChallengeDao extends PagingAndSortingRepository<Challenge, String> {
+@Repository
+public class ChallengeDao extends AbstractHibernateDao<Challenge> {
 
-    Challenge findById(String id);
+    public ChallengeDao() {
+        super(Challenge.class);
+    }
+
+
 
 }
