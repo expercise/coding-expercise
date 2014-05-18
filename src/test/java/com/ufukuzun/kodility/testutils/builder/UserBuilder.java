@@ -5,37 +5,34 @@ import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.enums.UserRole;
 
-public class UserBuilder {
+public class UserBuilder extends AbstractEntityBuilder<User, UserBuilder> {
 
-    private Long id;
     private String firstName;
+
     private String lastName;
 
     private String email;
+
     private String password;
 
     private UserRole userRole = UserRole.User;
 
     private Lingo lingo = Lingo.English;
 
-    private ProgrammingLanguage programmingLanguage = null;
+    private ProgrammingLanguage programmingLanguage;
 
-    public User build() {
+    @Override
+    public User doBuild() {
         User user = new User();
-        user.setId(id);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(password);
         user.setEmail(password);
         user.setUserRole(userRole);
         user.setLingo(lingo);
+        user.setEmail(email);
         user.setProgrammingLanguage(programmingLanguage);
         return user;
-    }
-
-    public UserBuilder id(Long id) {
-        this.id = id;
-        return this;
     }
 
     public UserBuilder firstName(String firstName) {
@@ -72,4 +69,5 @@ public class UserBuilder {
         this.programmingLanguage = programmingLanguage;
         return this;
     }
+
 }

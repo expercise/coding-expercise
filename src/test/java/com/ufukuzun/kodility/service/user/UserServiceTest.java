@@ -5,7 +5,7 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
-import com.ufukuzun.kodility.utils.ShaDigester;
+import com.ufukuzun.kodility.utils.PasswordEncoder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -28,7 +28,7 @@ public class UserServiceTest {
     private UserDao userDao;
 
     @Mock
-    private ShaDigester shaDigester;
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void shouldSaveNewUserWithHashedPassword() {
@@ -36,7 +36,7 @@ public class UserServiceTest {
                 .email("mail@kodility.com").lingo(Lingo.Turkish).password("password")
                 .programmingLanguage(ProgrammingLanguage.Python).build();
 
-        when(shaDigester.sha256("password")).thenReturn("hashedPassword");
+        when(passwordEncoder.encode("password")).thenReturn("hashedPassword");
 
         userService.saveUser(user);
 

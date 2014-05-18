@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class User extends AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -35,7 +35,7 @@ public class User extends AbstractEntity {
     private Lingo lingo = Lingo.English;
 
     @Enumerated(EnumType.STRING)
-    private ProgrammingLanguage programmingLanguage = null;
+    private ProgrammingLanguage programmingLanguage;
 
     @Override
     public Long getId() {

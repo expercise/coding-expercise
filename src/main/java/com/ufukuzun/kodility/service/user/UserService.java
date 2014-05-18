@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.service.user;
 
 import com.ufukuzun.kodility.dao.user.UserDao;
 import com.ufukuzun.kodility.domain.user.User;
-import com.ufukuzun.kodility.utils.ShaDigester;
+import com.ufukuzun.kodility.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ public class UserService {
     private UserDao userDao;
 
     @Autowired
-    private ShaDigester shaDigester;
+    private PasswordEncoder passwordEncoder;
 
     public void saveUser(User user) {
-        user.setPassword(shaDigester.sha256(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
