@@ -1,6 +1,9 @@
 package com.ufukuzun.kodility.controller.user;
 
 import com.ufukuzun.kodility.controller.user.model.UserModel;
+import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.Lingo;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,19 +24,24 @@ public class RegistrationController {
     @RequestMapping("/register")
     public ModelAndView registrationPage() {
         ModelAndView modelAndView = new ModelAndView("register");
-        modelAndView.addObject("user", new UserModel());
+        modelAndView.addObject("userModel", new UserModel());
+        modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
+        modelAndView.addObject("lingos", Lingo.values());
         return modelAndView;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute("user") @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView register(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
+            modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
+            modelAndView.addObject("lingos", Lingo.values());
             return modelAndView;
-        } else {
-            userService.saveNewUser(userModel.createUser());
-            return new ModelAndView("redirect:/login?newMember");
         }
+
+        User user = userModel.createUser();
+        userService.saveUser(user);
+        return new ModelAndView("redirect:/login?newMember");
     }
 
 }

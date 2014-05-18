@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form th:action="@{/register}" th:object="${user}" method="POST" class="form-horizontal">
+            <form th:action="@{/register}" th:object="${userModel}" method="POST" class="form-horizontal">
                 <div th:class="'form-group' + (${#fields.hasErrors('firstName')} ? ' has-error' : '')">
                     <label for="firstName" class="col-xs-2 control-label" th:text="#{label.firstName}"></label>
 
@@ -41,6 +41,42 @@
                         <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
                     </div>
                     <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+
+                <div th:class="'form-group' + (${#fields.hasErrors('passwordRetype')} ? ' has-error' : '')">
+                    <label for="passwordRetype" class="col-xs-2 control-label" th:text="#{label.passwordRetype}"></label>
+
+                    <div class="col-xs-4">
+                        <input type="password" id="passwordRetype" name="passwordRetype" class="form-control" th:field="*{passwordRetype}"/>
+                    </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('passwordRetype')}" th:errors="*{passwordRetype}"></span>
+                </div>
+
+                <div th:class="'form-group'">
+                    <label for="programmingLanguage" class="col-xs-2 control-label" th:text="#{label.progLang}"></label>
+
+                    <div class="col-xs-4">
+                        <select id="programmingLanguage" name="programmingLanguage" th:field="*{programmingLanguage}">
+                            <option th:text="#{label.progLang.None}" th:value="${null}"></option>
+                            <option th:each="each : ${programmingLanguages}"
+                                    th:value="${each}"
+                                    th:text="${each}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div th:class="'form-group'">
+                    <label for="lingoPreference" class="col-xs-2 control-label" th:text="#{label.lingo}"></label>
+
+                    <div id="lingoPreference">
+                        <ul class="nav nav-pills">
+                            <li th:each="lingo : ${lingos}">
+                                <input type="radio" th:field="*{lingo}" th:value="${lingo}" />
+                                <label class="control-label" th:for="${#ids.prev('lingo')}" th:text="#{${'label.lingo.' + lingo.getShortName()}}"></label>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="form-group">

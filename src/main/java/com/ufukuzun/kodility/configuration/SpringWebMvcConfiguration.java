@@ -41,7 +41,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lingo");
+        localeChangeInterceptor.setParamName("lingopref");
         return localeChangeInterceptor;
     }
 

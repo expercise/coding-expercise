@@ -1,15 +1,18 @@
 package com.ufukuzun.kodility.domain.user;
 
 import com.ufukuzun.kodility.domain.AbstractEntity;
+import com.ufukuzun.kodility.enums.Lingo;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.enums.UserRole;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="user")
 public class User extends AbstractEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -26,12 +29,20 @@ public class User extends AbstractEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private UserRole userRole = UserRole.User;
 
+    @Enumerated(EnumType.STRING)
+    private Lingo lingo = Lingo.English;
+
+    @Enumerated(EnumType.STRING)
+    private ProgrammingLanguage programmingLanguage = null;
+
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,6 +85,22 @@ public class User extends AbstractEntity {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Lingo getLingo() {
+        return lingo;
+    }
+
+    public void setLingo(Lingo lingo) {
+        this.lingo = lingo;
+    }
+
+    public ProgrammingLanguage getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+
+    public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
 }

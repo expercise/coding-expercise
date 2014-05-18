@@ -112,3 +112,7 @@ h2#projectName > a:hover {
 #validationMessages > div > .alert {
     margin-bottom: 0px;
 }
+
+.nav-pills > li {
+    padding-left: 12px;
+}
