@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.service.challenge;
 
+import com.ufukuzun.kodility.controller.challenge.model.ChallengeModel;
 import com.ufukuzun.kodility.dao.challenge.ChallengeDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
@@ -41,14 +42,28 @@ public class ChallengeService {
         return signatures;
     }
 
-    public Long saveChallenge(Challenge challenge) {
+    public Long saveChallenge(ChallengeModel challengeModel) {
+        Challenge challenge = prepareChallengeForSaving(challengeModel);
+
         if (challenge.isPersisted()) {
             challengeDao.update(challenge);
         } else {
             challenge.setUser(authenticationService.getCurrentUser());
             challengeDao.save(challenge);
         }
+
         return challenge.getId();
+    }
+
+    private Challenge prepareChallengeForSaving(ChallengeModel challengeModel) {
+        Challenge challenge;
+        if (challengeModel.getChallengeId() != null) {
+            challenge = challengeDao.findOne(challengeModel.getChallengeId());
+            challengeModel.mergeChallengeWithModel(challenge);
+        } else {
+            challenge = challengeModel.createChallenge();
+        }
+        return challenge;
     }
 
 }

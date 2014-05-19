@@ -85,8 +85,8 @@ public class Challenge extends AbstractEntity {
     public void setInputTypes(List<ChallengeInputType> inputTypes) {
         for (ChallengeInputType inputType : inputTypes) {
             inputType.setChallenge(this);
+            this.inputTypes.add(inputType);
         }
-        this.inputTypes = inputTypes;
     }
 
     public DataType getOutputType() {

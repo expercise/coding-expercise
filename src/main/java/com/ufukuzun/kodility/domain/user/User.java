@@ -36,12 +36,10 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -100,6 +98,14 @@ public class User extends AbstractEntity {
 
     public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
         this.programmingLanguage = programmingLanguage;
+    }
+
+    public boolean isAdmin() {
+        return UserRole.Admin == userRole;
+    }
+
+    public boolean isNotAdmin() {
+        return !isAdmin();
     }
 
 }

@@ -1,9 +1,11 @@
 kodility.ChallengeManagement = {
 
+    challengeModel: {},
+
     constructor: function () {
-        var challengeModel = JSON.parse($('#challengeModel').val());
-        if (!jQuery.isEmptyObject(challengeModel)) {
-            this.prepareForUpdate(challengeModel);
+        this.challengeModel = JSON.parse($('#challengeModel').val());
+        if (!jQuery.isEmptyObject(this.challengeModel)) {
+            this.prepareForUpdate(this.challengeModel);
         }
     },
 
@@ -37,6 +39,29 @@ kodility.ChallengeManagement = {
             })[0].text;
             $that.val(description);
         });
+
+        var $inputsTableBody = $('#inputsTable > tbody');
+        $inputsTableBody.find('tr').remove();
+        challengeModel.inputTypes.forEach(function (inputType) {
+            kodility.ChallengeManagement.addNewInputAction();
+            $inputsTableBody.find('tr:last').find('select > option[value=' + inputType + ']').attr('selected', 'selected');
+        });
+
+        $('#outputTable').find('select > option[value=' + challengeModel.outputType + ']').attr('selected', 'selected');
+
+        var $testCasesTableBody = $('#testCasesTable').find('tbody');
+        $testCasesTableBody.find('tr').remove();
+        challengeModel.testCases.forEach(function () {
+            kodility.ChallengeManagement.addNewTestCaseAction();
+        });
+        var $testCaseRows = $testCasesTableBody.find('tr');
+        for (var testCaseIndex = 0; testCaseIndex < challengeModel.testCases.length; testCaseIndex++) {
+            var $testCaseRowInputs = $($testCaseRows[testCaseIndex]).find('input[name="inputValue"]');
+            $testCaseRowInputs.each(function (inputIndex, $input) {
+                $($input).val(challengeModel.testCases[testCaseIndex].inputValues[inputIndex]);
+            });
+            $($testCaseRows[testCaseIndex]).find('input[name="outputValue"]').val(challengeModel.testCases[testCaseIndex].outputValue);
+        }
     },
 
     removeInputAction: function () {
@@ -59,7 +84,7 @@ kodility.ChallengeManagement = {
             + '   </td>'
             + '</tr>';
 
-        $(this).parents('table').find('tbody').append($(inputRow));
+        $('#inputsTable > tbody').append($(inputRow));
 
         kodility.ChallengeManagement.adjustInputValues();
     },
@@ -106,7 +131,7 @@ kodility.ChallengeManagement = {
             + '     </td>'
             + '</tr>';
 
-        $(this).parents('table').find('tbody').append($(testCaseRow));
+        $('#testCasesTable').find('tbody').append($(testCaseRow));
     },
 
     saveChallenge: function () {
@@ -157,6 +182,7 @@ kodility.ChallengeManagement = {
         });
 
         var requestData = {
+            challengeId: kodility.ChallengeManagement.challengeModel.challengeId,
             titles: titles,
             descriptions: descriptions,
             inputTypes: inputTypes,

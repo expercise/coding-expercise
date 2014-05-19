@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ChallengeModel {
 
-    private long challengeId;
+    private Long challengeId;
 
     private List<MultiLingoText> titles = new ArrayList<>();
 
@@ -25,11 +25,11 @@ public class ChallengeModel {
 
     private List<TestCase> testCases = new ArrayList<>();
 
-    public long getChallengeId() {
+    public Long getChallengeId() {
         return challengeId;
     }
 
-    public void setChallengeId(long challengeId) {
+    public void setChallengeId(Long challengeId) {
         this.challengeId = challengeId;
     }
 
@@ -96,24 +96,30 @@ public class ChallengeModel {
 
     public Challenge createChallenge() {
         Challenge challenge = new Challenge();
+        mergeChallengeWithModel(challenge);
+        return challenge;
+    }
 
+    public void mergeChallengeWithModel(Challenge challenge) {
+        challenge.getTitles().clear();
         for (MultiLingoText title : titles) {
             challenge.getTitles().put(title.getLingo(), title.getText());
         }
 
+        challenge.getDescriptions().clear();
         for (MultiLingoText description : descriptions) {
             challenge.getDescriptions().put(description.getLingo(), description.getText());
         }
 
+        challenge.getInputTypes().clear();
         challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
 
         challenge.setOutputType(outputType);
 
+        challenge.getTestCases().clear();
         for (TestCase testCase : testCases) {
             challenge.addTestCase(testCase.getInputValues(), testCase.outputValue);
         }
-
-        return challenge;
     }
 
     public static ChallengeModel createFrom(Challenge challenge) {

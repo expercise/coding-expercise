@@ -41,7 +41,7 @@ public class ChallengeManagementController {
             return SaveChallengeResponse.failedResponse(ValidationUtils.extractAllErrorCodes(bindingResult));
         }
 
-        Long challengeId = challengeService.saveChallenge(challengeModel.createChallenge());
+        Long challengeId = challengeService.saveChallenge(challengeModel);
 
         return SaveChallengeResponse.successResponse(challengeId);
     }

@@ -1,9 +1,14 @@
 package com.ufukuzun.kodility.utils.validation;
 
 import com.ufukuzun.kodility.controller.challenge.model.ChallengeModel;
+import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
+import com.ufukuzun.kodility.service.challenge.ChallengeService;
+import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
@@ -12,11 +17,33 @@ import java.util.List;
 @Component
 public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    private ChallengeService challengeService;
+
     @Override
     public void validate(ChallengeModel challenge, BindingResult bindingResult) {
+        if (!validateIfUserCanModifyThisChallenge(challenge, bindingResult)) {
+            return;
+        }
         validateTitlesAndDescriptions(challenge, bindingResult);
         validateOutputTypeWithOutputValues(challenge, bindingResult);
         validateInputTypesWithInputValuesFromTestCases(challenge, bindingResult);
+    }
+
+    private boolean validateIfUserCanModifyThisChallenge(ChallengeModel challengeModel, BindingResult bindingResult) {
+        Long challengeId = challengeModel.getChallengeId();
+        if (challengeId != null) {
+            Challenge challenge = challengeService.findById(challengeId);
+            User currentUser = authenticationService.getCurrentUser();
+            if (currentUser.isNotAdmin() && isModifierNotSameUserWithAuthor(challenge, currentUser)) {
+                addError(bindingResult, "currentUser", new String[]{"NotAuthorized.challenge.update"});
+                return false;
+            }
+        }
+        return true;
     }
 
     private void validateTitlesAndDescriptions(ChallengeModel challenge, BindingResult bindingResult) {
@@ -54,6 +81,10 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
                 }
             }
         }
+    }
+
+    private boolean isModifierNotSameUserWithAuthor(Challenge challenge, User currentUser) {
+        return !challenge.getUser().getId().equals(currentUser.getId());
     }
 
     private boolean isInputValuesNotProperFoInputTypes(List<DataType> inputTypes, List<String> inputValues) {
