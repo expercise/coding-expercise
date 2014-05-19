@@ -8,4 +8,8 @@ public abstract class AbstractEntity implements Serializable {
 
     public abstract void setId(Long id);
 
+    public boolean isPersisted() {
+        return getId() != null;
+    }
+
 }

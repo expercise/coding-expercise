@@ -1,5 +1,12 @@
 kodility.ChallengeManagement = {
 
+    constructor: function () {
+        var challengeModel = JSON.parse($('#challengeModel').val());
+        if (!jQuery.isEmptyObject(challengeModel)) {
+            this.prepareForUpdate(challengeModel);
+        }
+    },
+
     bindEvents: function () {
         $(document).on('click', '.removeInput', this.removeInputAction);
 
@@ -10,6 +17,26 @@ kodility.ChallengeManagement = {
         $('#addNewTestCase').click(this.addNewTestCaseAction);
 
         $('#saveButton').click(this.saveChallenge);
+    },
+
+    prepareForUpdate: function (challengeModel) {
+        $('input[name="title"]').each(function () {
+            var $that = $(this);
+            var lingo = $that.parent('div').data('lingo');
+            var title = challengeModel.titles.filter(function (element) {
+                return element.lingo == lingo;
+            })[0].text;
+            $that.val(title);
+        });
+
+        $('textarea[name="description"]').each(function () {
+            var $that = $(this);
+            var lingo = $that.parent('div').data('lingo');
+            var description = challengeModel.descriptions.filter(function (element) {
+                return element.lingo == lingo;
+            })[0].text;
+            $that.val(description);
+        });
     },
 
     removeInputAction: function () {

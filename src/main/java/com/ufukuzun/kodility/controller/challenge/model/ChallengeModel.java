@@ -2,14 +2,18 @@ package com.ufukuzun.kodility.controller.challenge.model;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
+import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class SaveChallengeRequest {
+public class ChallengeModel {
+
+    private long challengeId;
 
     private List<MultiLingoText> titles = new ArrayList<>();
 
@@ -20,6 +24,14 @@ public class SaveChallengeRequest {
     private DataType outputType;
 
     private List<TestCase> testCases = new ArrayList<>();
+
+    public long getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(long challengeId) {
+        this.challengeId = challengeId;
+    }
 
     public List<MultiLingoText> getDescriptions() {
         return descriptions;
@@ -104,11 +116,50 @@ public class SaveChallengeRequest {
         return challenge;
     }
 
+    public static ChallengeModel createFrom(Challenge challenge) {
+        ChallengeModel challengeModel = new ChallengeModel();
+
+        challengeModel.setChallengeId(challenge.getId());
+
+        for (Map.Entry<Lingo, String> eachTitle : challenge.getTitles().entrySet()) {
+            challengeModel.titles.add(new MultiLingoText(eachTitle.getKey(), eachTitle.getValue()));
+        }
+
+        for (Map.Entry<Lingo, String> eachDescription : challenge.getDescriptions().entrySet()) {
+            challengeModel.descriptions.add(new MultiLingoText(eachDescription.getKey(), eachDescription.getValue()));
+        }
+
+        for (ChallengeInputType eachInputType : challenge.getInputTypes()) {
+            challengeModel.inputTypes.add(eachInputType.getInputType());
+        }
+
+        for (com.ufukuzun.kodility.domain.challenge.TestCase eachTestCase : challenge.getTestCases()) {
+            TestCase testCase = new TestCase();
+            for (TestCaseInputValue eachInputValue : eachTestCase.getInputs()) {
+                testCase.getInputValues().add(eachInputValue.getInputValue());
+            }
+            testCase.setOutputValue(eachTestCase.getOutput());
+            challengeModel.getTestCases().add(testCase);
+        }
+
+        challengeModel.setOutputType(challenge.getOutputType());
+
+        return challengeModel;
+    }
+
     public static class MultiLingoText {
 
         private Lingo lingo;
 
         private String text;
+
+        public MultiLingoText() {
+        }
+
+        public MultiLingoText(Lingo lingo, String text) {
+            this.lingo = lingo;
+            this.text = text;
+        }
 
         public Lingo getLingo() {
             return lingo;

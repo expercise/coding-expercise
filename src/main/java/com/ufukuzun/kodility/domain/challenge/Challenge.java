@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.domain.challenge;
 
 import com.ufukuzun.kodility.domain.AbstractEntity;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 
@@ -41,6 +42,9 @@ public class Challenge extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Level level;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private User user;
 
     public Long getId() {
         return id;
@@ -99,6 +103,14 @@ public class Challenge extends AbstractEntity {
 
     public void setLevel(Level level) {
         this.level = level;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void addTestCase(TestCase testCase) {
