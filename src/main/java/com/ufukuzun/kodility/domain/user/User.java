@@ -8,7 +8,6 @@ import com.ufukuzun.kodility.enums.UserRole;
 import javax.persistence.*;
 
 @Entity
-@Table(name="user")
 public class User extends AbstractEntity {
 
     @Id
