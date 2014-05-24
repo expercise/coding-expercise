@@ -42,6 +42,11 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
                 addError(bindingResult, "currentUser", new String[]{"NotAuthorized.challenge.update"});
                 return false;
             }
+
+            if (currentUser.isNotAdmin() && isApproveStatusChanged(challengeModel, challenge)) {
+                addError(bindingResult, "currentUser", new String[]{"NotAuthorized.challenge.changeApproveStatus"});
+                return false;
+            }
         }
         return true;
     }
@@ -85,6 +90,10 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
 
     private boolean isModifierNotSameUserWithAuthor(Challenge challenge, User currentUser) {
         return !challenge.getUser().getId().equals(currentUser.getId());
+    }
+
+    private boolean isApproveStatusChanged(ChallengeModel challengeModel, Challenge challenge) {
+        return challengeModel.isApproved() != null && challenge.isApproved() != challengeModel.isApproved();
     }
 
     private boolean isInputValuesNotProperFoInputTypes(List<DataType> inputTypes, List<String> inputValues) {
