@@ -46,6 +46,8 @@ public class Challenge extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    private boolean approved;
+
     public Long getId() {
         return id;
     }
@@ -111,6 +113,14 @@ public class Challenge extends AbstractEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public void addTestCase(TestCase testCase) {

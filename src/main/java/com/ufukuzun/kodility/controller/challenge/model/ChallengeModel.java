@@ -25,6 +25,8 @@ public class ChallengeModel {
 
     private List<TestCase> testCases = new ArrayList<>();
 
+    private Boolean approved;
+
     public Long getChallengeId() {
         return challengeId;
     }
@@ -77,6 +79,14 @@ public class ChallengeModel {
         this.testCases = testCases;
     }
 
+    public Boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
     public String getTitleFor(Lingo lingo) {
         return filterByLingo(lingo, titles);
     }
@@ -120,6 +130,10 @@ public class ChallengeModel {
         for (TestCase testCase : testCases) {
             challenge.addTestCase(testCase.getInputValues(), testCase.outputValue);
         }
+
+        if (approved != null) {
+            challenge.setApproved(approved);
+        }
     }
 
     public static ChallengeModel createFrom(Challenge challenge) {
@@ -149,6 +163,8 @@ public class ChallengeModel {
         }
 
         challengeModel.setOutputType(challenge.getOutputType());
+
+        challengeModel.setApproved(challenge.isApproved());
 
         return challengeModel;
     }

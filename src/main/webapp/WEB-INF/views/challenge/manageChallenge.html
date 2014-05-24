@@ -143,6 +143,17 @@
         </div>
     </div>
 
+    <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+        <div class="col-xs-10">
+            <h3 th:text="#{challengeManagement.approvingTitle}"></h3>
+
+            <div class="checkbox">
+                <input id="approved" name="approved" type="checkbox"/>
+                <label th:text="#{challengeManagement.approved}" for="approved"></label>
+            </div>
+        </div>
+    </div>
+
     <input id="challengeModel" type="hidden" th:value="${challengeModel == null ? '{}' : challengeModel}"/>
     <input id="javaScriptModules" type="hidden" value="ChallengeManagement"/>
 </body>

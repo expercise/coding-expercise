@@ -62,6 +62,10 @@ kodility.ChallengeManagement = {
             });
             $($testCaseRows[testCaseIndex]).find('input[name="outputValue"]').val(challengeModel.testCases[testCaseIndex].outputValue);
         }
+
+        if (challengeModel.approved) {
+            $('input[name="approved"]').attr('checked', 'checked');
+        }
     },
 
     removeInputAction: function () {
@@ -188,6 +192,11 @@ kodility.ChallengeManagement = {
             inputTypes: inputTypes,
             outputType: outputType,
             testCases: testCases
+        }
+
+        var $approveCheckbox = $('input[name="approved"]');
+        if ($approveCheckbox.length == 1) {
+            requestData.approved = $('input[name="approved"]').is(':checked');
         }
 
         var loadingStateConfig = kodility.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});
