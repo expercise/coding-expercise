@@ -1,12 +1,15 @@
 package com.ufukuzun.kodility.controller.challenge;
 
+import com.ufukuzun.kodility.controller.RedirectUtil;
 import com.ufukuzun.kodility.controller.challenge.model.ChallengeModel;
 import com.ufukuzun.kodility.controller.challenge.model.SaveChallengeResponse;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ManagementMode;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
+import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.utils.JsonUtils;
 import com.ufukuzun.kodility.utils.validation.SaveChallengeValidator;
 import com.ufukuzun.kodility.utils.validation.ValidationUtils;
@@ -25,6 +28,9 @@ public class ChallengeManagementController {
 
     @Autowired
     private SaveChallengeValidator saveChallengeValidator;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @RequestMapping(value = "/addChallenge", method = RequestMethod.GET)
     public ModelAndView addChallengePage() {
@@ -48,9 +54,14 @@ public class ChallengeManagementController {
 
     @RequestMapping(value = "/updateChallenge/{challengeId}", method = RequestMethod.GET)
     public ModelAndView updateChallengePage(@PathVariable("challengeId") long challengeId) {
-        ModelAndView modelAndView = prepareChallengeManagementViewModel(ManagementMode.Update);
 
         Challenge challenge = challengeService.findById(challengeId);
+
+        if (isCurrentUserNotAuthorOrAdmin(challenge)) {
+            return RedirectUtil.redirectHome();
+        }
+
+        ModelAndView modelAndView = prepareChallengeManagementViewModel(ManagementMode.Update);
         modelAndView.addObject("challengeModel", JsonUtils.toJsonString(ChallengeModel.createFrom(challenge)));
 
         return modelAndView;
@@ -62,6 +73,11 @@ public class ChallengeManagementController {
         modelAndView.addObject("lingos", Lingo.values());
         modelAndView.addObject("dataTypes", DataType.values());
         return modelAndView;
+    }
+
+    private boolean isCurrentUserNotAuthorOrAdmin(Challenge challenge) {
+        User currentUser = authenticationService.getCurrentUser();
+        return !currentUser.getId().equals(challenge.getUser().getId()) || currentUser.isNotAdmin();
     }
 
 }

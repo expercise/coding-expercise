@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.controller.user;
 
+import com.ufukuzun.kodility.controller.RedirectUtil;
 import com.ufukuzun.kodility.controller.user.model.UserModel;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.Lingo;
@@ -41,7 +42,8 @@ public class RegistrationController {
 
         User user = userModel.createUser();
         userService.saveUser(user);
-        return new ModelAndView("redirect:/login?newMember");
+
+        return RedirectUtil.redirectLoginForNewMember();
     }
 
 }
