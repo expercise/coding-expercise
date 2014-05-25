@@ -77,7 +77,7 @@ public class ChallengeManagementController {
 
     private boolean isCurrentUserNotAuthorOrAdmin(Challenge challenge) {
         User currentUser = authenticationService.getCurrentUser();
-        return !currentUser.getId().equals(challenge.getUser().getId()) || currentUser.isNotAdmin();
+        return !currentUser.getId().equals(challenge.getUser().getId()) && currentUser.isNotAdmin();
     }
 
 }
