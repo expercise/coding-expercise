@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static com.ufukuzun.kodility.testutils.asserts.Asserts.assertExpectedItems;
+import static com.ufukuzun.kodility.testutils.asserts.Asserts.assertNotExpectedItems;
 
 public class ChallengeDaoTest extends AbstractDaoTest {
 
@@ -29,9 +29,8 @@ public class ChallengeDaoTest extends AbstractDaoTest {
 
         List<Challenge> resultList = dao.findAllApproved();
 
-        assertThat(resultList, hasSize(2));
-        assertThat(resultList, hasItems(challenge1, challenge3));
-        assertThat(resultList, not(hasItem(challenge2)));
+        assertExpectedItems(resultList, challenge1, challenge3);
+        assertNotExpectedItems(resultList, challenge2);
     }
 
 }
