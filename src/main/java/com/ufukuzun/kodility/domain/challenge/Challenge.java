@@ -119,6 +119,10 @@ public class Challenge extends AbstractEntity {
         return approved;
     }
 
+    public boolean isNotApproved() {
+        return !isApproved();
+    }
+
     public void setApproved(boolean approved) {
         this.approved = approved;
     }

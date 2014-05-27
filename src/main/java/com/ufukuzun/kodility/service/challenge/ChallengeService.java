@@ -25,8 +25,8 @@ public class ChallengeService {
     @Autowired
     private AuthenticationService authenticationService;
 
-    public List<Challenge> findAll() {
-        return challengeDao.findAll();
+    public List<Challenge> findAllApproved() {
+        return challengeDao.findAllApproved();
     }
 
     public Challenge findById(Long id) {

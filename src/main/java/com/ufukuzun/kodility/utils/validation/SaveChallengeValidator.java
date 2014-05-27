@@ -89,7 +89,7 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
     }
 
     private boolean isModifierNotSameUserWithAuthor(Challenge challenge, User currentUser) {
-        return !challenge.getUser().getId().equals(currentUser.getId());
+        return !challenge.getUser().equals(currentUser);
     }
 
     private boolean isApproveStatusChanged(ChallengeModel challengeModel, Challenge challenge) {

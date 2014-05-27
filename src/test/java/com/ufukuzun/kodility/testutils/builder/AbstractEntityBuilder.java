@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.testutils.builder;
 
 import com.ufukuzun.kodility.domain.AbstractEntity;
+import org.hibernate.Session;
 
 import java.util.Random;
 
@@ -25,6 +26,12 @@ public abstract class AbstractEntityBuilder<T extends AbstractEntity, B extends 
     public B id(Long id) {
         this.id = id;
         return (B) this;
+    }
+
+    public T persist(Session session) {
+        T entity = build();
+        session.persist(entity);
+        return entity;
     }
 
 }

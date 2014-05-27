@@ -4,16 +4,17 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.enums.UserRole;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class UserBuilder extends AbstractEntityBuilder<User, UserBuilder> {
 
-    private String firstName;
+    private String firstName = RandomStringUtils.random(5);
 
-    private String lastName;
+    private String lastName = RandomStringUtils.random(5);
 
-    private String email;
+    private String email = RandomStringUtils.random(5);
 
-    private String password;
+    private String password = RandomStringUtils.random(5);
 
     private UserRole userRole = UserRole.User;
 
