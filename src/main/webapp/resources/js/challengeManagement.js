@@ -19,6 +19,10 @@ kodility.ChallengeManagement = {
         $('#addNewTestCase').click(this.addNewTestCaseAction);
 
         $('#saveButton').click(this.saveChallenge);
+
+        $('#manageChallengeButtons').scrollToFixed({
+            marginTop: 10 - parseInt($('#saveButton').css('margin-top').replace('px', ''))
+        });
     },
 
     prepareForUpdate: function (challengeModel) {
