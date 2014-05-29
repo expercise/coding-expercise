@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/challenges")
 public class ChallengeController {
@@ -29,16 +27,6 @@ public class ChallengeController {
 
     @Autowired
     private AuthenticationService authenticationService;
-
-    @RequestMapping
-    public ModelAndView listChallenges() {
-        ModelAndView modelAndView = new ModelAndView("challenge/challengeList");
-        List<Challenge> challenges = challengeService.findAllApproved();
-
-        modelAndView.addObject("challenges", challenges);
-
-        return modelAndView;
-    }
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {

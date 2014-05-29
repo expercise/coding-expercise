@@ -47,7 +47,7 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
         return (T) criteria.uniqueResult();
     }
 
-    public T findOneBy(Map<String, Object> restrictions) {
+    protected T findOneBy(Map<String, Object> restrictions) {
         return (T) getCriteria(restrictions).uniqueResult();
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
         return list(getCriteria());
     }
 
-    public List<T> findAllBy(Map<String, Object> restrictions) {
+    protected List<T> findAllBy(Map<String, Object> restrictions) {
         return list(getCriteria(restrictions));
     }
 

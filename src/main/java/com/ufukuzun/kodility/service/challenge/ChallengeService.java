@@ -29,6 +29,14 @@ public class ChallengeService {
         return challengeDao.findAllApproved();
     }
 
+    public List<Challenge> findAllChallengesOfUser() {
+        return challengeDao.findAllByUser(authenticationService.getCurrentUser());
+    }
+
+    public List<Challenge> findAll() {
+        return challengeDao.findAll();
+    }
+
     public Challenge findById(Long id) {
         return challengeDao.findOne(id);
     }

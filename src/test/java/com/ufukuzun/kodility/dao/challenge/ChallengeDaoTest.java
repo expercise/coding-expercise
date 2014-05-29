@@ -33,4 +33,20 @@ public class ChallengeDaoTest extends AbstractDaoTest {
         assertNotExpectedItems(resultList, challenge2);
     }
 
+    @Test
+    public void shouldFindAllByUser() {
+        User user1 = new UserBuilder().persist(getCurrentSession());
+        User user2 = new UserBuilder().persist(getCurrentSession());
+        Challenge challenge1 = new ChallengeBuilder().user(user2).persist(getCurrentSession());
+        Challenge challenge2 = new ChallengeBuilder().user(user1).persist(getCurrentSession());
+        Challenge challenge3 = new ChallengeBuilder().user(user1).persist(getCurrentSession());
+
+        flushAndClear();
+
+        List<Challenge> resultList = dao.findAllByUser(user1);
+
+        assertExpectedItems(resultList, challenge2, challenge3);
+        assertNotExpectedItems(resultList, challenge1);
+    }
+
 }

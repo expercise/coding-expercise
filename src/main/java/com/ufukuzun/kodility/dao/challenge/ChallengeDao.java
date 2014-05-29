@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.dao.challenge;
 
 import com.ufukuzun.kodility.dao.AbstractHibernateDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -17,6 +18,12 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
     public List<Challenge> findAllApproved() {
         return findAllBy(new HashMap<String, Object>() {{
             put("approved", true);
+        }});
+    }
+
+    public List<Challenge> findAllByUser(final User user) {
+        return findAllBy(new HashMap<String, Object>() {{
+            put("user", user);
         }});
     }
 
