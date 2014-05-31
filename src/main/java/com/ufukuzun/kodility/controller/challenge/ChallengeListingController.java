@@ -19,31 +19,19 @@ public class ChallengeListingController {
     @RequestMapping("/challenges")
     public ModelAndView listChallenges() {
         List<Challenge> challenges = challengeService.findAllApproved();
-
-        String mode = ChallengeListingMode.ForAll.name();
-        ModelAndView modelAndView = prepareModelAndViewForListing(challenges, mode);
-
-        return modelAndView;
+        return prepareModelAndViewForListing(challenges, ChallengeListingMode.ForAll.name());
     }
 
     @RequestMapping("/challenges/myChallenges")
     public ModelAndView listChallengesOfUser() {
         List<Challenge> challenges = challengeService.findAllChallengesOfUser();
-
-        String mode = ChallengeListingMode.User.name();
-        ModelAndView modelAndView = prepareModelAndViewForListing(challenges, mode);
-
-        return modelAndView;
+        return prepareModelAndViewForListing(challenges, ChallengeListingMode.User.name());
     }
 
     @RequestMapping("/manage/challenges")
     public ModelAndView listChallengesForAdmin() {
         List<Challenge> challenges = challengeService.findAll();
-
-        String mode = ChallengeListingMode.Admin.name();
-        ModelAndView modelAndView = prepareModelAndViewForListing(challenges, mode);
-
-        return modelAndView;
+        return prepareModelAndViewForListing(challenges, ChallengeListingMode.Admin.name());
     }
 
     private ModelAndView prepareModelAndViewForListing(List<Challenge> challenges, String mode) {
