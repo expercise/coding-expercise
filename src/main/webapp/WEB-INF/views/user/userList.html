@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+    <legend th:text="#{userList.header}"></legend>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th th:text="#{label.email}"></th>
+                <th th:text="#{label.firstName}"></th>
+                <th th:text="#{label.lastName}"></th>
+                <th th:text="#{userList.table.header.userType}"></th>
+                <th th:text="#{userList.table.header.favoriteLanguage}"></th>
+                <th th:text="#{userList.table.header.lingo}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td>
+                    <a th:href="'mailto:' + ${user.email}" th:text="${user.email}" target="_blank"></a>
+                </td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${#messages.msg(user.userRole.name())}"></td>
+                <td th:text="${user.programmingLanguage}"></td>
+                <td th:text="${#messages.msg(user.lingo.name())}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
