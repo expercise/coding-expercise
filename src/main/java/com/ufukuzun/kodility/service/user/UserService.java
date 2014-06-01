@@ -6,6 +6,8 @@ import com.ufukuzun.kodility.utils.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -26,6 +28,10 @@ public class UserService {
 
     public boolean emailNotRegisteredYet(String email) {
         return findByEmail(email) == null;
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 
 }

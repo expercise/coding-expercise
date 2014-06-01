@@ -40,6 +40,14 @@
                         </a>
                     </li>
 
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="divider"></li>
+
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/manage/users}">
+                            <span th:text="#{label.menu.manageUsers}"></span>
+                        </a>
+                    </li>
+
                     <li class="divider"></li>
 
                     <li th:if="${#authorization.expression('isAuthenticated()')}">
