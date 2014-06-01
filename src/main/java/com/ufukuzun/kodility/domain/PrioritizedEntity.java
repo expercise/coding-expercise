@@ -1,13 +1,16 @@
 package com.ufukuzun.kodility.domain;
 
+import com.ufukuzun.kodility.service.util.Prioritized;
+
 import javax.persistence.MappedSuperclass;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class PrioritisedEntity extends AbstractEntity {
+public abstract class PrioritizedEntity extends AbstractEntity implements Prioritized {
 
     private int priority;
 
+    @Override
     public int getPriority() {
         return priority;
     }
@@ -16,9 +19,9 @@ public abstract class PrioritisedEntity extends AbstractEntity {
         this.priority = priority;
     }
 
-    public static <T extends PrioritisedEntity> void prioritise(List<T> prioritisedEntityList) {
+    public static <T extends PrioritizedEntity> void prioritize(List<T> prioritizedEntityList) {
         int priority = 1;
-        for (T each : prioritisedEntityList) {
+        for (T each : prioritizedEntityList) {
             each.setPriority(priority);
             priority++;
         }

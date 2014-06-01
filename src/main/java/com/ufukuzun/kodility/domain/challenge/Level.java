@@ -1,13 +1,13 @@
 package com.ufukuzun.kodility.domain.challenge;
 
-import com.ufukuzun.kodility.domain.PrioritisedEntity;
+import com.ufukuzun.kodility.domain.PrioritizedEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Level extends PrioritisedEntity {
+public class Level extends PrioritizedEntity {
 
     @Id
     @GeneratedValue

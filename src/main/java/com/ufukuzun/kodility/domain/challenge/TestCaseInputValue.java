@@ -1,13 +1,13 @@
 package com.ufukuzun.kodility.domain.challenge;
 
-import com.ufukuzun.kodility.domain.PrioritisedEntity;
+import com.ufukuzun.kodility.domain.PrioritizedEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class TestCaseInputValue extends PrioritisedEntity {
+public class TestCaseInputValue extends PrioritizedEntity {
 
     @Id
     @GeneratedValue
@@ -50,7 +50,7 @@ public class TestCaseInputValue extends PrioritisedEntity {
             testCaseInputValue.setInputValue(inputValue);
             testCaseInputValues.add(testCaseInputValue);
         }
-        PrioritisedEntity.prioritise(testCaseInputValues);
+        PrioritizedEntity.prioritize(testCaseInputValues);
         return testCaseInputValues;
     }
 

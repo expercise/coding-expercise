@@ -1,6 +1,6 @@
 package com.ufukuzun.kodility.domain.challenge;
 
-import com.ufukuzun.kodility.domain.PrioritisedEntity;
+import com.ufukuzun.kodility.domain.PrioritizedEntity;
 import com.ufukuzun.kodility.enums.DataType;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class ChallengeInputType extends PrioritisedEntity {
+public class ChallengeInputType extends PrioritizedEntity {
 
     @Id
     @GeneratedValue
@@ -51,7 +51,7 @@ public class ChallengeInputType extends PrioritisedEntity {
             challengeInputType.setInputType(inputType);
             challengeInputTypes.add(challengeInputType);
         }
-        PrioritisedEntity.prioritise(challengeInputTypes);
+        PrioritizedEntity.prioritize(challengeInputTypes);
         return challengeInputTypes;
     }
 
