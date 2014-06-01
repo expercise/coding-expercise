@@ -1,10 +1,14 @@
 package com.ufukuzun.kodility.service.challenge.action;
 
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
+import com.ufukuzun.kodility.service.util.PriorityComparator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -14,8 +18,17 @@ public class PostEvaluationExecutor implements ApplicationContextAware {
 
     public void execute(ChallengeEvaluationContext context) {
         Map<String, PostEvaluationAction> actions = applicationContext.getBeansOfType(PostEvaluationAction.class);
-        for (Map.Entry<String, PostEvaluationAction> action : actions.entrySet()) {
-            action.getValue().execute(context);
+
+        List<PostEvaluationAction> actionList = new ArrayList<>();
+        for (PostEvaluationAction action : actions.values()) {
+            if (action.canExecute(context)) {
+                actionList.add(action);
+            }
+        }
+
+        Collections.sort(actionList, PriorityComparator.getInstance());
+        for (PostEvaluationAction postEvaluationAction : actionList) {
+            postEvaluationAction.execute(context);
         }
     }
 

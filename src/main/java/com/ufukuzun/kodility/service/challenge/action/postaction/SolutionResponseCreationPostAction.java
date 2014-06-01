@@ -15,6 +15,11 @@ public class SolutionResponseCreationPostAction implements PostEvaluationAction 
     private MessageService messageService;
 
     @Override
+    public boolean canExecute(ChallengeEvaluationContext context) {
+        return true;
+    }
+
+    @Override
     public void execute(ChallengeEvaluationContext context) {
         SolutionValidationResult result;
 
@@ -26,6 +31,11 @@ public class SolutionResponseCreationPostAction implements PostEvaluationAction 
         }
 
         context.setSolutionValidationResult(result);
+    }
+
+    @Override
+    public int getPriority() {
+        return 1;
     }
 
 }

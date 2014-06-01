@@ -25,6 +25,11 @@ public class SolutionResponseCreationPostActionTest {
     private MessageService messageService;
 
     @Test
+    public void shouldExecuteEveryTime() {
+        assertTrue(action.canExecute(new ChallengeEvaluationContext()));
+    }
+
+    @Test
     public void shouldCreateSuccessResponseWhenInterpreterResultIsSuccess() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
