@@ -23,6 +23,10 @@ public class AuthenticationService {
         return null;
     }
 
+    public String getCurrentUsersEmail() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     private boolean isNotAnonymousUser(Collection<? extends GrantedAuthority> authorities) {
         for (GrantedAuthority authority : authorities) {
             if (!authority.getAuthority().equals("ROLE_ANONYMOUS")) {

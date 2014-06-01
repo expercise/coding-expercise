@@ -9,26 +9,57 @@
                 </h2>
             </div>
 
-            <div id="langSelectContainer" class="col-xs-6">
-                <span> ‹ </span>
-                <a class="lingo" th:href="@{?lingopref=tr}">Tr</a>
-                <span> · </span>
-                <a class="lingo" th:href="@{?lingopref=en}">En</a>
-                <span> › </span>
+            <div id="userMenu" class="col-xs-6">
+                <a data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span th:text="${#authorization.expression('isAuthenticated()')} ? ${@authenticationService.currentUsersEmail} : #{label.menu}"></span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li>
+                        <a th:href="@{/challenges}" th:text="#{button.start}"></a>
+                    </li>
 
-                <br />
+                    <li class="divider"></li>
 
-                <div th:if="${#authorization.expression('isAuthenticated()')}">
-                    <a th:href="@{/challenges}" th:text="#{button.start}"></a>
-                    <span> · </span>
-                    <a th:href="@{/logout}" th:text="#{button.logout}"></a>
-                </div>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/manage/challenges}">
+                            <span th:text="#{label.menu.manageChallenges}"></span>
+                        </a>
+                    </li>
 
-                <div th:unless="${#authorization.expression('isAuthenticated()')}">
-                    <a th:href="@{/login}" th:text="#{button.login}"></a>
-                    <span> · </span>
-                    <a th:href="@{/register}" th:text="#{button.register}"></a>
-                </div>
+                    <li>
+                        <a th:href="@{/challenges/myChallenges}">
+                            <span th:text="#{label.menu.myChallenges}"></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/challenges/addChallenge}">
+                            <span th:text="#{label.menu.addNewChallenge}"></span>
+                        </a>
+                    </li>
+
+                    <li class="divider"></li>
+
+                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/logout}" th:text="#{button.logout}"></a>
+                    </li>
+
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/login}" th:text="#{button.login}"></a>
+                    </li>
+                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                        <a th:href="@{/register}" th:text="#{button.register}"></a>
+                    </li>
+
+                    <li id="lingoSelection">
+                        <div class="btn-group">
+                            <a class="btn btn-default" th:href="@{?lingopref=tr}">Türkçe</a>
+                            <a class="btn btn-default" th:href="@{?lingopref=en}">English</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
