@@ -4,16 +4,17 @@ import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.service.challenge.action.PostEvaluationExecutor;
+import com.ufukuzun.kodility.service.challenge.action.PreEvaluationExecutor;
+import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
-import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.beans.Introspector;
 
 @Service
 public class SolutionValidationService implements ApplicationContextAware {
@@ -22,31 +23,45 @@ public class SolutionValidationService implements ApplicationContextAware {
     private ChallengeService challengeService;
 
     @Autowired
-    private MessageService messageService;
+    private PreEvaluationExecutor preEvaluationExecutor;
+
+    @Autowired
+    private PostEvaluationExecutor postEvaluationExecutor;
 
     private ApplicationContext applicationContext;
 
     public SolutionValidationResult validateSolution(SolutionFromUser solutionFromUser) {
+        ChallengeEvaluationContext context = createEvaluationContextFrom(solutionFromUser);
+
+        preEvaluationExecutor.execute(context);
+        interpret(context);
+        postEvaluationExecutor.execute(context);
+
+        return context.getSolutionValidationResult();
+    }
+
+    private ChallengeEvaluationContext createEvaluationContextFrom(SolutionFromUser solutionFromUser) {
         Challenge challenge = challengeService.findById(solutionFromUser.getChallengeId());
-        Interpreter interpreter = findInterpreterFor(solutionFromUser.getProgrammingLanguage());
+        ChallengeEvaluationContext challengeEvaluationContext = new ChallengeEvaluationContext();
+        challengeEvaluationContext.setChallenge(challenge);
+        challengeEvaluationContext.setSource(solutionFromUser.getSolution());
+        challengeEvaluationContext.setLanguage(solutionFromUser.getProgrammingLanguage());
+        return challengeEvaluationContext;
+    }
 
-        InterpreterResult resultForUser = interpreter.interpret(solutionFromUser.getSolution(), challenge);
-        if (resultForUser.isSuccess()) {
-            return SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
-        }
-
-        return SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));
+    private void interpret(ChallengeEvaluationContext context) {
+        Interpreter interpreter = findInterpreterFor(context.getLanguage());
+        interpreter.interpret(context);
     }
 
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {
-        Map<String, Interpreter> interpreters = applicationContext.getBeansOfType(Interpreter.class);
-        for (Interpreter interpreter : interpreters.values()) {
-            if (interpreter.canInterpret(programmingLanguage)) {
-                return interpreter;
-            }
+        try {
+            String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
+            Interpreter interpreter = (Interpreter) applicationContext.getBean(interpreterBeanName);
+            return interpreter;
+        } catch (BeansException e) {
+            throw new IllegalArgumentException("Unsupported programming language: " + programmingLanguage);
         }
-
-        throw new IllegalArgumentException("Unsupported programming language: " + programmingLanguage);
     }
 
     @Override

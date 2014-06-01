@@ -3,9 +3,9 @@ package com.ufukuzun.kodility.interpreter.javascript;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
-import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,18 +23,18 @@ public class JavaScriptInterpreter implements Interpreter {
     private MessageService messageService;
 
     @Override
-    public boolean canInterpret(ProgrammingLanguage programmingLanguage) {
-        return ProgrammingLanguage.JavaScript == programmingLanguage;
-    }
+    public void interpret(ChallengeEvaluationContext context) {
+        Challenge challenge = context.getChallenge();
+        String source = context.getSource();
 
-    @Override
-    public InterpreterResult interpret(String source, Challenge challenge) {
         ScriptEngine javaScriptEngine = getScriptEngine();
 
         try {
             javaScriptEngine.eval(source);
         } catch (ScriptException e) {
-            return InterpreterResult.createFailedResult(prepareErrorMessage(e));
+            InterpreterResult failedResult = InterpreterResult.createFailedResult(prepareErrorMessage(e));
+            context.setInterpreterResult(failedResult);
+            return;
         }
 
         List<TestCase> testCases = challenge.getTestCases();
@@ -44,7 +44,9 @@ public class JavaScriptInterpreter implements Interpreter {
                 Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
 
                 if (evaluationResult == null) {
-                    return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                    InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                    context.setInterpreterResult(failedResult);
+                    return;
                 }
 
                 boolean testCaseFailed = false;
@@ -59,14 +61,19 @@ public class JavaScriptInterpreter implements Interpreter {
                 }
 
                 if (testCaseFailed) {
-                    return InterpreterResult.createFailedResult("");
+                    InterpreterResult failedResult = InterpreterResult.createFailedResult("");
+                    context.setInterpreterResult(failedResult);
+                    return;
                 }
             } catch (Exception e) {
-                return InterpreterResult.createFailedResult("");
+                InterpreterResult failedResult = InterpreterResult.createFailedResult("");
+                context.setInterpreterResult(failedResult);
+                return;
             }
         }
 
-        return InterpreterResult.createSuccessResult("");
+        InterpreterResult successResult = InterpreterResult.createSuccessResult("");
+        context.setInterpreterResult(successResult);
     }
 
     private ScriptEngine getScriptEngine() {

@@ -5,7 +5,7 @@ import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import com.ufukuzun.kodility.testutils.InterpreterTestUtils;
 import org.junit.Test;
@@ -17,8 +17,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,12 +36,16 @@ public class PythonInterpreterTest {
     public void shouldSendErrorMessageWhenThereIsSyntaxError() {
         Challenge challenge = new Challenge();
 
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setSource("def foo(a, b): Keturn a -+ b;");
+        context.setChallenge(challenge);
+
         when(messageService.getMessage("interpreter.syntaxError")).thenReturn("Syntax Error");
 
-        InterpreterResult result = interpreter.interpret("def foo(a, b): Keturn a -+ b;", challenge);
+        interpreter.interpret(context);
 
-        assertFalse(result.isSuccess());
-        assertThat(result.getResult(), equalTo("Syntax Error"));
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getResult(), equalTo("Syntax Error"));
     }
 
     @Test
@@ -65,9 +71,11 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -91,9 +99,11 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -128,9 +138,11 @@ public class PythonInterpreterTest {
         challenge.addTestCase(testCase1);
         challenge.addTestCase(testCase2);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -156,9 +168,11 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(concatSolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, concatSolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -184,10 +198,12 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(concatSolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, concatSolution);
 
-        assertFalse(interpreterResult.isSuccess());
-        assertThat(interpreterResult.getResult(), equalTo("global name 'BB' is not defined"));
+        interpreter.interpret(context);
+
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getResult(), equalTo("global name 'BB' is not defined"));
     }
 
     @Test
@@ -211,9 +227,11 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(solution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -229,9 +247,18 @@ public class PythonInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(solution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
+    }
+
+    private ChallengeEvaluationContext createContext(Challenge challenge, String source) {
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(challenge);
+        context.setSource(source);
+        return context;
     }
 
 }

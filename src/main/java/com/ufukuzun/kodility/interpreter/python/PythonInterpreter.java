@@ -3,9 +3,9 @@ package com.ufukuzun.kodility.interpreter.python;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
-import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.python.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,21 +24,21 @@ public class PythonInterpreter implements Interpreter {
 
     org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
 
-    @Override
-    public boolean canInterpret(ProgrammingLanguage programmingLanguage) {
-        return ProgrammingLanguage.Python == programmingLanguage;
-    }
-
     Map<DataType, Class<? extends PyObject>> typeMap = new HashMap<DataType, Class<? extends PyObject>>() {{
         put(DataType.Integer, PyInteger.class);
         put(DataType.Text, PyString.class);
     }};
 
-    public InterpreterResult interpret(String source, Challenge challenge) {
+    @Override
+    public void interpret(ChallengeEvaluationContext context) {
+        Challenge challenge = context.getChallenge();
+        String source = context.getSource();
         try {
             pythonInterpreter.exec(source);
         } catch (PySyntaxError e) {
-            return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.syntaxError"));
+            InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.syntaxError"));
+            context.setInterpreterResult(failedResult);
+            return;
         }
 
         PyStringMap locals = (PyStringMap) pythonInterpreter.getLocals();
@@ -57,7 +57,9 @@ public class PythonInterpreter implements Interpreter {
         }
 
         if (funcToCall == null) {
-            return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+            InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+            context.setInterpreterResult(failedResult);
+            return;
         }
 
         List<TestCase> testCases = challenge.getTestCases();
@@ -79,14 +81,18 @@ public class PythonInterpreter implements Interpreter {
                     Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
                     pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
                 } catch (Exception e) {
-                    return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                    InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                    context.setInterpreterResult(failedResult);
+                    return;
                 }
             }
 
             try {
                 resultObject = funcToCall.__call__(pyObjects);
             } catch (PyException e) {
-                return InterpreterResult.createFailedResult(e.value.asString());
+                InterpreterResult failedResult = InterpreterResult.createFailedResult(e.value.asString());
+                context.setInterpreterResult(failedResult);
+                return;
             }
 
             Object value = null;
@@ -98,12 +104,15 @@ public class PythonInterpreter implements Interpreter {
             }
 
             if (!challenge.getOutputType().convert(testCase.getOutput()).equals(value)) {
-                return InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
+                context.setInterpreterResult(failedResult);
+                return;
             }
 
         }
 
-        return InterpreterResult.createSuccessResult(resultObject.toString());
+        InterpreterResult successResult = InterpreterResult.createSuccessResult(resultObject.toString());
+        context.setInterpreterResult(successResult);
     }
 
 }

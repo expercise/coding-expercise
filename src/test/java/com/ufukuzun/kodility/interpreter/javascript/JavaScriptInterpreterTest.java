@@ -5,7 +5,7 @@ import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +16,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.assertFalse;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -53,9 +53,13 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(challenge);
+        context.setSource(sumSolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -81,17 +85,22 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumSolution, challenge);
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(challenge);
+        context.setSource(sumSolution);
 
-        assertFalse(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertFalse(context.getInterpreterResult().isSuccess());
     }
 
     @Test
     public void shouldReturnExceptionMessageIfEvaluationCauseAnException() {
-        InterpreterResult result = interpreter.interpret("fuNksin fuu(){}", new Challenge());
+        ChallengeEvaluationContext context = createContext(new Challenge(), "fuNksin fuu(){}");
+        interpreter.interpret(context);
 
-        assertFalse(result.isSuccess());
-        assertThat(result.getResult(), equalTo("missing ; before statement (solution.js#1) in solution.js at line number 1"));
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getResult(), equalTo("missing ; before statement (solution.js#1) in solution.js at line number 1"));
     }
 
     @Test
@@ -115,9 +124,11 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult result = interpreter.interpret("function solution(a, b) {}", challenge);
+        ChallengeEvaluationContext context = createContext(challenge, "function solution(a, b) {}");
 
-        assertFalse(result.isSuccess());
+        interpreter.interpret(context);
+
+        assertFalse(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -141,9 +152,11 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(sumsolution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, sumsolution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
     }
 
     @Test
@@ -159,9 +172,18 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        InterpreterResult interpreterResult = interpreter.interpret(solution, challenge);
+        ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        assertTrue(interpreterResult.isSuccess());
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
+    }
+
+    private ChallengeEvaluationContext createContext(Challenge challenge, String source) {
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(challenge);
+        context.setSource(source);
+        return context;
     }
 
 }

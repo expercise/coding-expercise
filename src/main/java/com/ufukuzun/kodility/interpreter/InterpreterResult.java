@@ -35,12 +35,4 @@ public class InterpreterResult {
         this.success = success;
     }
 
-    public boolean isValidResult(InterpreterResult other) {
-        return this.isSuccess() && other.isSuccess() && this.getResult().equals(other.getResult());
-    }
-
-    public boolean isNotValidResult(InterpreterResult other) {
-        return !isValidResult(other);
-    }
-
 }
