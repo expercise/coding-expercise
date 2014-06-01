@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SolutionResponseCreator implements PostEvaluationAction {
+public class SolutionResponseCreationPostAction implements PostEvaluationAction {
 
     @Autowired
     private MessageService messageService;
