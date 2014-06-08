@@ -3,16 +3,16 @@ package com.ufukuzun.kodility.enums;
 public enum UserRole {
 
     User("ROLE_USER"),
-    Admin("ROLE_ADMIN");
+    Admin("ROLE_USER", "ROLE_ADMIN");
 
-    private String role;
+    private String[] authorities;
 
-    private UserRole(String role) {
-        this.role = role;
+    private UserRole(String... authorities) {
+        this.authorities = authorities;
     }
 
-    public String getRole() {
-        return role;
+    public String[] getAuthorities() {
+        return authorities;
     }
 
 }
