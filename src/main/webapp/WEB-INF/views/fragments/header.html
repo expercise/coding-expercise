@@ -20,6 +20,10 @@
                         <a th:href="@{/challenges}" th:text="#{button.start}"></a>
                     </li>
 
+                    <li>
+                        <a th:href="@{/profile}" th:text="#{label.menu.profile}"></a>
+                    </li>
+
                     <li class="divider"></li>
 
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
@@ -57,6 +61,7 @@
                     <li th:unless="${#authorization.expression('isAuthenticated()')}">
                         <a th:href="@{/login}" th:text="#{button.login}"></a>
                     </li>
+
                     <li th:unless="${#authorization.expression('isAuthenticated()')}">
                         <a th:href="@{/register}" th:text="#{button.register}"></a>
                     </li>

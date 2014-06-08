@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+    <legend th:text="${user.fullName}"></legend>
+
+    <p th:text="${user.email}"></p>
+</body>
+</html>

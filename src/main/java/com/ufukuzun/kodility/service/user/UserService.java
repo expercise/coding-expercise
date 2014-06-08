@@ -26,6 +26,10 @@ public class UserService {
         return userDao.findByEmail(email);
     }
 
+    public User findById(long id) {
+        return userDao.findOne(id);
+    }
+
     public boolean emailNotRegisteredYet(String email) {
         return findByEmail(email) == null;
     }
