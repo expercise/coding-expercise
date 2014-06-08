@@ -46,6 +46,7 @@ public class Challenge extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN")
     private boolean approved;
 
     public Long getId() {
