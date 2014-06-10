@@ -1,7 +1,7 @@
 kodility
 ========
 
-#### Status [![Build Status](https://travis-ci.org/ufukuzun/kodility.png)](https://travis-ci.org/ufukuzun/kodility)
+[![Build Status](https://api.travis-ci.org/ufukuzun/kodility.png?branch=master)]
 
 Challenges for champion developers.
 
