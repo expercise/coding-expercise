@@ -25,6 +25,7 @@ public class Solution extends AbstractEntity {
     private ProgrammingLanguage programmingLanguage;
 
     @Column(nullable = false)
+    @Lob
     private String solution;
 
     @Temporal(TemporalType.TIMESTAMP)
