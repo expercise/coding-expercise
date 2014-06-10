@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class ConfigurationMap {
 
     private static final Map<String, String> map = new ConcurrentHashMap<String, String>() {{
-        put("challenge.defaultpointamount", "10");
     }};
 
 

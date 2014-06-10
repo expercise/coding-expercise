@@ -5,7 +5,6 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.configuration.ConfigurationService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
@@ -32,15 +31,13 @@ public class GiveSuccessPointPostActionTest {
     @Mock
     private AuthenticationService authenticationService;
 
-    @Mock
-    private ConfigurationService configurationService;
-
     @Test
     public void shouldGiveUserPointWhenEvaluationIsSucceed() {
         InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
+        context.setChallenge(new ChallengeBuilder().id(1L).approved(true).build());
 
         User user = new UserBuilder().id(1L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
@@ -75,7 +72,7 @@ public class GiveSuccessPointPostActionTest {
     }
 
     @Test
-    public void shouldGiveUserTenPointsWhenEvaluationIsSucceed() {
+    public void shouldGiveUserChallengePointWhenEvaluationIsSucceed() {
         InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();

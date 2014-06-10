@@ -4,7 +4,6 @@ import com.ufukuzun.kodility.dao.challenge.UserPointDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.UserPoint;
 import com.ufukuzun.kodility.domain.user.User;
-import com.ufukuzun.kodility.service.configuration.ConfigurationService;
 import com.ufukuzun.kodility.utils.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +15,21 @@ public class UserPointService {
     @Autowired
     private UserPointDao userPointDao;
 
-    @Autowired
-    private ConfigurationService configurationService;
-
     @Transactional
     public void givePoint(Challenge challenge, User user) {
         UserPoint userPoint = new UserPoint();
         userPoint.setChallenge(challenge);
         userPoint.setUser(user);
-        userPoint.setPointAmount(configurationService.getValueAsInteger("challenge.defaultpointamount"));
+        userPoint.setPointAmount(challenge.getPoint());
         userPoint.setGivenDate(Clock.getTime());
         userPointDao.save(userPoint);
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user) {
+        if (challenge.isNotApproved()) {
+            return false;
+        }
+
         UserPoint foundPoint = userPointDao.findByChallengeAndUser(challenge, user);
         if (foundPoint == null) {
             return true;

@@ -1,12 +1,12 @@
 package com.ufukuzun.kodility.service.challenge.action.postaction;
 
+import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationAction;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
-import com.ufukuzun.kodility.service.configuration.ConfigurationService;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,6 @@ public class SolutionResponseCreationPostAction implements PostEvaluationAction 
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private ConfigurationService configurationService;
-
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
         return true;
@@ -38,12 +35,12 @@ public class SolutionResponseCreationPostAction implements PostEvaluationAction 
 
         InterpreterResult interpreterResult = context.getInterpreterResult();
         if (interpreterResult.isSuccess()) {
-            int pointAmount = configurationService.getValueAsInteger("challenge.defaultpointamount");
             User user = authenticationService.getCurrentUser();
-            if (userPointService.canUserWinPoint(context.getChallenge(), user)) {
-                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success", pointAmount));
+            Challenge challenge = context.getChallenge();
+            if (userPointService.canUserWinPoint(challenge, user)) {
+                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successwithpoint", challenge.getPoint()));
             } else {
-                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successbutcannotwinpoint"));
+                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
             }
         } else {
             result = SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));

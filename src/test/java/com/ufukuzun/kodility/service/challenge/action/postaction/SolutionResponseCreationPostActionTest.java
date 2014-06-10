@@ -5,7 +5,6 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.configuration.ConfigurationService;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
@@ -38,21 +37,17 @@ public class SolutionResponseCreationPostActionTest {
     @Mock
     private AuthenticationService authenticationService;
 
-    @Mock
-    private ConfigurationService configurationService;
-
     private ChallengeEvaluationContext context;
     private User user;
 
     @Before
     public void init() {
         context = new ChallengeEvaluationContext();
-        Challenge challenge = new ChallengeBuilder().id(1L).user(new UserBuilder().id(2L).build()).build();
+        Challenge challenge = new ChallengeBuilder().id(1L).point(22).user(new UserBuilder().id(2L).build()).build();
         context.setChallenge(challenge);
 
         user = new UserBuilder().id(3L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(configurationService.getValueAsInteger("challenge.defaultpointamount")).thenReturn(10);
     }
 
     @Test
@@ -65,12 +60,12 @@ public class SolutionResponseCreationPostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
 
         when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(true);
-        when(messageService.getMessage("challenge.success", 10)).thenReturn("success, 10 points");
+        when(messageService.getMessage("challenge.successwithpoint", 22)).thenReturn("success, 22 points");
 
         action.execute(context);
 
         assertTrue(context.getSolutionValidationResult().isSuccess());
-        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success, 10 points"));
+        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success, 22 points"));
     }
 
     @Test
@@ -89,13 +84,13 @@ public class SolutionResponseCreationPostActionTest {
     public void shouldCreateSuccessfulWithoutPointWinningMessageIfUserHadAlreadyWonPoint() {
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
 
-        when(messageService.getMessage("challenge.successbutcannotwinpoint")).thenReturn("success but could not won point");
+        when(messageService.getMessage("challenge.success")).thenReturn("success");
         when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(false);
 
         action.execute(context);
 
         assertTrue(context.getSolutionValidationResult().isSuccess());
-        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success but could not won point"));
+        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success"));
     }
 
 }

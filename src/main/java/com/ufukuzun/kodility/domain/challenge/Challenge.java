@@ -49,6 +49,9 @@ public class Challenge extends AbstractEntity {
     @Column(nullable = false, columnDefinition = "BOOLEAN")
     private boolean approved;
 
+    @Column
+    private int point = 1;
+
     public Long getId() {
         return id;
     }
@@ -126,6 +129,14 @@ public class Challenge extends AbstractEntity {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     public void addTestCase(TestCase testCase) {
