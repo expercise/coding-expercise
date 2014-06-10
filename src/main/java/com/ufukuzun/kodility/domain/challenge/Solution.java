@@ -5,6 +5,7 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Solution extends AbstractEntity {
@@ -25,6 +26,10 @@ public class Solution extends AbstractEntity {
 
     @Column(nullable = false)
     private String solution;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createDate;
 
     public Long getId() {
         return id;
@@ -66,4 +71,11 @@ public class Solution extends AbstractEntity {
         this.solution = solution;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 }
