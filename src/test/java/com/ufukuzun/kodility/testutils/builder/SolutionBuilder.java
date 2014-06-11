@@ -5,24 +5,29 @@ import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
+import java.util.Date;
+
 public class SolutionBuilder  extends AbstractEntityBuilder<Solution, SolutionBuilder> {
 
     private Challenge challenge;
 
     private User user;
 
-    private ProgrammingLanguage programmingLanguage;
+    private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
 
-    private String source;
+    private String solution;
+
+    private Date createDate = new Date();
 
     @Override
     public Solution doBuild() {
-        Solution solution = new Solution();
-        solution.setChallenge(challenge);
-        solution.setUser(user);
-        solution.setProgrammingLanguage(programmingLanguage);
-        solution.setSolution(source);
-        return solution;
+        Solution newSolution = new Solution();
+        newSolution.setChallenge(challenge);
+        newSolution.setUser(user);
+        newSolution.setProgrammingLanguage(programmingLanguage);
+        newSolution.setSolution(solution);
+        newSolution.setCreateDate(createDate);
+        return newSolution;
     }
 
     public SolutionBuilder challenge(Challenge challenge) {
@@ -40,8 +45,13 @@ public class SolutionBuilder  extends AbstractEntityBuilder<Solution, SolutionBu
         return this;
     }
 
-    public SolutionBuilder source(String source) {
-        this.source = source;
+    public SolutionBuilder solution(String solution) {
+        this.solution = solution;
+        return this;
+    }
+
+    public SolutionBuilder createDate(Date createDate) {
+        this.createDate = createDate;
         return this;
     }
 

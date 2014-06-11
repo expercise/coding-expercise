@@ -10,6 +10,7 @@ import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.testutils.TestDateUtils;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
+import com.ufukuzun.kodility.testutils.builder.SolutionBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
 import com.ufukuzun.kodility.utils.Clock;
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class SaveUserSolutionPostActionTest {
     }
 
     @Test
-    public void shouldSaveUserSolution() {
+    public void shouldSaveUserSolutionIfUserDoesNotHaveSolutionForThatChallengeBefore() {
         Clock.freeze();
         Clock.setTime(TestDateUtils.toDate("10/12/2012"));
 
@@ -81,6 +82,40 @@ public class SaveUserSolutionPostActionTest {
         assertThat(capturedSolution.getCreateDate(), equalTo(Clock.getTime()));
         assertThat(capturedSolution.getSolution(), equalTo("this is a solution of the user"));
         assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python));
+
+        Clock.unfreeze();
+    }
+
+    @Test
+    public void shouldUpdateUserCurrentSolutionIfUserAlreadyHaveSolutionForThatChallengeBefore() {
+        Clock.freeze();
+        Clock.setTime(TestDateUtils.toDate("10/12/2012"));
+
+        User user = new UserBuilder().id(1L).email("user@kodility.com").build();
+        Challenge challenge = new ChallengeBuilder().id(2L).build();
+        Solution solution = new SolutionBuilder().id(1L).createDate(TestDateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
+
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setInterpreterResult(InterpreterResult.createSuccessResult("success"));
+        context.setChallenge(challenge);
+        context.setLanguage(ProgrammingLanguage.JavaScript);
+        context.setSource("new solution of the user");
+
+        when(authenticationService.getCurrentUser()).thenReturn(user);
+        when(solutionService.getSolutionByChallengeAndUser(challenge, user)).thenReturn(solution);
+
+        action.execute(context);
+
+        ArgumentCaptor<Solution> solutionCaptor = ArgumentCaptor.forClass(Solution.class);
+        verify(solutionService).updateSolution(solutionCaptor.capture());
+
+        Solution capturedSolution = solutionCaptor.getValue();
+        assertThat(capturedSolution.getId(), equalTo(solution.getId()));
+        assertThat(capturedSolution.getChallenge(), equalTo(context.getChallenge()));
+        assertThat(capturedSolution.getUser(), equalTo(user));
+        assertThat(capturedSolution.getCreateDate(), equalTo(Clock.getTime()));
+        assertThat(capturedSolution.getSolution(), equalTo("new solution of the user"));
+        assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.JavaScript));
 
         Clock.unfreeze();
     }

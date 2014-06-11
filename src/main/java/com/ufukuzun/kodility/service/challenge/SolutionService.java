@@ -1,7 +1,9 @@
 package com.ufukuzun.kodility.service.challenge;
 
 import com.ufukuzun.kodility.dao.challenge.SolutionDao;
+import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.Solution;
+import com.ufukuzun.kodility.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,14 @@ public class SolutionService {
     @Transactional
     public void saveSolution(Solution solution) {
         solutionDao.save(solution);
+    }
+
+    public Solution getSolutionByChallengeAndUser(Challenge challenge, User user) {
+        return solutionDao.findByChallengeAndUser(challenge, user);
+    }
+
+    public void updateSolution(Solution solution) {
+        solutionDao.update(solution);
     }
 
 }
