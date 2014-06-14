@@ -3,7 +3,6 @@ package com.ufukuzun.kodility.service.configuration;
 import com.ufukuzun.kodility.dao.configuration.ConfigurationDao;
 import com.ufukuzun.kodility.domain.configuration.Configuration;
 import com.ufukuzun.kodility.testutils.builder.ConfigurationBuilder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -30,7 +29,6 @@ public class ConfigurationServiceTest {
     private PlatformTransactionManager transactionManager;
 
     @Test
-    @Ignore
     public void shouldInitializeConfiguration() {
         Configuration configuration1 = new ConfigurationBuilder().key("key1").value("value1").buildWithRandomId();
         Configuration configuration2 = new ConfigurationBuilder().key("key2").value("value2").buildWithRandomId();

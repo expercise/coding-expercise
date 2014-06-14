@@ -23,7 +23,7 @@ public class MessageService {
         return bundleMessageSource.getMessage(code, args, LocaleContextHolder.getLocale());
     }
 
-    public Map<String, String> getAllMessages() {   // TODO ufuk: performance ?
+    public Map<String, String> getAllMessages() {
         Map<String, String> messages = new ConcurrentHashMap<>();
 
         ResourceBundle messagesResourceBundle = bundleMessageSource.getMessagesResourceBundle();
