@@ -164,3 +164,21 @@ h2#projectName > a:hover {
     border-top-width: 1px;
     border-bottom-right-radius: 4px;
 }
+
+.pageTitleWithLink .left {
+    padding-right: 0;
+}
+
+.pageTitleWithLink .right {
+    padding-left: 0;
+    text-align: right;
+}
+
+.pageTitleWithLink .linkContainer {
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 10px;
+}
+
+.pageTitleWithLink .linkContainer > a:first-child:hover {
+    text-decoration: none;
+}

@@ -2,15 +2,20 @@
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="#{challenge.challengeHeader}"></legend>
+    <div class="row pageTitleWithLink">
+        <div class="col-xs-8 left">
+            <legend th:text="#{challenge.challengeHeader}"></legend>
+        </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <a th:href="@{/challenges/}" th:text="#{challenge.goToChallenges}"></a>
+        <div class="col-xs-4 right">
+            <div class="linkContainer">
+                <a th:href="@{/challenges/}">
+                    <span th:text="#{challenge.goToChallenges}"></span>
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </a>
+            </div>
         </div>
     </div>
-
-    <hr />
 
     <div class="row">
         <div class="col-xs-12">
