@@ -1,4 +1,4 @@
-package com.ufukuzun.kodility.testutils;
+package com.ufukuzun.kodility.utils;
 
 import com.ufukuzun.kodility.exception.KodilityGenericException;
 
@@ -6,21 +6,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public final class TestDateUtils {
+public final class DateUtils {
 
-    private TestDateUtils() {
+    private DateUtils() {
     }
 
     public static Date toDate(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyy");
-        return parse(date, format);
+        return parse(date, new SimpleDateFormat("dd/MM/yyyy"));
     }
 
     private static Date parse(String date, SimpleDateFormat format) {
         try {
             return format.parse(date);
         } catch (ParseException e) {
-            throw new KodilityGenericException("Date format exception in TestDateUtils:" + date, e);
+            throw new KodilityGenericException("Date format exception: " + date, e);
         }
     }
 

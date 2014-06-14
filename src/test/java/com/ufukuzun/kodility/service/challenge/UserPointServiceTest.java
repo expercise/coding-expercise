@@ -4,10 +4,9 @@ import com.ufukuzun.kodility.dao.challenge.UserPointDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.UserPoint;
 import com.ufukuzun.kodility.domain.user.User;
-import com.ufukuzun.kodility.testutils.TestDateUtils;
+import com.ufukuzun.kodility.utils.DateUtils;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
-import com.ufukuzun.kodility.testutils.builder.UserPointBuilder;
 import com.ufukuzun.kodility.utils.Clock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +19,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserPointServiceTest {
@@ -35,8 +32,7 @@ public class UserPointServiceTest {
 
     @Test
     public void shouldGiveUserPointForTheChallenge() {
-        Clock.freeze();
-        Clock.setTime(TestDateUtils.toDate("10/12/2012"));
+        Clock.freeze(DateUtils.toDate("10/12/2012"));
 
         User user = new UserBuilder().id(2L).build();
         Challenge challenge = new ChallengeBuilder().id(3L).point(12).build();
@@ -61,24 +57,19 @@ public class UserPointServiceTest {
         User user = new UserBuilder().id(2L).build();
         Challenge challenge = new ChallengeBuilder().id(3L).approved(true).build();
 
-        when(userPointDao.findByChallengeAndUser(challenge, user)).thenReturn(null);
+        when(userPointDao.countByChallengeAndUser(challenge, user)).thenReturn(0L);
 
         assertTrue(service.canUserWinPoint(challenge, user));
-
-        verify(userPointDao).findByChallengeAndUser(challenge, user);
     }
 
     @Test
     public void shouldReturnFalseIfUserHasWonPointFromTheChallengeBefore() {
         User user = new UserBuilder().id(2L).build();
         Challenge challenge = new ChallengeBuilder().id(3L).approved(true).build();
-        UserPoint wonUserPoint = new UserPointBuilder().id(1L).user(user).challenge(challenge).build();
 
-        when(userPointDao.findByChallengeAndUser(challenge, user)).thenReturn(wonUserPoint);
+        when(userPointDao.countByChallengeAndUser(challenge, user)).thenReturn(1L);
 
         assertFalse(service.canUserWinPoint(challenge, user));
-
-        verify(userPointDao).findByChallengeAndUser(challenge, user);
     }
 
     @Test

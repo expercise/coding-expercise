@@ -8,7 +8,7 @@ import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.SolutionService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
-import com.ufukuzun.kodility.testutils.TestDateUtils;
+import com.ufukuzun.kodility.utils.DateUtils;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.SolutionBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
@@ -57,8 +57,7 @@ public class SaveUserSolutionPostActionTest {
 
     @Test
     public void shouldSaveUserSolutionIfUserDoesNotHaveSolutionForThatChallengeBefore() {
-        Clock.freeze();
-        Clock.setTime(TestDateUtils.toDate("10/12/2012"));
+        Clock.freeze(DateUtils.toDate("10/12/2012"));
 
         User user = new UserBuilder().id(1L).email("user@kodility.com").build();
         Challenge challenge = new ChallengeBuilder().id(2L).build();
@@ -88,12 +87,11 @@ public class SaveUserSolutionPostActionTest {
 
     @Test
     public void shouldUpdateUserCurrentSolutionIfUserAlreadyHaveSolutionForThatChallengeBefore() {
-        Clock.freeze();
-        Clock.setTime(TestDateUtils.toDate("10/12/2012"));
+        Clock.freeze(DateUtils.toDate("10/12/2012"));
 
         User user = new UserBuilder().id(1L).email("user@kodility.com").build();
         Challenge challenge = new ChallengeBuilder().id(2L).build();
-        Solution solution = new SolutionBuilder().id(1L).createDate(TestDateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
+        Solution solution = new SolutionBuilder().id(1L).createDate(DateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success"));

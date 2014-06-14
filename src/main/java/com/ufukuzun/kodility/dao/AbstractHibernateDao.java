@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.domain.AbstractEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,6 +62,10 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
     protected List<T> list(Criteria criteria) {
         return criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+    }
+
+    protected long countBy(Map<String, Object> restrictions) {
+        return (long) getCriteria(restrictions).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     protected Criteria getCriteria() {

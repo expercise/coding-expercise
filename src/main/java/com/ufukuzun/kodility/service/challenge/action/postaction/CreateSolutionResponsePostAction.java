@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SolutionResponseCreationPostAction implements PostEvaluationAction {
+public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
     @Autowired
     private MessageService messageService;

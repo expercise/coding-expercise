@@ -48,4 +48,33 @@ public class UserPointDaoTest extends AbstractDaoTest {
         assertThat(foundUserPoint, nullValue());
     }
 
+    @Test
+    public void shouldReturnCountByChallengeAndUser() {
+        User user = new UserBuilder().email("user@kodility.com").persist(getCurrentSession());
+
+        User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
+        Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
+
+        new UserPointBuilder().challenge(challenge).user(user).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).givenDate(Clock.getTime()).pointAmount(5).persist(getCurrentSession());
+
+        long count = dao.countByChallengeAndUser(challenge, user);
+
+        assertThat(count, equalTo(2L));
+    }
+
+    @Test
+    public void shouldReturnCountAsZeroWhenNotFoundByChallengeAndUser() {
+        User user = new UserBuilder().email("user@kodility.com").persist(getCurrentSession());
+
+        User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
+        Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
+
+        new UserPointBuilder().challenge(challenge).user(user).pointAmount(10).givenDate(Clock.getTime()).persist(getCurrentSession());
+
+        long count = dao.countByChallengeAndUser(challenge, author);
+
+        assertThat(count, equalTo(0L));
+    }
+
 }

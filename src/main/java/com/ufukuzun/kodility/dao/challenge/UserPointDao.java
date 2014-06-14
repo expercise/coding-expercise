@@ -22,4 +22,13 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
 
         return findOneBy(criteriaParams);
     }
+
+    public long countByChallengeAndUser(Challenge challenge, User user) {
+        HashMap<String, Object> criteriaParams = new HashMap<>();
+        criteriaParams.put("challenge", challenge);
+        criteriaParams.put("user", user);
+
+        return countBy(criteriaParams);
+    }
+
 }

@@ -22,6 +22,7 @@ public class UserPointService {
         userPoint.setUser(user);
         userPoint.setPointAmount(challenge.getPoint());
         userPoint.setGivenDate(Clock.getTime());
+
         userPointDao.save(userPoint);
     }
 
@@ -30,11 +31,7 @@ public class UserPointService {
             return false;
         }
 
-        UserPoint foundPoint = userPointDao.findByChallengeAndUser(challenge, user);
-        if (foundPoint == null) {
-            return true;
-        }
-        return false;
+        return userPointDao.countByChallengeAndUser(challenge, user) == 0L;
     }
 
 }

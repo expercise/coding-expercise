@@ -23,10 +23,10 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SolutionResponseCreationPostActionTest {
+public class CreateSolutionResponsePostActionTest {
 
     @InjectMocks
-    private SolutionResponseCreationPostAction action;
+    private CreateSolutionResponsePostAction action;
 
     @Mock
     private MessageService messageService;

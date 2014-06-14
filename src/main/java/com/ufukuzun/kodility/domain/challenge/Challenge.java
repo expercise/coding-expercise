@@ -49,6 +49,7 @@ public class Challenge extends AbstractEntity {
     @Column(nullable = false, columnDefinition = "BOOLEAN")
     private boolean approved;
 
+    @Column(nullable = false)
     private int point = 1;
 
     public Long getId() {

@@ -9,6 +9,4 @@ public interface PostEvaluationAction extends Prioritized {
 
     void execute(ChallengeEvaluationContext context);
 
-    int getPriority();
-
 }
