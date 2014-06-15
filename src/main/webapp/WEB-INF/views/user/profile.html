@@ -3,6 +3,70 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="${user.fullName}"></legend>
 
-    <p th:text="${user.email}"></p>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="userPicture">
+                <span class="glyphicon glyphicon-user"></span>
+            </div>
+            <ul class="list-group userProgress">
+                <li class="list-group-item level">
+                    <span class="remainingChallengesToNextLevel" th:text="${#messages.msg('user.profile.remainingChallengesToNextLevel', 2, 3)}"></span>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item experiencePoint">
+                    <div>
+                        <span th:text="#{user.profile.experiencePoint}"></span>
+                    </div>
+                    <span class="label label-primary" th:text="${experiencePoint}"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-xs-8">
+            <div class="row userInfos">
+                <div class="col-xs-12">
+                    <legend class="subHeader" th:text="#{user.profile.personal}"></legend>
+
+                    <div class="row">
+                        <label class="col-xs-5" th:text="#{label.firstName}"></label>
+                        <div class="col-xs-7">
+                            <span th:text="${user.firstName}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-xs-5" th:text="#{label.lastName}"></label>
+                        <div class="col-xs-7">
+                            <span th:text="${user.lastName}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-xs-5" th:text="#{label.email}"></label>
+                        <div class="col-xs-7">
+                            <a th:href="${'mailto:' + user.email}" th:text="${user.email}" target="_blank"></a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-xs-5" th:text="#{label.progLang}"></label>
+                        <div class="col-xs-7">
+                            <span th:text="${user.programmingLanguage}"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-xs-5" th:text="#{label.lingo}"></label>
+                        <div class="col-xs-7">
+                            <span th:text="${#messages.msg(user.lingo.name())}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

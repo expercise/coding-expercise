@@ -34,4 +34,8 @@ public class UserPointService {
         return userPointDao.countByChallengeAndUser(challenge, user) == 0L;
     }
 
+    public long getTotalPointsOf(User user) {
+        return userPointDao.getTotalPointsOf(user);
+    }
+
 }

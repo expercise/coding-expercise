@@ -4,6 +4,8 @@ import com.ufukuzun.kodility.dao.AbstractHibernateDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.UserPoint;
 import com.ufukuzun.kodility.domain.user.User;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -29,6 +31,12 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
         criteriaParams.put("user", user);
 
         return countBy(criteriaParams);
+    }
+
+    public long getTotalPointsOf(User user) {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("user", user));
+        return sumBy("pointAmount", criteria);
     }
 
 }

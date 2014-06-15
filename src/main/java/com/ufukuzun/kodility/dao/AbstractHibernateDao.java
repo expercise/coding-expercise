@@ -68,6 +68,12 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
         return (long) getCriteria(restrictions).setProjection(Projections.rowCount()).uniqueResult();
     }
 
+    protected long sumBy(String propertyName, Criteria criteria) {
+        criteria.setProjection(Projections.sum(propertyName));
+        Long sum = (Long) criteria.uniqueResult();
+        return sum != null ? sum : 0L;
+    }
+
     protected Criteria getCriteria() {
         return getCurrentSession().createCriteria(klass);
     }

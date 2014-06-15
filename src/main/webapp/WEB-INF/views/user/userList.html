@@ -17,7 +17,7 @@
         <tbody>
             <tr th:each="user : ${users}">
                 <td>
-                    <a th:href="'mailto:' + ${user.email}" th:text="${user.email}" target="_blank"></a>
+                    <a th:href="@{'/profile/'} + ${user.id}" th:text="${user.email}"></a>
                 </td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
