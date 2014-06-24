@@ -4,10 +4,6 @@ kodility.utils = {
         return $('#contextPath').val() + uri;
     },
 
-    goToMainPage: function () {
-        kodility.utils.go(kodility.utils.urlFor(""));
-    },
-
     go: function (url) {
         window.location = url;
     },
