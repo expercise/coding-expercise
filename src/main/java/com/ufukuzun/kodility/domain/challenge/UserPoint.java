@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.domain.challenge;
 
 import com.ufukuzun.kodility.domain.AbstractEntity;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,6 +19,10 @@ public class UserPoint extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Challenge challenge;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProgrammingLanguage programmingLanguage;
 
     @Column(nullable = false)
     private int pointAmount = 0;
@@ -48,6 +53,14 @@ public class UserPoint extends AbstractEntity {
 
     public void setChallenge(Challenge challenge) {
         this.challenge = challenge;
+    }
+
+    public ProgrammingLanguage getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+
+    public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
     public int getPointAmount() {

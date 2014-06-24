@@ -30,7 +30,7 @@ public class SaveUserSolutionPostAction implements PostEvaluationAction {
     public void execute(ChallengeEvaluationContext context) {
         Challenge challenge = context.getChallenge();
         User user = authenticationService.getCurrentUser();
-        Solution savedSolution = solutionService.getSolutionByChallengeAndUser(challenge, user);
+        Solution savedSolution = solutionService.getSolutionBy(challenge, user, context.getLanguage());
         String source = context.getSource();
         ProgrammingLanguage language = context.getLanguage();
 

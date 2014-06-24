@@ -3,6 +3,7 @@ package com.ufukuzun.kodility.testutils.builder;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.UserPoint;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 
 import java.util.Date;
 
@@ -12,15 +13,18 @@ public class UserPointBuilder extends AbstractEntityBuilder<UserPoint, UserPoint
 
     private Challenge challenge;
 
+    private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
+
     private int pointAmount;
 
-    public Date givenDate;
+    private Date givenDate;
 
     @Override
     public UserPoint doBuild() {
         UserPoint userPoint = new UserPoint();
         userPoint.setUser(user);
         userPoint.setChallenge(challenge);
+        userPoint.setProgrammingLanguage(programmingLanguage);
         userPoint.setPointAmount(pointAmount);
         userPoint.setGivenDate(givenDate);
         return userPoint;
@@ -33,6 +37,11 @@ public class UserPointBuilder extends AbstractEntityBuilder<UserPoint, UserPoint
 
     public UserPointBuilder challenge(Challenge challenge) {
         this.challenge = challenge;
+        return this;
+    }
+
+    public UserPointBuilder programmingLanguage(ProgrammingLanguage programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
         return this;
     }
 

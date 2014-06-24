@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.service.challenge.action.postaction;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
@@ -45,6 +46,7 @@ public class CreateSolutionResponsePostActionTest {
         context = new ChallengeEvaluationContext();
         Challenge challenge = new ChallengeBuilder().id(1L).point(22).user(new UserBuilder().id(2L).build()).build();
         context.setChallenge(challenge);
+        context.setLanguage(ProgrammingLanguage.Python);
 
         user = new UserBuilder().id(3L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
@@ -59,7 +61,7 @@ public class CreateSolutionResponsePostActionTest {
     public void shouldCreateSuccessResponseWhenInterpreterResultIsSuccess() {
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
 
-        when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(true);
+        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
         when(messageService.getMessage("challenge.successwithpoint", 22)).thenReturn("success, 22 points");
 
         action.execute(context);
@@ -85,7 +87,7 @@ public class CreateSolutionResponsePostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
 
         when(messageService.getMessage("challenge.success")).thenReturn("success");
-        when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(false);
+        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(false);
 
         action.execute(context);
 

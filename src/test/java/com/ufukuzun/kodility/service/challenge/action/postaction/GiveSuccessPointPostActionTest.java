@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.service.challenge.action.postaction;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
@@ -32,37 +33,39 @@ public class GiveSuccessPointPostActionTest {
     private AuthenticationService authenticationService;
 
     @Test
-    public void shouldGiveUserPointWhenEvaluationIsSucceed() {
+    public void shouldBeAbleToGiveUserPointWhenEvaluationIsSucceed() {
         InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
         context.setChallenge(new ChallengeBuilder().id(1L).approved(true).build());
+        context.setLanguage(ProgrammingLanguage.Python);
 
         User user = new UserBuilder().id(1L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(true);
+        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
 
         assertTrue(action.canExecute(context));
     }
 
     @Test
-    public void shouldNotGiveUserPointWhenUserHadAlreadyWonPointForThisChallengeBefore() {
+    public void shouldNotBeAbleToGiveUserPointWhenUserHadAlreadyWonPointForThisChallengeBefore() {
         InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
         context.setChallenge(new ChallengeBuilder().id(1L).build());
+        context.setLanguage(ProgrammingLanguage.Python);
 
         User user = new UserBuilder().id(1L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointService.canUserWinPoint(context.getChallenge(), user)).thenReturn(false);
+        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(false);
 
         assertFalse(action.canExecute(context));
     }
 
     @Test
-    public void shouldNotGiveUserPointWhenEvaluationIsFailed() {
+    public void shouldNotBeAbleToGiveUserPointWhenEvaluationIsFailed() {
         InterpreterResult failedResult = InterpreterResult.createFailedResult("failed");
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
@@ -77,6 +80,7 @@ public class GiveSuccessPointPostActionTest {
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(new Challenge());
+        context.setLanguage(ProgrammingLanguage.Python);
         context.setInterpreterResult(successResult);
 
         User user = new UserBuilder().buildWithRandomId();
@@ -85,7 +89,7 @@ public class GiveSuccessPointPostActionTest {
 
         action.execute(context);
 
-        verify(userPointService).givePoint(context.getChallenge(), user);
+        verify(userPointService).givePoint(context.getChallenge(), user, ProgrammingLanguage.Python);
     }
 
 }

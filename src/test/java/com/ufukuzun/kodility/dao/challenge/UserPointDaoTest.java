@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.AbstractDaoTest;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.UserPoint;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserPointBuilder;
@@ -55,24 +56,25 @@ public class UserPointDaoTest extends AbstractDaoTest {
         User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
 
-        new UserPointBuilder().challenge(challenge).user(user).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
-        new UserPointBuilder().challenge(challenge).user(user).givenDate(Clock.getTime()).pointAmount(5).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).givenDate(Clock.getTime()).pointAmount(5).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.JavaScript).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
 
-        long count = dao.countByChallengeAndUser(challenge, user);
+        long count = dao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python);
 
         assertThat(count, equalTo(2L));
     }
 
     @Test
-    public void shouldReturnCountAsZeroWhenNotFoundByChallengeAndUser() {
+    public void shouldReturnZeroAsCountWhenNotFoundByPointGivingCriteria() {
         User user = new UserBuilder().email("user@kodility.com").persist(getCurrentSession());
 
         User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
 
-        new UserPointBuilder().challenge(challenge).user(user).pointAmount(10).givenDate(Clock.getTime()).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).pointAmount(10).givenDate(Clock.getTime()).persist(getCurrentSession());
 
-        long count = dao.countByChallengeAndUser(challenge, author);
+        long count = dao.countForPointGivingCriteria(challenge, author, ProgrammingLanguage.Python);
 
         assertThat(count, equalTo(0L));
     }

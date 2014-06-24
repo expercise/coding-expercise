@@ -100,7 +100,7 @@ public class SaveUserSolutionPostActionTest {
         context.setSource("new solution of the user");
 
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(solutionService.getSolutionByChallengeAndUser(challenge, user)).thenReturn(solution);
+        when(solutionService.getSolutionBy(challenge, user, ProgrammingLanguage.JavaScript)).thenReturn(solution);
 
         action.execute(context);
 

@@ -37,7 +37,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
         if (interpreterResult.isSuccess()) {
             User user = authenticationService.getCurrentUser();
             Challenge challenge = context.getChallenge();
-            if (userPointService.canUserWinPoint(challenge, user)) {
+            if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successwithpoint", challenge.getPoint()));
             } else {
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));

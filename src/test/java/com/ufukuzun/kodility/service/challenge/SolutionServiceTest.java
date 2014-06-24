@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.dao.challenge.SolutionDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.SolutionBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
@@ -42,9 +43,9 @@ public class SolutionServiceTest {
         Challenge challenge = new ChallengeBuilder().id(2L).build();
         Solution solution = new SolutionBuilder().id(3L).challenge(challenge).user(user).build();
 
-        when(solutionDao.findByChallengeAndUser(challenge, user)).thenReturn(solution);
+        when(solutionDao.findBy(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
 
-        Solution foundSolution = service.getSolutionByChallengeAndUser(challenge, user);
+        Solution foundSolution = service.getSolutionBy(challenge, user, ProgrammingLanguage.Python);
 
         assertThat(foundSolution, equalTo(solution));
     }
