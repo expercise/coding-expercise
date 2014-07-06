@@ -34,8 +34,7 @@ public class ChallengeManagementController {
 
     @RequestMapping(value = "/addChallenge", method = RequestMethod.GET)
     public ModelAndView addChallengePage() {
-        ModelAndView modelAndView = prepareChallengeManagementViewModel(ManagementMode.Add);
-        return modelAndView;
+        return prepareChallengeManagementViewModel(ManagementMode.Add);
     }
 
     @RequestMapping(value = "/saveChallenge", method = RequestMethod.POST)

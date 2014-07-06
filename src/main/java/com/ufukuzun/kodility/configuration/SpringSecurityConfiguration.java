@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     private UserDetailsService userDetailsService;
 
     @Override
@@ -44,8 +44,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(shaPasswordEncoder());
     }

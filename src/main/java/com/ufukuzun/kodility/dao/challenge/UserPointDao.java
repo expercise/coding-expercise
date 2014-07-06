@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class UserPointDao extends AbstractHibernateDao<UserPoint> {
@@ -19,7 +20,7 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
     }
 
     public UserPoint findByChallengeAndUser(Challenge challenge, User user) {
-        HashMap<String, Object> criteriaParams = new HashMap<>();
+        Map<String, Object> criteriaParams = new HashMap<>();
         criteriaParams.put("challenge", challenge);
         criteriaParams.put("user", user);
 
@@ -27,7 +28,7 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
     }
 
     public long countForPointGivingCriteria(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
-        HashMap<String, Object> criteriaParams = new HashMap<>();
+        Map<String, Object> criteriaParams = new HashMap<>();
         criteriaParams.put("challenge", challenge);
         criteriaParams.put("user", user);
         criteriaParams.put("programmingLanguage", programmingLanguage);

@@ -39,16 +39,20 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
             Challenge challenge = challengeService.findById(challengeId);
             User currentUser = authenticationService.getCurrentUser();
             if (currentUser.isNotAdmin() && isModifierNotSameUserWithAuthor(challenge, currentUser)) {
-                addError(bindingResult, "currentUser", new String[]{"NotAuthorized.challenge.update"});
+                addAuthorityError(bindingResult, "NotAuthorized.challenge.update");
                 return false;
             }
 
             if (currentUser.isNotAdmin() && isApproveStatusChanged(challengeModel, challenge)) {
-                addError(bindingResult, "currentUser", new String[]{"NotAuthorized.challenge.changeApproveStatus"});
+                addAuthorityError(bindingResult, "NotAuthorized.challenge.changeApproveStatus");
                 return false;
             }
         }
         return true;
+    }
+
+    private void addAuthorityError(BindingResult bindingResult, String errorCode) {
+        addError(bindingResult, "currentUser", new String[]{errorCode});
     }
 
     private void validateTitlesAndDescriptions(ChallengeModel challenge, BindingResult bindingResult) {

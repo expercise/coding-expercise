@@ -5,8 +5,9 @@ import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
+import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,9 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertFalse;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JavaScriptInterpreterTest {
@@ -28,7 +28,7 @@ public class JavaScriptInterpreterTest {
     private JavaScriptInterpreter interpreter;
 
     @Mock
-    private MessageService messageService;
+    private InterpreterResultCreator interpreterResultCreator;
 
     @Test
     public void shouldEvaluateSolutionWithTestCases() {
@@ -56,6 +56,8 @@ public class JavaScriptInterpreterTest {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(challenge);
         context.setSource(sumSolution);
+
+        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
 
         interpreter.interpret(context);
 
@@ -89,18 +91,11 @@ public class JavaScriptInterpreterTest {
         context.setChallenge(challenge);
         context.setSource(sumSolution);
 
+        when(interpreterResultCreator.failedResultWithoutMessage()).thenReturn(InterpreterResult.createFailedResult());
+
         interpreter.interpret(context);
 
         assertFalse(context.getInterpreterResult().isSuccess());
-    }
-
-    @Test
-    public void shouldReturnExceptionMessageIfEvaluationCauseAnException() {
-        ChallengeEvaluationContext context = createContext(new Challenge(), "fuNksin fuu(){}");
-        interpreter.interpret(context);
-
-        assertFalse(context.getInterpreterResult().isSuccess());
-        assertThat(context.getInterpreterResult().getResult(), equalTo("missing ; before statement (solution.js#1) in solution.js at line number 1"));
     }
 
     @Test
@@ -125,6 +120,8 @@ public class JavaScriptInterpreterTest {
         challenge.addTestCase(testCase);
 
         ChallengeEvaluationContext context = createContext(challenge, "function solution(a, b) {}");
+
+        when(interpreterResultCreator.noResultFailedResult()).thenReturn(InterpreterResult.createFailedResult());
 
         interpreter.interpret(context);
 
@@ -154,6 +151,8 @@ public class JavaScriptInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, sumsolution);
 
+        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+
         interpreter.interpret(context);
 
         assertTrue(context.getInterpreterResult().isSuccess());
@@ -173,6 +172,8 @@ public class JavaScriptInterpreterTest {
         challenge.addTestCase(testCase);
 
         ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
 
         interpreter.interpret(context);
 

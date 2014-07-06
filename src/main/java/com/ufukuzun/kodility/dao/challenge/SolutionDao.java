@@ -17,13 +17,6 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
         super(Solution.class);
     }
 
-    public Solution findByChallengeAndUser(Challenge challenge, User user) {
-        Map<String, Object> criteriaMap = new HashMap<>();
-        criteriaMap.put("challenge", challenge);
-        criteriaMap.put("user", user);
-        return findOneBy(criteriaMap);
-    }
-
     public Solution findBy(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         Map<String, Object> criteriaMap = new HashMap<>();
         criteriaMap.put("challenge", challenge);

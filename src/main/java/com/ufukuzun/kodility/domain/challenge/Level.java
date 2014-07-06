@@ -35,4 +35,12 @@ public class Level extends PrioritizedEntity {
         this.levelName = levelName;
     }
 
+    public List<Challenge> getChallenges() {
+        return challenges;
+    }
+
+    public void setChallenges(List<Challenge> challenges) {
+        this.challenges = challenges;
+    }
+
 }

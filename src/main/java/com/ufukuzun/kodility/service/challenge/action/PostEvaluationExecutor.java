@@ -1,20 +1,23 @@
 package com.ufukuzun.kodility.service.challenge.action;
 
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.util.PriorityComparator;
+import com.ufukuzun.kodility.service.util.PrioritySorter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class PostEvaluationExecutor implements ApplicationContextAware {
+public class PostEvaluationExecutor {
 
+    @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private PrioritySorter prioritySorter;
 
     public void execute(ChallengeEvaluationContext context) {
         Map<String, PostEvaluationAction> actions = applicationContext.getBeansOfType(PostEvaluationAction.class);
@@ -26,15 +29,10 @@ public class PostEvaluationExecutor implements ApplicationContextAware {
             }
         }
 
-        Collections.sort(actionList, PriorityComparator.getInstance());
+        prioritySorter.sort(actionList);
         for (PostEvaluationAction postEvaluationAction : actionList) {
             postEvaluationAction.execute(context);
         }
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
 }

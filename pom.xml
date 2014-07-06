@@ -32,6 +32,7 @@
         <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
         <apache.commons.collections.version>3.2.1</apache.commons.collections.version>
         <apache.commons.dbcp>2.0</apache.commons.dbcp>
+        <slf4j.version>1.7.7</slf4j.version>
     </properties>
 
     <dependencies>
@@ -215,6 +216,13 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>${apache.commons.dbcp}</version>
+        </dependency>
+
+        <!-- TODO ufuk: configure logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 

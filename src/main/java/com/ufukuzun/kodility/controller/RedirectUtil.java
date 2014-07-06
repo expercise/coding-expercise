@@ -15,8 +15,9 @@ public final class RedirectUtil {
         return redirect("/login?newMember");
     }
 
+    // TODO ufuk: create a 404 page
     public static ModelAndView redirect404() {
-        return redirect("/404");    // TODO ufuk: create a 404 page
+        return redirect("/404");
     }
 
     private static ModelAndView redirect(String url) {

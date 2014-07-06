@@ -42,7 +42,7 @@ public class SaveUserSolutionPostActionTest {
     @Test
     public void shouldBeAbleToExecuteIfEvaluationIsSucceed() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(InterpreterResult.createSuccessResult("success"));
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         assertTrue(action.canExecute(context));
     }
@@ -50,7 +50,7 @@ public class SaveUserSolutionPostActionTest {
     @Test
     public void shouldNotBeAbleToExecuteIfEvaluationIsFailed() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(InterpreterResult.createFailedResult("failed"));
+        context.setInterpreterResult(InterpreterResult.createFailedResult());
 
         assertFalse(action.canExecute(context));
     }
@@ -63,7 +63,7 @@ public class SaveUserSolutionPostActionTest {
         Challenge challenge = new ChallengeBuilder().id(2L).build();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(InterpreterResult.createSuccessResult("success"));
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
         context.setChallenge(challenge);
         context.setLanguage(ProgrammingLanguage.Python);
         context.setSource("this is a solution of the user");
@@ -94,7 +94,7 @@ public class SaveUserSolutionPostActionTest {
         Solution solution = new SolutionBuilder().id(1L).createDate(DateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(InterpreterResult.createSuccessResult("success"));
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
         context.setChallenge(challenge);
         context.setLanguage(ProgrammingLanguage.JavaScript);
         context.setSource("new solution of the user");

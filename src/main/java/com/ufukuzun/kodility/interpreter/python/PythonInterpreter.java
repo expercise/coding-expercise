@@ -4,10 +4,11 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.Interpreter;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.python.core.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +20,17 @@ import java.util.Map;
 @Service
 public class PythonInterpreter implements Interpreter {
 
-    @Autowired
-    private MessageService messageService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PythonInterpreter.class);
 
-    org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
-
-    Map<DataType, Class<? extends PyObject>> typeMap = new HashMap<DataType, Class<? extends PyObject>>() {{
+    private static final Map<DataType, Class<? extends PyObject>> TYPE_MAP = new HashMap<DataType, Class<? extends PyObject>>() {{
         put(DataType.Integer, PyInteger.class);
         put(DataType.Text, PyString.class);
     }};
+
+    @Autowired
+    private InterpreterResultCreator interpreterResultCreator;
+
+    org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
 
     @Override
     public void interpret(ChallengeEvaluationContext context) {
@@ -36,14 +39,12 @@ public class PythonInterpreter implements Interpreter {
         try {
             pythonInterpreter.exec(source);
         } catch (PySyntaxError e) {
-            InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.syntaxError"));
-            context.setInterpreterResult(failedResult);
+            LOGGER.debug("Syntax error", e);
+            context.setInterpreterResult(interpreterResultCreator.syntaxErrorFailedResult());
             return;
         }
 
         PyStringMap locals = (PyStringMap) pythonInterpreter.getLocals();
-
-        PyObject resultObject = null;
 
         PyFunction funcToCall = null;
 
@@ -57,15 +58,13 @@ public class PythonInterpreter implements Interpreter {
         }
 
         if (funcToCall == null) {
-            InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-            context.setInterpreterResult(failedResult);
+            context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
             return;
         }
 
         List<TestCase> testCases = challenge.getTestCases();
 
         for (TestCase testCase : testCases) {
-
             int argSize = testCase.getInputs().size();
 
             PyObject[] pyObjects = new PyObject[argSize];
@@ -74,29 +73,30 @@ public class PythonInterpreter implements Interpreter {
                 try {
                     DataType type = challenge.getInputTypes().get(i).getInputType();
                     Class<?> clazz = Class.forName(type.getClassName());
-                    Class<? extends PyObject> instanceType = typeMap.get(type);
+                    Class<? extends PyObject> instanceType = TYPE_MAP.get(type);
                     if (type.equals(DataType.Integer)) {
                         clazz = int.class;
                     }
                     Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
                     pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
                 } catch (Exception e) {
-                    InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-                    context.setInterpreterResult(failedResult);
+                    LOGGER.debug("Exception while preparing arguments", e);
+                    context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
                     return;
                 }
             }
 
+            PyObject resultObject;
             try {
                 resultObject = funcToCall.__call__(pyObjects);
             } catch (PyException e) {
-                InterpreterResult failedResult = InterpreterResult.createFailedResult(e.value.asString());
-                context.setInterpreterResult(failedResult);
+                LOGGER.debug("Exception while function call", e);
+                context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
                 return;
             }
 
             Object value = null;
-            Class<? extends PyObject> outputType = typeMap.get(challenge.getOutputType());
+            Class<? extends PyObject> outputType = TYPE_MAP.get(challenge.getOutputType());
             if (outputType.isAssignableFrom(PyInteger.class)) {
                 value = resultObject.asInt();
             } else if (outputType.isAssignableFrom(PyString.class)) {
@@ -104,15 +104,12 @@ public class PythonInterpreter implements Interpreter {
             }
 
             if (!challenge.getOutputType().convert(testCase.getOutput()).equals(value)) {
-                InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-                context.setInterpreterResult(failedResult);
+                context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
                 return;
             }
-
         }
 
-        InterpreterResult successResult = InterpreterResult.createSuccessResult(resultObject.toString());
-        context.setInterpreterResult(successResult);
+        context.setInterpreterResult(interpreterResultCreator.successResult());
     }
 
 }

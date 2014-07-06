@@ -34,7 +34,7 @@ public class GiveSuccessPointPostActionTest {
 
     @Test
     public void shouldBeAbleToGiveUserPointWhenEvaluationIsSucceed() {
-        InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
+        InterpreterResult successResult = InterpreterResult.createSuccessResult();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
@@ -50,7 +50,7 @@ public class GiveSuccessPointPostActionTest {
 
     @Test
     public void shouldNotBeAbleToGiveUserPointWhenUserHadAlreadyWonPointForThisChallengeBefore() {
-        InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
+        InterpreterResult successResult = InterpreterResult.createSuccessResult();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
@@ -66,7 +66,7 @@ public class GiveSuccessPointPostActionTest {
 
     @Test
     public void shouldNotBeAbleToGiveUserPointWhenEvaluationIsFailed() {
-        InterpreterResult failedResult = InterpreterResult.createFailedResult("failed");
+        InterpreterResult failedResult = InterpreterResult.createFailedResult();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(failedResult);
@@ -76,7 +76,7 @@ public class GiveSuccessPointPostActionTest {
 
     @Test
     public void shouldGiveUserChallengePointWhenEvaluationIsSucceed() {
-        InterpreterResult successResult = InterpreterResult.createSuccessResult("success");
+        InterpreterResult successResult = InterpreterResult.createSuccessResult();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(new Challenge());

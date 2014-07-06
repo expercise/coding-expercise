@@ -8,16 +8,19 @@ import com.ufukuzun.kodility.service.challenge.action.PostEvaluationExecutor;
 import com.ufukuzun.kodility.service.challenge.action.PreEvaluationExecutor;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import java.beans.Introspector;
 
 @Service
-public class SolutionValidationService implements ApplicationContextAware {
+public class SolutionValidationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SolutionValidationService.class);
 
     @Autowired
     private ChallengeService challengeService;
@@ -28,6 +31,7 @@ public class SolutionValidationService implements ApplicationContextAware {
     @Autowired
     private PostEvaluationExecutor postEvaluationExecutor;
 
+    @Autowired
     private ApplicationContext applicationContext;
 
     public SolutionValidationResult validateSolution(SolutionFromUser solutionFromUser) {
@@ -57,16 +61,11 @@ public class SolutionValidationService implements ApplicationContextAware {
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {
         try {
             String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
-            Interpreter interpreter = (Interpreter) applicationContext.getBean(interpreterBeanName);
-            return interpreter;
+            return (Interpreter) applicationContext.getBean(interpreterBeanName);
         } catch (BeansException e) {
+            LOGGER.error("Unsupported programming language: {}", programmingLanguage);
             throw new IllegalArgumentException("Unsupported programming language: " + programmingLanguage);
         }
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
 }

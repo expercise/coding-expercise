@@ -4,9 +4,10 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.Interpreter;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
+import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.ufukuzun.kodility.service.i18n.MessageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,10 @@ import java.util.List;
 @Component
 public class JavaScriptInterpreter implements Interpreter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JavaScriptInterpreter.class);
+
     @Autowired
-    private MessageService messageService;
+    private InterpreterResultCreator interpreterResultCreator;
 
     @Override
     public void interpret(ChallengeEvaluationContext context) {
@@ -32,8 +35,8 @@ public class JavaScriptInterpreter implements Interpreter {
         try {
             javaScriptEngine.eval(source);
         } catch (ScriptException e) {
-            InterpreterResult failedResult = InterpreterResult.createFailedResult(prepareErrorMessage(e));
-            context.setInterpreterResult(failedResult);
+            LOGGER.debug("Exception while evaluation", e);
+            context.setInterpreterResult(interpreterResultCreator.syntaxErrorFailedResult());
             return;
         }
 
@@ -44,8 +47,7 @@ public class JavaScriptInterpreter implements Interpreter {
                 Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
 
                 if (evaluationResult == null) {
-                    InterpreterResult failedResult = InterpreterResult.createFailedResult(messageService.getMessage("interpreter.noResult"));
-                    context.setInterpreterResult(failedResult);
+                    context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
                     return;
                 }
 
@@ -61,19 +63,17 @@ public class JavaScriptInterpreter implements Interpreter {
                 }
 
                 if (testCaseFailed) {
-                    InterpreterResult failedResult = InterpreterResult.createFailedResult("");
-                    context.setInterpreterResult(failedResult);
+                    context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
                     return;
                 }
             } catch (Exception e) {
-                InterpreterResult failedResult = InterpreterResult.createFailedResult("");
-                context.setInterpreterResult(failedResult);
+                LOGGER.debug("Exception while interpreting", e);
+                context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
                 return;
             }
         }
 
-        InterpreterResult successResult = InterpreterResult.createSuccessResult("");
-        context.setInterpreterResult(successResult);
+        context.setInterpreterResult(interpreterResultCreator.successResult());
     }
 
     private ScriptEngine getScriptEngine() {
@@ -81,13 +81,6 @@ public class JavaScriptInterpreter implements Interpreter {
         ScriptEngine javaScriptEngine = scriptEngineManager.getEngineByName("JavaScript");
         javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
         return javaScriptEngine;
-    }
-
-    private String prepareErrorMessage(ScriptException exception) {
-        String message = exception.getMessage();
-        String separator = ": ";
-        int index = message.lastIndexOf(separator) + separator.length();
-        return message.substring(index, message.length());
     }
 
 }

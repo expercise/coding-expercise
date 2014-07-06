@@ -2,24 +2,27 @@ package com.ufukuzun.kodility.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
 public final class JsonUtils {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
     private JsonUtils() {
     }
 
     public static String toJsonString(Object object) {
         ObjectMapper objectMapper = new ObjectMapper();
-        boolean isCollectionObject = object instanceof Collection;
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            LOGGER.error("Exception while writing the object as JSON string", e);
         }
 
-        return isCollectionObject ? "[]" : "{}";
+        return object instanceof Collection ? "[]" : "{}";
     }
 
 }

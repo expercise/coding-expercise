@@ -59,7 +59,7 @@ public class CreateSolutionResponsePostActionTest {
 
     @Test
     public void shouldCreateSuccessResponseWhenInterpreterResultIsSuccess() {
-        context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
         when(messageService.getMessage("challenge.successwithpoint", 22)).thenReturn("success, 22 points");
@@ -72,7 +72,7 @@ public class CreateSolutionResponsePostActionTest {
 
     @Test
     public void shouldCreateFailedResponseWhenInterpreterResultIsFailed() {
-        context.setInterpreterResult(InterpreterResult.createFailedResult("failed interpreter result"));
+        context.setInterpreterResult(InterpreterResult.createFailedResult());
 
         when(messageService.getMessage("challenge.failed")).thenReturn("failed");
 
@@ -84,7 +84,7 @@ public class CreateSolutionResponsePostActionTest {
 
     @Test
     public void shouldCreateSuccessfulWithoutPointWinningMessageIfUserHadAlreadyWonPoint() {
-        context.setInterpreterResult(InterpreterResult.createSuccessResult("success interpreter result"));
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         when(messageService.getMessage("challenge.success")).thenReturn("success");
         when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(false);

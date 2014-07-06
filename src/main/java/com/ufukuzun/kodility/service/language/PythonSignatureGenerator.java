@@ -11,9 +11,7 @@ import java.util.List;
 @Component
 public class PythonSignatureGenerator implements SignatureGenerator {
 
-    private final static String SIGNATURE_PATTERN = "def solution({params}):\n";
-
-    private final static String[] LETTERS = new String[]{"a", "b", "c", "d"};
+    private static final String SIGNATURE_PATTERN = "def solution({params}):\n";
 
     @Override
     public boolean canGenerateFor(ProgrammingLanguage language) {

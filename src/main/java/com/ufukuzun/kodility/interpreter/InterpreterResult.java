@@ -6,17 +6,16 @@ public class InterpreterResult {
 
     private boolean success;
 
-    private InterpreterResult(String result, boolean success) {
-        this.result = result;
+    private InterpreterResult(boolean success) {
         this.success = success;
     }
 
-    public static InterpreterResult createSuccessResult(String result) {
-        return new InterpreterResult(result, true);
+    public static InterpreterResult createSuccessResult() {
+        return new InterpreterResult(true);
     }
 
-    public static InterpreterResult createFailedResult(String result) {
-        return new InterpreterResult(result, false);
+    public static InterpreterResult createFailedResult() {
+        return new InterpreterResult(false);
     }
 
     public String getResult() {

@@ -23,20 +23,16 @@ public class RegistrationController {
     private UserService userService;
 
     @RequestMapping("/register")
-    public ModelAndView registrationPage() {
-        ModelAndView modelAndView = new ModelAndView("register");
+    public ModelAndView registrationPage(ModelAndView modelAndView) {
+        initializeModelAndView(modelAndView);
         modelAndView.addObject("userModel", new UserModel());
-        modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
-        modelAndView.addObject("lingos", Lingo.values());
         return modelAndView;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("register");
-            modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
-            modelAndView.addObject("lingos", Lingo.values());
+            initializeModelAndView(modelAndView);
             return modelAndView;
         }
 
@@ -44,6 +40,12 @@ public class RegistrationController {
         userService.saveUser(user);
 
         return RedirectUtil.redirectLoginForNewMember();
+    }
+
+    private void initializeModelAndView(ModelAndView modelAndView) {
+        modelAndView.setViewName("register");
+        modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
+        modelAndView.addObject("lingos", Lingo.values());
     }
 
 }

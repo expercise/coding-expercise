@@ -1,5 +1,8 @@
 package com.ufukuzun.kodility.enums;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum DataType {
 
     Integer(java.lang.Integer.class.getName()) {
@@ -16,13 +19,15 @@ public enum DataType {
         }
     };
 
-    private String className;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataType.class);
 
-    public abstract Object convert(String rawValue);
+    private String className;
 
     private DataType(String className) {
         this.className = className;
     }
+
+    public abstract Object convert(String rawValue);
 
     public String getClassName() {
         return className;
@@ -32,6 +37,7 @@ public enum DataType {
         try {
             convert(rawValue);
         } catch (Exception e) {
+            LOGGER.debug("Exception while converting {} to {}", rawValue, this.name(), e);
             return false;
         }
         return true;
