@@ -1,15 +1,11 @@
 package com.ufukuzun.kodility.controller.challenge.model;
 
-import com.ufukuzun.kodility.domain.challenge.Challenge;
-import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
-import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ChallengeModel {
 
@@ -26,6 +22,8 @@ public class ChallengeModel {
     private List<TestCase> testCases = new ArrayList<>();
 
     private Boolean approved;
+
+    private Long level;
 
     public Long getChallengeId() {
         return challengeId;
@@ -79,12 +77,20 @@ public class ChallengeModel {
         this.testCases = testCases;
     }
 
-    public Boolean isApproved() {
+    public Boolean getApproved() {
         return approved;
     }
 
     public void setApproved(Boolean approved) {
         this.approved = approved;
+    }
+
+    public Long getLevel() {
+        return level;
+    }
+
+    public void setLevel(Long level) {
+        this.level = level;
     }
 
     public String getTitleFor(Lingo lingo) {
@@ -102,71 +108,6 @@ public class ChallengeModel {
             }
         }
         return StringUtils.EMPTY;
-    }
-
-    public Challenge createChallenge() {
-        Challenge challenge = new Challenge();
-        mergeChallengeWithModel(challenge);
-        return challenge;
-    }
-
-    public void mergeChallengeWithModel(Challenge challenge) {
-        challenge.getTitles().clear();
-        for (MultiLingoText title : titles) {
-            challenge.getTitles().put(title.getLingo(), title.getText());
-        }
-
-        challenge.getDescriptions().clear();
-        for (MultiLingoText description : descriptions) {
-            challenge.getDescriptions().put(description.getLingo(), description.getText());
-        }
-
-        challenge.getInputTypes().clear();
-        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
-
-        challenge.setOutputType(outputType);
-
-        challenge.getTestCases().clear();
-        for (TestCase testCase : testCases) {
-            challenge.addTestCase(testCase.getInputValues(), testCase.outputValue);
-        }
-
-        if (approved != null) {
-            challenge.setApproved(approved);
-        }
-    }
-
-    public static ChallengeModel createFrom(Challenge challenge) {
-        ChallengeModel challengeModel = new ChallengeModel();
-
-        challengeModel.setChallengeId(challenge.getId());
-
-        for (Map.Entry<Lingo, String> eachTitle : challenge.getTitles().entrySet()) {
-            challengeModel.titles.add(new MultiLingoText(eachTitle.getKey(), eachTitle.getValue()));
-        }
-
-        for (Map.Entry<Lingo, String> eachDescription : challenge.getDescriptions().entrySet()) {
-            challengeModel.descriptions.add(new MultiLingoText(eachDescription.getKey(), eachDescription.getValue()));
-        }
-
-        for (ChallengeInputType eachInputType : challenge.getInputTypes()) {
-            challengeModel.inputTypes.add(eachInputType.getInputType());
-        }
-
-        for (com.ufukuzun.kodility.domain.challenge.TestCase eachTestCase : challenge.getTestCases()) {
-            TestCase testCase = new TestCase();
-            for (TestCaseInputValue eachInputValue : eachTestCase.getInputs()) {
-                testCase.getInputValues().add(eachInputValue.getInputValue());
-            }
-            testCase.setOutputValue(eachTestCase.getOutput());
-            challengeModel.getTestCases().add(testCase);
-        }
-
-        challengeModel.setOutputType(challenge.getOutputType());
-
-        challengeModel.setApproved(challenge.isApproved());
-
-        return challengeModel;
     }
 
     public static class MultiLingoText {

@@ -70,6 +70,11 @@ kodility.ChallengeManagement = {
         if (challengeModel.approved) {
             $('input[name="approved"]').attr('checked', 'checked');
         }
+
+        var $levelSelection = $('select[name="level"]');
+        if ($levelSelection.length == 1 && challengeModel.level) {
+            $levelSelection.val(challengeModel.level);
+        }
     },
 
     removeInputAction: function () {
@@ -200,7 +205,12 @@ kodility.ChallengeManagement = {
 
         var $approveCheckbox = $('input[name="approved"]');
         if ($approveCheckbox.length == 1) {
-            requestData.approved = $('input[name="approved"]').is(':checked');
+            requestData.approved = $approveCheckbox.is(':checked');
+        }
+
+        var $levelSelection = $('select[name="level"]');
+        if ($levelSelection.length == 1) {
+            requestData.level = $levelSelection.val();
         }
 
         var loadingStateConfig = kodility.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});

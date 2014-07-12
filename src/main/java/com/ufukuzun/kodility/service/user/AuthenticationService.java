@@ -27,9 +27,18 @@ public class AuthenticationService {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+    public boolean isCurrentUserAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return hasRole(authentication.getAuthorities(), "ROLE_ADMIN");
+    }
+
     private boolean isNotAnonymousUser(Collection<? extends GrantedAuthority> authorities) {
+        return !hasRole(authorities, "ROLE_ANONYMOUS");
+    }
+
+    private boolean hasRole(Collection<? extends GrantedAuthority> authorities, String role) {
         for (GrantedAuthority authority : authorities) {
-            if (!authority.getAuthority().equals("ROLE_ANONYMOUS")) {
+            if (authority.getAuthority().equals(role)) {
                 return true;
             }
         }

@@ -25,6 +25,9 @@ public class ChallengeService {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private ChallengeModelHelper challengeModelHelper;
+
     public List<Challenge> findAllApproved() {
         return challengeDao.findAllApproved();
     }
@@ -67,9 +70,9 @@ public class ChallengeService {
         Challenge challenge;
         if (challengeModel.getChallengeId() != null) {
             challenge = challengeDao.findOne(challengeModel.getChallengeId());
-            challengeModel.mergeChallengeWithModel(challenge);
+            challengeModelHelper.mergeChallengeWithModel(challengeModel, challenge);
         } else {
-            challenge = challengeModel.createChallenge();
+            challenge = challengeModelHelper.createChallengeFrom(challengeModel);
         }
         return challenge;
     }

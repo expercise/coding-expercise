@@ -47,6 +47,11 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
                 addAuthorityError(bindingResult, "NotAuthorized.challenge.changeApproveStatus");
                 return false;
             }
+
+            if (currentUser.isNotAdmin() && isLevelChanged(challengeModel, challenge)) {
+                addAuthorityError(bindingResult, "NotAuthorized.challenge.changeLevel");
+                return false;
+            }
         }
         return true;
     }
@@ -97,7 +102,11 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
     }
 
     private boolean isApproveStatusChanged(ChallengeModel challengeModel, Challenge challenge) {
-        return challengeModel.isApproved() != null && challenge.isApproved() != challengeModel.isApproved();
+        return challengeModel.getApproved() != null && challenge.isApproved() != challengeModel.getApproved();
+    }
+
+    private boolean isLevelChanged(ChallengeModel challengeModel, Challenge challenge) {
+        return challengeModel.getLevel() != null && challenge.getLevelId() != challengeModel.getLevel();
     }
 
     private boolean isInputValuesNotProperFoInputTypes(List<DataType> inputTypes, List<String> inputValues) {

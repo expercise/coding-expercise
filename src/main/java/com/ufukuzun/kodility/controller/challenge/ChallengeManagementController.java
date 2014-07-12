@@ -8,7 +8,9 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ManagementMode;
+import com.ufukuzun.kodility.service.challenge.ChallengeModelHelper;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
+import com.ufukuzun.kodility.service.challenge.LevelService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.utils.JsonUtils;
 import com.ufukuzun.kodility.utils.validation.SaveChallengeValidator;
@@ -31,6 +33,12 @@ public class ChallengeManagementController {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private LevelService levelService;
+
+    @Autowired
+    private ChallengeModelHelper challengeModelHelper;
 
     @RequestMapping(value = "/addChallenge", method = RequestMethod.GET)
     public ModelAndView addChallengePage() {
@@ -61,7 +69,7 @@ public class ChallengeManagementController {
         }
 
         ModelAndView modelAndView = prepareChallengeManagementViewModel(ManagementMode.Update);
-        modelAndView.addObject("challengeModel", JsonUtils.toJsonString(ChallengeModel.createFrom(challenge)));
+        modelAndView.addObject("challengeModel", JsonUtils.toJsonString(challengeModelHelper.createModelFrom(challenge)));
 
         return modelAndView;
     }
@@ -71,6 +79,7 @@ public class ChallengeManagementController {
         modelAndView.addObject("mode", managementMode);
         modelAndView.addObject("lingos", Lingo.values());
         modelAndView.addObject("dataTypes", DataType.values());
+        modelAndView.addObject("levels", levelService.getAllLevels());
         return modelAndView;
     }
 

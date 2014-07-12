@@ -1,10 +1,13 @@
 package com.ufukuzun.kodility.domain.challenge;
 
 import com.ufukuzun.kodility.domain.PrioritizedEntity;
+import com.ufukuzun.kodility.enums.Lingo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Level extends PrioritizedEntity {
@@ -13,8 +16,11 @@ public class Level extends PrioritizedEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private String levelName;
+    @ElementCollection
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "Lingo", nullable = false)
+    @Column(name = "Name", nullable = false)
+    private Map<Lingo, String> names = new HashMap<>();
 
     @OneToMany(mappedBy = "level")
     private List<Challenge> challenges = new ArrayList<>();
@@ -27,12 +33,17 @@ public class Level extends PrioritizedEntity {
         this.id = id;
     }
 
-    public String getLevelName() {
-        return levelName;
+    public Map<Lingo, String> getNames() {
+        return names;
     }
 
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
+    public void setNames(Map<Lingo, String> names) {
+        this.names = names;
+    }
+
+    public String getNameFor(String lingoShortName) {
+        Lingo lingo = Lingo.getLingo(lingoShortName);
+        return names.get(lingo);
     }
 
     public List<Challenge> getChallenges() {
