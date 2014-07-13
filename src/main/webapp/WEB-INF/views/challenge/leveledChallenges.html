@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+    <legend th:text="#{challengeList.header.leveledChallenges}"></legend>
+
+    <div class="row levelContainer" th:each="level : ${levelList}" th:if="${not #lists.isEmpty(level.challenges)}">
+        <div class="col-xs-12">
+            <h3 th:text="${level.getNameFor(#locale)}"></h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="indexColumn"></th>
+                        <th class="fixedWidthColumn" th:text="#{challengeList.table.header.challenge}"></th>
+                        <th th:text="#{challengeList.table.header.solveCount}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="challenge, iteration : ${level.challenges}">
+                        <td class="indexColumn" th:text="${level.priority} + '.' + ${iteration.count}"></td>
+                        <td class="fixedWidthColumn">
+                            <a th:href="@{'/challenges/' + ${challenge.id} + '?ref=levels'}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                        </td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

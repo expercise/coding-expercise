@@ -19,9 +19,9 @@
                 </td>
                 <td>0</td>
                 <td th:if="${mode != 'ForAll'}" th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>
-                <th th:if="${mode != 'ForAll'}">
+                <td th:if="${mode != 'ForAll'}">
                     <a th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}" th:text="#{button.modify}"></a>
-                </th>
+                </td>
             </tr>
         </tbody>
         <tfoot>

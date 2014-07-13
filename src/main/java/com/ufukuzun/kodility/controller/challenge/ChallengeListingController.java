@@ -16,12 +16,6 @@ public class ChallengeListingController {
     @Autowired
     private ChallengeService challengeService;
 
-    @RequestMapping("/challenges")
-    public ModelAndView listChallenges() {
-        List<Challenge> challenges = challengeService.findAllApproved();
-        return prepareModelAndViewForListing(challenges, ChallengeListingMode.ForAll.name());
-    }
-
     @RequestMapping("/challenges/myChallenges")
     public ModelAndView listChallengesOfUser() {
         List<Challenge> challenges = challengeService.findAllChallengesOfUser();

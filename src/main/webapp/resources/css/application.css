@@ -220,3 +220,12 @@ legend.subHeader {
     border-radius: 17px;
     font-size: 22px;
 }
+
+.levelContainer table .fixedWidthColumn {
+    width: 400px;
+}
+
+table .indexColumn {
+    width: 20px;
+    text-align: right;
+}
