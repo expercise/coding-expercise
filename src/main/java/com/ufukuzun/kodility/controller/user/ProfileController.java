@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.controller.user;
 
 import com.ufukuzun.kodility.domain.user.User;
+import com.ufukuzun.kodility.service.challenge.LevelService;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.service.user.UserService;
@@ -23,6 +24,9 @@ public class ProfileController {
     @Autowired
     private UserPointService userPointService;
 
+    @Autowired
+    private LevelService levelService;
+
     @RequestMapping
     public ModelAndView showMyProfile() {
         User user = authenticationService.getCurrentUser();
@@ -35,12 +39,12 @@ public class ProfileController {
         return prepareModelAndView(user, false);
     }
 
-    // TODO ufuk: put user's level progress info
     private ModelAndView prepareModelAndView(User user, boolean currentUser) {
         ModelAndView modelAndView = new ModelAndView("user/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
         modelAndView.addObject("isCurrentUser", currentUser);
+        modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOfCurrentUser());
         return modelAndView;
     }
 

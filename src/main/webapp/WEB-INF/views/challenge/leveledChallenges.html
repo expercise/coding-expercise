@@ -3,9 +3,12 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="#{challengeList.header.leveledChallenges}"></legend>
 
-    <div class="row levelContainer" th:each="level : ${levelList}" th:if="${not #lists.isEmpty(level.challenges)}">
-        <div class="col-xs-12">
-            <h3 th:text="${level.getNameFor(#locale)}"></h3>
+    <div class="row levelContainer" th:each="level : ${levelList}" th:if="${not #lists.isEmpty(level.approvedChallenges)}">
+        <div th:with="levelActive=${currentLevelModel.isLevelActive(level)}" th:class="${levelActive} ? 'col-xs-12' : 'col-xs-12 notActiveLevel'">
+            <h3>
+                <span th:text="${level.getNameFor(#locale)}"></span>
+                <span th:if="${currentLevelModel.isCurrentLevel(level)}" class="glyphicon glyphicon-flag"></span>
+            </h3>
 
             <table class="table">
                 <thead>
@@ -16,10 +19,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="challenge, iteration : ${level.challenges}">
+                    <tr th:each="challenge, iteration : ${level.approvedChallenges}">
                         <td class="indexColumn" th:text="${level.priority} + '.' + ${iteration.count}"></td>
                         <td class="fixedWidthColumn">
-                            <a th:href="@{'/challenges/' + ${challenge.id} + '?ref=levels'}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                            <a th:if="${levelActive}" th:href="@{'/challenges/' + ${challenge.id} + '?ref=levels'}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                            <span th:unless="${levelActive}" th:text="${challenge.getTitleFor(#locale)}"></span>
+                            <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
                         <td>0</td>
                     </tr>

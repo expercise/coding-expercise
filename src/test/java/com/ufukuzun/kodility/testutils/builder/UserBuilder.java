@@ -23,7 +23,7 @@ public class UserBuilder extends AbstractEntityBuilder<User, UserBuilder> {
     private ProgrammingLanguage programmingLanguage;
 
     @Override
-    public User doBuild() {
+    protected User doBuild() {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);

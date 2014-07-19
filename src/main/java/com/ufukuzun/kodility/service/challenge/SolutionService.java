@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class SolutionService {
 
@@ -22,6 +24,10 @@ public class SolutionService {
 
     public Solution getSolutionBy(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         return solutionDao.findBy(challenge, user, programmingLanguage);
+    }
+
+    public List<Solution> getAllApprovedChallengeSolutionsOf(User user) {
+        return solutionDao.findApprovedChallengeSolutionsByUser(user);
     }
 
     public void updateSolution(Solution solution) {

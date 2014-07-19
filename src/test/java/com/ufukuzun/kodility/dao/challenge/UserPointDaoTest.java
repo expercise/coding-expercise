@@ -28,7 +28,7 @@ public class UserPointDaoTest extends AbstractDaoTest {
         User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
 
-        UserPoint userPoint = new UserPointBuilder().challenge(challenge).user(user).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
+        UserPoint userPoint = new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).givenDate(Clock.getTime()).pointAmount(10).persist(getCurrentSession());
 
         UserPoint foundUserPoint = dao.findByChallengeAndUser(challenge, user);
 
@@ -42,7 +42,7 @@ public class UserPointDaoTest extends AbstractDaoTest {
         User author = new UserBuilder().email("author@kodility.com").persist(getCurrentSession());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
 
-        new UserPointBuilder().challenge(challenge).user(user).pointAmount(10).givenDate(Clock.getTime()).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).pointAmount(10).givenDate(Clock.getTime()).persist(getCurrentSession());
 
         UserPoint foundUserPoint = dao.findByChallengeAndUser(challenge, author);
 
@@ -85,8 +85,8 @@ public class UserPointDaoTest extends AbstractDaoTest {
 
         Challenge challenge = new ChallengeBuilder().user(user).persist(getCurrentSession());
 
-        new UserPointBuilder().challenge(challenge).user(user).pointAmount(6).givenDate(Clock.getTime()).persist(getCurrentSession());
-        new UserPointBuilder().challenge(challenge).user(user).pointAmount(7).givenDate(Clock.getTime()).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).user(user).pointAmount(6).givenDate(Clock.getTime()).persist(getCurrentSession());
+        new UserPointBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).user(user).pointAmount(7).givenDate(Clock.getTime()).persist(getCurrentSession());
 
         long totalPoints = dao.getTotalPointsOf(user);
 

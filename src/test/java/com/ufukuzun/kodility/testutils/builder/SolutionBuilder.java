@@ -20,7 +20,7 @@ public class SolutionBuilder  extends AbstractEntityBuilder<Solution, SolutionBu
     private Date createDate = new Date();
 
     @Override
-    public Solution doBuild() {
+    protected Solution doBuild() {
         Solution newSolution = new Solution();
         newSolution.setChallenge(challenge);
         newSolution.setUser(user);

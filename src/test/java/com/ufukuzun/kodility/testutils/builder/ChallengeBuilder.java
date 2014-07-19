@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.testutils.builder;
 
 import com.ufukuzun.kodility.domain.challenge.Challenge;
+import com.ufukuzun.kodility.domain.challenge.Level;
 import com.ufukuzun.kodility.domain.user.User;
 
 public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, ChallengeBuilder> {
@@ -11,12 +12,18 @@ public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, Challenge
 
     private int point = 1;
 
+    private Level level;
+
     @Override
-    public Challenge doBuild() {
+    protected Challenge doBuild() {
         Challenge challenge = new Challenge();
         challenge.setApproved(approved);
         challenge.setUser(user);
         challenge.setPoint(point);
+        challenge.setLevel(level);
+        if (level != null) {
+            level.getChallenges().add(challenge);
+        }
         return challenge;
     }
 
@@ -32,6 +39,11 @@ public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, Challenge
 
     public ChallengeBuilder point(int point) {
         this.point = point;
+        return this;
+    }
+
+    public ChallengeBuilder level(Level level) {
+        this.level = level;
         return this;
     }
 

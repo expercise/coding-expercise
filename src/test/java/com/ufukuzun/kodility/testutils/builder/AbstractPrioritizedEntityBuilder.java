@@ -6,10 +6,10 @@ public abstract class AbstractPrioritizedEntityBuilder<T extends PrioritizedEnti
 
     private int priority;
 
-    public abstract T getInstance();
+    protected abstract T getInstance();
 
     @Override
-    public T doBuild() {
+    protected T doBuild() {
         T entity = getInstance();
         entity.setPriority(priority);
         return entity;

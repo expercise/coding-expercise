@@ -15,7 +15,8 @@ public class LeveledChallengesController {
     @RequestMapping("/challenges")
     public ModelAndView listChallenges() {
         ModelAndView modelAndView = new ModelAndView("challenge/leveledChallenges");
-        modelAndView.addObject("levelList", levelService.getAllLevels());
+        modelAndView.addObject("levelList", levelService.getAllLevelsInOrder());
+        modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOfCurrentUser());
         return modelAndView;
     }
 

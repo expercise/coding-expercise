@@ -2,6 +2,8 @@ package com.ufukuzun.kodility.domain.challenge;
 
 import com.ufukuzun.kodility.domain.PrioritizedEntity;
 import com.ufukuzun.kodility.enums.Lingo;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -47,6 +49,17 @@ public class Level extends PrioritizedEntity {
     }
 
     public List<Challenge> getChallenges() {
+        return challenges;
+    }
+
+    public List<Challenge> getApprovedChallenges() {
+        List<Challenge> challenges = new ArrayList<>(this.challenges);
+        CollectionUtils.filter(challenges, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                return ((Challenge) object).isApproved();
+            }
+        });
         return challenges;
     }
 

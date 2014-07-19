@@ -1,15 +1,15 @@
 package com.ufukuzun.kodility.testutils.builder;
 
 import com.ufukuzun.kodility.domain.configuration.Configuration;
-import org.thymeleaf.util.StringUtils;
 
 public class ConfigurationBuilder extends AbstractEntityBuilder<Configuration, ConfigurationBuilder> {
 
-    private String key = StringUtils.randomAlphanumeric(10);
+    private String key;
 
-    private String value = StringUtils.randomAlphanumeric(16);
+    private String value;
 
-    public Configuration doBuild() {
+    @Override
+    protected Configuration doBuild() {
         Configuration configuration = new Configuration();
         configuration.setName(key);
         configuration.setValue(value);

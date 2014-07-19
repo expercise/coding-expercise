@@ -9,10 +9,12 @@
                 <span class="glyphicon glyphicon-user"></span>
             </div>
             <ul class="list-group userProgress">
-                <li class="list-group-item level">
-                    <span class="remainingChallengesToNextLevel" th:text="${#messages.msg('user.profile.remainingChallengesToNextLevel', 2, 3)}"></span>
+                <li class="list-group-item level" th:with="currentLevelExists=${currentLevelModel.currentLevel != null}, nextLevelExists=${currentLevelModel.nextLevel != null}">
+                    <span class="remainingChallengesToNextLevel" th:if="${nextLevelExists}" th:text="${#messages.msg('user.profile.remainingChallengesToNextLevel', currentLevelModel.getNextLevel().getNameFor(#locale), currentLevelModel.challengeCountToNextLevel)}"></span>
+                    <span class="remainingChallengesToNextLevel" th:if="${not nextLevelExists and currentLevelExists}" th:text="${currentLevelModel.getCurrentLevel().getNameFor(#locale)}"></span>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                             th:with="progress=${currentLevelModel.calculateProgressForCurrentLevel()}" th:attr="aria-valuenow=${progress}" th:style="'width: ' + ${progress} + '%'">
                         </div>
                     </div>
                 </li>

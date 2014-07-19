@@ -79,7 +79,7 @@ public class ChallengeManagementController {
         modelAndView.addObject("mode", managementMode);
         modelAndView.addObject("lingos", Lingo.values());
         modelAndView.addObject("dataTypes", DataType.values());
-        modelAndView.addObject("levels", levelService.getAllLevels());
+        modelAndView.addObject("levels", levelService.getAllLevelsInOrder());
         return modelAndView;
     }
 

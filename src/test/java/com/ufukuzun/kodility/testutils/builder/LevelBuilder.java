@@ -5,7 +5,7 @@ import com.ufukuzun.kodility.domain.challenge.Level;
 public class LevelBuilder extends AbstractPrioritizedEntityBuilder<Level, LevelBuilder> {
 
     @Override
-    public Level getInstance() {
+    protected Level getInstance() {
         return new Level();
     }
 

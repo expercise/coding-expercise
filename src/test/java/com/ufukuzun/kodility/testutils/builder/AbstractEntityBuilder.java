@@ -9,7 +9,7 @@ public abstract class AbstractEntityBuilder<T extends AbstractEntity, B extends 
 
     private Long id;
 
-    public abstract T doBuild();
+    protected abstract T doBuild();
 
     public T build() {
         T entity = doBuild();

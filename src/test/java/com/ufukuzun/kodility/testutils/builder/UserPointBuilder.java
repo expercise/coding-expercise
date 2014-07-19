@@ -13,14 +13,14 @@ public class UserPointBuilder extends AbstractEntityBuilder<UserPoint, UserPoint
 
     private Challenge challenge;
 
-    private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
+    private ProgrammingLanguage programmingLanguage;
 
     private int pointAmount;
 
     private Date givenDate;
 
     @Override
-    public UserPoint doBuild() {
+    protected UserPoint doBuild() {
         UserPoint userPoint = new UserPoint();
         userPoint.setUser(user);
         userPoint.setChallenge(challenge);
