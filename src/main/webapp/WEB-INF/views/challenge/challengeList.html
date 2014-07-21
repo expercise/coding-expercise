@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th th:text="#{challengeList.table.header.challenge}"></th>
-                <th th:text="#{challengeList.table.header.solveCount}"></th>
+                <th th:text="#{challengeList.table.header.solutionCount}"></th>
                 <th th:if="${mode != 'ForAll'}" th:text="#{challengeManagement.approved}"></th>
                 <th th:if="${mode != 'ForAll'}"></th>
             </tr>
@@ -17,7 +17,7 @@
                 <td>
                     <a th:href="@{'/challenges/'+ ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
                 </td>
-                <td>0</td>
+                <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:if="${mode != 'ForAll'}" th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>
                 <td th:if="${mode != 'ForAll'}">
                     <a th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}" th:text="#{button.modify}"></a>

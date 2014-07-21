@@ -5,6 +5,7 @@ import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.challenge.SolutionService;
+import com.ufukuzun.kodility.service.challenge.SolutionCountService;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationAction;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
@@ -20,6 +21,9 @@ public class SaveUserSolutionPostAction implements PostEvaluationAction {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private SolutionCountService solutionCountService;
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
@@ -49,6 +53,8 @@ public class SaveUserSolutionPostAction implements PostEvaluationAction {
         solution.setProgrammingLanguage(language);
         solution.setSolution(source);
         solutionService.saveSolution(solution);
+
+        solutionCountService.clearCacheFor(challenge.getId());
     }
 
     @Override

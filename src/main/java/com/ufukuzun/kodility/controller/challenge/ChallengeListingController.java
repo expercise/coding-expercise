@@ -3,6 +3,7 @@ package com.ufukuzun.kodility.controller.challenge;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ChallengeListingMode;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
+import com.ufukuzun.kodility.service.challenge.SolutionCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ public class ChallengeListingController {
 
     @Autowired
     private ChallengeService challengeService;
+
+    @Autowired
+    private SolutionCountService solutionCountService;
 
     @RequestMapping("/challenges/myChallenges")
     public ModelAndView listChallengesOfUser() {
@@ -31,6 +35,7 @@ public class ChallengeListingController {
     private ModelAndView prepareModelAndViewForListing(List<Challenge> challenges, String mode) {
         ModelAndView modelAndView = new ModelAndView("challenge/challengeList");
         modelAndView.addObject("challenges", challenges);
+        modelAndView.addObject("solutionCountMap", solutionCountService.prepareSolutionCountMapFor(challenges));
         modelAndView.addObject("mode", mode);
         return modelAndView;
     }

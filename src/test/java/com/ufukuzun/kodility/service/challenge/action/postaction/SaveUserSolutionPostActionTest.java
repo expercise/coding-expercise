@@ -6,6 +6,7 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.SolutionService;
+import com.ufukuzun.kodility.service.challenge.SolutionCountService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.utils.DateUtils;
@@ -25,6 +26,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,6 +40,9 @@ public class SaveUserSolutionPostActionTest {
 
     @Mock
     private AuthenticationService authenticationService;
+
+    @Mock
+    private SolutionCountService solutionCountService;
 
     @Test
     public void shouldBeAbleToExecuteIfEvaluationIsSucceed() {
@@ -59,8 +64,8 @@ public class SaveUserSolutionPostActionTest {
     public void shouldSaveUserSolutionIfUserDoesNotHaveSolutionForThatChallengeBefore() {
         Clock.freeze(DateUtils.toDate("10/12/2012"));
 
-        User user = new UserBuilder().id(1L).email("user@kodility.com").build();
-        Challenge challenge = new ChallengeBuilder().id(2L).build();
+        User user = new UserBuilder().email("user@kodility.com").buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().buildWithRandomId();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
@@ -82,6 +87,8 @@ public class SaveUserSolutionPostActionTest {
         assertThat(capturedSolution.getSolution(), equalTo("this is a solution of the user"));
         assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python));
 
+        verify(solutionCountService).clearCacheFor(challenge.getId());
+
         Clock.unfreeze();
     }
 
@@ -89,8 +96,8 @@ public class SaveUserSolutionPostActionTest {
     public void shouldUpdateUserCurrentSolutionIfUserAlreadyHaveSolutionForThatChallengeBefore() {
         Clock.freeze(DateUtils.toDate("10/12/2012"));
 
-        User user = new UserBuilder().id(1L).email("user@kodility.com").build();
-        Challenge challenge = new ChallengeBuilder().id(2L).build();
+        User user = new UserBuilder().email("user@kodility.com").buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().buildWithRandomId();
         Solution solution = new SolutionBuilder().id(1L).createDate(DateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
@@ -114,6 +121,8 @@ public class SaveUserSolutionPostActionTest {
         assertThat(capturedSolution.getCreateDate(), equalTo(Clock.getTime()));
         assertThat(capturedSolution.getSolution(), equalTo("new solution of the user"));
         assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.JavaScript));
+
+        verifyZeroInteractions(solutionCountService);
 
         Clock.unfreeze();
     }

@@ -15,7 +15,7 @@
                     <tr>
                         <th class="indexColumn"></th>
                         <th class="fixedWidthColumn" th:text="#{challengeList.table.header.challenge}"></th>
-                        <th th:text="#{challengeList.table.header.solveCount}"></th>
+                        <th th:text="#{challengeList.table.header.solutionCount}"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@
                             <span th:unless="${levelActive}" th:text="${challenge.getTitleFor(#locale)}"></span>
                             <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
-                        <td>0</td>
+                        <td th:text="${solutionCountMap.get(challenge)}"></td>
                     </tr>
                 </tbody>
             </table>

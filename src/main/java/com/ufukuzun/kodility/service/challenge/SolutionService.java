@@ -34,4 +34,8 @@ public class SolutionService {
         solutionDao.update(solution);
     }
 
+    public long getSolutionCountOf(Challenge challenge) {
+        return solutionDao.countByChallenge(challenge);
+    }
+
 }

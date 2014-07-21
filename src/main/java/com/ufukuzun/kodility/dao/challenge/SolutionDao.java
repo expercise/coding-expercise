@@ -36,4 +36,10 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
         return criteria.list();
     }
 
+    public long countByChallenge(Challenge challenge) {
+        Map<String, Object> criteriaMap = new HashMap<>();
+        criteriaMap.put("challenge", challenge);
+        return countBy(criteriaMap);
+    }
+
 }
