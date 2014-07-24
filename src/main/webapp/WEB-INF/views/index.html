@@ -3,10 +3,10 @@
 <body layout:fragment="content" th:remove="tag">
     <hr />
 
-    <div class="jumbotron">
+    <div class="quoteContainer jumbotron">
         <h1 th:text="#{catchLine}"></h1>
         <p>
-            <span class="qoute" th:text="#{motto}"></span>
+            <span class="quote" th:text="#{motto}"></span>
         </p>
         <p><a class="btn btn-primary btn-lg" role="button" th:href="@{'/challenges/'}" th:text="#{button.start}">Start</a></p>
     </div>

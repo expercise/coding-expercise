@@ -11,7 +11,7 @@
         <script type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
         <script type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.js}"></script>
 
-        <script type="text/javascript" th:src="@{/resources/js/lib/bootstrap.js}"></script>
+        <script type="text/javascript" th:src="@{/resources/js/lib/bootstrap.min.js}"></script>
 
         <script type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
         <script type="text/javascript" th:src="@{/resources/js/codemirror/mode/javascript.js}"></script>
@@ -26,7 +26,6 @@
         <script type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>
 
         <script type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/less.js}"></script>
 
         <script th:if="${@configurationService.isProduction()}" th:utext="${@configurationService.googleAnalyticsScript}"></script>
     </div>

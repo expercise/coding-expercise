@@ -26,8 +26,8 @@ kodility.utils = {
     },
 
     setLoadingState: function (config) {
-        config.element.addClass('disabled');
         config.element.addClass('glyphicon glyphicon-' + config.icon);
+        config.element.addClass('disabled');
         config.oldText = config.element.text();
         config.element.text('');
         return config;

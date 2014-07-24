@@ -10,12 +10,11 @@
     <name>Kodility</name>
 
     <properties>
-        <jdk.version>1.7</jdk.version>
+        <!-- Dependencies -->
         <junit.version>4.11</junit.version>
         <hsqldb.version>2.3.2</hsqldb.version>
         <mockito.version>1.9.5</mockito.version>
         <hamcrest.version>1.3</hamcrest.version>
-        <jetty.plugin.version>8.1.14.v20131031</jetty.plugin.version>
         <spring.version>4.0.5.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
         <servlet.api.version>3.0.1</servlet.api.version>
@@ -33,6 +32,11 @@
         <apache.commons.collections.version>3.2.1</apache.commons.collections.version>
         <apache.commons.dbcp>2.0</apache.commons.dbcp>
         <slf4j.version>1.7.7</slf4j.version>
+
+        <!-- Others -->
+        <jdk.version>1.7</jdk.version>
+        <jetty.plugin.version>8.1.14.v20131031</jetty.plugin.version>
+        <less.plugin.version>1.7.0.1.1</less.plugin.version>
     </properties>
 
     <dependencies>
@@ -229,6 +233,30 @@
     <build>
         <finalName>kodility</finalName>
         <plugins>
+            <!-- LESS Plugin -->
+            <plugin>
+                <groupId>org.lesscss</groupId>
+                <artifactId>lesscss-maven-plugin</artifactId>
+                <version>${less.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/${project.build.finalName}/resources/style</outputDirectory>
+                    <compress>true</compress>
+                    <force>true</force>
+                    <includes>
+                        <include>kodility.less</include>
+                    </includes>
+                    <outputFileFormat>kodility.css</outputFileFormat>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -240,17 +268,18 @@
             </plugin>
 
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.plugin.version}</version>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+
+            <!-- Jetty Plugin -->
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.plugin.version}</version>
             </plugin>
         </plugins>
     </build>
