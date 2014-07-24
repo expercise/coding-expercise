@@ -36,6 +36,13 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
+    public String getFavoriteProgLang() {
+        if (programmingLanguage == null) {
+            return "-";
+        }
+        return programmingLanguage.name();
+    }
+
     public Long getId() {
         return id;
     }
