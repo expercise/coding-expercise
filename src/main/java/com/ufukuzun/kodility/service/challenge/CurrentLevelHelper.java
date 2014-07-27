@@ -39,9 +39,7 @@ public class CurrentLevelHelper {
 
             int countOfSolvedChallenges = countOfSolvedChallengesOfLevel(currentLevel, solutions);
             int countOfApprovedChallenges = currentLevel.getApprovedChallenges().size();
-            if (countOfSolvedChallenges == countOfApprovedChallenges) {
-                continue;
-            } else {
+            if (countOfSolvedChallenges != countOfApprovedChallenges) {
                 challengeCountToNextLevel = countOfApprovedChallenges - countOfSolvedChallenges;
                 break;
             }

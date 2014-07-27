@@ -75,14 +75,12 @@ public class HibernateConfiguration {
     }
 
     Properties hibernateProperties() {
-        return new Properties() {
-            {
-                setProperty("hibernate.hbm2ddl.auto", hbm2ddlMode);
-                setProperty("hibernate.dialect", dialect);
-                setProperty("hibernate.show_sql", showSql);
-                setProperty("hibernate.format_sql", "true");
-            }
-        };
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", hbm2ddlMode);
+        properties.setProperty("hibernate.dialect", dialect);
+        properties.setProperty("hibernate.show_sql", showSql);
+        properties.setProperty("hibernate.format_sql", "true");
+        return properties;
     }
 
 }

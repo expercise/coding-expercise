@@ -4,6 +4,6 @@ import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 
 public interface Interpreter {
 
-    void interpret(ChallengeEvaluationContext context);
+    void interpret(ChallengeEvaluationContext context) throws InterpreterException;
 
 }

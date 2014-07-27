@@ -52,19 +52,19 @@ public class Level extends PrioritizedEntity {
         return challenges;
     }
 
+    public void setChallenges(List<Challenge> challenges) {
+        this.challenges = challenges;
+    }
+
     public List<Challenge> getApprovedChallenges() {
-        List<Challenge> challenges = new ArrayList<>(this.challenges);
-        CollectionUtils.filter(challenges, new Predicate() {
+        List<Challenge> approvedChallenges = new ArrayList<>(challenges);
+        CollectionUtils.filter(approvedChallenges, new Predicate() {
             @Override
             public boolean evaluate(Object object) {
                 return ((Challenge) object).isApproved();
             }
         });
-        return challenges;
-    }
-
-    public void setChallenges(List<Challenge> challenges) {
-        this.challenges = challenges;
+        return approvedChallenges;
     }
 
 }

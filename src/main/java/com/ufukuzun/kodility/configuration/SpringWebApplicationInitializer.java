@@ -27,7 +27,8 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         FilterRegistration.Dynamic openSessionInViewFilter = servletContext.addFilter("openSessionInViewFilter", new OpenSessionInViewFilter());
         openSessionInViewFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
-        FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"));
+        String springSecurityFilterChainName = "springSecurityFilterChain";
+        FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter(springSecurityFilterChainName, new DelegatingFilterProxy(springSecurityFilterChainName));
         springSecurityFilterChain.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC), true, "/*");
 
         servletContext.setInitParameter("defaultHtmlEscape", "true");

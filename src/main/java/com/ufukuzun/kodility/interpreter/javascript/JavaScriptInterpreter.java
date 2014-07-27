@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.Interpreter;
+import com.ufukuzun.kodility.interpreter.InterpreterException;
 import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.List;
 
 @Component
 public class JavaScriptInterpreter implements Interpreter {
@@ -26,48 +26,15 @@ public class JavaScriptInterpreter implements Interpreter {
     private InterpreterResultCreator interpreterResultCreator;
 
     @Override
-    public void interpret(ChallengeEvaluationContext context) {
-        Challenge challenge = context.getChallenge();
-        String source = context.getSource();
-
+    public void interpret(ChallengeEvaluationContext context) throws InterpreterException {
         ScriptEngine javaScriptEngine = getScriptEngine();
 
-        try {
-            javaScriptEngine.eval(source);
-        } catch (ScriptException e) {
-            LOGGER.debug("Exception while evaluation", e);
-            context.setInterpreterResult(interpreterResultCreator.syntaxErrorFailedResult());
-            return;
-        }
+        evaluateSourceCode(context.getSource(), javaScriptEngine);
 
-        List<TestCase> testCases = challenge.getTestCases();
-        for (TestCase testCase : testCases) {
-            try {
-                Object[] convertedInputValues = challenge.getConvertedInputValues(testCase.getInputs()).toArray();
-                Object evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
-
-                if (evaluationResult == null) {
-                    context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
-                    return;
-                }
-
-                boolean testCaseFailed = false;
-
-                if (challenge.getOutputType().equals(DataType.Integer)) {
-                    int evaluationResultAsInteger = ((Number) evaluationResult).intValue();
-                    int expectedValue = ((Number) Double.parseDouble(testCase.getOutput())).intValue();
-                    testCaseFailed = evaluationResultAsInteger != expectedValue;
-                } else if (challenge.getOutputType().equals(DataType.Text)) {
-                    String evaluationResultAsString = (String) evaluationResult;
-                    testCaseFailed = !evaluationResultAsString.equals(evaluationResult);
-                }
-
-                if (testCaseFailed) {
-                    context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
-                    return;
-                }
-            } catch (Exception e) {
-                LOGGER.debug("Exception while interpreting", e);
+        Challenge challenge = context.getChallenge();
+        for (TestCase testCase : challenge.getTestCases()) {
+            Object resultValue = makeFunctionCallAndGetResultValue(javaScriptEngine, challenge, testCase);
+            if (isTestCaseFailedByResult(challenge, testCase, resultValue)) {
                 context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
                 return;
             }
@@ -81,6 +48,48 @@ public class JavaScriptInterpreter implements Interpreter {
         ScriptEngine javaScriptEngine = scriptEngineManager.getEngineByName("JavaScript");
         javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
         return javaScriptEngine;
+    }
+
+    private void evaluateSourceCode(String sourceCode, ScriptEngine javaScriptEngine) throws InterpreterException {
+        try {
+            javaScriptEngine.eval(sourceCode);
+        } catch (ScriptException e) {
+            LOGGER.debug("Exception while evaluation", e);
+            throw new InterpreterException(interpreterResultCreator.syntaxErrorFailedResult());
+        }
+    }
+
+    private Object makeFunctionCallAndGetResultValue(ScriptEngine javaScriptEngine, Challenge challenge, TestCase testCase) throws InterpreterException {
+        Object evaluationResult;
+
+        try {
+            Object[] convertedInputValues = challenge.getConvertedInputValues(testCase.getInputs()).toArray();
+            evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
+        } catch (Exception e) {
+            LOGGER.debug("Exception while interpreting", e);
+            throw new InterpreterException(interpreterResultCreator.failedResultWithoutMessage());
+        }
+
+        if (evaluationResult == null) {
+            throw new InterpreterException(interpreterResultCreator.noResultFailedResult());
+        }
+
+        return evaluationResult;
+    }
+
+    private boolean isTestCaseFailedByResult(Challenge challenge, TestCase testCase, Object resultValue) {
+        boolean testCaseFailed = false;
+
+        if (challenge.getOutputType().equals(DataType.Integer)) {
+            int evaluationResultAsInteger = ((Number) resultValue).intValue();
+            int expectedValue = ((Number) Double.parseDouble(testCase.getOutput())).intValue();
+            testCaseFailed = evaluationResultAsInteger != expectedValue;
+        } else if (challenge.getOutputType().equals(DataType.Text)) {
+            String evaluationResultAsString = (String) resultValue;
+            testCaseFailed = !evaluationResultAsString.equals(resultValue);
+        }
+
+        return testCaseFailed;
     }
 
 }

@@ -21,16 +21,16 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
 
     public UserPoint findByChallengeAndUser(Challenge challenge, User user) {
         Map<String, Object> criteriaParams = new HashMap<>();
-        criteriaParams.put("challenge", challenge);
-        criteriaParams.put("user", user);
+        addChallengeRestriction(criteriaParams, challenge);
+        addUserRestriction(criteriaParams, user);
 
         return findOneBy(criteriaParams);
     }
 
     public long countForPointGivingCriteria(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         Map<String, Object> criteriaParams = new HashMap<>();
-        criteriaParams.put("challenge", challenge);
-        criteriaParams.put("user", user);
+        addChallengeRestriction(criteriaParams, challenge);
+        addUserRestriction(criteriaParams, user);
         criteriaParams.put("programmingLanguage", programmingLanguage);
 
         return countBy(criteriaParams);
@@ -40,6 +40,14 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
         Criteria criteria = getCriteria();
         criteria.add(Restrictions.eq("user", user));
         return sumBy("pointAmount", criteria);
+    }
+
+    private void addUserRestriction(Map<String, Object> criteriaParams, User user) {
+        criteriaParams.put("user", user);
+    }
+
+    private void addChallengeRestriction(Map<String, Object> criteriaParams, Challenge challenge) {
+        criteriaParams.put("challenge", challenge);
     }
 
 }

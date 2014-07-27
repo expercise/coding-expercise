@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.Interpreter;
+import com.ufukuzun.kodility.interpreter.InterpreterException;
 import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.python.core.*;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,28 +22,48 @@ public class PythonInterpreter implements Interpreter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PythonInterpreter.class);
 
-    private static final Map<DataType, Class<? extends PyObject>> TYPE_MAP = new HashMap<DataType, Class<? extends PyObject>>() {{
-        put(DataType.Integer, PyInteger.class);
-        put(DataType.Text, PyString.class);
-    }};
+    private static final Map<DataType, Class<? extends PyObject>> TYPE_MAP = new HashMap<>();
+
+    static {
+        TYPE_MAP.put(DataType.Integer, PyInteger.class);
+        TYPE_MAP.put(DataType.Text, PyString.class);
+    }
 
     @Autowired
     private InterpreterResultCreator interpreterResultCreator;
 
-    org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
+    // TODO ufuk: concurrency issue on this field ?
+    private org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
 
     @Override
-    public void interpret(ChallengeEvaluationContext context) {
+    public void interpret(ChallengeEvaluationContext context) throws InterpreterException {
+        executeSourceCode(context.getSource());
+
+        PyFunction solutionFunctionToCall = getSolutionFunctionToCall();
+
         Challenge challenge = context.getChallenge();
-        String source = context.getSource();
-        try {
-            pythonInterpreter.exec(source);
-        } catch (PySyntaxError e) {
-            LOGGER.debug("Syntax error", e);
-            context.setInterpreterResult(interpreterResultCreator.syntaxErrorFailedResult());
-            return;
+        for (TestCase testCase : challenge.getTestCases()) {
+            Object resultValue = makeFunctionCallAndGetResultValue(solutionFunctionToCall, challenge, testCase);
+
+            if (!challenge.getOutputType().convert(testCase.getOutput()).equals(resultValue)) {
+                context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
+                return;
+            }
         }
 
+        context.setInterpreterResult(interpreterResultCreator.successResult());
+    }
+
+    private void executeSourceCode(String sourceCode) throws InterpreterException {
+        try {
+            pythonInterpreter.exec(sourceCode);
+        } catch (PySyntaxError e) {
+            LOGGER.debug("Syntax error", e);
+            throw new InterpreterException(interpreterResultCreator.syntaxErrorFailedResult());
+        }
+    }
+
+    private PyFunction getSolutionFunctionToCall() throws InterpreterException {
         PyStringMap locals = (PyStringMap) pythonInterpreter.getLocals();
 
         PyFunction funcToCall = null;
@@ -58,58 +78,54 @@ public class PythonInterpreter implements Interpreter {
         }
 
         if (funcToCall == null) {
-            context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
-            return;
+            throw new InterpreterException(interpreterResultCreator.noResultFailedResult());
         }
 
-        List<TestCase> testCases = challenge.getTestCases();
+        return funcToCall;
+    }
 
-        for (TestCase testCase : testCases) {
-            int argSize = testCase.getInputs().size();
+    private Object makeFunctionCallAndGetResultValue(PyFunction solutionFunctionToCall, Challenge challenge, TestCase testCase) throws InterpreterException {
+        PyObject resultAsPyObject;
+        try {
+            resultAsPyObject = solutionFunctionToCall.__call__(getArgumentsAsPyObjects(challenge, testCase));
+        } catch (PyException e) {
+            LOGGER.debug("Exception while function call", e);
+            throw new InterpreterException(interpreterResultCreator.failedResultWithoutMessage());
+        }
 
-            PyObject[] pyObjects = new PyObject[argSize];
+        Object resultAsJavaObject = null;
+        Class<? extends PyObject> outputType = TYPE_MAP.get(challenge.getOutputType());
+        if (outputType.isAssignableFrom(PyInteger.class)) {
+            resultAsJavaObject = resultAsPyObject.asInt();
+        } else if (outputType.isAssignableFrom(PyString.class)) {
+            resultAsJavaObject = resultAsPyObject.asString();
+        }
 
-            for (int i = 0; i < argSize; i++) {
-                try {
-                    DataType type = challenge.getInputTypes().get(i).getInputType();
-                    Class<?> clazz = Class.forName(type.getClassName());
-                    Class<? extends PyObject> instanceType = TYPE_MAP.get(type);
-                    if (type.equals(DataType.Integer)) {
-                        clazz = int.class;
-                    }
-                    Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
-                    pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
-                } catch (Exception e) {
-                    LOGGER.debug("Exception while preparing arguments", e);
-                    context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
-                    return;
-                }
-            }
+        return resultAsJavaObject;
+    }
 
-            PyObject resultObject;
+    private PyObject[] getArgumentsAsPyObjects(Challenge challenge, TestCase testCase) throws InterpreterException {
+        int argSize = testCase.getInputs().size();
+
+        PyObject[] pyObjects = new PyObject[argSize];
+
+        for (int i = 0; i < argSize; i++) {
             try {
-                resultObject = funcToCall.__call__(pyObjects);
-            } catch (PyException e) {
-                LOGGER.debug("Exception while function call", e);
-                context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
-                return;
-            }
-
-            Object value = null;
-            Class<? extends PyObject> outputType = TYPE_MAP.get(challenge.getOutputType());
-            if (outputType.isAssignableFrom(PyInteger.class)) {
-                value = resultObject.asInt();
-            } else if (outputType.isAssignableFrom(PyString.class)) {
-                value = resultObject.asString();
-            }
-
-            if (!challenge.getOutputType().convert(testCase.getOutput()).equals(value)) {
-                context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
-                return;
+                DataType type = challenge.getInputTypes().get(i).getInputType();
+                Class<?> clazz = Class.forName(type.getClassName());
+                Class<? extends PyObject> instanceType = TYPE_MAP.get(type);
+                if (type.equals(DataType.Integer)) {
+                    clazz = int.class;
+                }
+                Constructor<? extends PyObject> declaredConstructor = instanceType.getDeclaredConstructor(clazz);
+                pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
+            } catch (Exception e) {
+                LOGGER.debug("Exception while preparing arguments", e);
+                throw new InterpreterException(interpreterResultCreator.noResultFailedResult());
             }
         }
 
-        context.setInterpreterResult(interpreterResultCreator.successResult());
+        return pyObjects;
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public final class JsonUtils {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
     private JsonUtils() {
     }

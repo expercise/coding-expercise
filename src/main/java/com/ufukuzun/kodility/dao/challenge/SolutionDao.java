@@ -22,7 +22,7 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
 
     public Solution findBy(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         Map<String, Object> criteriaMap = new HashMap<>();
-        criteriaMap.put("challenge", challenge);
+        addChallengeRestriction(criteriaMap, challenge);
         criteriaMap.put("user", user);
         criteriaMap.put("programmingLanguage", programmingLanguage);
         return findOneBy(criteriaMap);
@@ -38,8 +38,12 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
 
     public long countByChallenge(Challenge challenge) {
         Map<String, Object> criteriaMap = new HashMap<>();
-        criteriaMap.put("challenge", challenge);
+        addChallengeRestriction(criteriaMap, challenge);
         return countBy(criteriaMap);
+    }
+
+    private void addChallengeRestriction(Map<String, Object> criteriaMap, Challenge challenge) {
+        criteriaMap.put("challenge", challenge);
     }
 
 }
