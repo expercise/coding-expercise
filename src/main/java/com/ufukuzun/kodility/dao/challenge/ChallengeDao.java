@@ -4,6 +4,8 @@ import com.ufukuzun.kodility.dao.AbstractHibernateDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.utils.collection.MapBuilder;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,6 +23,13 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
 
     public List<Challenge> findAllByUser(final User user) {
         return findAllBy(new MapBuilder<String, Object>().put("user", user).build());
+    }
+
+    public List<Challenge> findNotLeveledApprovedChallenges() {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.isNull("level"));
+        criteria.add(Restrictions.eq("approved", true));
+        return criteria.list();
     }
 
 }

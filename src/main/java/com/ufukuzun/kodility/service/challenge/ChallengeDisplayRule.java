@@ -27,7 +27,7 @@ public class ChallengeDisplayRule {
         }
 
         CurrentLevelModel currentLevelModel = currentLevelHelper.prepareCurrentLevelModelFor(currentUser);
-        if (currentLevelModel.isLevelDeactive(challenge.getLevel())) {
+        if (challenge.hasLevel() && currentLevelModel.isLevelDeactive(challenge.getLevel())) {
             return true;
         }
 

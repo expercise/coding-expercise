@@ -49,6 +49,10 @@ public class ChallengeService {
         return challengeDao.findOne(id);
     }
 
+    public List<Challenge> findNotLeveledApprovedChallenges() {
+        return challengeDao.findNotLeveledApprovedChallenges();
+    }
+
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
         User user = authenticationService.getCurrentUser();
         Map<String, String> signaturesMap = new HashMap<>();

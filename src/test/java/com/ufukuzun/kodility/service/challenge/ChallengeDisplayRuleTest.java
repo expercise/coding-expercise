@@ -122,4 +122,19 @@ public class ChallengeDisplayRuleTest {
         assertFalse(rule.isNotDisplayable(challenge));
     }
 
+    @Test
+    public void shouldReturnFalseIfChallengeIsApprovedAndHasNotLevel() {
+        User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
+
+        Challenge challenge = new ChallengeBuilder().approved(true).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
+
+        CurrentLevelModel currentLevelModel = new CurrentLevelModel();
+        currentLevelModel.setCurrentLevel(new LevelBuilder().priority(2).buildWithRandomId());
+
+        when(authenticationService.getCurrentUser()).thenReturn(currentUser);
+        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser)).thenReturn(currentLevelModel);
+
+        assertFalse(rule.isNotDisplayable(challenge));
+    }
+
 }
