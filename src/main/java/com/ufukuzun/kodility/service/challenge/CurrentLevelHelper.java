@@ -6,12 +6,12 @@ import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.challenge.model.CurrentLevelModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.ListIterator;
 
-@Service
+@Component
 public class CurrentLevelHelper {
 
     @Autowired

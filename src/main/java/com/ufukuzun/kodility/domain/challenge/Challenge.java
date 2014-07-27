@@ -123,6 +123,14 @@ public class Challenge extends AbstractEntity {
         return user;
     }
 
+    public boolean isAuthor(User user) {
+        return getUser().equals(user);
+    }
+
+    public boolean isNotAuthor(User user) {
+        return !isAuthor(user);
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

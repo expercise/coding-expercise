@@ -222,7 +222,7 @@
             <version>${apache.commons.dbcp}</version>
         </dependency>
 
-        <!-- TODO ufuk: configure logging -->
+        <!-- Logging (TODO ufuk: configure logging) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -246,8 +246,12 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
-                    <outputDirectory>${project.build.directory}/${project.build.finalName}/resources/style</outputDirectory>
+                    <sourceDirectory>
+                        ${project.basedir}/src/main/webapp/resources/style
+                    </sourceDirectory>
+                    <outputDirectory>
+                        ${project.build.directory}/${project.build.finalName}/resources/style
+                    </outputDirectory>
                     <compress>true</compress>
                     <force>true</force>
                     <includes>
@@ -263,7 +267,7 @@
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
-                    <encoding>utf-8</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 

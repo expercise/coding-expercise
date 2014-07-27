@@ -54,6 +54,10 @@ public class CurrentLevelModel {
         return currentLevel != null && currentLevel.getPriority() >= levelToCompare.getPriority();
     }
 
+    public boolean isLevelDeactive(Level levelToCompare) {
+        return !isLevelActive(levelToCompare);
+    }
+
     public boolean isSolved(Challenge challenge) {
         for (Solution solution : solutions) {
             if (solution.getChallenge().equals(challenge)) {
