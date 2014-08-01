@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
+import com.ufukuzun.kodility.service.challenge.action.PostActionOrder;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationAction;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
@@ -51,7 +52,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
     @Override
     public int getPriority() {
-        return 1;
+        return PostActionOrder.CREATE_SOLUTION_RESPONSE.ordinal();
     }
 
 }

@@ -6,6 +6,7 @@ import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.challenge.SolutionService;
 import com.ufukuzun.kodility.service.challenge.SolutionCountService;
+import com.ufukuzun.kodility.service.challenge.action.PostActionOrder;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationAction;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
@@ -59,7 +60,7 @@ public class SaveUserSolutionPostAction implements PostEvaluationAction {
 
     @Override
     public int getPriority() {
-        return 3;
+        return PostActionOrder.SAVE_USER_SOLUTION.ordinal();
     }
 
 }
