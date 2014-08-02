@@ -2,7 +2,6 @@ package com.ufukuzun.kodility.service.challenge.action.postaction;
 
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
-import com.ufukuzun.kodility.service.challenge.action.PostActionOrder;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationAction;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
@@ -31,7 +30,7 @@ public class GiveSuccessPointPostAction implements PostEvaluationAction {
 
     @Override
     public int getPriority() {
-        return PostActionOrder.GIVE_SUCCESS_POINT.ordinal();
+        return PostEvaluationActionOrder.GIVE_SUCCESS_POINT.ordinal();
     }
 
 }

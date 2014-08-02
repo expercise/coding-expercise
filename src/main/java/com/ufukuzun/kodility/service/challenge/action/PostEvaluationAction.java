@@ -9,4 +9,12 @@ public interface PostEvaluationAction extends Prioritized {
 
     void execute(ChallengeEvaluationContext context);
 
+    enum PostEvaluationActionOrder {
+
+        CREATE_SOLUTION_RESPONSE,
+        GIVE_SUCCESS_POINT,
+        SAVE_USER_SOLUTION
+
+    }
+
 }
