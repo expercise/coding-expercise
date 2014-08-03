@@ -1,10 +1,16 @@
 package com.ufukuzun.kodility.service.challenge.model;
 
+import com.ufukuzun.kodility.controller.challenge.model.UserSolutionModel;
+
+import java.util.ArrayList;
+
 public class SolutionValidationResult {
 
     private String result;
 
     private boolean success;
+
+    private ArrayList<UserSolutionModel> userSolutionModels;
 
     private SolutionValidationResult(String result, boolean success) {
         this.result = result;
@@ -33,6 +39,14 @@ public class SolutionValidationResult {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public ArrayList<UserSolutionModel> getUserSolutionModels() {
+        return userSolutionModels;
+    }
+
+    public void setUserSolutionModels(ArrayList<UserSolutionModel> userSolutionModels) {
+        this.userSolutionModels = userSolutionModels;
     }
 
 }

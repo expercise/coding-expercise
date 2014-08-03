@@ -6,6 +6,7 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.challenge.ChallengeDisplayRule;
 import com.ufukuzun.kodility.service.challenge.ChallengeService;
+import com.ufukuzun.kodility.service.challenge.SolutionService;
 import com.ufukuzun.kodility.service.challenge.SolutionValidationService;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
 import com.ufukuzun.kodility.utils.JsonUtils;
@@ -27,6 +28,9 @@ public class ChallengeController {
     @Autowired
     private ChallengeDisplayRule challengeDisplayRule;
 
+    @Autowired
+    private SolutionService solutionService;
+
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {
         Challenge challenge = challengeService.findById(challengeId);
@@ -38,6 +42,7 @@ public class ChallengeController {
         modelAndView.addObject("challenge", challenge);
         modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
         modelAndView.addObject("solutionSignatures", JsonUtils.toJsonString(challengeService.prepareSignaturesMapFor(challenge)));
+        modelAndView.addObject("userSolutions", JsonUtils.toJsonString(solutionService.getUserSolutionModels(challenge)));
 
         return modelAndView;
     }

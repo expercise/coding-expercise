@@ -36,6 +36,13 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
         return criteria.list();
     }
 
+    public List<Solution> findSolutionsBy(Challenge challenge, User user) {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("challenge", challenge));
+        criteria.add(Restrictions.eq("user", user));
+        return criteria.list();
+    }
+
     public long countByChallenge(Challenge challenge) {
         Map<String, Object> criteriaMap = new HashMap<>();
         addChallengeRestriction(criteriaMap, challenge);
@@ -45,5 +52,4 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
     private void addChallengeRestriction(Map<String, Object> criteriaMap, Challenge challenge) {
         criteriaMap.put("challenge", challenge);
     }
-
 }

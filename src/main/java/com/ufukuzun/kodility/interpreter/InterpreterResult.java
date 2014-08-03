@@ -6,6 +6,8 @@ public class InterpreterResult {
 
     private boolean success;
 
+    public InterpreterResult() {}
+
     private InterpreterResult(boolean success) {
         this.success = success;
     }

@@ -59,8 +59,26 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-12">
+            <h4 th:text="#{challenge.previousSolutions}">Your Solutions</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
+            <table class="table userSolutionsTable">
+                <thead>
+                    <th th:text="#{challenge.solutions.date}"></th>
+                    <th th:text="#{challenge.solutions.languages}"></th>
+                </thead>
+            </table>
+        </div>
+    </div>
+
     <input id="challengeId" type="hidden" th:value="${challenge.id}"/>
     <input id="solutionSignatures" type="hidden" th:value="${solutionSignatures}"/>
+    <input id="userSolutions" type="hidden" th:value="${userSolutions}"/>
     <input id="javaScriptModules" type="hidden" value="CodeEditor Challenge"/>
 </body>
 </html>

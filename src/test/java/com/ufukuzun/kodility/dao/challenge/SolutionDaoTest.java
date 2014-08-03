@@ -5,11 +5,14 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.Solution;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
+import com.ufukuzun.kodility.testutils.asserts.Asserts;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.SolutionBuilder;
 import com.ufukuzun.kodility.testutils.builder.UserBuilder;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -55,6 +58,21 @@ public class SolutionDaoTest extends AbstractDaoTest {
         Solution foundSolution = dao.findBy(challenge, user, ProgrammingLanguage.JavaScript);
 
         assertThat(foundSolution, nullValue());
+    }
+
+    @Test
+    public void shouldFindSolutionsByChallengeAndUser() {
+        User author = new UserBuilder().persist(getCurrentSession());
+        Challenge challenge = new ChallengeBuilder().user(author).persist(getCurrentSession());
+        User user1 = new UserBuilder().persist(getCurrentSession());
+        User user2 = new UserBuilder().persist(getCurrentSession());
+        Solution solutionPython = new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).solution("solution for py").user(user1).persist(getCurrentSession());
+        Solution solutionJs = new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.JavaScript).solution("solution for js").user(user1).persist(getCurrentSession());
+        new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.JavaScript).solution("solution for js - 2").user(user2).persist(getCurrentSession());
+
+        List<Solution> foundSolutions = dao.findSolutionsBy(challenge, user1);
+
+        Asserts.assertExpectedItems(foundSolutions, solutionPython, solutionJs);
     }
 
 }

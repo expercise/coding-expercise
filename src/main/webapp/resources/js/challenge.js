@@ -4,6 +4,8 @@ kodility.Challenge = {
 
     constructor: function () {
         this.solutionSignatures = JSON.parse($('#solutionSignatures').val());
+        var userSolutions = JSON.parse($('#userSolutions').val());
+        this.populateUserSolutionTable(userSolutions);
         this.adjustProgrammingLanguage();
     },
 
@@ -32,6 +34,7 @@ kodility.Challenge = {
                     $resultsTextarea.val(response.result);
                     if (response.success) {
                         $resultsTextarea.addClass('successResult');
+                        kodility.Challenge.populateUserSolutionTable(response.userSolutionModels);
                     } else {
                         $resultsTextarea.addClass('failedResult');
                     }
@@ -45,6 +48,21 @@ kodility.Challenge = {
         });
 
         $('#languageSelection').change(this.adjustProgrammingLanguage);
+    },
+
+    populateUserSolutionTable: function (elements) {
+        $('.userSolutionsTable tbody').remove();
+
+        var tbody = $('<tbody>');
+        $.each(elements, function(i, value) {
+            var solutionDateCell = $('<td>').html(value['solutionDate']);
+            var languageCell = $('<td>').html(value['programmingLanguage']);
+            var row = $('<tr>').append(solutionDateCell, languageCell);
+            tbody.append(row);
+
+        });
+
+        $('.userSolutionsTable').append(tbody);
     },
 
     adjustProgrammingLanguage: function () {

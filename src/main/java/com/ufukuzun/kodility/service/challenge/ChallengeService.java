@@ -3,8 +3,6 @@ package com.ufukuzun.kodility.service.challenge;
 import com.ufukuzun.kodility.controller.challenge.model.ChallengeModel;
 import com.ufukuzun.kodility.dao.challenge.ChallengeDao;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
-import com.ufukuzun.kodility.domain.challenge.Solution;
-import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.service.language.SignatureGeneratorService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
@@ -30,9 +28,6 @@ public class ChallengeService {
     @Autowired
     private ChallengeModelHelper challengeModelHelper;
 
-    @Autowired
-    private SolutionService solutionService;
-
     public List<Challenge> findAllApproved() {
         return challengeDao.findAllApproved();
     }
@@ -54,16 +49,10 @@ public class ChallengeService {
     }
 
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
-        User user = authenticationService.getCurrentUser();
         Map<String, String> signaturesMap = new HashMap<>();
         for (ProgrammingLanguage language : ProgrammingLanguage.values()) {
-            Solution solution = solutionService.getSolutionBy(challenge, user, language);
-            if (solution == null) {
-                String signature = signatureGeneratorService.generatorSignatureFor(challenge, language);
-                signaturesMap.put(language.getShortName(), signature);
-            } else {
-                signaturesMap.put(language.getShortName(), solution.getSolution());
-            }
+            String signature = signatureGeneratorService.generatorSignatureFor(challenge, language);
+            signaturesMap.put(language.getShortName(), signature);
         }
 
         return signaturesMap;
