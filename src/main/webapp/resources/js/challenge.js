@@ -50,21 +50,24 @@ kodility.Challenge = {
         $('#languageSelection').change(this.adjustProgrammingLanguage);
     },
 
-    populateUserSolutionTable: function (elements) {
-        var userSolutionsTable = $('.userSolutionsTable');
-        if (elements.length == 0) {
-            var noContent = $('<p></p>').text(kodility.utils.i18n('challenge.noSolution'));
-            noContent.insertAfter(userSolutionsTable);
+    populateUserSolutionTable: function (userSolutionModels) {
+        var $userSolutionsTable = $('.userSolutionsTable');
+        if (userSolutionModels.length == 0) {
+            $userSolutionsTable.hide();
+            var noContent = $('<p id="noPreviousSolution"></p>').text(kodility.utils.i18n('challenge.noPreviousSolution'));
+            noContent.insertAfter($userSolutionsTable);
             return;
         }
 
+        $userSolutionsTable.show();
+        $('#noPreviousSolution').remove();
         $('.userSolutionsTable tbody').remove();
 
         var tbody = $('<tbody>');
-        $.each(elements, function(i, value) {
+        $.each(userSolutionModels, function (i, value) {
             var languageAnchor = $('<a href="#"></a>')
                 .data('langName', value['languageShortName'])
-                .click(function(e) {
+                .click(function (e) {
                     var clickedLanguage = $(this).data('langName');
                     kodility.Challenge.changeProgrammingLanguage(clickedLanguage, value['solution']);
                     $('#languageSelection').val(clickedLanguage);
@@ -76,10 +79,9 @@ kodility.Challenge = {
             var languageCell = $('<td></td>').html(languageAnchor);
             var row = $('<tr>').append(solutionDateCell, languageCell);
             tbody.append(row);
-
         });
 
-        userSolutionsTable.append(tbody);
+        $userSolutionsTable.append(tbody);
     },
 
     adjustProgrammingLanguage: function () {
@@ -87,7 +89,7 @@ kodility.Challenge = {
         kodility.Challenge.changeProgrammingLanguage(selectedLanguage, kodility.Challenge.solutionSignatures[selectedLanguage]);
     },
 
-    changeProgrammingLanguage: function(langName, solution) {
+    changeProgrammingLanguage: function (langName, solution) {
         kodility.Challenge.resetConsole();
         kodility.CodeEditor.setSolution(solution);
         kodility.CodeEditor.changeMode(langName);

@@ -8,11 +8,15 @@ import java.io.Serializable;
 public class UserSolutionModel implements Serializable, Comparable<UserSolutionModel> {
 
     private String programmingLanguage;
+
     private String languageShortName;
+
     private String solution;
+
     private String solutionDate;
 
-    private UserSolutionModel() {}
+    private UserSolutionModel() {
+    }
 
     public static UserSolutionModel createFrom(Solution solution) {
         UserSolutionModel userSolutionModel = new UserSolutionModel();

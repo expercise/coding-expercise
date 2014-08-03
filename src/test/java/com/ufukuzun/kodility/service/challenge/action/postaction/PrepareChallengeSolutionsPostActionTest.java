@@ -35,8 +35,7 @@ public class PrepareChallengeSolutionsPostActionTest {
     @Test
     public void shouldExecuteWhenInterpretationIsSuccessful() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        InterpreterResult successResult = new InterpreterResult();
-        successResult.setSuccess(true);
+        InterpreterResult successResult = InterpreterResult.createSuccessResult();
         context.setInterpreterResult(successResult);
 
         assertTrue(action.canExecute(context));
@@ -45,8 +44,7 @@ public class PrepareChallengeSolutionsPostActionTest {
     @Test
     public void shouldNotExecuteWhenInterpretationIsFailed() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        InterpreterResult failedResult = new InterpreterResult();
-        failedResult.setSuccess(false);
+        InterpreterResult failedResult = InterpreterResult.createFailedResult();
         context.setInterpreterResult(failedResult);
 
         assertFalse(action.canExecute(context));
