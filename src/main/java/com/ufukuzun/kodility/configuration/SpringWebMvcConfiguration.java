@@ -26,6 +26,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new MessagesResourceBundleSource();
+//        messageSource.setCacheSeconds(0); Dont use resource bundle cache
         messageSource.setBasename("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
