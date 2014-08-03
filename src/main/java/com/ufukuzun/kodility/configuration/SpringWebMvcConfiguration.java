@@ -1,5 +1,7 @@
 package com.ufukuzun.kodility.configuration;
 
+import com.ufukuzun.kodility.utils.EnvironmentUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,9 @@ import java.util.Locale;
 @ComponentScan("com.ufukuzun.kodility")
 public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
+    @Value("${environment}")
+    private String environment;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -26,9 +31,13 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new MessagesResourceBundleSource();
-//        messageSource.setCacheSeconds(0); Dont use resource bundle cache
         messageSource.setBasename("messages");
         messageSource.setDefaultEncoding("UTF-8");
+
+        if (EnvironmentUtils.isDevelopment(environment)) {
+            messageSource.setCacheSeconds(0);
+        }
+
         return messageSource;
     }
 

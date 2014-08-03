@@ -9,4 +9,8 @@ public final class EnvironmentUtils {
         return "production".equals(environment);
     }
 
+    public static boolean isDevelopment(String environment) {
+        return "development".equals(environment);
+    }
+
 }
