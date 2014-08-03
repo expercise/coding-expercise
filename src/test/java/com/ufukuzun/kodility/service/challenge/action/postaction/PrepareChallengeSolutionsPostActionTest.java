@@ -75,11 +75,13 @@ public class PrepareChallengeSolutionsPostActionTest {
 
         UserSolutionModel firstUserSolutionModel = context.getSolutionValidationResult().getUserSolutionModels().get(0);
         assertThat(firstUserSolutionModel.getProgrammingLanguage(), equalTo("Python"));
+        assertThat(firstUserSolutionModel.getLanguageShortName(), equalTo("py"));
         assertThat(firstUserSolutionModel.getSolution(), equalTo("my solution 1"));
         assertThat(firstUserSolutionModel.getSolutionDate(), equalTo("01 October 2012 13:43"));
 
         UserSolutionModel secondUserSolutionModel = context.getSolutionValidationResult().getUserSolutionModels().get(1);
         assertThat(secondUserSolutionModel.getProgrammingLanguage(), equalTo("JavaScript"));
+        assertThat(secondUserSolutionModel.getLanguageShortName(), equalTo("js"));
         assertThat(secondUserSolutionModel.getSolution(), equalTo("my solution 2"));
         assertThat(secondUserSolutionModel.getSolutionDate(), equalTo("14 October 2013 19:12"));
     }

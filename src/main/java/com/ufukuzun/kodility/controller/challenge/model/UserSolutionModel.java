@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class UserSolutionModel implements Serializable, Comparable<UserSolutionModel> {
 
     private String programmingLanguage;
+    private String languageShortName;
     private String solution;
     private String solutionDate;
 
@@ -16,6 +17,7 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
     public static UserSolutionModel createFrom(Solution solution) {
         UserSolutionModel userSolutionModel = new UserSolutionModel();
         userSolutionModel.setProgrammingLanguage(solution.getProgrammingLanguage().name());
+        userSolutionModel.setLanguageShortName(solution.getProgrammingLanguage().getShortName());
         userSolutionModel.setSolution(solution.getSolution());
         userSolutionModel.setSolutionDate(DateUtils.formatDateToLongFormat(solution.getCreateDate()));
 
@@ -44,6 +46,14 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
 
     public void setSolutionDate(String solutionDate) {
         this.solutionDate = solutionDate;
+    }
+
+    public String getLanguageShortName() {
+        return languageShortName;
+    }
+
+    public void setLanguageShortName(String languageShortName) {
+        this.languageShortName = languageShortName;
     }
 
     @Override

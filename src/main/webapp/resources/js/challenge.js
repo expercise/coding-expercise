@@ -51,25 +51,46 @@ kodility.Challenge = {
     },
 
     populateUserSolutionTable: function (elements) {
+        var userSolutionsTable = $('.userSolutionsTable');
+        if (elements.length == 0) {
+            var noContent = $('<p></p>').text(kodility.utils.i18n('challenge.noSolution'));
+            noContent.insertAfter(userSolutionsTable);
+            return;
+        }
+
         $('.userSolutionsTable tbody').remove();
 
         var tbody = $('<tbody>');
         $.each(elements, function(i, value) {
-            var solutionDateCell = $('<td>').html(value['solutionDate']);
-            var languageCell = $('<td>').html(value['programmingLanguage']);
+            var languageAnchor = $('<a href="#"></a>')
+                .data('langName', value['languageShortName'])
+                .click(function(e) {
+                    var clickedLanguage = $(this).data('langName');
+                    kodility.Challenge.changeProgrammingLanguage(clickedLanguage, value['solution']);
+                    $('#languageSelection').val(clickedLanguage);
+                    e.preventDefault();
+                })
+                .html(value['programmingLanguage']);
+
+            var solutionDateCell = $('<td></td>').html(value['solutionDate']);
+            var languageCell = $('<td></td>').html(languageAnchor);
             var row = $('<tr>').append(solutionDateCell, languageCell);
             tbody.append(row);
 
         });
 
-        $('.userSolutionsTable').append(tbody);
+        userSolutionsTable.append(tbody);
     },
 
     adjustProgrammingLanguage: function () {
-        kodility.Challenge.resetConsole();
         var selectedLanguage = $('#languageSelection').val();
-        kodility.CodeEditor.setSolution(kodility.Challenge.solutionSignatures[selectedLanguage]);
-        kodility.CodeEditor.changeMode(selectedLanguage);
+        kodility.Challenge.changeProgrammingLanguage(selectedLanguage, kodility.Challenge.solutionSignatures[selectedLanguage]);
+    },
+
+    changeProgrammingLanguage: function(langName, solution) {
+        kodility.Challenge.resetConsole();
+        kodility.CodeEditor.setSolution(solution);
+        kodility.CodeEditor.changeMode(langName);
     },
 
     resetConsole: function () {
