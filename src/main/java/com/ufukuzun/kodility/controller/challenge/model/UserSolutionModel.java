@@ -23,7 +23,7 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
         userSolutionModel.setProgrammingLanguage(solution.getProgrammingLanguage().name());
         userSolutionModel.setLanguageShortName(solution.getProgrammingLanguage().getShortName());
         userSolutionModel.setSolution(solution.getSolution());
-        userSolutionModel.setSolutionDate(DateUtils.formatDateToLongFormat(solution.getCreateDate()));
+        userSolutionModel.setSolutionDate(DateUtils.formatDateTimeWithNamedMonth(solution.getCreateDate()));
 
         return userSolutionModel;
     }
@@ -62,7 +62,7 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
 
     @Override
     public int compareTo(UserSolutionModel other) {
-        return DateUtils.longFormatToDate(other.getSolutionDate()).compareTo(DateUtils.longFormatToDate(this.getSolutionDate()));
+        return DateUtils.toDateTimeWithNamedMonth(other.getSolutionDate()).compareTo(DateUtils.toDateTimeWithNamedMonth(this.getSolutionDate()));
     }
 
 }

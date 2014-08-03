@@ -11,6 +11,7 @@ import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
 import com.ufukuzun.kodility.testutils.builder.ChallengeBuilder;
 import com.ufukuzun.kodility.testutils.builder.SolutionBuilder;
 import com.ufukuzun.kodility.utils.DateUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
@@ -31,6 +33,11 @@ public class PrepareChallengeSolutionsPostActionTest {
 
     @Mock
     private SolutionService solutionService;
+
+    @Before
+    public void before() {
+        Locale.setDefault(Locale.ENGLISH);
+    }
 
     @Test
     public void shouldExecuteWhenInterpretationIsSuccessful() {
@@ -59,9 +66,9 @@ public class PrepareChallengeSolutionsPostActionTest {
 
         ArrayList<UserSolutionModel> userSolutionModels = new ArrayList<>();
         Solution solution1 = new SolutionBuilder().solution("my solution 1")
-                .programmingLanguage(ProgrammingLanguage.Python).createDate(DateUtils.longFormatToDate("01 October 2012 13:43")).build();
+                .programmingLanguage(ProgrammingLanguage.Python).createDate(DateUtils.toDateTimeWithNamedMonth("01 October 2012 13:43")).build();
         Solution solution2 = new SolutionBuilder().solution("my solution 2")
-                .programmingLanguage(ProgrammingLanguage.JavaScript).createDate(DateUtils.longFormatToDate("14 October 2013 19:12")).build();
+                .programmingLanguage(ProgrammingLanguage.JavaScript).createDate(DateUtils.toDateTimeWithNamedMonth("14 October 2013 19:12")).build();
         userSolutionModels.add(UserSolutionModel.createFrom(solution1));
         userSolutionModels.add(UserSolutionModel.createFrom(solution2));
 
