@@ -84,6 +84,4 @@ public class PrepareChallengeSolutionsPostActionTest {
         assertThat(secondUserSolutionModel.getSolutionDate(), equalTo("14 October 2013 19:12"));
     }
 
-
-
 }
