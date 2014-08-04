@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.controller.user;
 
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.challenge.LevelService;
+import com.ufukuzun.kodility.service.challenge.SolutionService;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import com.ufukuzun.kodility.service.user.UserService;
@@ -27,10 +28,15 @@ public class ProfileController {
     @Autowired
     private LevelService levelService;
 
+    @Autowired
+    private SolutionService solutionService;
+
     @RequestMapping
     public ModelAndView showMyProfile() {
         User user = authenticationService.getCurrentUser();
-        return prepareModelAndView(user, true);
+        ModelAndView modelAndView = prepareModelAndView(user, true);
+        modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
+        return modelAndView;
     }
 
     @RequestMapping("/{userId}")

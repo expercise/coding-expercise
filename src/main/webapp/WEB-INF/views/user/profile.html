@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-xs-8">
-            <div class="row userInfos">
+            <div class="row userInfos profileContainer">
                 <div class="col-xs-12">
                     <legend class="subHeader" th:text="#{user.profile.personal}"></legend>
 
@@ -66,8 +66,23 @@
                             <span th:text="${#messages.msg(user.lingo.name())}"></span>
                         </div>
                     </div>
+
+                </div>
+
+            </div>
+
+            <div class="row profileContainer">
+                <div class="col-xs-12">
+                    <legend class="subHeader" th:text="#{user.profile.solutions}"></legend>
+
+                    <ul class="list-group">
+                        <li class="list-group-item" th:each="solvedChallenge : ${solvedChallenges}">
+                            <a th:href="@{'/challenges/' + ${solvedChallenge.id}}" th:text="${solvedChallenge.getTitleFor(#locale)}"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+
         </div>
     </div>
 </body>
