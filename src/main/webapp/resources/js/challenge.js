@@ -77,7 +77,7 @@ kodility.Challenge = {
 
             var solutionDateCell = $('<td></td>').html(value['solutionDate']);
             var languageCell = $('<td></td>').html(languageAnchor);
-            var row = $('<tr>').append(solutionDateCell, languageCell);
+            var row = $('<tr></tr>').append(solutionDateCell, languageCell);
             tbody.append(row);
         });
 
