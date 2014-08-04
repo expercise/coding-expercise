@@ -13,4 +13,8 @@ public final class EnvironmentUtils {
         return "development".equals(environment);
     }
 
+    public static boolean isNotDevelopment(String environment) {
+        return !isDevelopment(environment);
+    }
+
 }
