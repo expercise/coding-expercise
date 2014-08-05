@@ -6,8 +6,9 @@
 
         <input id="contextPath" type="hidden" th:value="@{/}"/>
 
-        <script type="text/javascript" th:src="@{/generatedResources/js/messages.js}"></script>
         <script th:if="${not #strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
+
+        <script type="text/javascript" th:src="@{/generatedResources/js/messages.js}" defer="defer"></script>
 
         <!-- If only environment is 'development' -->
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/less.min.js}"></script>
@@ -33,7 +34,7 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
 
         <!-- If only environment is not 'development' -->
-        <script th:if="${not developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/compressed/compressed.js}"></script>
+        <script th:if="${not developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/compressed/compressed.js}" defer="defer"></script>
     </div>
 </body>
 </html>
