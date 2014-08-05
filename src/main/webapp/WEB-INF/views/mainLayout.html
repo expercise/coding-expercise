@@ -9,9 +9,19 @@
     <meta name="author" content="Ufuk Uzun, Batuhan Bayrakçı"/>
     <meta name="keywords" content="codility, kodility, challenge, programming, java, javascript, python, development"/>
 
-    <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}" />
+    <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}"/>
 
-    <link th:href="@{/resources/style/kodility.css}" rel="stylesheet"/>
+    <!-- If only environment is 'development' -->
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap/bootstrap-theme.min.css}" rel="stylesheet"/>
+
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/codemirror.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/theme/ambiance.css}" rel="stylesheet"/>
+
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/kodility.less}" rel="stylesheet/less"/>
+
+    <!-- If only environment is not 'development' -->
+    <link th:if="${not developmentEnvironment}" th:href="@{/resources/style/compressed/compressed.css}" rel="stylesheet"/>
 </head>
 <body>
     <div class="container">

@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.configuration;
 
+import com.ufukuzun.kodility.interceptor.CommonViewParamsInterceptor;
 import com.ufukuzun.kodility.utils.EnvironmentUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -58,8 +60,13 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-        handlerMapping.setInterceptors(new Object[]{localeChangeInterceptor()});
+        handlerMapping.setInterceptors(new Object[]{localeChangeInterceptor(), commonViewParamsInterceptor()});
         return handlerMapping;
+    }
+
+    @Bean
+    public HandlerInterceptorAdapter commonViewParamsInterceptor() {
+        return new CommonViewParamsInterceptor();
     }
 
 }

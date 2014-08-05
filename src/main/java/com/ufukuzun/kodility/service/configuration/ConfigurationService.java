@@ -38,14 +38,12 @@ public class ConfigurationService {
         return CONFIGURATIONS.get(key);
     }
 
-    // TODO ufuk: put this value to view model with something like common interceptor
-    @SuppressWarnings("UnusedDeclaration")
     public String getGoogleAnalyticsScript() {
         return getValue("google.analytics.script");
     }
 
-    public boolean isProduction() {
-        return EnvironmentUtils.isProduction(environment);
+    public boolean isDevelopment() {
+        return EnvironmentUtils.isDevelopment(environment);
     }
 
     private void populateConfigurationsMap() {

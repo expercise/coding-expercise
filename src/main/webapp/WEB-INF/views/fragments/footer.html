@@ -6,28 +6,34 @@
 
         <input id="contextPath" type="hidden" th:value="@{/}"/>
 
-        <script type="text/javascript" th:src="@{/resources/js/lib/jquery.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/lib/jquery-scrolltofixed.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.js}"></script>
+        <script type="text/javascript" th:src="@{/generatedResources/js/messages.js}"></script>
+        <script th:if="${not #strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
 
-        <script type="text/javascript" th:src="@{/resources/js/lib/bootstrap.min.js}"></script>
+        <!-- If only environment is 'development' -->
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/less.min.js}"></script>
 
-        <script type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/codemirror/mode/javascript.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/codemirror/mode/python.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.min.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.scrolltofixed.min.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.min.js}"></script>
 
-        <script type="text/javascript" th:src="@{/js/messages.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/kodility.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/utils.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/locale.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/codeEditor.js}"></script>
-        <script type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/bootstrap.min.js}"></script>
 
-        <script type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror//mode/javascript.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror//mode/python.js}"></script>
 
-        <script th:if="${@configurationService.isProduction()}" th:utext="${@configurationService.googleAnalyticsScript}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/kodility.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/utils.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/locale.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codeEditor.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>
+
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
+
+        <!-- If only environment is not 'development' -->
+        <script th:if="${not developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/compressed/compressed.js}"></script>
     </div>
 </body>
 </html>

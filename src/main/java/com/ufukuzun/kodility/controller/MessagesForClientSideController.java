@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/js")
+@RequestMapping("/generatedResources/js")
 public class MessagesForClientSideController {
 
     @Autowired

@@ -37,6 +37,7 @@
         <jdk.version>1.7</jdk.version>
         <jetty.plugin.version>8.1.14.v20131031</jetty.plugin.version>
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
+        <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
     </properties>
 
     <dependencies>
@@ -238,6 +239,7 @@
                 <groupId>org.lesscss</groupId>
                 <artifactId>lesscss-maven-plugin</artifactId>
                 <version>${less.plugin.version}</version>
+
                 <executions>
                     <execution>
                         <goals>
@@ -245,25 +247,84 @@
                         </goals>
                     </execution>
                 </executions>
+
                 <configuration>
-                    <sourceDirectory>
-                        ${project.basedir}/src/main/webapp/resources/style
-                    </sourceDirectory>
+                    <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
                     <outputDirectory>
-                        ${project.build.directory}/${project.build.finalName}/resources/style
+                        ${project.basedir}/src/main/webapp/resources/style
                     </outputDirectory>
                     <compress>true</compress>
                     <force>true</force>
                     <includes>
                         <include>kodility.less</include>
                     </includes>
-                    <outputFileFormat>kodility.css</outputFileFormat>
+                    <outputFileFormat>kodility.min.css</outputFileFormat>
                 </configuration>
+            </plugin>
+
+            <!-- YUI Compressor -->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>${yuicompressor.plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>compress css files</id>
+                        <goals>
+                            <goal>aggregate-css</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
+                            <includes>
+                                <include>/bootstrap/bootstrap.min.css</include>
+                                <include>/bootstrap/bootstrap-theme.min.css</include>
+                                <include>/codemirror/codemirror.css</include>
+                                <include>/codemirror/theme/ambiance.css</include>
+                                <include>/kodility.min.css</include>
+                            </includes>
+                            <output>
+                                ${project.build.directory}/${project.build.finalName}/resources/style/compressed/compressed.css
+                            </output>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>compress javascript files</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/webapp/resources/js</sourceDirectory>
+                            <includes>
+                                <include>/lib/jquery.min.js</include>
+                                <include>/lib/jquery.scrolltofixed.min.js</include>
+                                <include>/lib/jquery.cookie.js</include>
+                                <include>/lib/jquery.fullscreen.min.js</include>
+                                <include>/lib/bootstrap.min.js</include>
+                                <include>/codemirror/codemirror.js</include>
+                                <include>/codemirror//mode/javascript.js</include>
+                                <include>/codemirror//mode/python.js</include>
+                                <include>/kodility.js</include>
+                                <include>/utils.js</include>
+                                <include>/challenge.js</include>
+                                <include>/locale.js</include>
+                                <include>/codeEditor.js</include>
+                                <include>/challengeManagement.js</include>
+                                <include>/bootstrapper.js</include>
+                            </includes>
+                            <output>
+                                ${project.build.directory}/${project.build.finalName}/resources/js/compressed/compressed.js
+                            </output>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
@@ -274,6 +335,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
