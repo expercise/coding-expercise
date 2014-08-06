@@ -47,10 +47,10 @@ kodility.Challenge = {
                 message: kodility.utils.i18n('challenge.reset.dialog.confirm'),
                 title: kodility.utils.i18n('challenge.reset.dialog.header'),
                 buttons: {
-                    danger: {
+                    no: {
                         label: kodility.utils.i18n('button.no')
                     },
-                    success: {
+                    yes: {
                         label: kodility.utils.i18n('button.yes'),
                         callback: kodility.Challenge.reset
                     }
