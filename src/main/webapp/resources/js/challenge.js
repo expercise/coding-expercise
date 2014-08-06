@@ -43,11 +43,27 @@ kodility.Challenge = {
         });
 
         $('#resetButton').click(function () {
-            kodility.Challenge.adjustProgrammingLanguage();
-            kodility.Challenge.resetConsole();
+            bootbox.dialog({
+                message: kodility.utils.i18n('challenge.reset.dialog.confirm'),
+                title: kodility.utils.i18n('challenge.reset.dialog.header'),
+                buttons: {
+                    danger: {
+                        label: kodility.utils.i18n('button.no')
+                    },
+                    success: {
+                        label: kodility.utils.i18n('button.yes'),
+                        callback: kodility.Challenge.reset
+                    }
+                }
+            });
         });
 
         $('#languageSelection').change(this.adjustProgrammingLanguage);
+    },
+
+    reset: function () {
+        kodility.Challenge.adjustProgrammingLanguage();
+        kodility.Challenge.resetConsole();
     },
 
     populateUserSolutionTable: function (userSolutionModels) {

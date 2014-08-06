@@ -302,6 +302,7 @@
                                 <include>/lib/jquery.cookie.js</include>
                                 <include>/lib/jquery.fullscreen.min.js</include>
                                 <include>/lib/bootstrap.min.js</include>
+                                <include>/lib/bootbox.min.js</include>
                                 <include>/codemirror/codemirror.js</include>
                                 <include>/codemirror//mode/javascript.js</include>
                                 <include>/codemirror//mode/python.js</include>
