@@ -73,11 +73,12 @@
                 <div class="col-xs-12">
                     <legend class="subHeader" th:text="#{user.profile.solutions}"></legend>
 
-                    <ul class="list-group">
+                    <ul class="list-group" th:if="${not #lists.isEmpty(solvedChallenges)}">
                         <li class="list-group-item" th:each="solvedChallenge : ${solvedChallenges}">
                             <a th:href="@{'/challenges/' + ${solvedChallenge.id}}" th:text="${solvedChallenge.getTitleFor(#locale)}"></a>
                         </li>
                     </ul>
+                    <p th:if="${#lists.isEmpty(solvedChallenges)}" th:text="#{label.nope}"></p>
                 </div>
             </div>
 
