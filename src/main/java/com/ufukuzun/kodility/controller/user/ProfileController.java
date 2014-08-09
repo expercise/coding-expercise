@@ -34,23 +34,21 @@ public class ProfileController {
     @RequestMapping
     public ModelAndView showMyProfile() {
         User user = authenticationService.getCurrentUser();
-        ModelAndView modelAndView = prepareModelAndView(user, true);
-        modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
-        return modelAndView;
+        return prepareModelAndView(user);
     }
 
     @RequestMapping("/{userId}")
     public ModelAndView showPublicProfile(@PathVariable long userId) {
         User user = userService.findById(userId);
-        return prepareModelAndView(user, false);
+        return prepareModelAndView(user);
     }
 
-    private ModelAndView prepareModelAndView(User user, boolean currentUser) {
+    private ModelAndView prepareModelAndView(User user) {
         ModelAndView modelAndView = new ModelAndView("user/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
-        modelAndView.addObject("isCurrentUser", currentUser);
         modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOfCurrentUser());
+        modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
         return modelAndView;
     }
 
