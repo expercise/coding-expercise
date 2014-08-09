@@ -11,7 +11,7 @@ kodility.Challenge = {
 
     bindEvents: function () {
         $('#challengeButtons').scrollToFixed({
-            marginTop: 10
+            marginTop: 10 + $('#header').height()
         });
 
         $('#runButton').click(function () {

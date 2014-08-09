@@ -21,7 +21,7 @@ kodility.ChallengeManagement = {
         $('#saveButton').click(this.saveChallenge);
 
         $('#manageChallengeButtons').scrollToFixed({
-            marginTop: 10 - parseInt($('#saveButton').css('margin-top').replace('px', ''))
+            marginTop: 10 + $('#header').height() - parseInt($('#saveButton').css('margin-top').replace('px', ''))
         });
     },
 
