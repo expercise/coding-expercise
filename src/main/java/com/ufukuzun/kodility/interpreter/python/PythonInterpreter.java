@@ -32,21 +32,20 @@ public class PythonInterpreter implements Interpreter {
     @Autowired
     private InterpreterResultCreator interpreterResultCreator;
 
-    // TODO ufuk: concurrency issue on this field ?
-    private org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
-
     @Override
     public void interpret(ChallengeEvaluationContext context) throws InterpreterException {
-        executeSourceCode(context.getSource());
+        org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
 
-        PyFunction solutionFunctionToCall = getSolutionFunctionToCall();
+        executeSourceCode(pythonInterpreter, context.getSource());
+
+        PyFunction solutionFunctionToCall = getSolutionFunctionToCall(pythonInterpreter);
 
         Challenge challenge = context.getChallenge();
         for (TestCase testCase : challenge.getTestCases()) {
             Object resultValue = makeFunctionCallAndGetResultValue(solutionFunctionToCall, challenge, testCase);
 
             if (!challenge.getOutputType().convert(testCase.getOutput()).equals(resultValue)) {
-                context.setInterpreterResult(interpreterResultCreator.noResultFailedResult());
+                context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
                 return;
             }
         }
@@ -54,7 +53,7 @@ public class PythonInterpreter implements Interpreter {
         context.setInterpreterResult(interpreterResultCreator.successResult());
     }
 
-    private void executeSourceCode(String sourceCode) throws InterpreterException {
+    private void executeSourceCode(org.python.util.PythonInterpreter pythonInterpreter, String sourceCode) throws InterpreterException {
         try {
             pythonInterpreter.exec(sourceCode);
         } catch (PySyntaxError e) {
@@ -63,7 +62,7 @@ public class PythonInterpreter implements Interpreter {
         }
     }
 
-    private PyFunction getSolutionFunctionToCall() throws InterpreterException {
+    private PyFunction getSolutionFunctionToCall(org.python.util.PythonInterpreter pythonInterpreter) throws InterpreterException {
         PyStringMap locals = (PyStringMap) pythonInterpreter.getLocals();
 
         PyFunction funcToCall = null;
