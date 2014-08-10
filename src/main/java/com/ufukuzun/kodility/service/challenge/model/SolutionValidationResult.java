@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.service.challenge.model;
 
 import com.ufukuzun.kodility.controller.challenge.model.UserSolutionModel;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,12 @@ public class SolutionValidationResult {
 
     public void setUserSolutionModels(ArrayList<UserSolutionModel> userSolutionModels) {
         this.userSolutionModels = userSolutionModels;
+    }
+
+    public void addErrorDescriptionToResult(String interpreterResult) {
+        if (StringUtils.isNotBlank(interpreterResult)) {
+            this.result = interpreterResult + ". " + this.result;
+        }
     }
 
 }

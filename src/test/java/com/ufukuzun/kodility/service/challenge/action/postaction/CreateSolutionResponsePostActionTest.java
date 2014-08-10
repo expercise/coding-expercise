@@ -62,7 +62,7 @@ public class CreateSolutionResponsePostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
-        when(messageService.getMessage("challenge.successwithpoint", 22)).thenReturn("success, 22 points");
+        when(messageService.getMessage("challenge.successWithPoint", 22)).thenReturn("success, 22 points");
 
         action.execute(context);
 
@@ -93,6 +93,20 @@ public class CreateSolutionResponsePostActionTest {
 
         assertTrue(context.getSolutionValidationResult().isSuccess());
         assertThat(context.getSolutionValidationResult().getResult(), equalTo("success"));
+    }
+
+    @Test
+    public void shouldCreateFailedResponseWhenInterpreterResultHasDescription() {
+        InterpreterResult failedResult = InterpreterResult.createFailedResult();
+        failedResult.setResult("Syntax Error");
+        context.setInterpreterResult(failedResult);
+
+        when(messageService.getMessage("challenge.failed")).thenReturn("failed");
+
+        action.execute(context);
+
+        assertFalse(context.getSolutionValidationResult().isSuccess());
+        assertThat(context.getSolutionValidationResult().getResult(), equalTo("Syntax Error. failed"));
     }
 
 }
