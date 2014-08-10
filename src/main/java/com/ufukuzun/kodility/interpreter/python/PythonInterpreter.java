@@ -84,20 +84,18 @@ public class PythonInterpreter implements Interpreter {
     }
 
     private Object makeFunctionCallAndGetResultValue(PyFunction solutionFunctionToCall, Challenge challenge, TestCase testCase) throws InterpreterException {
-        PyObject resultAsPyObject;
+        Object resultAsJavaObject = null;
         try {
-            resultAsPyObject = solutionFunctionToCall.__call__(getArgumentsAsPyObjects(challenge, testCase));
+            PyObject resultAsPyObject = solutionFunctionToCall.__call__(getArgumentsAsPyObjects(challenge, testCase));
+            Class<? extends PyObject> outputType = TYPE_MAP.get(challenge.getOutputType());
+            if (outputType.isAssignableFrom(PyInteger.class)) {
+                resultAsJavaObject = resultAsPyObject.asInt();
+            } else if (outputType.isAssignableFrom(PyString.class)) {
+                resultAsJavaObject = resultAsPyObject.asString();
+            }
         } catch (PyException e) {
             LOGGER.debug("Exception while function call", e);
             throw new InterpreterException(interpreterResultCreator.failedResultWithoutMessage());
-        }
-
-        Object resultAsJavaObject = null;
-        Class<? extends PyObject> outputType = TYPE_MAP.get(challenge.getOutputType());
-        if (outputType.isAssignableFrom(PyInteger.class)) {
-            resultAsJavaObject = resultAsPyObject.asInt();
-        } else if (outputType.isAssignableFrom(PyString.class)) {
-            resultAsJavaObject = resultAsPyObject.asString();
         }
 
         return resultAsJavaObject;

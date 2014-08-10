@@ -266,6 +266,28 @@ public class PythonInterpreterTest {
         assertTrue(interpreterResult.isSuccess());
     }
 
+    @Test
+    public void shouldFailedIfReturnValueTypeAndOutputTypeDoesNotMatch() {
+        String solution = "def solution(): return \"Text, not Integer\"";
+
+        Challenge challenge = new Challenge();
+
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+        testCase.setOutput("1");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        when(interpreterResultCreator.failedResultWithoutMessage()).thenReturn(InterpreterResult.createFailedResult());
+
+        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
+
+        assertFalse(interpreterResult.isSuccess());
+    }
+
     private ChallengeEvaluationContext createContext(Challenge challenge, String source) {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(challenge);
