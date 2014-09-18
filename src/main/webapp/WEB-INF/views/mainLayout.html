@@ -22,6 +22,8 @@
 
     <!-- If only environment is not 'development' -->
     <link th:if="${not developmentEnvironment}" th:href="@{/resources/style/compressed/compressed.css}" rel="stylesheet"/>
+
+    <script th:if="${not #strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
 </head>
 <body>
     <div class="container">
