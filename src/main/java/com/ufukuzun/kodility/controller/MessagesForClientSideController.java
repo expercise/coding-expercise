@@ -18,8 +18,8 @@ public class MessagesForClientSideController {
     @Autowired
     private MessageService messageService;
 
-    // TODO ufuk: performance ? caching ? not modified response ?
-    @RequestMapping(value = "/messages.js", produces = "application/javascript; charset=utf-8")
+    // TODO ufuk: not modified response / browser cache
+    @RequestMapping(value = "/messages_{locale}.js", produces = "application/javascript; charset=utf-8")
     @ResponseBody
     public String getMessages() {
         return prepareMessagesForClientSide();
