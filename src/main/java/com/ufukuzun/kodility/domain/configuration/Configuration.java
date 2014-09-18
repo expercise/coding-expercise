@@ -14,7 +14,7 @@ public class Configuration extends AbstractEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 512)
     private String value;
 
     public Long getId() {
