@@ -1,5 +1,6 @@
 package com.ufukuzun.kodility.controller;
 
+import com.ufukuzun.kodility.controller.utils.BrowserCacheableContent;
 import com.ufukuzun.kodility.service.i18n.MessageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +21,15 @@ public class MessagesForClientSideController {
     @Autowired
     private MessageService messageService;
 
-    // TODO ufuk: not modified response / browser cache
     @RequestMapping(value = "/messages_{locale}.js", produces = "application/javascript; charset=utf-8")
     @ResponseBody
-    public String getMessages() {
-        return prepareMessagesForClientSide();
+    public String getMessages(HttpServletRequest request, HttpServletResponse response) {
+        return new BrowserCacheableContent() {
+            @Override
+            public String generateContent() {
+                return prepareMessagesForClientSide();
+            }
+        }.getContent(request, response);
     }
 
     private String prepareMessagesForClientSide() {
@@ -34,9 +41,9 @@ public class MessagesForClientSideController {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("var messages = {");
-        stringBuilder.append(StringUtils.join(keyValuePairsAsList, ",\n"));
-        stringBuilder.append("};");
+        stringBuilder.append("var messages = {\n\t");
+        stringBuilder.append(StringUtils.join(keyValuePairsAsList, ",\n\t"));
+        stringBuilder.append("\n};");
 
         return stringBuilder.toString();
     }

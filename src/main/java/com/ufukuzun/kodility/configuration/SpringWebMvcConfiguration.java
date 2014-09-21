@@ -15,9 +15,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.Locale;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
@@ -66,13 +68,25 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-        handlerMapping.setInterceptors(new Object[]{localeChangeInterceptor(), commonViewParamsInterceptor()});
+        handlerMapping.setInterceptors(new Object[]{localeChangeInterceptor(), commonViewParamsInterceptor(), generatedResourcesCachingInterceptor()});
         return handlerMapping;
     }
 
     @Bean
     public HandlerInterceptorAdapter commonViewParamsInterceptor() {
         return new CommonViewParamsInterceptor();
+    }
+
+    @Bean
+    public WebContentInterceptor generatedResourcesCachingInterceptor() {
+        WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
+        Properties cacheMappings = new Properties();
+        cacheMappings.setProperty("/generatedResources/**", String.valueOf(DateUtils.ONE_DAY));
+        webContentInterceptor.setCacheMappings(cacheMappings);
+        webContentInterceptor.setUseCacheControlHeader(true);
+        webContentInterceptor.setAlwaysMustRevalidate(true);
+        webContentInterceptor.setUseExpiresHeader(true);
+        return webContentInterceptor;
     }
 
 }
