@@ -38,6 +38,8 @@
         <jetty.plugin.version>8.1.14.v20131031</jetty.plugin.version>
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
         <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
+        <property.helper.plugin.version>2.0</property.helper.plugin.version>
+        <properties.plugin.version>1.0-alpha-2</properties.plugin.version>
     </properties>
 
     <dependencies>
@@ -234,6 +236,57 @@
     <build>
         <finalName>kodility</finalName>
         <plugins>
+            <!-- Property Helper Plugin -->
+            <plugin>
+                <groupId>org.basepom.maven</groupId>
+                <artifactId>property-helper-maven-plugin</artifactId>
+                <version>${property.helper.plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>standard</id>
+                        <goals>
+                            <goal>get</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <persist>true</persist>
+                            <dates>
+                                <date>
+                                    <id>build.id</id>
+                                    <export>true</export>
+                                    <propertyFile>${project.build.directory}/classes/build.properties</propertyFile>
+                                    <propertyName>build.id</propertyName>
+                                    <onMissingFile>create</onMissingFile>
+                                    <onMissingProperty>create</onMissingProperty>
+                                </date>
+                            </dates>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Properties Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>${properties.plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>${project.build.directory}/classes/build.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- LESS Plugin -->
             <plugin>
                 <groupId>org.lesscss</groupId>
@@ -245,6 +298,7 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                     </execution>
                 </executions>
 
@@ -274,6 +328,7 @@
                         <goals>
                             <goal>aggregate-css</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
                             <includes>
@@ -284,7 +339,7 @@
                                 <include>/kodility.min.css</include>
                             </includes>
                             <output>
-                                ${project.build.directory}/${project.build.finalName}/resources/style/compressed/compressed.css
+                                ${project.build.directory}/${project.build.finalName}/resources/style/compressed/compressed-${build.id}.css
                             </output>
                         </configuration>
                     </execution>
@@ -294,6 +349,7 @@
                         <goals>
                             <goal>aggregate</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/js</sourceDirectory>
                             <includes>
@@ -315,13 +371,14 @@
                                 <include>/bootstrapper.js</include>
                             </includes>
                             <output>
-                                ${project.build.directory}/${project.build.finalName}/resources/js/compressed/compressed.js
+                                ${project.build.directory}/${project.build.finalName}/resources/js/compressed/compressed-${build.id}.js
                             </output>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
+            <!-- Compiler & WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

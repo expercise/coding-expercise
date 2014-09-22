@@ -11,4 +11,4 @@ target
 .springBeans
 production.properties
 developerSpecific.properties
-kodility.min.css
+kodility.min*.css
