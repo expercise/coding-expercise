@@ -17,7 +17,12 @@ public class CookieUtils {
     private HttpServletRequest request;
 
     public String getCookieValue(final String name) {
-        Cookie cookie = (Cookie) CollectionUtils.find(Arrays.asList(request.getCookies()), new Predicate() {
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return null;
+        }
+
+        Cookie cookie = (Cookie) CollectionUtils.find(Arrays.asList(cookies), new Predicate() {
             @Override
             public boolean evaluate(Object object) {
                 return ((Cookie) object).getName().equals(name);
