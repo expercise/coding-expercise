@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.configuration;
 
 import com.ufukuzun.kodility.interceptor.CommonViewParamsInterceptor;
+import com.ufukuzun.kodility.interceptor.SetLocaleInterceptor;
 import com.ufukuzun.kodility.utils.DateUtils;
 import com.ufukuzun.kodility.utils.EnvironmentUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistra
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -59,16 +59,16 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lingopref");
-        return localeChangeInterceptor;
+    public SetLocaleInterceptor setLocaleInterceptor() {
+        SetLocaleInterceptor interceptor = new SetLocaleInterceptor();
+        interceptor.setParamName("lingopref");
+        return interceptor;
     }
 
     @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-        handlerMapping.setInterceptors(new Object[]{localeChangeInterceptor(), commonViewParamsInterceptor(), generatedResourcesCachingInterceptor()});
+        handlerMapping.setInterceptors(new Object[]{setLocaleInterceptor(), commonViewParamsInterceptor(), generatedResourcesCachingInterceptor()});
         return handlerMapping;
     }
 

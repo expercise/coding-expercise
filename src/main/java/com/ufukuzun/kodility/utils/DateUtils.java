@@ -12,6 +12,8 @@ public final class DateUtils {
 
     public static final int ONE_WEEK = ONE_DAY * 7;
 
+    public static final int ONE_MONTH = ONE_DAY * 30;
+
     private static final String SIMPLE_DATE_FORMAT = "dd/MM/yyyy";
 
     private static final String DATE_AND_TIME_FORMAT = "dd/MM/yyyy HH:mm";
