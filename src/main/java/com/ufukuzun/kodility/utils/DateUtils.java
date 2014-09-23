@@ -10,6 +10,8 @@ public final class DateUtils {
 
     public static final int ONE_DAY = 60 * 60 * 24;
 
+    public static final int ONE_WEEK = ONE_DAY * 7;
+
     private static final String SIMPLE_DATE_FORMAT = "dd/MM/yyyy";
 
     private static final String DATE_AND_TIME_FORMAT = "dd/MM/yyyy HH:mm";

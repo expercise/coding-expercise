@@ -34,7 +34,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
         ResourceHandlerRegistration resourceHandlerRegistration = registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 
         if (EnvironmentUtils.isNotDevelopment(environment)) {
-            resourceHandlerRegistration.setCachePeriod(DateUtils.ONE_DAY);
+            resourceHandlerRegistration.setCachePeriod(DateUtils.ONE_WEEK);
         }
     }
 
@@ -81,7 +81,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     public WebContentInterceptor generatedResourcesCachingInterceptor() {
         WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
         Properties cacheMappings = new Properties();
-        cacheMappings.setProperty("/generatedResources/**", String.valueOf(DateUtils.ONE_DAY));
+        cacheMappings.setProperty("/generatedResources/**", String.valueOf(DateUtils.ONE_WEEK));
         webContentInterceptor.setCacheMappings(cacheMappings);
         webContentInterceptor.setUseCacheControlHeader(true);
         webContentInterceptor.setAlwaysMustRevalidate(true);
