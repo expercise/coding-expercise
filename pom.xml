@@ -15,27 +15,26 @@
         <hsqldb.version>2.3.2</hsqldb.version>
         <mockito.version>1.9.5</mockito.version>
         <hamcrest.version>1.3</hamcrest.version>
-        <spring.version>4.0.5.RELEASE</spring.version>
-        <spring.security.version>3.2.3.RELEASE</spring.security.version>
-        <servlet.api.version>3.0.1</servlet.api.version>
-        <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
+        <spring.version>4.1.1.RELEASE</spring.version>
+        <spring.security.version>3.2.5.RELEASE</spring.security.version>
+        <servlet.api.version>3.1.0</servlet.api.version>
+        <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
         <thymeleaf.extras.springsecurity.version>2.1.1.RELEASE</thymeleaf.extras.springsecurity.version>
-        <thymeleaf.dialects.layout.version>1.2.2</thymeleaf.dialects.layout.version>
+        <thymeleaf.dialects.layout.version>1.2.5</thymeleaf.dialects.layout.version>
         <jython.version>2.5.3</jython.version>
-        <jackson.mapper.version>2.3.2</jackson.mapper.version>
-        <hibernate.validator.version>5.1.0.Final</hibernate.validator.version>
-        <mysql.connector.version>5.1.30</mysql.connector.version>
-        <hibernate.orm.version>4.3.5.Final</hibernate.orm.version>
-        <javassist.version>3.18.1-GA</javassist.version>
+        <jackson.mapper.version>2.4.1</jackson.mapper.version>
+        <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
+        <mysql.connector.version>5.1.33</mysql.connector.version>
+        <hibernate.orm.version>4.3.6.Final</hibernate.orm.version>
+        <javassist.version>3.18.2-GA</javassist.version>
         <apache.commons.io.version>2.4</apache.commons.io.version>
         <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
         <apache.commons.collections.version>3.2.1</apache.commons.collections.version>
-        <apache.commons.dbcp>2.0</apache.commons.dbcp>
+        <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
         <slf4j.version>1.7.7</slf4j.version>
 
         <!-- Others -->
         <jdk.version>1.8</jdk.version>
-        <jetty.plugin.version>8.1.14.v20131031</jetty.plugin.version>
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
         <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
         <property.helper.plugin.version>2.0</property.helper.plugin.version>
@@ -397,13 +396,6 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
-            </plugin>
-
-            <!-- Jetty Plugin -->
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.plugin.version}</version>
             </plugin>
         </plugins>
     </build>
