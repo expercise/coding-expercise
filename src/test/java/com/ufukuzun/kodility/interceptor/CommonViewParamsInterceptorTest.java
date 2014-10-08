@@ -64,6 +64,8 @@ public class CommonViewParamsInterceptorTest {
     public void shouldAddIfDevelopmentEnvironment() throws Exception {
         boolean developmentEnvironment = BooleanUtils.toBoolean(RandomUtils.nextInt(0, 2));
 
+        when(configurationService.isDevelopment()).thenReturn(developmentEnvironment);
+
         ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
