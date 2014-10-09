@@ -47,7 +47,7 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView("user/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
-        modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOfCurrentUser());
+        modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOf(user));
         modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
         return modelAndView;
     }

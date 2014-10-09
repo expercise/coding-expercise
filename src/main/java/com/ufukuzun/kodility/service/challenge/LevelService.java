@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.service.challenge;
 
 import com.ufukuzun.kodility.dao.challenge.LevelDao;
 import com.ufukuzun.kodility.domain.challenge.Level;
+import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.service.challenge.model.CurrentLevelModel;
 import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,11 @@ public class LevelService {
     }
 
     public CurrentLevelModel getCurrentLevelModelOfCurrentUser() {
-        return currentLevelHelper.prepareCurrentLevelModelFor(authenticationService.getCurrentUser());
+        return getCurrentLevelModelOf(authenticationService.getCurrentUser());
+    }
+
+    public CurrentLevelModel getCurrentLevelModelOf(User user) {
+        return currentLevelHelper.prepareCurrentLevelModelFor(user);
     }
 
 }
