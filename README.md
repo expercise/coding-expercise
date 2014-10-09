@@ -5,4 +5,4 @@ kodility
 
 Challenges for champion developers.
 
-http://kodility.com
+http://kodility.com (not available for now)
