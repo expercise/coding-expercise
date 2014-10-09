@@ -21,7 +21,7 @@ public class MessagesForClientSideController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping(value = "/messages_{locale}-{buildId}.js", produces = "application/javascript; charset=utf-8")
+    @RequestMapping(value = "/messages_{lingo}-{buildId}.js", produces = "application/javascript; charset=utf-8")
     @ResponseBody
     public String getMessages(HttpServletRequest request, HttpServletResponse response) {
         return new BrowserCacheableContent() {
