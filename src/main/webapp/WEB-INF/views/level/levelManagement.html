@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+    <legend th:text="#{levelManagement.header}"></legend>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th th:text="#{label.priority}"></th>
+                <th th:text="#{Turkish}"></th>
+                <th th:text="#{English}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="level : ${levels}">
+                <td th:text="${level.priority}"></td>
+                <td th:text="${level.turkishName}"></td>
+                <td th:text="${level.englishName}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

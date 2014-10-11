@@ -48,6 +48,14 @@ public class Level extends PrioritizedEntity {
         return names.get(lingo);
     }
 
+    public String getTurkishName() {
+        return names.get(Lingo.Turkish);
+    }
+
+    public String getEnglishName() {
+        return names.get(Lingo.English);
+    }
+
     public List<Challenge> getChallenges() {
         return challenges;
     }

@@ -32,12 +32,6 @@
 
                     <li class="divider"></li>
 
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/manage/challenges}">
-                            <span th:text="#{label.menu.manageChallenges}"></span>
-                        </a>
-                    </li>
-
                     <li>
                         <a th:href="@{/challenges/myChallenges}">
                             <span th:text="#{label.menu.myChallenges}"></span>
@@ -53,8 +47,20 @@
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="divider"></li>
 
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/manage/challenges}">
+                            <span th:text="#{label.menu.manageChallenges}"></span>
+                        </a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{/manage/users}">
                             <span th:text="#{label.menu.manageUsers}"></span>
+                        </a>
+                    </li>
+
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{/manage/levels}">
+                            <span th:text="#{levelManagement.header}"></span>
                         </a>
                     </li>
 
