@@ -1,5 +1,6 @@
-package com.ufukuzun.kodility.controller.level;
+package com.ufukuzun.kodility.controller.level.management;
 
+import com.ufukuzun.kodility.controller.BaseManagementController;
 import com.ufukuzun.kodility.controller.level.model.LevelModel;
 import com.ufukuzun.kodility.controller.level.model.SaveLevelAjaxRequest;
 import com.ufukuzun.kodility.service.challenge.LevelService;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/manage/levels")
-public class LevelManagementController {
+@RequestMapping("/levels")
+public class LevelManagementController extends BaseManagementController {
 
     @Autowired
     private LevelService levelService;
