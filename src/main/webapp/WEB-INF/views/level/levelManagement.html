@@ -3,7 +3,26 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="#{levelManagement.header}"></legend>
 
-    <table class="table table-striped">
+    <form id="saveLevelForm" class="form-inline" action="#" method="POST" th:object="${level}"
+          myth:event="submit" myth:process="saveLevelForm" myth:update="saveLevelForm levelsTable" myth:url="@{/manage/levels/save}">
+        <div class="form-group">
+            <input type="text" class="form-control" name="turkishName" th:placeholder="#{Turkish}"/>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="englishName" th:placeholder="#{English}"/>
+        </div>
+
+        <div class="form-group">
+            <input type="number" class="form-control" name="priority" th:placeholder="#{label.priority}"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{button.create}"></button>
+    </form>
+
+    <hr/>
+
+    <table id="levelsTable" class="table table-striped">
         <thead>
             <tr>
                 <th th:text="#{label.priority}"></th>
