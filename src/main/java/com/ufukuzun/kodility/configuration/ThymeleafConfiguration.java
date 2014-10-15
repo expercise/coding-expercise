@@ -1,6 +1,8 @@
 package com.ufukuzun.kodility.configuration;
 
 import com.ufukuzun.kodility.utils.EnvironmentUtils;
+import com.ufukuzun.myth.dialect.MythDialect;
+import com.ufukuzun.myth.dialect.bean.Myth;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,7 @@ public class ThymeleafConfiguration {
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new SpringSecurityDialect());
+        templateEngine.addDialect(new MythDialect());
         return templateEngine;
     }
 
@@ -45,6 +48,11 @@ public class ThymeleafConfiguration {
         viewResolver.setOrder(1);
         viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
+    }
+
+    @Bean
+    public Myth myth() {
+        return new Myth();
     }
 
 }

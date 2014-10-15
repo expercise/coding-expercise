@@ -4,11 +4,17 @@ import com.ufukuzun.kodility.interceptor.CommonViewParamsInterceptor;
 import com.ufukuzun.kodility.interceptor.SetLocaleInterceptor;
 import com.ufukuzun.kodility.utils.DateUtils;
 import com.ufukuzun.kodility.utils.EnvironmentUtils;
+import com.ufukuzun.myth.dialect.handler.AjaxRequestResponseBodyReturnValueHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -18,6 +24,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import javax.validation.Validator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -87,6 +96,33 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
         webContentInterceptor.setAlwaysMustRevalidate(true);
         webContentInterceptor.setUseExpiresHeader(true);
         return webContentInterceptor;
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(ajaxRequestResponseBodyReturnValueHandler());
+    }
+
+    @Override
+    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+        returnValueHandlers.add(ajaxRequestResponseBodyReturnValueHandler());
+    }
+
+    @Bean
+    public AjaxRequestResponseBodyReturnValueHandler ajaxRequestResponseBodyReturnValueHandler() {
+        return new AjaxRequestResponseBodyReturnValueHandler(new ArrayList<HttpMessageConverter<?>>() {{
+            add(mappingJackson2HttpMessageConverter());
+        }});
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        return new MappingJackson2HttpMessageConverter();
+    }
+
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
     }
 
 }

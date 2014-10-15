@@ -21,6 +21,7 @@
         <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
         <thymeleaf.extras.springsecurity.version>2.1.1.RELEASE</thymeleaf.extras.springsecurity.version>
         <thymeleaf.dialects.layout.version>1.2.5</thymeleaf.dialects.layout.version>
+        <myth.version>1.0.0-SNAPSHOT</myth.version>
         <jython.version>2.5.3</jython.version>
         <jackson.mapper.version>2.4.1</jackson.mapper.version>
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
@@ -40,6 +41,17 @@
         <property.helper.plugin.version>2.0</property.helper.plugin.version>
         <properties.plugin.version>1.0-alpha-2</properties.plugin.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Test -->
@@ -158,6 +170,20 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity3</artifactId>
             <version>${thymeleaf.extras.springsecurity.version}</version>
+        </dependency>
+
+        <!-- Myth -->
+        <dependency>
+            <groupId>com.ufukuzun</groupId>
+            <artifactId>myth</artifactId>
+            <version>${myth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ufukuzun</groupId>
+            <artifactId>myth-resources</artifactId>
+            <version>${myth.version}</version>
+            <type>war</type>
         </dependency>
 
         <!-- Python Interpreter -->
