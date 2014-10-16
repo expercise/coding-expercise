@@ -1,7 +1,6 @@
 package com.ufukuzun.kodility.controller.level.management;
 
 import com.ufukuzun.kodility.controller.BaseManagementController;
-import com.ufukuzun.kodility.controller.level.model.LevelModel;
 import com.ufukuzun.kodility.controller.level.model.SaveLevelAjaxRequest;
 import com.ufukuzun.kodility.service.challenge.LevelService;
 import com.ufukuzun.myth.dialect.handler.annotation.AjaxRequestBody;
@@ -14,27 +13,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/levels")
 public class LevelManagementController extends BaseManagementController {
 
     @Autowired
     private LevelService levelService;
 
-    @RequestMapping
+    @RequestMapping("/levels")
     public ModelAndView levelManagement() {
-        return getModelAndView();
+        return getModelAndView(new SaveLevelAjaxRequest.LevelModel());
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/levels/save", method = RequestMethod.POST)
     @AjaxResponseBody
-    public AjaxResponse saveLevel(@AjaxRequestBody SaveLevelAjaxRequest ajaxRequest) {
-        ModelAndView modelAndView = getModelAndView();
+    public AjaxResponse saveLevel(@AjaxRequestBody(validate = true, targetName = "level") SaveLevelAjaxRequest ajaxRequest) {
+        ModelAndView modelAndView;
+        if (ajaxRequest.isModelValid()) {
+            levelService.save(ajaxRequest.getModel().toLevel());
+            modelAndView = getModelAndView(new SaveLevelAjaxRequest.LevelModel());
+        } else {
+            modelAndView = getModelAndView(ajaxRequest.getModel());
+        }
         return new AjaxResponse(ajaxRequest, modelAndView);
     }
 
-    private ModelAndView getModelAndView() {
+    private ModelAndView getModelAndView(SaveLevelAjaxRequest.LevelModel levelModel) {
         ModelAndView modelAndView = new ModelAndView("level/levelManagement");
-        modelAndView.addObject("level", new LevelModel());
+        modelAndView.addObject("level", levelModel);
         modelAndView.addObject("levels", levelService.getAllLevelsInOrder());
         return modelAndView;
     }

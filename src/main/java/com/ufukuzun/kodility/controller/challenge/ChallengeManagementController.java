@@ -25,8 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/challenges")
 public class ChallengeManagementController {
 
-    // TODO: separate user and admin controllers
-
     @Autowired
     private ChallengeService challengeService;
 

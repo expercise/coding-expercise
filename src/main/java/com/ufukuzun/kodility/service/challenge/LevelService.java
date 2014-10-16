@@ -38,4 +38,8 @@ public class LevelService {
         return currentLevelHelper.prepareCurrentLevelModelFor(user);
     }
 
+    public void save(Level level) {
+        levelDao.save(level);
+    }
+
 }

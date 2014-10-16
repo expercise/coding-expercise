@@ -8,6 +8,8 @@
 
         <script type="text/javascript" th:src="@{'/generatedResources/js/messages_' + __${#locale}__ + '-' + ${buildId} + '.js'}" defer="defer"></script>
 
+        <script type="text/javascript" th:src="@{/resources/js/myth-1.0.0-SNAPSHOT.js}"></script>
+
         <!-- If only environment is 'development' -->
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/less.min.js}"></script>
 
@@ -15,8 +17,6 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.scrolltofixed.min.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.min.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/myth-1.0.0-SNAPSHOT.js}"></script>
 
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/bootstrap.min.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/bootbox.min.js}"></script>

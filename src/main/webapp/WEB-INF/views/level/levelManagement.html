@@ -5,16 +5,16 @@
 
     <form id="saveLevelForm" class="form-inline" action="#" method="POST" th:object="${level}"
           myth:event="submit" myth:process="saveLevelForm" myth:update="saveLevelForm levelsTable" myth:url="@{/manage/levels/save}">
-        <div class="form-group">
-            <input type="text" class="form-control" name="turkishName" th:placeholder="#{Turkish}"/>
+        <div th:class="'form-group' + (${#fields.hasErrors('turkishName')} ? ' has-error' : '')">
+            <input type="text" class="form-control" th:field="*{turkishName}" name="turkishName" th:placeholder="#{Turkish}"/>
         </div>
 
-        <div class="form-group">
-            <input type="text" class="form-control" name="englishName" th:placeholder="#{English}"/>
+        <div th:class="'form-group' + (${#fields.hasErrors('englishName')} ? ' has-error' : '')">
+            <input type="text" class="form-control" th:field="*{englishName}" name="englishName" th:placeholder="#{English}"/>
         </div>
 
-        <div class="form-group">
-            <input type="number" class="form-control" name="priority" th:placeholder="#{label.priority}"/>
+        <div th:class="'form-group' + (${#fields.hasErrors('priority')} ? ' has-error' : '')">
+            <input type="number" class="form-control" th:field="*{priority}" name="priority" th:placeholder="#{levelManagement.priority.placeholder}"/>
         </div>
 
         <button type="submit" class="btn btn-primary" th:text="#{button.create}"></button>
