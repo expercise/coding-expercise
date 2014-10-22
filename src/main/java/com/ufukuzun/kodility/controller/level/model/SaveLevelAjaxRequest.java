@@ -2,6 +2,7 @@ package com.ufukuzun.kodility.controller.level.model;
 
 import com.ufukuzun.kodility.domain.challenge.Level;
 import com.ufukuzun.kodility.enums.Lingo;
+import com.ufukuzun.kodility.utils.validation.UniqueLevelPriority;
 import com.ufukuzun.myth.dialect.model.AjaxRequest;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
@@ -22,6 +23,7 @@ public class SaveLevelAjaxRequest extends AjaxRequest<SaveLevelAjaxRequest.Level
 
         @Range(min = 1, max = 100)
         @NotNull
+        @UniqueLevelPriority
         private Integer priority;
 
         public Level toLevel() {

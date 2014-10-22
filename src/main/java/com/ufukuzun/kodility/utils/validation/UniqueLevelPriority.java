@@ -11,10 +11,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailUniquenessValidator.class)
-public @interface UniqueEmail {
+@Constraint(validatedBy = UniqueLevelPriorityValidator.class)
+public @interface UniqueLevelPriority {
 
-    String message() default "{UniqueEmail.message}";
+    String message() default "{UniqueLevelPriority.message}";
 
     Class<?>[] groups() default {};
 

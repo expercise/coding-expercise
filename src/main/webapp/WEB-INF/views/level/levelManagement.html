@@ -5,6 +5,14 @@
 
     <form id="saveLevelForm" class="form-inline" action="#" method="POST" th:object="${level}"
           myth:event="submit" myth:process="saveLevelForm" myth:update="saveLevelForm levelsTable" myth:url="@{/manage/levels/save}">
+
+        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+            <strong>Ups!</strong>
+            <ul>
+                <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+            </ul>
+        </div>
+
         <div th:class="'form-group' + (${#fields.hasErrors('turkishName')} ? ' has-error' : '')">
             <input type="text" class="form-control" th:field="*{turkishName}" name="turkishName" th:placeholder="#{Turkish}"/>
         </div>

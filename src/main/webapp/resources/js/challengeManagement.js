@@ -223,8 +223,7 @@ kodility.ChallengeManagement = {
                 if (response.success) {
                     kodility.utils.go(kodility.utils.urlFor('challenges/' + response.challengeId));
                 } else {
-                    var containerId = '#validationMessages';
-                    var $validationMessages = $(containerId);
+                    var $validationMessages = $('#validationMessages');
                     $validationMessages.removeClass('hide');
 
                     var $messageList = $validationMessages.find('ul');
@@ -233,7 +232,7 @@ kodility.ChallengeManagement = {
                         $messageList.append('<li>' + kodility.utils.i18n(errorCode) + '</li>');
                     });
 
-                    location.hash = containerId;
+                    location.hash = '#header';
                 }
             }
         );

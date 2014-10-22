@@ -42,4 +42,8 @@ public class LevelService {
         levelDao.save(level);
     }
 
+    public Level getByPriority(Integer priority) {
+        return levelDao.findOneBy(priority);
+    }
+
 }

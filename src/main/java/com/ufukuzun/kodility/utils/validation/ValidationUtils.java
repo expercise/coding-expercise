@@ -5,6 +5,7 @@ import org.springframework.validation.ObjectError;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ValidationUtils {
 
@@ -12,11 +13,10 @@ public class ValidationUtils {
     }
 
     public static List<String> extractAllErrorCodes(BindingResult bindingResult) {
-        List<String> errorCodes = new ArrayList<>();
-        for (ObjectError error : bindingResult.getAllErrors()) {
-            errorCodes.add(error.getCode());
-        }
-        return errorCodes;
+        return bindingResult.getAllErrors()
+                .stream()
+                .map(ObjectError::getCode)
+                .collect(Collectors.toList());
     }
 
 }
