@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class ConfigurationService {
@@ -47,15 +46,9 @@ public class ConfigurationService {
     }
 
     private void populateConfigurationsMap() {
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-        transactionTemplate.execute(new TransactionCallback<Object>() {
-            @Override
-            public Object doInTransaction(TransactionStatus status) {
-                for (Configuration configuration : configurationDao.findAll()) {
-                    CONFIGURATIONS.put(configuration.getName(), configuration.getValue());
-                }
-                return null;
-            }
+        new TransactionTemplate(transactionManager).execute(status -> {
+            CONFIGURATIONS.putAll(configurationDao.findAll().stream().collect(Collectors.toMap(Configuration::getName, Configuration::getValue)));
+            return null;
         });
     }
 
