@@ -7,6 +7,7 @@ import com.ufukuzun.kodility.enums.UserRole;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 public class User extends AbstractEntity {
@@ -38,10 +39,7 @@ public class User extends AbstractEntity {
     private ProgrammingLanguage programmingLanguage;
 
     public String getFavoriteProgrammingLanguage() {
-        if (programmingLanguage == null) {
-            return StringUtils.EMPTY;
-        }
-        return programmingLanguage.name();
+        return Optional.ofNullable(programmingLanguage).map(p -> p.name()).orElse(StringUtils.EMPTY);
     }
 
     public Long getId() {

@@ -11,14 +11,15 @@ public class UserTest {
 
     @Test
     public void shouldReturnEmptyAsFavoriteProgrammingLanguageWhenUserHasNoFavoriteLanguage() {
-        User user = new UserBuilder().id(1L).programmingLanguage(null).build();
+        User user = new UserBuilder().programmingLanguage(null).build();
+
         assertThat(user.getFavoriteProgrammingLanguage(), equalTo(""));
     }
 
     @Test
     public void shouldReturnFavoriteProgrammingLanguageWhenUserHasOneOfThem() {
-        User pythonicUser = new UserBuilder().id(1L).programmingLanguage(ProgrammingLanguage.Python).build();
-        User javaScripterUser = new UserBuilder().id(2L).programmingLanguage(ProgrammingLanguage.JavaScript).build();
+        User pythonicUser = new UserBuilder().programmingLanguage(ProgrammingLanguage.Python).build();
+        User javaScripterUser = new UserBuilder().programmingLanguage(ProgrammingLanguage.JavaScript).build();
 
         assertThat(pythonicUser.getFavoriteProgrammingLanguage(), equalTo("Python"));
         assertThat(javaScripterUser.getFavoriteProgrammingLanguage(), equalTo("JavaScript"));
