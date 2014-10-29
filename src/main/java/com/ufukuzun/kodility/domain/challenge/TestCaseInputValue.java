@@ -50,7 +50,7 @@ public class TestCaseInputValue extends PrioritizedEntity {
             testCaseInputValue.setInputValue(inputValue);
             testCaseInputValues.add(testCaseInputValue);
         }
-        PrioritizedEntity.prioritize(testCaseInputValues);
+        prioritize(testCaseInputValues);
         return testCaseInputValues;
     }
 

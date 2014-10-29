@@ -8,9 +8,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -25,27 +25,27 @@ public class CookieUtilsTest {
 
     @Test
     public void shouldGetNullCookieValueForFirstVisitingOfUser() {
-        String cookieValue = cookieUtils.getCookieValue("cookieName");
+        Optional<String> cookieValue = cookieUtils.getCookieValue("cookieName");
 
-        assertThat(cookieValue, nullValue());
+        assertThat(cookieValue.isPresent(), equalTo(false));
     }
 
     @Test
     public void shouldGetCookieValueIfExist() {
         when(request.getCookies()).thenReturn(new Cookie[]{new Cookie("cookieName", "cookieValue")});
 
-        String cookieValue = cookieUtils.getCookieValue("cookieName");
+        Optional<String> cookieValue = cookieUtils.getCookieValue("cookieName");
 
-        assertThat(cookieValue, equalTo("cookieValue"));
+        assertThat(cookieValue.get(), equalTo("cookieValue"));
     }
 
     @Test
     public void shouldGetNullCookieValueIfNotExist() {
         when(request.getCookies()).thenReturn(new Cookie[]{new Cookie("cookieName", "cookieValue")});
 
-        String cookieValue = cookieUtils.getCookieValue("anotherCookieName");
+        Optional<String> cookieValue = cookieUtils.getCookieValue("anotherCookieName");
 
-        assertThat(cookieValue, nullValue());
+        assertThat(cookieValue.isPresent(), equalTo(false));
     }
 
 }

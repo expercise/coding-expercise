@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public class SetLocaleInterceptor extends LocaleChangeInterceptor {
 
@@ -26,13 +27,13 @@ public class SetLocaleInterceptor extends LocaleChangeInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException {
-        String localeFromCookie = cookieUtils.getCookieValue(LOCALE_COOKIE_NAME);
-        String localeFromRequest = request.getParameter(getParamName());
+        Optional<String> localeFromCookie = cookieUtils.getCookieValue(LOCALE_COOKIE_NAME);
+        Optional<String> localeFromRequest = Optional.ofNullable(request.getParameter(getParamName()));
 
-        if (localeFromRequest != null) {
-            setLocaleAndCookie(request, response, localeFromRequest);
-        } else if (localeFromCookie != null) {
-            setLocaleAndCookie(request, response, localeFromCookie);
+        if (localeFromRequest.isPresent()) {
+            setLocaleAndCookie(request, response, localeFromRequest.get());
+        } else if (localeFromCookie.isPresent()) {
+            setLocaleAndCookie(request, response, localeFromCookie.get());
         } else if (authenticationService.isCurrentUserAuthenticated()) {
             Lingo lingo = authenticationService.getCurrentUser().getLingo();
             if (lingo != null) {

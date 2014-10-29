@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SolutionService {
@@ -55,12 +59,9 @@ public class SolutionService {
     }
 
     public Set<Challenge> getSolvedChallengesOf(User user) {
-        Set<Challenge> challenges = new HashSet<>();
-        for (Solution solution : getAllApprovedChallengeSolutionsOf(user)) {
-            challenges.add(solution.getChallenge());
-        }
-
-        return challenges;
+        return getAllApprovedChallengeSolutionsOf(user).stream()
+                .map(Solution::getChallenge)
+                .collect(Collectors.toSet());
     }
 
     private List<Solution> getSolutionsOfUser(Challenge challenge) {

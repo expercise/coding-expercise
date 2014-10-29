@@ -19,14 +19,11 @@ public class SignatureGeneratorService {
     }
 
     private SignatureGenerator findSignatureGeneratorFor(ProgrammingLanguage language) {
-        Map<String, SignatureGenerator> signatureGenerators = applicationContext.getBeansOfType(SignatureGenerator.class);
-        for (SignatureGenerator signatureGenerator : signatureGenerators.values()) {
-            if (signatureGenerator.canGenerateFor(language)) {
-                return signatureGenerator;
-            }
-        }
-
-        throw new IllegalArgumentException("Unsupported programming language: " + language);
+        return applicationContext.getBeansOfType(SignatureGenerator.class)
+                .values().stream()
+                .filter(g -> g.canGenerateFor(language))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unsupported programming language: " + language));
     }
 
 }

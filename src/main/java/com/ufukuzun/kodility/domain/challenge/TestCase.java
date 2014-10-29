@@ -44,9 +44,7 @@ public class TestCase extends AbstractEntity {
     }
 
     public void setInputs(List<TestCaseInputValue> inputs) {
-        for (TestCaseInputValue input : inputs) {
-            input.setTestCase(this);
-        }
+        inputs.forEach(i -> i.setTestCase(this));
         this.inputs = inputs;
     }
 

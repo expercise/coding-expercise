@@ -15,6 +15,7 @@ public class AuthenticationService {
     @Autowired
     private UserService userService;
 
+    // TODO ufuk: use "Optional"
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (isNotAnonymousUser(authentication.getAuthorities())) {
@@ -43,12 +44,10 @@ public class AuthenticationService {
     }
 
     private boolean hasRole(Collection<? extends GrantedAuthority> authorities, String role) {
-        for (GrantedAuthority authority : authorities) {
-            if (authority.getAuthority().equals(role)) {
-                return true;
-            }
-        }
-        return false;
+        return authorities.stream()
+                .filter(a -> a.getAuthority().equals(role))
+                .findFirst()
+                .isPresent();
     }
 
 }

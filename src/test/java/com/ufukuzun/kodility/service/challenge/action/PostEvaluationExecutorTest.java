@@ -4,13 +4,11 @@ import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.util.PrioritySorter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,10 +44,7 @@ public class PostEvaluationExecutorTest {
 
         executor.execute(context);
 
-        InOrder inOrder = inOrder(prioritySorter, mockPostAction2);
-        inOrder.verify(prioritySorter).sort(Arrays.asList(mockPostAction2));
-        inOrder.verify(mockPostAction2).execute(context);
-
+        verify(mockPostAction2).execute(context);
         verify(mockPostAction1, never()).execute(context);
     }
 

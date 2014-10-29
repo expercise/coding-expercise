@@ -80,9 +80,9 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
     protected Criteria getCriteria(Map<String, Object> restrictions) {
         Criteria criteria = getCriteria();
-        for (Map.Entry<String, Object> eachRestriction : restrictions.entrySet()) {
-            criteria.add(Restrictions.eq(eachRestriction.getKey(), eachRestriction.getValue()));
-        }
+        restrictions.entrySet().forEach(
+                restriction -> criteria.add(Restrictions.eq(restriction.getKey(), restriction.getValue()))
+        );
         return criteria;
     }
 

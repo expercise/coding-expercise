@@ -46,7 +46,7 @@ public class Challenge extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN")
+    @Column(nullable = false)
     private boolean approved;
 
     @Column(nullable = false)
@@ -168,12 +168,12 @@ public class Challenge extends AbstractEntity {
     }
 
     public String getDescriptionFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName);
+        Lingo lingo = Lingo.getLingo(lingoShortName).get();
         return descriptions.get(lingo);
     }
 
     public String getTitleFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName);
+        Lingo lingo = Lingo.getLingo(lingoShortName).get();
         return titles.get(lingo);
     }
 

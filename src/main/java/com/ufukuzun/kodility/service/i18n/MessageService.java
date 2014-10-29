@@ -27,9 +27,9 @@ public class MessageService {
         Map<String, String> messages = new ConcurrentHashMap<>();
 
         ResourceBundle messagesResourceBundle = bundleMessageSource.getMessagesResourceBundle();
-        for (String key : messagesResourceBundle.keySet()) {
-            messages.put(key, messagesResourceBundle.getString(key));
-        }
+        messagesResourceBundle.keySet().forEach(
+                k -> messages.put(k, messagesResourceBundle.getString(k))
+        );
 
         return messages;
     }

@@ -1,5 +1,8 @@
 package com.ufukuzun.kodility.enums;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum ProgrammingLanguage {
 
     JavaScript("js"),
@@ -11,16 +14,14 @@ public enum ProgrammingLanguage {
         this.shortName = shortName;
     }
 
+    public static Optional<ProgrammingLanguage> getLanguage(String shortName) {
+        return Arrays.asList(values()).stream()
+                .filter(p -> p.getShortName().equals(shortName))
+                .findFirst();
+    }
+
     public String getShortName() {
         return shortName;
     }
 
-    public static ProgrammingLanguage getLanguage(String shortName) {
-        for (ProgrammingLanguage programmingLanguage : values()) {
-            if (programmingLanguage.getShortName().equals(shortName)) {
-                return programmingLanguage;
-            }
-        }
-        return null;
-    }
 }

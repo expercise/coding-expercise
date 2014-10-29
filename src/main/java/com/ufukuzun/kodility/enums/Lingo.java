@@ -1,5 +1,8 @@
 package com.ufukuzun.kodility.enums;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Lingo {
 
     Turkish("tr"),
@@ -11,16 +14,14 @@ public enum Lingo {
         this.shortName = shortName;
     }
 
+    public static Optional<Lingo> getLingo(String shortName) {
+        return Arrays.asList(values()).stream()
+                .filter(l -> l.getShortName().equals(shortName))
+                .findFirst();
+    }
+
     public String getShortName() {
         return shortName;
     }
 
-    public static Lingo getLingo(String shortName) {
-        for (Lingo each : values()) {
-            if (each.getShortName().equals(shortName)) {
-                return each;
-            }
-        }
-        return null;
-    }
 }

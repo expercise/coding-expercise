@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/generatedResources/js")
@@ -33,12 +34,9 @@ public class MessagesForClientSideController {
     }
 
     private String prepareMessagesForClientSide() {
-        Map<String, String> allMessages = messageService.getAllMessages();
-
-        List<String> keyValuePairsAsList = new ArrayList<>();
-        for (Map.Entry<String, String> entry : allMessages.entrySet()) {
-            keyValuePairsAsList.add(String.format("\"%s\": \"%s\"", entry.getKey(), entry.getValue().replace("\"", "\\\"")));
-        }
+        List<String> keyValuePairsAsList = messageService.getAllMessages().entrySet().stream()
+                .map(e -> String.format("\"%s\": \"%s\"", e.getKey(), e.getValue().replace("\"", "\\\"")))
+                .collect(Collectors.toList());
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("var messages = {\n\t");

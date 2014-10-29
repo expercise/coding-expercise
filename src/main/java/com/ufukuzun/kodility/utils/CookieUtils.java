@@ -16,14 +16,13 @@ public class CookieUtils {
     @Autowired
     private HttpServletRequest request;
 
-    public String getCookieValue(String name) {
+    public Optional<String> getCookieValue(String name) {
         return Optional.ofNullable(request.getCookies())
                 .map(cookies -> Arrays.asList(cookies))
                 .orElse(new ArrayList<>()).stream()
                 .filter(c -> c.getName().equals(name))
                 .findFirst()
-                .map(c -> c.getValue())
-                .orElse(null);
+                .map(c -> c.getValue());
     }
 
     public void setCookieValue(HttpServletResponse response, String name, String value, int maxAge) {

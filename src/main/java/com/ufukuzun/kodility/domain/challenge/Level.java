@@ -43,7 +43,7 @@ public class Level extends PrioritizedEntity {
     }
 
     public String getNameFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName);
+        Lingo lingo = Lingo.getLingo(lingoShortName).get();
         return names.get(lingo);
     }
 

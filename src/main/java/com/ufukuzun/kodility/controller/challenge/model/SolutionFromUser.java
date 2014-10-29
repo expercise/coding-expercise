@@ -31,7 +31,7 @@ public class SolutionFromUser {
     }
 
     public ProgrammingLanguage getProgrammingLanguage() {
-        return ProgrammingLanguage.getLanguage(language);
+        return ProgrammingLanguage.getLanguage(language).get();
     }
 
 }

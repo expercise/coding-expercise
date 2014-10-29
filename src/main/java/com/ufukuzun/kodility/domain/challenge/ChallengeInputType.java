@@ -51,7 +51,7 @@ public class ChallengeInputType extends PrioritizedEntity {
             challengeInputType.setInputType(inputType);
             challengeInputTypes.add(challengeInputType);
         }
-        PrioritizedEntity.prioritize(challengeInputTypes);
+        prioritize(challengeInputTypes);
         return challengeInputTypes;
     }
 

@@ -6,33 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 @Service
 public class PostEvaluationExecutor {
 
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private PrioritySorter prioritySorter;
-
     public void execute(ChallengeEvaluationContext context) {
-        Map<String, PostEvaluationAction> actions = applicationContext.getBeansOfType(PostEvaluationAction.class);
-
-        List<PostEvaluationAction> actionList = new ArrayList<>();
-        for (PostEvaluationAction action : actions.values()) {
-            if (action.canExecute(context)) {
-                actionList.add(action);
-            }
-        }
-
-        prioritySorter.sort(actionList);
-        for (PostEvaluationAction postEvaluationAction : actionList) {
-            postEvaluationAction.execute(context);
-        }
+        applicationContext
+                .getBeansOfType(PostEvaluationAction.class).values().stream()
+                .filter(action -> action.canExecute(context))
+                .sorted(new PrioritySorter())
+                .forEach(a -> a.execute(context));
     }
 
 }
