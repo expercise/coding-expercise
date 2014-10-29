@@ -30,7 +30,7 @@
         <javassist.version>3.18.2-GA</javassist.version>
         <apache.commons.io.version>2.4</apache.commons.io.version>
         <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
-        <apache.commons.collections.version>3.2.1</apache.commons.collections.version>
+        <apache.commons.collections.version>4.0</apache.commons.collections.version>
         <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
         <slf4j.version>1.7.7</slf4j.version>
 
@@ -214,8 +214,8 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
             <version>${apache.commons.collections.version}</version>
         </dependency>
 
