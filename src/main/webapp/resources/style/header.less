@@ -1,11 +1,52 @@
+div#header {
+  padding-top: 5px;
+  margin-bottom: 20px;
+  background-color: #475673;
+
+  h2#projectName {
+    margin-top: 5px;
+    padding-left: 265px;
+    font-size: 35px;
+
+    a {
+      color: #f5f5f5;
+      font-family: BlackRose;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .scrolledHeader {
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.175);
+    width: 100%;
+    margin-right: 0;
+    background-color: rgba(71, 86, 115, 0.9);
+    left: 0 !important;
+
+    h2#projectName {
+      padding-left: 250px;
+    }
+
+    #userMenu {
+      padding-right: 265px;
+
+      .dropdown-menu-right {
+        right: 255px;
+      }
+    }
+  }
+}
+
 #userMenu {
-  padding-top: 25px;
-  padding-right: 25px;
+  padding-top: 20px;
+  padding-right: 280px;
   text-align: right;
 }
 
 #userMenu > a:first-child {
-  color: #999;
+  color: #f5f5f5;
   cursor: pointer;
   font-size: 15px;
 }
@@ -24,7 +65,7 @@
 }
 
 #userMenu .dropdown-menu-right {
-  right: 15px;
+  right: 270px;
 }
 
 #lingoSelection div.btn-group {

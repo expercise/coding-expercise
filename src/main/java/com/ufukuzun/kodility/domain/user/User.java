@@ -4,6 +4,7 @@ import com.ufukuzun.kodility.domain.AbstractEntity;
 import com.ufukuzun.kodility.enums.Lingo;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.enums.UserRole;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 
@@ -36,9 +37,9 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
-    public String getFavoriteProgLang() {
+    public String getFavoriteProgrammingLanguage() {
         if (programmingLanguage == null) {
-            return "-";
+            return StringUtils.EMPTY;
         }
         return programmingLanguage.name();
     }

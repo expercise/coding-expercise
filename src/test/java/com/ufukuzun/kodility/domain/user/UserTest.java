@@ -10,9 +10,9 @@ import static org.junit.Assert.assertThat;
 public class UserTest {
 
     @Test
-    public void shouldReturnHyphenAsFavoriteProgrammingLanguageWhenUserHasNoFavoriteLanguage() {
+    public void shouldReturnEmptyAsFavoriteProgrammingLanguageWhenUserHasNoFavoriteLanguage() {
         User user = new UserBuilder().id(1L).programmingLanguage(null).build();
-        assertThat(user.getFavoriteProgLang(), equalTo("-"));
+        assertThat(user.getFavoriteProgrammingLanguage(), equalTo(""));
     }
 
     @Test
@@ -20,8 +20,8 @@ public class UserTest {
         User pythonicUser = new UserBuilder().id(1L).programmingLanguage(ProgrammingLanguage.Python).build();
         User javaScripterUser = new UserBuilder().id(2L).programmingLanguage(ProgrammingLanguage.JavaScript).build();
 
-        assertThat(pythonicUser.getFavoriteProgLang(), equalTo("Python"));
-        assertThat(javaScripterUser.getFavoriteProgLang(), equalTo("JavaScript"));
+        assertThat(pythonicUser.getFavoriteProgrammingLanguage(), equalTo("Python"));
+        assertThat(javaScripterUser.getFavoriteProgrammingLanguage(), equalTo("JavaScript"));
     }
 
 }

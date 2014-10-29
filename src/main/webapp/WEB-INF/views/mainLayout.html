@@ -26,14 +26,14 @@
     <script th:if="${not #strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
 </head>
 <body>
+    <div th:replace="fragments/header :: header">Header</div>
+
     <div class="container">
-        <div th:replace="fragments/header :: header">Header</div>
-
-        <div layout:fragment="content">
-            Page Content
+        <div class="subContainer">
+            <div layout:fragment="content">
+                Page Content
+            </div>
         </div>
-
-        <hr/>
 
         <div th:replace="fragments/footer :: footer">Footer</div>
     </div>
