@@ -34,9 +34,7 @@ public class LeveledChallengesController {
 
     private Map<Challenge, Long> prepareSolutionCountMapFor(List<Level> levelList) {
         List<Challenge> challenges = new ArrayList<>();
-        for (Level level : levelList) {
-            challenges.addAll(level.getApprovedChallenges());
-        }
+        levelList.forEach(l -> challenges.addAll(l.getApprovedChallenges()));
         return solutionCountService.prepareSolutionCountMapFor(challenges);
     }
 
