@@ -15,7 +15,6 @@ public class AuthenticationService {
     @Autowired
     private UserService userService;
 
-    // TODO ufuk: use "Optional"
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (isNotAnonymousUser(authentication.getAuthorities())) {
