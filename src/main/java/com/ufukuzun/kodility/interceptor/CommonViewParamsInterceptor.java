@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.interceptor;
 
 import com.ufukuzun.kodility.service.configuration.ConfigurationService;
+import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,11 +15,14 @@ public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private ConfigurationService configurationService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @Value("${build.id}")
     private String buildId;
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         if (modelAndView == null) {
             return;
         }
@@ -26,6 +30,7 @@ public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
         modelAndView.addObject("buildId", buildId);
         modelAndView.addObject("developmentEnvironment", configurationService.isDevelopment());
         modelAndView.addObject("googleAnalyticsScript", configurationService.getGoogleAnalyticsScript());
+        modelAndView.addObject("currentUsersEmail", authenticationService.getCurrentUsersEmail());
     }
 
 }

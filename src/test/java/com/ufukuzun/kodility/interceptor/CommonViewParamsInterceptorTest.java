@@ -1,6 +1,7 @@
 package com.ufukuzun.kodility.interceptor;
 
 import com.ufukuzun.kodility.service.configuration.ConfigurationService;
+import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -30,12 +31,15 @@ public class CommonViewParamsInterceptorTest {
     @Mock
     private ConfigurationService configurationService;
 
+    @Mock
+    private AuthenticationService authenticationService;
+
     private HttpServletRequest request = new MockHttpServletRequest();
 
     private HttpServletResponse response = new MockHttpServletResponse();
 
     @Test
-    public void shouldAddGoogleAnalyticsScript() throws Exception {
+    public void shouldAddGoogleAnalyticsScript() {
         String googleAnalyticsScript = RandomStringUtils.randomAlphabetic(11);
 
         when(configurationService.getGoogleAnalyticsScript()).thenReturn(googleAnalyticsScript);
@@ -48,7 +52,7 @@ public class CommonViewParamsInterceptorTest {
     }
 
     @Test
-    public void shouldAddBuildId() throws Exception {
+    public void shouldAddBuildId() {
         String buildId = String.valueOf(System.currentTimeMillis());
 
         ReflectionTestUtils.setField(interceptor, "buildId", buildId);
@@ -61,7 +65,7 @@ public class CommonViewParamsInterceptorTest {
     }
 
     @Test
-    public void shouldAddIfDevelopmentEnvironment() throws Exception {
+    public void shouldAddIfDevelopmentEnvironment() {
         boolean developmentEnvironment = BooleanUtils.toBoolean(RandomUtils.nextInt(0, 2));
 
         when(configurationService.isDevelopment()).thenReturn(developmentEnvironment);
@@ -71,6 +75,17 @@ public class CommonViewParamsInterceptorTest {
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("developmentEnvironment", (Object) developmentEnvironment));
+    }
+
+    @Test
+    public void shouldAddIfCurrentUsersEmail() {
+        when(authenticationService.getCurrentUsersEmail()).thenReturn("user@kodility.com");
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        interceptor.postHandle(request, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("currentUsersEmail", (Object) "user@kodility.com"));
     }
 
 }

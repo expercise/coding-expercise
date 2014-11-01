@@ -13,7 +13,7 @@
                 <div id="userMenu" class="col-xs-6">
                     <a data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
-                        <span th:text="${#authorization.expression('isAuthenticated()')} ? ${@authenticationService.currentUsersEmail} : #{label.menu}"></span>
+                        <span th:text="${#authorization.expression('isAuthenticated()')} ? ${currentUsersEmail} : #{label.menu}"></span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">

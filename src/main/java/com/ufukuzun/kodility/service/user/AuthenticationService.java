@@ -29,7 +29,6 @@ public class AuthenticationService {
         return isNotAnonymousUser(authentication.getAuthorities());
     }
 
-    // TODO ufuk: this should not be used from view, use an interceptor for that kind of issues
     public String getCurrentUsersEmail() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
