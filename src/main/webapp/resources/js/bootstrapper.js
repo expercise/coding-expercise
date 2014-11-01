@@ -1,7 +1,8 @@
 var coreModules = [
     kodility,
     kodility.utils,
-    kodility.locale
+    kodility.Header,
+    kodility.Locale
 ];
 
 $(function () {

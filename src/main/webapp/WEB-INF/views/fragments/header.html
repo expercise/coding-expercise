@@ -2,89 +2,91 @@
 <html>
 <body>
     <div id="header" th:fragment="header">
-        <div class="row">
-            <div class="col-xs-6">
-                <h2 id="projectName" class="text-muted">
-                    <a th:href="@{/}">kodility</a>
-                </h2>
-            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 id="projectName" class="text-muted">
+                        <a th:href="@{/}">kodility</a>
+                    </h2>
+                </div>
 
-            <div id="userMenu" class="col-xs-6">
-                <a data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span th:text="${#authorization.expression('isAuthenticated()')} ? ${@authenticationService.currentUsersEmail} : #{label.menu}"></span>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li>
-                        <a th:href="@{/challenges}" th:text="#{button.start}"></a>
-                    </li>
+                <div id="userMenu" class="col-xs-6">
+                    <a data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span th:text="${#authorization.expression('isAuthenticated()')} ? ${@authenticationService.currentUsersEmail} : #{label.menu}"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li>
+                            <a th:href="@{/challenges}" th:text="#{button.start}"></a>
+                        </li>
 
-                    <li>
-                        <a th:href="@{/profile}" th:text="#{label.menu.profile}"></a>
-                    </li>
+                        <li>
+                            <a th:href="@{/profile}" th:text="#{label.menu.profile}"></a>
+                        </li>
 
-                    <li class="divider"></li>
+                        <li class="divider"></li>
 
-                    <li>
-                        <a th:href="@{/challenges/notLeveledChallenges}" th:text="#{label.menu.notLeveledChallenges}"></a>
-                    </li>
+                        <li>
+                            <a th:href="@{/challenges/notLeveledChallenges}" th:text="#{label.menu.notLeveledChallenges}"></a>
+                        </li>
 
-                    <li class="divider"></li>
+                        <li class="divider"></li>
 
-                    <li>
-                        <a th:href="@{/challenges/myChallenges}">
-                            <span th:text="#{label.menu.myChallenges}"></span>
-                        </a>
-                    </li>
+                        <li>
+                            <a th:href="@{/challenges/myChallenges}">
+                                <span th:text="#{label.menu.myChallenges}"></span>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a th:href="@{/challenges/addChallenge}">
-                            <span th:text="#{label.menu.addNewChallenge}"></span>
-                        </a>
-                    </li>
+                        <li>
+                            <a th:href="@{/challenges/addChallenge}">
+                                <span th:text="#{label.menu.addNewChallenge}"></span>
+                            </a>
+                        </li>
 
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="divider"></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')" class="divider"></li>
 
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/manage/challenges}">
-                            <span th:text="#{label.menu.manageChallenges}"></span>
-                        </a>
-                    </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/manage/challenges}">
+                                <span th:text="#{label.menu.manageChallenges}"></span>
+                            </a>
+                        </li>
 
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/manage/users}">
-                            <span th:text="#{label.menu.manageUsers}"></span>
-                        </a>
-                    </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/manage/users}">
+                                <span th:text="#{label.menu.manageUsers}"></span>
+                            </a>
+                        </li>
 
-                    <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/manage/levels}">
-                            <span th:text="#{levelManagement.header}"></span>
-                        </a>
-                    </li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/manage/levels}">
+                                <span th:text="#{levelManagement.header}"></span>
+                            </a>
+                        </li>
 
-                    <li class="divider"></li>
+                        <li class="divider"></li>
 
-                    <li th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a th:href="@{/logout}" th:text="#{button.logout}"></a>
-                    </li>
+                        <li th:if="${#authorization.expression('isAuthenticated()')}">
+                            <a th:href="@{/logout}" th:text="#{button.logout}"></a>
+                        </li>
 
-                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
-                        <a th:href="@{/login}" th:text="#{button.login}"></a>
-                    </li>
+                        <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <a th:href="@{/login}" th:text="#{button.login}"></a>
+                        </li>
 
-                    <li th:unless="${#authorization.expression('isAuthenticated()')}">
-                        <a th:href="@{/register}" th:text="#{button.register}"></a>
-                    </li>
+                        <li th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <a th:href="@{/register}" th:text="#{button.register}"></a>
+                        </li>
 
-                    <li id="lingoSelection">
-                        <div class="btn-group">
-                            <a class="btn btn-default" th:href="@{?lingopref=tr}">Türkçe</a>
-                            <a class="btn btn-default" th:href="@{?lingopref=en}">English</a>
-                        </div>
-                    </li>
-                </ul>
+                        <li id="lingoSelection">
+                            <div class="btn-group">
+                                <a class="btn btn-default" th:href="@{?lingopref=tr}">Türkçe</a>
+                                <a class="btn btn-default" th:href="@{?lingopref=en}">English</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

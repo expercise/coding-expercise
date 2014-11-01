@@ -389,6 +389,7 @@
                                 <include>/codemirror//mode/python.js</include>
                                 <include>/kodility.js</include>
                                 <include>/utils.js</include>
+                                <include>/header.js</include>
                                 <include>/challenge.js</include>
                                 <include>/locale.js</include>
                                 <include>/codeEditor.js</include>

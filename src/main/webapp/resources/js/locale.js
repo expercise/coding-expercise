@@ -1,7 +1,7 @@
-kodility.locale = {
+kodility.Locale = {
 
     bindEvents: function () {
-        $('#langSelectContainer').find('a').click(function () {
+        $('#lingoSelection').find('a').click(function () {
             kodility.CodeEditor.resetMode();
         });
     }
