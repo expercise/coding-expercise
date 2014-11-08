@@ -7,6 +7,8 @@ import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterException;
 import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
+import jdk.nashorn.api.scripting.NashornScriptEngine;
+import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 @Component
@@ -44,8 +45,7 @@ public class JavaScriptInterpreter implements Interpreter {
     }
 
     private ScriptEngine getScriptEngine() {
-        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-        ScriptEngine javaScriptEngine = scriptEngineManager.getEngineByName("JavaScript");
+        NashornScriptEngine javaScriptEngine = (NashornScriptEngine) new NashornScriptEngineFactory().getScriptEngine(new String[]{"-strict", "--no-java", "--no-syntax-extensions"});
         javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
         return javaScriptEngine;
     }

@@ -181,6 +181,34 @@ public class JavaScriptInterpreterTest {
         assertTrue(interpreterResult.isSuccess());
     }
 
+    @Test
+    public void shouldNotAllowJavaUsageInJavaScript() {
+        String solution = "function solution(a) { return Java.type(\"java.lang.Math\").pow(a, 2); }";
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+
+        Challenge challenge = new Challenge();
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("2");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("4");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        when(interpreterResultCreator.failedResultWithoutMessage()).thenReturn(InterpreterResult.createFailedResult());
+
+        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
+
+        assertFalse(interpreterResult.isSuccess());
+    }
+
     private ChallengeEvaluationContext createContext(Challenge challenge, String source) {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(challenge);
