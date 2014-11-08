@@ -2,7 +2,7 @@ package com.ufukuzun.kodility.interpreter;
 
 public class InterpreterResult {
 
-    private String result;
+    private InterpreterFailureType failureType;
 
     private boolean success;
 
@@ -18,12 +18,24 @@ public class InterpreterResult {
         return new InterpreterResult(false);
     }
 
-    public String getResult() {
-        return result;
+    public static InterpreterResult noResultFailedResult() {
+        InterpreterResult failedResult = createFailedResult();
+        failedResult.setFailureType(InterpreterFailureType.NO_RESULT);
+        return failedResult;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public static InterpreterResult syntaxErrorFailedResult() {
+        InterpreterResult failedResult = createFailedResult();
+        failedResult.setFailureType(InterpreterFailureType.SYNTAX_ERROR);
+        return failedResult;
+    }
+
+    public InterpreterFailureType getFailureType() {
+        return failureType;
+    }
+
+    public void setFailureType(InterpreterFailureType failureType) {
+        this.failureType = failureType;
     }
 
     public boolean isSuccess() {

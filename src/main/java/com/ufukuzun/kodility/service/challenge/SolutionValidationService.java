@@ -4,15 +4,10 @@ import com.ufukuzun.kodility.controller.challenge.model.SolutionFromUser;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.Interpreter;
-import com.ufukuzun.kodility.interpreter.InterpreterException;
-import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
 import com.ufukuzun.kodility.service.challenge.action.PostEvaluationExecutor;
 import com.ufukuzun.kodility.service.challenge.action.PreEvaluationExecutor;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.service.challenge.model.SolutionValidationResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -21,8 +16,6 @@ import java.beans.Introspector;
 
 @Service
 public class SolutionValidationService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SolutionValidationService.class);
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -35,9 +28,6 @@ public class SolutionValidationService {
 
     @Autowired
     private PostEvaluationExecutor postEvaluationExecutor;
-
-    @Autowired
-    private InterpreterResultCreator interpreterResultCreator;
 
     public SolutionValidationResult validateSolution(SolutionFromUser solutionFromUser) {
         ChallengeEvaluationContext context = createEvaluationContextFrom(solutionFromUser);
@@ -59,24 +49,13 @@ public class SolutionValidationService {
     }
 
     private void interpret(ChallengeEvaluationContext context) {
-        try {
-            Interpreter interpreter = findInterpreterFor(context.getLanguage());
-            interpreter.interpret(context);
-        } catch (InterpreterException e) {
-            context.setInterpreterResult(e.getInterpreterResult());
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage(), e);
-            context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
-        }
+        Interpreter interpreter = findInterpreterFor(context.getLanguage());
+        interpreter.interpret(context);
     }
 
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {
-        try {
-            String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
-            return (Interpreter) applicationContext.getBean(interpreterBeanName);
-        } catch (BeansException e) {
-            throw new IllegalArgumentException("Unsupported programming language: " + programmingLanguage);
-        }
+        String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
+        return (Interpreter) applicationContext.getBean(interpreterBeanName);
     }
 
 }

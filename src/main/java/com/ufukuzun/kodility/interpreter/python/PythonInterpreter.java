@@ -5,12 +5,11 @@ import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.enums.DataType;
 import com.ufukuzun.kodility.interpreter.Interpreter;
 import com.ufukuzun.kodility.interpreter.InterpreterException;
-import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
+import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.python.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Constructor;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class PythonInterpreter implements Interpreter {
+public class PythonInterpreter extends Interpreter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PythonInterpreter.class);
 
@@ -29,11 +28,8 @@ public class PythonInterpreter implements Interpreter {
         TYPE_MAP.put(DataType.Text, PyString.class);
     }
 
-    @Autowired
-    private InterpreterResultCreator interpreterResultCreator;
-
     @Override
-    public void interpret(ChallengeEvaluationContext context) throws InterpreterException {
+    protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
         org.python.util.PythonInterpreter pythonInterpreter = new org.python.util.PythonInterpreter();
 
         executeSourceCode(pythonInterpreter, context.getSource());
@@ -45,12 +41,12 @@ public class PythonInterpreter implements Interpreter {
             Object resultValue = makeFunctionCallAndGetResultValue(solutionFunctionToCall, challenge, testCase);
 
             if (!challenge.getOutputType().convert(testCase.getOutput()).equals(resultValue)) {
-                context.setInterpreterResult(interpreterResultCreator.failedResultWithoutMessage());
+                context.setInterpreterResult(InterpreterResult.createFailedResult());
                 return;
             }
         }
 
-        context.setInterpreterResult(interpreterResultCreator.successResult());
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
     }
 
     private void executeSourceCode(org.python.util.PythonInterpreter pythonInterpreter, String sourceCode) throws InterpreterException {
@@ -58,7 +54,7 @@ public class PythonInterpreter implements Interpreter {
             pythonInterpreter.exec(sourceCode);
         } catch (PySyntaxError e) {
             LOGGER.debug("Syntax error", e);
-            throw new InterpreterException(interpreterResultCreator.syntaxErrorFailedResult());
+            throw new InterpreterException(InterpreterResult.syntaxErrorFailedResult());
         }
     }
 
@@ -77,7 +73,7 @@ public class PythonInterpreter implements Interpreter {
         }
 
         if (funcToCall == null) {
-            throw new InterpreterException(interpreterResultCreator.noResultFailedResult());
+            throw new InterpreterException(InterpreterResult.noResultFailedResult());
         }
 
         return funcToCall;
@@ -95,7 +91,7 @@ public class PythonInterpreter implements Interpreter {
             }
         } catch (PyException e) {
             LOGGER.debug("Exception while function call", e);
-            throw new InterpreterException(interpreterResultCreator.failedResultWithoutMessage());
+            throw new InterpreterException(InterpreterResult.createFailedResult());
         }
 
         return resultAsJavaObject;
@@ -118,7 +114,7 @@ public class PythonInterpreter implements Interpreter {
                 pyObjects[i] = declaredConstructor.newInstance(type.convert(testCase.getInputs().get(i).getInputValue()));
             } catch (Exception e) {
                 LOGGER.debug("Exception while preparing arguments", e);
-                throw new InterpreterException(interpreterResultCreator.noResultFailedResult());
+                throw new InterpreterException(InterpreterResult.noResultFailedResult());
             }
         }
 

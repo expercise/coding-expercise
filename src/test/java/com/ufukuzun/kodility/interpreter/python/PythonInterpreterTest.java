@@ -5,32 +5,28 @@ import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.domain.challenge.TestCase;
 import com.ufukuzun.kodility.domain.challenge.TestCaseInputValue;
 import com.ufukuzun.kodility.enums.DataType;
-import com.ufukuzun.kodility.interpreter.InterpreterException;
-import com.ufukuzun.kodility.interpreter.InterpreterResult;
-import com.ufukuzun.kodility.interpreter.InterpreterResultCreator;
+import com.ufukuzun.kodility.interpreter.InterpreterFailureType;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.ufukuzun.kodility.testutils.InterpreterTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PythonInterpreterTest {
 
     @InjectMocks
     private PythonInterpreter interpreter;
-
-    @Mock
-    private InterpreterResultCreator interpreterResultCreator;
 
     @Test
     public void shouldSendErrorMessageWhenThereIsSyntaxError() {
@@ -40,11 +36,10 @@ public class PythonInterpreterTest {
         context.setSource("def foo(a, b): Keturn a -+ b;");
         context.setChallenge(challenge);
 
-        when(interpreterResultCreator.syntaxErrorFailedResult()).thenReturn(InterpreterResult.createFailedResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertFalse(interpreterResult.isSuccess());
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), equalTo(InterpreterFailureType.SYNTAX_ERROR));
     }
 
     @Test
@@ -72,11 +67,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -102,11 +96,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -143,11 +136,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -175,11 +167,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, concatSolution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -207,11 +198,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, concatSolution);
 
-        when(interpreterResultCreator.failedResultWithoutMessage()).thenReturn(InterpreterResult.createFailedResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertFalse(interpreterResult.isSuccess());
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -237,11 +227,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -259,11 +248,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        when(interpreterResultCreator.successResult()).thenReturn(InterpreterResult.createSuccessResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertTrue(interpreterResult.isSuccess());
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     @Test
@@ -281,11 +269,10 @@ public class PythonInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, solution);
 
-        when(interpreterResultCreator.failedResultWithoutMessage()).thenReturn(InterpreterResult.createFailedResult());
+        interpreter.interpret(context);
 
-        InterpreterResult interpreterResult = makeCallAndGetInterpreterResult(context);
-
-        assertFalse(interpreterResult.isSuccess());
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
 
     private ChallengeEvaluationContext createContext(Challenge challenge, String source) {
@@ -293,16 +280,6 @@ public class PythonInterpreterTest {
         context.setChallenge(challenge);
         context.setSource(source);
         return context;
-    }
-
-    private InterpreterResult makeCallAndGetInterpreterResult(ChallengeEvaluationContext context) {
-        try {
-            interpreter.interpret(context);
-        } catch (InterpreterException e) {
-            return e.getInterpreterResult();
-        }
-
-        return context.getInterpreterResult();
     }
 
 }

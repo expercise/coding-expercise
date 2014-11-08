@@ -28,10 +28,6 @@ public class ChallengeService {
     @Autowired
     private ChallengeModelHelper challengeModelHelper;
 
-    public List<Challenge> findAllApproved() {
-        return challengeDao.findAllApproved();
-    }
-
     public List<Challenge> findAllChallengesOfUser() {
         return challengeDao.findAllByUser(authenticationService.getCurrentUser());
     }

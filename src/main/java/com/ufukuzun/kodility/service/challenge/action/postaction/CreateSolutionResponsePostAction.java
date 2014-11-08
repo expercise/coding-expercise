@@ -12,6 +12,8 @@ import com.ufukuzun.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
@@ -44,7 +46,8 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
             }
         } else {
             result = SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));
-            result.addErrorDescriptionToResult(interpreterResult.getResult());
+            Optional.ofNullable(interpreterResult.getFailureType())
+                    .ifPresent(ft -> result.addErrorDescriptionToResult(messageService.getMessage(ft.getMessageKey())));
         }
 
         context.setSolutionValidationResult(result);

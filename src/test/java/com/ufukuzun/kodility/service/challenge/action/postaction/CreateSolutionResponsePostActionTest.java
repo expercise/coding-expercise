@@ -3,6 +3,7 @@ package com.ufukuzun.kodility.service.challenge.action.postaction;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.user.User;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
+import com.ufukuzun.kodility.interpreter.InterpreterFailureType;
 import com.ufukuzun.kodility.interpreter.InterpreterResult;
 import com.ufukuzun.kodility.service.challenge.UserPointService;
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
@@ -39,6 +40,7 @@ public class CreateSolutionResponsePostActionTest {
     private AuthenticationService authenticationService;
 
     private ChallengeEvaluationContext context;
+
     private User user;
 
     @Before
@@ -98,10 +100,11 @@ public class CreateSolutionResponsePostActionTest {
     @Test
     public void shouldCreateFailedResponseWhenInterpreterResultHasDescription() {
         InterpreterResult failedResult = InterpreterResult.createFailedResult();
-        failedResult.setResult("Syntax Error");
+        failedResult.setFailureType(InterpreterFailureType.SYNTAX_ERROR);
         context.setInterpreterResult(failedResult);
 
         when(messageService.getMessage("challenge.failed")).thenReturn("failed");
+        when(messageService.getMessage("interpreter.syntaxError")).thenReturn("Syntax Error");
 
         action.execute(context);
 
