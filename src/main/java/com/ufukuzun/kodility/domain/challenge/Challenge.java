@@ -123,6 +123,10 @@ public class Challenge extends AbstractEntity {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public boolean isAuthor(User user) {
         return getUser().equals(user);
     }
@@ -131,20 +135,16 @@ public class Challenge extends AbstractEntity {
         return !isAuthor(user);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public boolean isApproved() {
         return approved;
     }
 
-    public boolean isNotApproved() {
-        return !isApproved();
-    }
-
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public boolean isNotApproved() {
+        return !isApproved();
     }
 
     public int getPoint() {
@@ -183,6 +183,10 @@ public class Challenge extends AbstractEntity {
             inputs.add(inputTypes.get(index).getInputType().convert(inputValues.get(index).getInputValue()));
         }
         return inputs;
+    }
+
+    public Object getOutputValueFor(TestCase testCase) {
+        return outputType.convert(testCase.getOutput());
     }
 
 }
