@@ -62,7 +62,6 @@ public final class InMemoryJavaCompiler {
 
             result = method.invoke(instance, args);
         } catch (Exception e) {
-            e.printStackTrace();
             LOGGER.debug("Exception while invoking the method \"{}\": ", methodName, e);
         } finally {
             FileUtils.deleteDirectory(directory);

@@ -47,7 +47,6 @@ public class JavaInterpreter extends Interpreter {
 
             context.setInterpreterResult(InterpreterResult.createSuccessResult());
         } catch (Exception e) {
-            e.printStackTrace();
             context.setInterpreterResult(InterpreterResult.createFailedResult());
         }
     }
