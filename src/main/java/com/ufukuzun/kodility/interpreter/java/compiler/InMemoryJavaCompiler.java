@@ -41,7 +41,7 @@ public final class InMemoryJavaCompiler {
         JavaCompiler.CompilationTask compilationTask = compiler.getTask(null, fileManager, null, options, null, files);
 
         Boolean result = compilationTask.call();
-        if (result != true) {
+        if (!result) {
             LOGGER.debug("Compilation is failed! Source: {}", sourceCode);
             throw new JavaCompilerException("Compilation is failed!");
         }
