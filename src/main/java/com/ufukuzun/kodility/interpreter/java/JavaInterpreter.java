@@ -24,6 +24,10 @@ public class JavaInterpreter extends Interpreter {
         TYPE_MAP.put(DataType.Text, String.class);
     }
 
+    public static Class getJavaClassOf(DataType dataType) {
+        return TYPE_MAP.get(dataType);
+    }
+
     @Override
     protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
         InMemoryJavaCompiler compiler = compile(context);
@@ -51,13 +55,13 @@ public class JavaInterpreter extends Interpreter {
         try {
             return new InMemoryJavaCompiler("Solution").compile(context.getSource());
         } catch (Exception e) {
-            throw new InterpreterException(InterpreterResult.noResultFailedResult());
+            throw new InterpreterException(InterpreterResult.syntaxErrorFailedResult());
         }
     }
 
     private Class[] getParameterTypes(Challenge challenge) {
         return challenge.getInputTypes().stream()
-                .map(it -> TYPE_MAP.get(it.getInputType()))
+                .map(it -> getJavaClassOf(it.getInputType()))
                 .collect(Collectors.toList())
                 .toArray(new Class[]{});
     }

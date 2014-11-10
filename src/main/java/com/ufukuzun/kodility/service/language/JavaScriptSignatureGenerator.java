@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class JavaScriptSignatureGenerator implements SignatureGenerator {
 
-    private static final String SIGNATURE_PATTERN = "function solution({params}) {\n\n}";
+    private static final String SIGNATURE_PATTERN = "function solution({params}) {\n\t\n}";
 
     @Override
     public boolean canGenerateFor(ProgrammingLanguage language) {

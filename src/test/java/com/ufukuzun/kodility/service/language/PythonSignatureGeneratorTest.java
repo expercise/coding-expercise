@@ -4,6 +4,9 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.domain.challenge.ChallengeInputType;
 import com.ufukuzun.kodility.enums.DataType;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +14,17 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PythonSignatureGeneratorTest {
 
-    private PythonSignatureGenerator signatureGenerator = new PythonSignatureGenerator();
+    @InjectMocks
+    private PythonSignatureGenerator signatureGenerator;
 
     @Test
     public void shouldGeneratePatternWithoutParameters() {
         Challenge challenge = new Challenge();
 
-        assertThat(signatureGenerator.generate(challenge), equalTo("def solution():\n"));
+        assertThat(signatureGenerator.generate(challenge), equalTo("def solution():\n\t"));
     }
 
     @Test
@@ -32,7 +37,7 @@ public class PythonSignatureGeneratorTest {
         challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
         challenge.setOutputType(DataType.Integer);
 
-        assertThat(signatureGenerator.generate(challenge), equalTo("def solution(a, b):\n"));
+        assertThat(signatureGenerator.generate(challenge), equalTo("def solution(a, b):\n\t"));
     }
 
 }

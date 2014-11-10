@@ -385,8 +385,9 @@
                                 <include>/lib/bootstrap.min.js</include>
                                 <include>/lib/bootbox.min.js</include>
                                 <include>/codemirror/codemirror.js</include>
-                                <include>/codemirror//mode/javascript.js</include>
-                                <include>/codemirror//mode/python.js</include>
+                                <include>/codemirror/mode/javascript.js</include>
+                                <include>/codemirror/mode/python.js</include>
+                                <include>/codemirror/mode/clike.js</include>
                                 <include>/kodility.js</include>
                                 <include>/utils.js</include>
                                 <include>/header.js</include>

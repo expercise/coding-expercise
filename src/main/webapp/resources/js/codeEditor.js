@@ -60,6 +60,8 @@ kodility.CodeEditor = {
             this.mode = "javascript";
         } else if (mode == "py") {
             this.mode = "python";
+        } else if (mode == "java") {
+            this.mode = "text/x-java";
         }
 
         this.codeEditor.setOption("mode", this.mode);

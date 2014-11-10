@@ -6,7 +6,8 @@ import java.util.Optional;
 public enum ProgrammingLanguage {
 
     JavaScript("js"),
-    Python("py");
+    Python("py"),
+    Java("java");
 
     private String shortName;
 

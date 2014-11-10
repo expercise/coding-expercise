@@ -119,7 +119,7 @@ public class JavaInterpreterTest {
         interpreter.interpret(context);
 
         assertFalse(context.getInterpreterResult().isSuccess());
-        assertThat(context.getInterpreterResult().getFailureType(), equalTo(InterpreterFailureType.NO_RESULT));
+        assertThat(context.getInterpreterResult().getFailureType(), equalTo(InterpreterFailureType.SYNTAX_ERROR));
     }
 
     @Test
