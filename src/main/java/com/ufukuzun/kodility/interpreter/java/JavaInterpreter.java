@@ -34,7 +34,6 @@ public class JavaInterpreter extends Interpreter {
 
         try {
             Challenge challenge = context.getChallenge();
-
             for (TestCase testCase : challenge.getTestCases()) {
                 Object[] args = challenge.getConvertedInputValues(testCase.getInputs()).toArray();
                 Class[] parameterTypes = getParameterTypes(challenge);
@@ -44,10 +43,11 @@ public class JavaInterpreter extends Interpreter {
                     return;
                 }
             }
-
             context.setInterpreterResult(InterpreterResult.createSuccessResult());
         } catch (Exception e) {
             context.setInterpreterResult(InterpreterResult.createFailedResult());
+        } finally {
+            compiler.clean();
         }
     }
 

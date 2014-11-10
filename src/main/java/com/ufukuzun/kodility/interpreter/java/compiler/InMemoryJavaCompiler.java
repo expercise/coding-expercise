@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.tools.*;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URL;
@@ -63,11 +64,17 @@ public final class InMemoryJavaCompiler {
             result = method.invoke(instance, args);
         } catch (Exception e) {
             LOGGER.debug("Exception while invoking the method \"{}\": ", methodName, e);
-        } finally {
-            FileUtils.deleteDirectory(directory);
         }
 
         return result;
+    }
+
+    public void clean() {
+        try {
+            FileUtils.deleteDirectory(new File(classesPath));
+        } catch (IOException e) {
+            LOGGER.debug("Exception while cleaning directory \"{}\": ", classesPath, e);
+        }
     }
 
     private static class InMemoryJavaFileObject extends SimpleJavaFileObject {

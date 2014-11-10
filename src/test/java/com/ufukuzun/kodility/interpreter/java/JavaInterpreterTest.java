@@ -59,6 +59,44 @@ public class JavaInterpreterTest {
     }
 
     @Test
+    public void shouldEvaluateSolutionWithMultipleTestCases() {
+        String sumSolution = "public class Solution { public int solution(Integer a, Integer b) { return a + b; } }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase1 = new TestCase();
+        List<String> inputValues1 = new ArrayList<>();
+        inputValues1.add("12");
+        inputValues1.add("23");
+        testCase1.setInputs(TestCaseInputValue.createFrom(inputValues1));
+        testCase1.setOutput("35");
+
+        TestCase testCase2 = new TestCase();
+        List<String> inputValues2 = new ArrayList<>();
+        inputValues2.add("0");
+        inputValues2.add("1");
+        testCase2.setInputs(TestCaseInputValue.createFrom(inputValues2));
+        testCase2.setOutput("1");
+
+        challenge.addTestCase(testCase1);
+        challenge.addTestCase(testCase2);
+
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
+
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
     public void shouldFailedResultIfTestCasesNotPassed() {
         String sumSolution = "public class Solution { public int solution(Integer a, Integer b) { return a; } }";
 
