@@ -40,8 +40,7 @@ public final class InMemoryJavaCompiler {
         FileUtils.forceMkdir(new File(classesPath));
         JavaCompiler.CompilationTask compilationTask = compiler.getTask(null, fileManager, null, options, null, files);
 
-        Boolean result = compilationTask.call();
-        if (!result) {
+        if (Boolean.FALSE.equals(compilationTask.call())) {
             LOGGER.debug("Compilation is failed! Source: {}", sourceCode);
             throw new JavaCompilerException("Compilation is failed!");
         }
