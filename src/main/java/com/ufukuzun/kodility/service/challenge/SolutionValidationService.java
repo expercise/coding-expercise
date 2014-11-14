@@ -54,7 +54,9 @@ public class SolutionValidationService {
     }
 
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {
-        String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
+// TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
+//        String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
+        String interpreterBeanName = Introspector.decapitalize(ProgrammingLanguage.JavaScript.name()) + "Interpreter";
         return (Interpreter) applicationContext.getBean(interpreterBeanName);
     }
 
