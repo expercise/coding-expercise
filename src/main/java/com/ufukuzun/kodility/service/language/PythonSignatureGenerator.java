@@ -3,7 +3,6 @@ package com.ufukuzun.kodility.service.language;
 import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class PythonSignatureGenerator implements SignatureGenerator {
             params.add(LETTERS[i]);
         }
 
-        return SIGNATURE_PATTERN.replace("{params}", StringUtils.join(params, ", "));
+        return SIGNATURE_PATTERN.replace("{params}", String.join(", ", params));
     }
 
 }

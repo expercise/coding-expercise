@@ -4,7 +4,6 @@ import com.ufukuzun.kodility.domain.challenge.Challenge;
 import com.ufukuzun.kodility.enums.ProgrammingLanguage;
 import com.ufukuzun.kodility.interpreter.java.JavaInterpreter;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class JavaSignatureGenerator implements SignatureGenerator {
         }
 
         return SIGNATURE_PATTERN
-                .replace("{params}", StringUtils.join(params, ", "))
+                .replace("{params}", String.join(", ", params))
                 .replace("{returnType}", JavaInterpreter.getJavaClassOf(challenge.getOutputType()).getSimpleName());
     }
 
