@@ -4,14 +4,13 @@ import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.context.ApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PreEvaluationExecutorTest {
@@ -19,22 +18,14 @@ public class PreEvaluationExecutorTest {
     @InjectMocks
     private PreEvaluationExecutor executor;
 
-    @Mock
-    private ApplicationContext applicationContext;
-
     @Test
     public void shouldExecutePreActions() {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
 
-        final PreEvaluationAction mockPreAction1 = mock(PreEvaluationAction.class);
-        final PreEvaluationAction mockPreAction2 = mock(PreEvaluationAction.class);
+        PreEvaluationAction mockPreAction1 = mock(PreEvaluationAction.class);
+        PreEvaluationAction mockPreAction2 = mock(PreEvaluationAction.class);
 
-        Map<String, PreEvaluationAction> preActionMap = new HashMap<String, PreEvaluationAction>() {{
-            put("mockPreAction1", mockPreAction1);
-            put("mockPreAction2", mockPreAction2);
-        }};
-
-        when(applicationContext.getBeansOfType(PreEvaluationAction.class)).thenReturn(preActionMap);
+        ReflectionTestUtils.setField(executor, "preEvaluationActions", Arrays.asList(mockPreAction1, mockPreAction2));
 
         executor.execute(context);
 

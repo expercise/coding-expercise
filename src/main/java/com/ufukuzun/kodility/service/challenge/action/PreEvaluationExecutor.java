@@ -2,20 +2,19 @@ package com.ufukuzun.kodility.service.challenge.action;
 
 import com.ufukuzun.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PreEvaluationExecutor {
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    @Autowired(required = false)
+    private List<PreEvaluationAction> preEvaluationActions = new ArrayList<>();
 
     public void execute(ChallengeEvaluationContext context) {
-        applicationContext
-                .getBeansOfType(PreEvaluationAction.class)
-                .values().stream()
-                .forEach(a -> a.execute(context));
+        preEvaluationActions.forEach(a -> a.execute(context));
     }
 
 }
