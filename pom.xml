@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ufukuzun</groupId>
+    <groupId>com.kodility</groupId>
     <artifactId>kodility</artifactId>
     <packaging>war</packaging>
     <version>1.0.beta</version>
