@@ -2,11 +2,22 @@
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
     <div class="quoteContainer jumbotron">
-        <h1 th:text="#{catchLine}"></h1>
-        <p>
-            <span class="quote" th:text="#{motto}"></span>
+        <h1 th:text="#{projectName}"></h1>
+        <h2 th:text="#{catchLine}"></h2>
+        <hr/>
+
+        <p th:if="${quote} != null">
+            &quot;
+            <span class="quote" th:text="${quote.getQuoteFor(#locale)}"></span>
+            &quot;
+            <br/>
+            <span th:text="${quote.author}"></span>
         </p>
-        <p><a class="btn btn-primary btn-lg" role="button" th:href="@{'/challenges/'}" th:text="#{button.start}">Start</a></p>
+        <hr th:if="${quote} != null"/>
+
+        <p>
+            <a class="btn btn-primary btn-lg" role="button" th:href="@{'/challenges/'}" th:text="#{button.start}"></a>
+        </p>
     </div>
 </body>
 </html>
