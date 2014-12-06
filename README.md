@@ -1,8 +1,8 @@
 kodility
 ========
 
-Challenges for champion developers.
+Learn to code. Code to be legend.
 
 http://kodility.com (not available for now)
 
-![new-fancy-design](https://cloud.githubusercontent.com/assets/327434/4826670/9b414c88-5f72-11e4-9254-0af556e546f0.png)
+![new-main-page-design](https://cloud.githubusercontent.com/assets/327434/5329212/2e67a6f0-7dab-11e4-8395-ded22019e577.png)
