@@ -6,7 +6,7 @@
     <groupId>com.kodility</groupId>
     <artifactId>kodility</artifactId>
     <packaging>war</packaging>
-    <version>1.0.beta</version>
+    <version>1.0</version>
     <name>Kodility</name>
 
     <properties>

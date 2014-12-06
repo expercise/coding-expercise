@@ -1,20 +1,61 @@
 <!DOCTYPE html>
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
-    <div class="quoteContainer jumbotron">
+    <div class="mainPage jumbotron">
+        <!-- Heading -->
         <h1 th:text="#{projectName}"></h1>
         <h2 th:text="#{catchLine}"></h2>
         <hr/>
 
+        <!-- What's Kodility -->
+        <div>
+            <h3 th:text="#{whatIsKodility.header}"></h3>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsKodility.learn.header}"></h4>
+                    <span th:text="#{whatIsKodility.learn.text}"></span>
+                </div>
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsKodility.code.header}"></h4>
+                    <span th:text="#{whatIsKodility.code.text}"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsKodility.social.header}"></h4>
+                    <span th:text="#{whatIsKodility.social.text}"></span>
+                </div>
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsKodility.community.header}"></h4>
+                    <span th:text="#{whatIsKodility.community.text}"></span>
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+        <!-- Programming Languages -->
+        <h3 th:text="#{mainPage.programmingLanguages}"></h3>
+        <br/>
+        <div>
+            <img class="logo" th:src="@{/resources/img/javascript-logo.png}" alt="javascript"/>
+            <img class="logo" th:src="@{/resources/img/java8-logo.png}" alt="java8"/>
+            <img class="logo" th:src="@{/resources/img/python-logo.png}" alt="python"/>
+
+            <p class="annotationText" th:text="#{mainPage.programmingLanguages.annotation}"></p>
+        </div>
+        <hr/>
+
+        <!-- Quote -->
         <p th:if="${quote} != null">
-            &quot;
             <span class="quote" th:text="${quote.getQuoteFor(#locale)}"></span>
-            &quot;
             <br/>
             <span th:text="${quote.author}"></span>
         </p>
-        <hr th:if="${quote} != null"/>
 
+        <!-- Start Button -->
+        <br/>
         <p>
             <a class="btn btn-primary btn-lg" role="button" th:href="@{'/challenges/'}" th:text="#{button.start}"></a>
         </p>

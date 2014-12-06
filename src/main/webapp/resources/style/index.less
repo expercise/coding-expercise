@@ -1,4 +1,4 @@
-.quoteContainer.jumbotron {
+.mainPage.jumbotron {
   background-color: #ffffff;
   padding-bottom: 10px;
   padding-top: 30px;
@@ -15,11 +15,48 @@
     margin-top: 10px;
   }
 
+  h3 {
+    font-size: 20px;
+  }
+
+  h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+
+  .row {
+    text-align: left;
+  }
+
   p {
     font-size: 15px;
   }
 
+  .annotationText {
+    font-size: 10px;
+    font-style: oblique;
+    padding-top: 10px;
+  }
+
   .quote {
     font-style: oblique;
+
+    &:after {
+      content: '" ';
+    }
+
+    &:before {
+      content: ' "';
+    }
+  }
+
+  img.logo {
+    height: 110px;
+    width: 110px;
+    margin-right: 40px;
+
+    &:last-of-type {
+      margin-right: 0px;
+    }
   }
 }
