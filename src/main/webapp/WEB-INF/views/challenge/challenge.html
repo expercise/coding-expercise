@@ -3,17 +3,29 @@
 <body layout:fragment="content" th:remove="tag">
 
     <div class="row pageTitleWithLink">
-        <div th:class="${param.containsKey('ref') and param.ref[0] eq 'levels'} ? 'col-xs-8 left' : 'col-xs-12'">
+        <div class="col-xs-8 left">
             <legend th:text="#{challenge.challengeHeader}"></legend>
         </div>
 
-        <div class="col-xs-4 right" th:if="${param.containsKey('ref') and param.ref[0] eq 'levels'}">
+        <div class="col-xs-4 right">
             <div class="linkContainer">
                 <a th:href="@{/challenges/}">
                     <span th:text="#{challenge.goToChallenges}"></span>
                     <span class="glyphicon glyphicon-share-alt"></span>
                 </a>
             </div>
+        </div>
+    </div>
+
+    <div class="row challengeInfo">
+        <div class="col-xs-8">
+            <a th:href="@{'/profile/' + ${challenge.getUser().getId()}}" class="small" th:text="${challenge.getUser().getFullName()}">
+                Author Full Name
+            </a>
+            <span class="small" th:text="#{'challenge.addedBy'}">added.</span>
+        </div>
+        <div class="col-xs-4 text-right">
+            <span class="small" th:text="${#messages.msg('challenge.addedOnDate', #dates.format(challenge.getCreateDate(),'dd MMMM yyyy'))}">added on 1 Jan 2014</span>
         </div>
     </div>
 

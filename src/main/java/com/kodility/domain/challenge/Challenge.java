@@ -4,12 +4,10 @@ import com.kodility.domain.AbstractEntity;
 import com.kodility.domain.user.User;
 import com.kodility.enums.DataType;
 import com.kodility.enums.Lingo;
+import com.kodility.utils.Clock;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Challenge extends AbstractEntity {
@@ -51,6 +49,10 @@ public class Challenge extends AbstractEntity {
 
     @Column(nullable = false)
     private int point = 1;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date createDate = Clock.getTime();
 
     public Long getId() {
         return id;
@@ -153,6 +155,14 @@ public class Challenge extends AbstractEntity {
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public void addTestCase(TestCase testCase) {
