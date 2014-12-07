@@ -6,29 +6,29 @@ import spock.lang.Specification
 
 class SendGridEmailServiceSpec extends Specification {
 
-    private sendGridClient = Mock(SendGrid)
     private EmailService service
+
+    private sendGridClient = Mock(SendGrid)
+
+    SendGrid.Email emailArgument
 
     def setup() {
         service = new SendGridEmailService(sendGridClient: sendGridClient)
     }
 
-    def "should send sendGrid email with proper parameters"() {
+    def "should send email via SendGrid with proper parameters"() {
         given:
-        Email emailToSend = new Email(
-                to: "user@kodility.com",
-                from: "testmail@kodility.com",
-                subject: "subject of the email",
-                text: "Content of the email")
+        Email emailToSend = new Email(to: "user@kodility.com", from: "testmail@kodility.com", subject: "Subject of the email", text: "Content of the email")
+
         when:
         service.send(emailToSend)
+
         then:
-        1 * sendGridClient.send({ emailArg ->
-                    emailArg.getTos()[0] == "user@kodility.com" &&
-                    emailArg.getFrom() == "testmail@kodility.com" &&
-                    emailArg.getSubject() == "subject of the email" &&
-                    emailArg.getText() == "Content of the email"
-                }) >> new SendGrid.Response(200, "email sent successfully")
+        1 * sendGridClient.send({ emailArgument = it }) >> new SendGrid.Response(200, "email sent successfully")
+        emailArgument.getTos()[0] == "user@kodility.com"
+        emailArgument.getFrom() == "testmail@kodility.com"
+        emailArgument.getSubject() == "Subject of the email"
+        emailArgument.getText() == "Content of the email"
     }
 
 }

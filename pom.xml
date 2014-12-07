@@ -16,6 +16,11 @@
         <mockito.version>1.9.5</mockito.version>
         <powermock.version>1.6.0</powermock.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <groovy.version>2.3.7</groovy.version>
+        <spock.version>0.7-groovy-2.0</spock.version>
+        <cglib.version>3.1</cglib.version>
+        <objenesis.version>2.1</objenesis.version>
+
         <spring.version>4.1.1.RELEASE</spring.version>
         <spring.security.version>3.2.5.RELEASE</spring.security.version>
         <servlet.api.version>3.1.0</servlet.api.version>
@@ -34,13 +39,15 @@
         <apache.commons.collections.version>4.0</apache.commons.collections.version>
         <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
         <slf4j.version>1.7.7</slf4j.version>
+        <sendgrid.javaapi.version>2.0.0</sendgrid.javaapi.version>
 
-        <!-- Others -->
+        <!-- Plugins -->
         <jdk.version>1.8</jdk.version>
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
         <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
         <property.helper.plugin.version>2.0</property.helper.plugin.version>
         <properties.plugin.version>1.0-alpha-2</properties.plugin.version>
+        <gmavenplus.plugin.version>1.2</gmavenplus.plugin.version>
     </properties>
 
     <repositories>
@@ -74,12 +81,14 @@
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
             <version>${powermock.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
             <version>${powermock.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -100,6 +109,35 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>${hsqldb.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- For spock testing -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${cglib.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>${objenesis.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -270,52 +308,21 @@
             <version>${slf4j.version}</version>
         </dependency>
 
-        <!-- For spock testing -->
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.3.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>0.7-groovy-2.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib-nodep</artifactId>
-            <version>3.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.objenesis</groupId>
-            <artifactId>objenesis</artifactId>
-            <version>2.1</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- SendGrid Java API -->
         <dependency>
             <groupId>com.sendgrid</groupId>
             <artifactId>sendgrid-java</artifactId>
-            <version>2.0.0</version>
+            <version>${sendgrid.javaapi.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <finalName>kodility</finalName>
         <plugins>
-
-            <!-- surefire plugin with configuration for spock -->
+            <!-- Surefire plugin with configuration for spock -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -324,11 +331,11 @@
                 </configuration>
             </plugin>
 
-            <!-- for spock running via maven -->
+            <!-- GMavenPlus plugin for spock running via maven -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.2</version>
+                <version>${gmavenplus.plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

@@ -18,7 +18,7 @@ public class SendGridEmailService implements EmailService {
 
     @PostConstruct
     public void init() {
-        //todo:batu:username and pass must be taken from configurationService
+        // TODO batu: username and pass must be taken from configurationService
         sendGridClient = new SendGrid("sendGridUser", "sendGridPass");
     }
 
@@ -30,10 +30,10 @@ public class SendGridEmailService implements EmailService {
 
     private SendGrid.Email prepareSendGridEmailFrom(Email email) {
         return new SendGrid.Email()
-                    .addTo(email.getTo())
-                    .setFrom(email.getFrom())
-                    .setSubject(email.getSubject())
-                    .setText(email.getText());
+                .addTo(email.getTo())
+                .setFrom(email.getFrom())
+                .setSubject(email.getSubject())
+                .setText(email.getText());
     }
 
     private void sendEmail(SendGrid.Email sendGridEmail) {
@@ -41,7 +41,7 @@ public class SendGridEmailService implements EmailService {
             SendGrid.Response response = sendGridClient.send(sendGridEmail);
             LOGGER.info(response.getMessage());
         } catch (SendGridException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Exception while sending email via SendGrid.", e);
         }
     }
 
