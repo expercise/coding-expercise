@@ -298,6 +298,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- SendGrid Java API -->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
