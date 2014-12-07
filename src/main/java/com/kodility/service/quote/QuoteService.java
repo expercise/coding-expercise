@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class QuoteService {
 
-    private static final List<Quote> QUOTES = new ArrayList<>();
+    private static List<Quote> QUOTES = new ArrayList<>();
 
     @Autowired
     private PlatformTransactionManager transactionManager;
@@ -36,9 +36,8 @@ public class QuoteService {
 
     private void populateQuoteList() {
         new TransactionTemplate(transactionManager).execute(status -> {
-            List<Quote> quotes = quoteDao.findAll();
-            quotes.forEach(q -> Hibernate.initialize(q.getQuoteInMultiLingo()));
-            QUOTES.addAll(quotes);
+            QUOTES = quoteDao.findAll();
+            QUOTES.forEach(q -> Hibernate.initialize(q.getQuoteInMultiLingo()));
             return null;
         });
     }

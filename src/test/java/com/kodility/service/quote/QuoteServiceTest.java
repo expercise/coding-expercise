@@ -14,6 +14,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -31,11 +32,6 @@ public class QuoteServiceTest {
 
     @Mock
     private PlatformTransactionManager transactionManager;
-
-    @Test
-    public void shouldReturnNullIfQuoteListIsEmpty() {
-        assertThat(service.randomQuote(), equalTo(null));
-    }
 
     @Test
     public void shouldReturnRandomQuote() {
@@ -58,6 +54,15 @@ public class QuoteServiceTest {
         assertThat(randomQuote2, equalTo(quote1));
         assertThat(randomQuote3, equalTo(quote1));
         assertThat(randomQuote4, equalTo(quote2));
+    }
+
+    @Test
+    public void shouldReturnNullIfQuoteListIsEmpty() {
+        when(quoteDao.findAll()).thenReturn(Collections.EMPTY_LIST);
+
+        service.init();
+
+        assertThat(service.randomQuote(), equalTo(null));
     }
 
 }
