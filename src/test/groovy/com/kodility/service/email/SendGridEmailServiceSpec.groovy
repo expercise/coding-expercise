@@ -6,9 +6,9 @@ import spock.lang.Specification
 
 class SendGridEmailServiceSpec extends Specification {
 
-    private EmailService service
+    EmailService service
 
-    private sendGridClient = Mock(SendGrid)
+    SendGrid sendGridClient = Mock()
 
     SendGrid.Email emailArgument
 
