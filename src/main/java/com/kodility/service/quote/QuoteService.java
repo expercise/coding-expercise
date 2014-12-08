@@ -36,8 +36,9 @@ public class QuoteService {
 
     private void populateQuoteList() {
         new TransactionTemplate(transactionManager).execute(status -> {
-            QUOTES = quoteDao.findAll();
-            QUOTES.forEach(q -> Hibernate.initialize(q.getQuoteInMultiLingo()));
+            List<Quote> freshQuotes = quoteDao.findAll();
+            freshQuotes.forEach(q -> Hibernate.initialize(q.getQuoteInMultiLingo()));
+            QUOTES = freshQuotes;
             return null;
         });
     }
