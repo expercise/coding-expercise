@@ -2,7 +2,6 @@ package com.kodility.service.email;
 
 import com.kodility.service.email.model.Email;
 import com.kodility.service.i18n.MessageService;
-import com.kodility.utils.EnvironmentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +24,11 @@ public class EmailService {
     @Autowired
     private EmailSenderService emailSenderService;
 
-    @Value("${environment}")
-    private String environment;
+    @Value("${email.status}")
+    private String emailStatus;
 
     public void send(Email email, Map<String, Object> params) {
-        if (EnvironmentUtils.isDevelopment(environment)) {
+        if (!"active".equals(emailStatus)) {
             LOGGER.info("could not send email because environment is development");
             return;
         }

@@ -23,7 +23,7 @@ class EmailServiceSpec extends Specification {
 
     def "should prepare and send email"() {
         setup:
-        service.environment = "production"
+        service.emailStatus = "active"
         def emailToSend = new Email(to:"user@kodiliy.com", from:"hq@kodiliy.com", subjectKey: "emailSubjectKey", contentKey: "emailContentKey")
         when:
         service.send(emailToSend, new HashMap<String, Object>())
@@ -39,7 +39,7 @@ class EmailServiceSpec extends Specification {
 
     def "should not prepare and send prepare and send email from development environment"() {
         setup:
-        service.environment = "development"
+        service.emailStatus = "deactive"
         def emailToSend = new Email(to:"user@kodiliy.com", from:"hq@kodiliy.com", subjectKey: "emailSubjectKey", contentKey: "emailContentKey")
         when:
         service.send(emailToSend, new HashMap<String, Object>())
