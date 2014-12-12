@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
@@ -21,20 +22,34 @@ public class ThymeleafConfiguration {
     private String environment;
 
     @Bean
-    public TemplateResolver templateResolver() {
+    public TemplateResolver webTemplateResolver() {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setTemplateMode("HTML5");
+        templateResolver.setOrder(2);
         templateResolver.setCacheable(EnvironmentUtils.isNotDevelopment(environment));
         return templateResolver;
     }
 
     @Bean
+    public TemplateResolver emailTemplateResolver() {
+        ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
+        classLoaderTemplateResolver.setPrefix("emails/");
+        classLoaderTemplateResolver.setSuffix(".html");
+        classLoaderTemplateResolver.setCharacterEncoding("UTF-8");
+        classLoaderTemplateResolver.setTemplateMode("HTML5");
+        classLoaderTemplateResolver.setOrder(1);
+        classLoaderTemplateResolver.setCacheable(EnvironmentUtils.isNotDevelopment(environment));
+        return classLoaderTemplateResolver;
+    }
+
+    @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.addTemplateResolver(emailTemplateResolver());
+        templateEngine.addTemplateResolver(webTemplateResolver());
         templateEngine.addDialect(new LayoutDialect());
         templateEngine.addDialect(new SpringSecurityDialect());
         templateEngine.addDialect(new MythDialect());

@@ -8,7 +8,11 @@ public class Email {
 
     private String subject;
 
-    private String text;
+    private String content;
+
+    private String subjectKey;
+
+    private String contentKey;
 
     public String getTo() {
         return to;
@@ -37,12 +41,30 @@ public class Email {
         return this;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public Email setText(String text) {
-        this.text = text;
+    public Email setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public String getSubjectKey() {
+        return subjectKey;
+    }
+
+    public Email setSubjectKey(String subjectKey) {
+        this.subjectKey = subjectKey;
+        return this;
+    }
+
+    public String getContentKey() {
+        return contentKey;
+    }
+
+    public Email setContentKey(String contentKey) {
+        this.contentKey = contentKey;
         return this;
     }
 

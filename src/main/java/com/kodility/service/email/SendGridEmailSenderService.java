@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 
 @Service
-public class SendGridEmailService implements EmailService {
+public class SendGridEmailSenderService implements EmailSenderService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(SendGridEmailService.class);
+    private Logger LOGGER = LoggerFactory.getLogger(SendGridEmailSenderService.class);
 
     private SendGrid sendGridClient;
 
     @PostConstruct
     public void init() {
         // TODO batu: username and pass must be taken from configurationService
-        sendGridClient = new SendGrid("sendGridUser", "sendGridPass");
+        sendGridClient = new SendGrid("SENDGRIDUSER", "SENDGRIDPASS");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SendGridEmailService implements EmailService {
                 .addTo(email.getTo())
                 .setFrom(email.getFrom())
                 .setSubject(email.getSubject())
-                .setText(email.getText());
+                .setHtml(email.getContent());
     }
 
     private void sendEmail(SendGrid.Email sendGridEmail) {
