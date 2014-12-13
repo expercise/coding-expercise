@@ -1,6 +1,6 @@
 package com.kodility.testutils.builder;
 
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 
 public class LevelBuilder extends AbstractPrioritizedEntityBuilder<Level, LevelBuilder> {
 

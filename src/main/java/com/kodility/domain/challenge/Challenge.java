@@ -1,6 +1,7 @@
 package com.kodility.domain.challenge;
 
 import com.kodility.domain.AbstractEntity;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.enums.DataType;
 import com.kodility.enums.Lingo;
@@ -33,6 +34,7 @@ public class Challenge extends AbstractEntity {
     private List<ChallengeInputType> inputTypes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private DataType outputType;
 
     @OneToMany(mappedBy = "challenge", orphanRemoval = true, cascade = CascadeType.ALL)

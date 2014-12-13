@@ -1,6 +1,8 @@
-package com.kodility.domain.challenge;
+package com.kodility.domain.level;
 
 import com.kodility.domain.PrioritizedEntity;
+import com.kodility.domain.challenge.Challenge;
+import com.kodility.domain.theme.Theme;
 import com.kodility.enums.Lingo;
 
 import javax.persistence.*;
@@ -23,6 +25,9 @@ public class Level extends PrioritizedEntity {
     @Column(name = "Name", nullable = false)
     private Map<Lingo, String> names = new HashMap<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Theme theme;
+
     @OneToMany(mappedBy = "level")
     private List<Challenge> challenges = new ArrayList<>();
 
@@ -42,17 +47,29 @@ public class Level extends PrioritizedEntity {
         this.names = names;
     }
 
-    public String getNameFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName).get();
-        return names.get(lingo);
-    }
-
     public String getTurkishName() {
-        return names.get(Lingo.Turkish);
+        return getNameFor(Lingo.Turkish);
     }
 
     public String getEnglishName() {
-        return names.get(Lingo.English);
+        return getNameFor(Lingo.English);
+    }
+
+    public String getNameFor(String lingoShortName) {
+        Lingo lingo = Lingo.getLingo(lingoShortName).get();
+        return getNameFor(lingo);
+    }
+
+    private String getNameFor(Lingo lingo) {
+        return names.get(lingo);
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
     public List<Challenge> getChallenges() {

@@ -1,7 +1,7 @@
 package com.kodility.dao.challenge;
 
 import com.kodility.AbstractDaoTest;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.testutils.builder.LevelBuilder;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

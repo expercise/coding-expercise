@@ -1,6 +1,6 @@
 package com.kodility.controller.level.model;
 
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.enums.Lingo;
 import com.kodility.utils.validation.UniqueLevelPriority;
 import com.ufukuzun.myth.dialect.model.AjaxRequest;

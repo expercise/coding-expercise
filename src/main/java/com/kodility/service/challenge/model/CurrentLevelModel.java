@@ -1,7 +1,7 @@
 package com.kodility.service.challenge.model;
 
 import com.kodility.domain.challenge.Challenge;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.challenge.Solution;
 
 import java.math.BigDecimal;

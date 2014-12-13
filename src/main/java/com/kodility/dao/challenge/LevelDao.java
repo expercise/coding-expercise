@@ -1,7 +1,7 @@
 package com.kodility.dao.challenge;
 
 import com.kodility.dao.AbstractHibernateDao;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;

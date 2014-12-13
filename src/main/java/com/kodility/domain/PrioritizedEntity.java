@@ -10,6 +10,14 @@ public abstract class PrioritizedEntity extends AbstractEntity implements Priori
 
     private int priority;
 
+    public static <T extends PrioritizedEntity> void prioritize(List<T> prioritizedEntityList) {
+        int priority = 1;
+        for (T each : prioritizedEntityList) {
+            each.setPriority(priority);
+            priority++;
+        }
+    }
+
     @Override
     public int getPriority() {
         return priority;
@@ -17,14 +25,6 @@ public abstract class PrioritizedEntity extends AbstractEntity implements Priori
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public static <T extends PrioritizedEntity> void prioritize(List<T> prioritizedEntityList) {
-        int priority = 1;
-        for (T each : prioritizedEntityList) {
-            each.setPriority(priority);
-            priority++;
-        }
     }
 
 }

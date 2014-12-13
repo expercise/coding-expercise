@@ -15,7 +15,7 @@
         <tbody>
             <tr th:each="challenge : ${challenges}">
                 <td>
-                    <a th:href="@{'/challenges/'+ ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                    <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
                 </td>
                 <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:if="${mode != 'NotLeveledChallenges'}" th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>

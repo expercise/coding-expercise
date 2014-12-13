@@ -1,7 +1,7 @@
 package com.kodility.service.challenge;
 
 import com.kodility.dao.challenge.LevelDao;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
 import com.kodility.service.user.AuthenticationService;

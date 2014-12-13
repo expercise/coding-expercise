@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+    <legend th:text="#{theme.listing.header}"></legend>
+
+    <div class="row" th:if="${#lists.isEmpty(themeList)}">
+        <div class="col-xs-12">
+            <p th:text="#{label.nope}"></p>
+        </div>
+    </div>
+
+    <div class="row" th:unless="${#lists.isEmpty(themeList)}">
+        <div class="themeContainer" th:each="theme : ${themeList}">
+            <a th:href="@{'/themes/' + ${theme.id}}">
+                <div class="theme" th:text="${theme.getNameFor(#locale)}"></div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

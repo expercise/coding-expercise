@@ -1,7 +1,7 @@
-package com.kodility.controller.challenge;
+package com.kodility.controller.level;
 
 import com.kodility.domain.challenge.Challenge;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.service.challenge.LevelService;
 import com.kodility.service.challenge.SolutionCountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class LeveledChallengesController {
 
     @RequestMapping("/challenges")
     public ModelAndView listChallenges() {
-        ModelAndView modelAndView = new ModelAndView("challenge/leveledChallenges");
+        ModelAndView modelAndView = new ModelAndView("level/leveledChallenges");
         List<Level> levelList = levelService.getAllLevelsInOrder();
         modelAndView.addObject("levelList", levelList);
         modelAndView.addObject("solutionCountMap", prepareSolutionCountMapFor(levelList));

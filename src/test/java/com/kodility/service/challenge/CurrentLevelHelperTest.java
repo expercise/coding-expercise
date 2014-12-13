@@ -2,7 +2,7 @@ package com.kodility.service.challenge;
 
 import com.kodility.AbstractDaoTest;
 import com.kodility.domain.challenge.Challenge;
-import com.kodility.domain.challenge.Level;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.challenge.Solution;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
