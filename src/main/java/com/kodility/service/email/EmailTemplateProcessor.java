@@ -12,10 +12,10 @@ public class EmailTemplateProcessor {
     @Autowired
     private TemplateEngineWrapper templateEngineWrapper;
 
-    public String createEmail(String emailFileName, Map<String, Object> params) {
+    public String createEmail(String emailTemplateName, Map<String, Object> params) {
         Context context = new Context();
         params.entrySet().stream().forEach(it -> context.setVariable(it.getKey(), it.getValue()));
-        return templateEngineWrapper.process(emailFileName, context);
+        return templateEngineWrapper.process(emailTemplateName, context);
     }
 
 }

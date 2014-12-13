@@ -6,13 +6,15 @@ import spock.lang.Specification
 
 class EmailServiceSpec extends Specification {
 
-    private EmailService service
+    EmailService service
 
-    private MessageService messageService = Mock();
-    private EmailTemplateProcessor emailTemplateProcessor = Mock();
-    private EmailSenderService emailSenderService = Mock();
+    MessageService messageService = Mock();
 
-    private Email emailCaptor
+    EmailTemplateProcessor emailTemplateProcessor = Mock();
+
+    EmailSenderService emailSenderService = Mock();
+
+    Email emailCaptor
 
     def setup() {
         def dependencies = [messageService        : messageService,
@@ -21,28 +23,32 @@ class EmailServiceSpec extends Specification {
         service = new EmailService(dependencies)
     }
 
-    def "should prepare and send email"() {
-        setup:
+    def "should prepare and send email if email sending is activated"() {
+        given:
         service.emailStatus = "active"
-        def emailToSend = new Email(to:"user@kodiliy.com", from:"hq@kodiliy.com", subjectKey: "emailSubjectKey", contentKey: "emailContentKey")
+        def emailToSend = new Email(to: "user@kodiliy.com", from: "noreply@kodiliy.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
+
         when:
         service.send(emailToSend, new HashMap<String, Object>())
+
         then:
         1 * messageService.getMessage("emailSubjectKey") >> "email subject"
-        1 * emailTemplateProcessor.createEmail("emailContentKey", [:]) >> "email content"
-        1 * emailSenderService.send({emailCaptor = it})
+        1 * emailTemplateProcessor.createEmail("emailTemplateName", [:]) >> "email content"
+        1 * emailSenderService.send({ emailCaptor = it })
         emailCaptor.to == "user@kodiliy.com"
-        emailCaptor.from == "hq@kodiliy.com"
+        emailCaptor.from == "noreply@kodiliy.com"
         emailCaptor.subject == "email subject"
         emailCaptor.content == "email content"
     }
 
-    def "should not prepare and send prepare and send email from development environment"() {
-        setup:
+    def "should not prepare and send email if email sending is deactivated"() {
+        given:
         service.emailStatus = "deactive"
-        def emailToSend = new Email(to:"user@kodiliy.com", from:"hq@kodiliy.com", subjectKey: "emailSubjectKey", contentKey: "emailContentKey")
+        def emailToSend = new Email(to: "user@kodiliy.com", from: "noreply@kodiliy.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
+
         when:
         service.send(emailToSend, new HashMap<String, Object>())
+
         then:
         0 * _
     }

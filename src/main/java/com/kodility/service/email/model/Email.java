@@ -12,7 +12,7 @@ public class Email {
 
     private String subjectKey;
 
-    private String contentKey;
+    private String templateName;
 
     public String getTo() {
         return to;
@@ -59,12 +59,12 @@ public class Email {
         return this;
     }
 
-    public String getContentKey() {
-        return contentKey;
+    public String getTemplateName() {
+        return templateName;
     }
 
-    public Email setContentKey(String contentKey) {
-        this.contentKey = contentKey;
+    public Email setTemplateName(String templateName) {
+        this.templateName = templateName;
         return this;
     }
 

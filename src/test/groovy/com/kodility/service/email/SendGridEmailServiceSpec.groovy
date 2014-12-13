@@ -18,13 +18,15 @@ class SendGridEmailServiceSpec extends Specification {
 
     def "should send email via SendGrid with proper parameters"() {
         given:
-        Email emailToSend = new Email(to: "user@kodility.com", from: "testmail@kodility.com", subject: "Subject of the email", content: "Content of the email")
+        Email emailToSend = new Email(to: "user@kodility.com", from: "noreply@kodility.com", subject: "Subject of the email", content: "Content of the email")
+
         when:
         service.send(emailToSend)
+
         then:
         1 * sendGridClient.send({ emailArgument = it }) >> new SendGrid.Response(200, "email sent successfully")
         emailArgument.getTos()[0] == "user@kodility.com"
-        emailArgument.getFrom() == "testmail@kodility.com"
+        emailArgument.getFrom() == "noreply@kodility.com"
         emailArgument.getSubject() == "Subject of the email"
         emailArgument.getHtml() == "Content of the email"
     }

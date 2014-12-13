@@ -5,11 +5,11 @@ import spock.lang.Specification
 
 class EmailTemplateProcessorSpec extends Specification {
 
-    private EmailTemplateProcessor processor
+    EmailTemplateProcessor processor
 
-    private TemplateEngineWrapper templateEngineWrapper = Mock()
+    TemplateEngineWrapper templateEngineWrapper = Mock()
 
-    private Context contextArgumentCaptor
+    Context contextArgumentCaptor
 
     def setup() {
         processor = new EmailTemplateProcessor(templateEngineWrapper: templateEngineWrapper)
@@ -17,11 +17,15 @@ class EmailTemplateProcessorSpec extends Specification {
 
     def "should create multilingual email from proper parameters"() {
         when:
-        String emailContent = processor.createEmail("contentFileName", ["paramKey":"paramValue"])
+        String emailContent = processor.createEmail("contentFileName", ["paramKey": "paramValue"])
+
         then:
         emailContent == "email content with paramValue"
+
         and: "send right parameters to the template engine"
-        1 * templateEngineWrapper.process("contentFileName", {contextArgumentCaptor = it}) >> "email content with paramValue"
+        1 * templateEngineWrapper.process("contentFileName", {
+            contextArgumentCaptor = it
+        } as Context) >> "email content with paramValue"
         contextArgumentCaptor.getVariables().get("paramKey") == "paramValue"
     }
 
