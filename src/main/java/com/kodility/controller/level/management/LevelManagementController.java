@@ -2,7 +2,7 @@ package com.kodility.controller.level.management;
 
 import com.kodility.controller.BaseManagementController;
 import com.kodility.controller.level.model.SaveLevelAjaxRequest;
-import com.kodility.service.challenge.LevelService;
+import com.kodility.service.level.LevelService;
 import com.ufukuzun.myth.dialect.handler.annotation.AjaxRequestBody;
 import com.ufukuzun.myth.dialect.handler.annotation.AjaxResponseBody;
 import com.ufukuzun.myth.dialect.model.AjaxResponse;

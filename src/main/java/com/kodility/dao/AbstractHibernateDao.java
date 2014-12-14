@@ -4,6 +4,7 @@ import com.kodility.domain.AbstractEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,14 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
     public List<T> findAll() {
         return list(getCriteria());
+    }
+
+    public List<T> findAllOrderedByPriority() {
+        return findAllOrderedBy("priority");
+    }
+
+    public List<T> findAllOrderedBy(String orderBy) {
+        return list(getCriteria().addOrder(Order.asc(orderBy)));
     }
 
     protected List<T> findAllBy(Map<String, Object> restrictions) {

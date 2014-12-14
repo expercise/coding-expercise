@@ -1,7 +1,7 @@
 package com.kodility.controller.user;
 
 import com.kodility.domain.user.User;
-import com.kodility.service.challenge.LevelService;
+import com.kodility.service.level.LevelService;
 import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.challenge.UserPointService;
 import com.kodility.service.user.AuthenticationService;

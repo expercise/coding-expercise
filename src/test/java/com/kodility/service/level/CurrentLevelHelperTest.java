@@ -1,10 +1,11 @@
-package com.kodility.service.challenge;
+package com.kodility.service.level;
 
 import com.kodility.AbstractDaoTest;
 import com.kodility.domain.challenge.Challenge;
-import com.kodility.domain.level.Level;
 import com.kodility.domain.challenge.Solution;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
+import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.challenge.model.CurrentLevelModel;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.LevelBuilder;

@@ -1,6 +1,6 @@
 package com.kodility.utils.validation;
 
-import com.kodility.service.challenge.LevelService;
+import com.kodility.service.level.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

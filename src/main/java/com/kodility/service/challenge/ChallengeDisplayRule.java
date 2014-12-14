@@ -3,6 +3,7 @@ package com.kodility.service.challenge;
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
+import com.kodility.service.level.CurrentLevelHelper;
 import com.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

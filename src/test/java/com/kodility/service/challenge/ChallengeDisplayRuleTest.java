@@ -4,6 +4,7 @@ import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.user.User;
 import com.kodility.enums.UserRole;
 import com.kodility.service.challenge.model.CurrentLevelModel;
+import com.kodility.service.level.CurrentLevelHelper;
 import com.kodility.service.user.AuthenticationService;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.LevelBuilder;

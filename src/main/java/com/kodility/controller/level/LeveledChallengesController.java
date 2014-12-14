@@ -2,7 +2,7 @@ package com.kodility.controller.level;
 
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.level.Level;
-import com.kodility.service.challenge.LevelService;
+import com.kodility.service.level.LevelService;
 import com.kodility.service.challenge.SolutionCountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

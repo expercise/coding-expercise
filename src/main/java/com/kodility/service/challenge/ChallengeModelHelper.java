@@ -6,6 +6,7 @@ import com.kodility.domain.challenge.ChallengeInputType;
 import com.kodility.domain.challenge.TestCase;
 import com.kodility.domain.challenge.TestCaseInputValue;
 import com.kodility.enums.Lingo;
+import com.kodility.service.level.LevelService;
 import com.kodility.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

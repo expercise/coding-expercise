@@ -1,6 +1,6 @@
-package com.kodility.service.challenge;
+package com.kodility.service.level;
 
-import com.kodility.dao.challenge.LevelDao;
+import com.kodility.dao.level.LevelDao;
 import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
@@ -23,7 +23,7 @@ public class LevelService {
     private AuthenticationService authenticationService;
 
     public List<Level> getAllLevelsInOrder() {
-        return levelDao.findAllOrdered();
+        return levelDao.findAllOrderedByPriority();
     }
 
     public Level findById(Long id) {

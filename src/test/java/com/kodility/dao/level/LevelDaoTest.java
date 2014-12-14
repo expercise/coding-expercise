@@ -1,4 +1,4 @@
-package com.kodility.dao.challenge;
+package com.kodility.dao.level;
 
 import com.kodility.AbstractDaoTest;
 import com.kodility.domain.level.Level;
@@ -23,7 +23,7 @@ public class LevelDaoTest extends AbstractDaoTest {
 
         flushAndClear();
 
-        List<Level> orderedLevels = levelDao.findAllOrdered();
+        List<Level> orderedLevels = levelDao.findAllOrderedByPriority();
 
         assertOrderedItems(orderedLevels, level2, level3, level1);
     }

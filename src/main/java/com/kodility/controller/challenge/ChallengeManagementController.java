@@ -10,7 +10,7 @@ import com.kodility.enums.Lingo;
 import com.kodility.enums.ManagementMode;
 import com.kodility.service.challenge.ChallengeModelHelper;
 import com.kodility.service.challenge.ChallengeService;
-import com.kodility.service.challenge.LevelService;
+import com.kodility.service.level.LevelService;
 import com.kodility.service.user.AuthenticationService;
 import com.kodility.utils.JsonUtils;
 import com.kodility.utils.validation.SaveChallengeValidator;
