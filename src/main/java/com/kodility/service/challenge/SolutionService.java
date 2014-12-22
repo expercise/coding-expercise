@@ -4,6 +4,7 @@ import com.kodility.controller.challenge.model.UserSolutionModel;
 import com.kodility.dao.challenge.SolutionDao;
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.challenge.Solution;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
 import com.kodility.service.user.AuthenticationService;
@@ -35,8 +36,11 @@ public class SolutionService {
         return solutionDao.findBy(challenge, user, programmingLanguage);
     }
 
-    public List<Solution> getAllApprovedChallengeSolutionsOf(User user) {
-        return solutionDao.findApprovedChallengeSolutionsByUser(user);
+    public List<Solution> getAllSolutionsInLevelsOf(User user, List<Level> levels) {
+        if (levels.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return solutionDao.findAllSolutionsInLevelsOf(user, levels);
     }
 
     public void updateSolution(Solution solution) {
@@ -59,7 +63,7 @@ public class SolutionService {
     }
 
     public Set<Challenge> getSolvedChallengesOf(User user) {
-        return getAllApprovedChallengeSolutionsOf(user).stream()
+        return solutionDao.findApprovedChallengeSolutionsByUser(user).stream()
                 .map(Solution::getChallenge)
                 .collect(Collectors.toSet());
     }

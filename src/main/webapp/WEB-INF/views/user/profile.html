@@ -9,7 +9,8 @@
                 <span class="glyphicon glyphicon-user"></span>
             </div>
             <ul class="list-group userProgress">
-                <li class="list-group-item level" th:with="currentLevelExists=${currentLevelModel.currentLevel != null}, nextLevelExists=${currentLevelModel.nextLevel != null}">
+                <!-- TODO ufuk: fix, show current level in different way -->
+                <li th:if="${currentLevelModel != null}" class="list-group-item level" th:with="currentLevelExists=${currentLevelModel.currentLevel != null}, nextLevelExists=${currentLevelModel.nextLevel != null}">
                     <span class="remainingChallengesToNextLevel" th:if="${nextLevelExists}" th:text="${#messages.msg('user.profile.remainingChallengesToNextLevel', currentLevelModel.getNextLevel().getNameFor(#locale), currentLevelModel.challengeCountToNextLevel)}"></span>
                     <span class="remainingChallengesToNextLevel" th:if="${not nextLevelExists and currentLevelExists}" th:text="${currentLevelModel.getCurrentLevel().getNameFor(#locale)}"></span>
                     <div class="progress">

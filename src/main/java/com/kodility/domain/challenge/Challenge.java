@@ -119,6 +119,10 @@ public class Challenge extends AbstractEntity {
         return level != null;
     }
 
+    public boolean hasNotLevel() {
+        return !hasLevel();
+    }
+
     public Long getLevelId() {
         return level != null ? level.getId() : null;
     }

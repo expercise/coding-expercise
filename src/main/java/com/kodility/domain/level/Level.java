@@ -72,6 +72,10 @@ public class Level extends PrioritizedEntity {
         this.theme = theme;
     }
 
+    public boolean hasTheme() {
+        return theme != null;
+    }
+
     public List<Challenge> getChallenges() {
         return challenges;
     }

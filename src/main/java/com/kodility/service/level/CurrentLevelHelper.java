@@ -16,14 +16,10 @@ import java.util.ListIterator;
 public class CurrentLevelHelper {
 
     @Autowired
-    private LevelService levelService;
-
-    @Autowired
     private SolutionService solutionService;
 
-    public CurrentLevelModel prepareCurrentLevelModelFor(User user) {
-        List<Level> levels = levelService.getAllLevelsInOrder();
-        List<Solution> solutions = solutionService.getAllApprovedChallengeSolutionsOf(user);
+    public CurrentLevelModel prepareCurrentLevelModelFor(User user, List<Level> levels) {
+        List<Solution> solutions = solutionService.getAllSolutionsInLevelsOf(user, levels);
 
         Level currentLevel = null;
         Level nextLevel = null;

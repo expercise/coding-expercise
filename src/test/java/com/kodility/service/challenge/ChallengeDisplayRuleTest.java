@@ -1,6 +1,7 @@
 package com.kodility.service.challenge;
 
 import com.kodility.domain.challenge.Challenge;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.enums.UserRole;
 import com.kodility.service.challenge.model.CurrentLevelModel;
@@ -8,12 +9,15 @@ import com.kodility.service.level.CurrentLevelHelper;
 import com.kodility.service.user.AuthenticationService;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.LevelBuilder;
+import com.kodility.testutils.builder.ThemeBuilder;
 import com.kodility.testutils.builder.UserBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -82,13 +86,18 @@ public class ChallengeDisplayRuleTest {
     public void shouldReturnTrueIfChallengeIsApprovedButUserNotReachedThatLevelYet() {
         User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
 
-        Challenge challenge = new ChallengeBuilder().approved(true).level(new LevelBuilder().priority(2).buildWithRandomId()).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
+        Level level1 = new LevelBuilder().priority(1).buildWithRandomId();
+        Level level2 = new LevelBuilder().priority(2).buildWithRandomId();
+
+        new ThemeBuilder().levels(level1, level2).buildWithRandomId();
+
+        Challenge challenge = new ChallengeBuilder().approved(true).level(level2).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
 
         CurrentLevelModel currentLevelModel = new CurrentLevelModel();
-        currentLevelModel.setCurrentLevel(new LevelBuilder().priority(1).buildWithRandomId());
+        currentLevelModel.setCurrentLevel(level1);
 
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
-        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser)).thenReturn(currentLevelModel);
+        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser, Arrays.asList(level1, level2))).thenReturn(currentLevelModel);
 
         assertTrue(rule.isNotDisplayable(challenge));
     }
@@ -97,13 +106,18 @@ public class ChallengeDisplayRuleTest {
     public void shouldReturnFalseIfChallengeIsApprovedAndUserAtThatLevel() {
         User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
 
-        Challenge challenge = new ChallengeBuilder().approved(true).level(new LevelBuilder().priority(1).buildWithRandomId()).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
+        Level level1 = new LevelBuilder().priority(1).buildWithRandomId();
+        Level level2 = new LevelBuilder().priority(2).buildWithRandomId();
+
+        new ThemeBuilder().levels(level1, level2).buildWithRandomId();
+
+        Challenge challenge = new ChallengeBuilder().approved(true).level(level1).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
 
         CurrentLevelModel currentLevelModel = new CurrentLevelModel();
-        currentLevelModel.setCurrentLevel(new LevelBuilder().priority(1).buildWithRandomId());
+        currentLevelModel.setCurrentLevel(level1);
 
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
-        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser)).thenReturn(currentLevelModel);
+        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser, Arrays.asList(level1, level2))).thenReturn(currentLevelModel);
 
         assertFalse(rule.isNotDisplayable(challenge));
     }
@@ -112,13 +126,18 @@ public class ChallengeDisplayRuleTest {
     public void shouldReturnFalseIfChallengeIsApprovedAndUserAlreadyPassedThatLevel() {
         User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
 
-        Challenge challenge = new ChallengeBuilder().approved(true).level(new LevelBuilder().priority(1).buildWithRandomId()).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
+        Level level1 = new LevelBuilder().priority(1).buildWithRandomId();
+        Level level2 = new LevelBuilder().priority(2).buildWithRandomId();
+
+        new ThemeBuilder().levels(level1, level2).buildWithRandomId();
+
+        Challenge challenge = new ChallengeBuilder().approved(true).level(level1).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
 
         CurrentLevelModel currentLevelModel = new CurrentLevelModel();
-        currentLevelModel.setCurrentLevel(new LevelBuilder().priority(2).buildWithRandomId());
+        currentLevelModel.setCurrentLevel(level2);
 
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
-        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser)).thenReturn(currentLevelModel);
+        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser, Arrays.asList(level1, level2))).thenReturn(currentLevelModel);
 
         assertFalse(rule.isNotDisplayable(challenge));
     }
@@ -129,13 +148,25 @@ public class ChallengeDisplayRuleTest {
 
         Challenge challenge = new ChallengeBuilder().approved(true).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
 
-        CurrentLevelModel currentLevelModel = new CurrentLevelModel();
-        currentLevelModel.setCurrentLevel(new LevelBuilder().priority(2).buildWithRandomId());
-
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
-        when(currentLevelHelper.prepareCurrentLevelModelFor(currentUser)).thenReturn(currentLevelModel);
 
         assertFalse(rule.isNotDisplayable(challenge));
+
+        verifyZeroInteractions(currentLevelHelper);
+    }
+
+    @Test
+    public void shouldReturnFalseIfChallengeIsApprovedAndHasLevelButLevelHasNotTheme() {
+        User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
+
+        Level level = new LevelBuilder().priority(1).buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().approved(true).level(level).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
+
+        when(authenticationService.getCurrentUser()).thenReturn(currentUser);
+
+        assertFalse(rule.isNotDisplayable(challenge));
+
+        verifyZeroInteractions(currentLevelHelper);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.kodility.controller.user;
 
 import com.kodility.domain.user.User;
-import com.kodility.service.level.LevelService;
 import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.challenge.UserPointService;
 import com.kodility.service.user.AuthenticationService;
@@ -26,9 +25,6 @@ public class ProfileController {
     private UserPointService userPointService;
 
     @Autowired
-    private LevelService levelService;
-
-    @Autowired
     private SolutionService solutionService;
 
     @RequestMapping
@@ -47,8 +43,9 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView("user/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
-        modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOf(user));
         modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
+        // TODO ufuk: fix, show current level in different way
+        // modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOf(user, null));
         return modelAndView;
     }
 

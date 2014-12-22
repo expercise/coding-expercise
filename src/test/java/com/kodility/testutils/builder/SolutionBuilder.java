@@ -4,6 +4,7 @@ import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.challenge.Solution;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ public class SolutionBuilder  extends AbstractEntityBuilder<Solution, SolutionBu
 
     private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
 
-    private String solution;
+    private String solution = RandomStringUtils.random(10);
 
     private Date createDate = new Date();
 

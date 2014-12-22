@@ -13,17 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class SolutionCountService {
 
-    private static final Map<Long, Long> SOLUTION_COUNT_STORAGE = new ConcurrentHashMap<>();
+    private static final Map<Long, Long> SOLUTION_COUNTS = new ConcurrentHashMap<>();
 
     @Autowired
     private SolutionService solutionService;
 
     public Long getSolutionCountOf(Challenge challenge) {
         Long challengeId = challenge.getId();
-        Long solutionCount = SOLUTION_COUNT_STORAGE.get(challengeId);
+        Long solutionCount = SOLUTION_COUNTS.get(challengeId);
         if (solutionCount == null) {
             solutionCount = solutionService.getSolutionCountOf(challenge);
-            SOLUTION_COUNT_STORAGE.put(challengeId, solutionCount);
+            SOLUTION_COUNTS.put(challengeId, solutionCount);
         }
         return solutionCount;
     }
@@ -37,7 +37,7 @@ public class SolutionCountService {
     }
 
     public void clearCacheFor(Long challengeId) {
-        SOLUTION_COUNT_STORAGE.remove(challengeId);
+        SOLUTION_COUNTS.remove(challengeId);
     }
 
 }

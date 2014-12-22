@@ -17,4 +17,8 @@ public class ThemeService {
         return themeDao.findAllOrderedByPriority();
     }
 
+    public Theme findById(Long id) {
+        return themeDao.findOne(id);
+    }
+
 }

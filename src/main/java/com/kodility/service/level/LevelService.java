@@ -2,6 +2,7 @@ package com.kodility.service.level;
 
 import com.kodility.dao.level.LevelDao;
 import com.kodility.domain.level.Level;
+import com.kodility.domain.theme.Theme;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
 import com.kodility.service.user.AuthenticationService;
@@ -30,12 +31,12 @@ public class LevelService {
         return levelDao.findOne(id);
     }
 
-    public CurrentLevelModel getCurrentLevelModelOfCurrentUser() {
-        return getCurrentLevelModelOf(authenticationService.getCurrentUser());
+    public CurrentLevelModel getCurrentLevelModelOfCurrentUserFor(Theme theme) {
+        return getCurrentLevelModelOf(authenticationService.getCurrentUser(), theme);
     }
 
-    public CurrentLevelModel getCurrentLevelModelOf(User user) {
-        return currentLevelHelper.prepareCurrentLevelModelFor(user);
+    public CurrentLevelModel getCurrentLevelModelOf(User user, Theme theme) {
+        return currentLevelHelper.prepareCurrentLevelModelFor(user, theme.getOrderedLevels());
     }
 
     public void save(Level level) {

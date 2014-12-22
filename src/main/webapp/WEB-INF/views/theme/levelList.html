@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
-    <legend th:text="#{challengeList.header.leveledChallenges}"></legend>
+    <legend th:text="${theme.getNameFor(#locale)}"></legend>
 
     <div class="row" th:if="${#lists.isEmpty(levelList)}">
         <div class="col-xs-12">

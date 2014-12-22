@@ -13,7 +13,7 @@ public class ThemesController {
     private ThemeService themeService;
 
     @RequestMapping("/themes")
-    public ModelAndView listChallenges() {
+    public ModelAndView listThemes() {
         ModelAndView modelAndView = new ModelAndView("theme/themeList");
         modelAndView.addObject("themeList", themeService.getAll());
         return modelAndView;

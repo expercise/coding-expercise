@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.kodility.testutils.asserts.Asserts.assertExpectedItems;
 import static org.hamcrest.Matchers.equalTo;
@@ -30,9 +31,6 @@ public class CurrentLevelHelperTest extends AbstractDaoTest {
 
     @InjectMocks
     private CurrentLevelHelper helper;
-
-    @Mock
-    private LevelService levelService;
 
     @Mock
     private SolutionService solutionService;
@@ -55,10 +53,10 @@ public class CurrentLevelHelperTest extends AbstractDaoTest {
 
         User user = new UserBuilder().buildWithRandomId();
 
-        when(levelService.getAllLevelsInOrder()).thenReturn(Arrays.asList(level1, level2, level3));
-        when(solutionService.getAllApprovedChallengeSolutionsOf(user)).thenReturn(Arrays.asList(solution1, solution2));
+        List<Level> levels = Arrays.asList(level1, level2, level3);
+        when(solutionService.getAllSolutionsInLevelsOf(user, levels)).thenReturn(Arrays.asList(solution1, solution2));
 
-        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user);
+        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user, levels);
 
         assertThat(currentLevelModel.getCurrentLevel(), equalTo(level2));
         assertThat(currentLevelModel.getNextLevel(), equalTo(level3));
@@ -83,10 +81,10 @@ public class CurrentLevelHelperTest extends AbstractDaoTest {
 
         User user = new UserBuilder().buildWithRandomId();
 
-        when(levelService.getAllLevelsInOrder()).thenReturn(Arrays.asList(level1, level2));
-        when(solutionService.getAllApprovedChallengeSolutionsOf(user)).thenReturn(Arrays.asList(solution1, solution2, solution3));
+        List<Level> levels = Arrays.asList(level1, level2);
+        when(solutionService.getAllSolutionsInLevelsOf(user, levels)).thenReturn(Arrays.asList(solution1, solution2, solution3));
 
-        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user);
+        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user, levels);
 
         assertThat(currentLevelModel.getCurrentLevel(), equalTo(level2));
         assertThat(currentLevelModel.getNextLevel(), nullValue());
@@ -112,10 +110,10 @@ public class CurrentLevelHelperTest extends AbstractDaoTest {
 
         User user = new UserBuilder().buildWithRandomId();
 
-        when(levelService.getAllLevelsInOrder()).thenReturn(Arrays.asList(level1, level2, level3));
-        when(solutionService.getAllApprovedChallengeSolutionsOf(user)).thenReturn(Arrays.asList(solution1, solution2));
+        List<Level> levels = Arrays.asList(level1, level2, level3);
+        when(solutionService.getAllSolutionsInLevelsOf(user, levels)).thenReturn(Arrays.asList(solution1, solution2));
 
-        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user);
+        CurrentLevelModel currentLevelModel = helper.prepareCurrentLevelModelFor(user, levels);
 
         assertThat(currentLevelModel.getCurrentLevel(), equalTo(level2));
         assertThat(currentLevelModel.getNextLevel(), equalTo(level3));

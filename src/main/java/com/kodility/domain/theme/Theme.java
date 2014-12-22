@@ -3,12 +3,14 @@ package com.kodility.domain.theme;
 import com.kodility.domain.PrioritizedEntity;
 import com.kodility.domain.level.Level;
 import com.kodility.enums.Lingo;
+import com.kodility.service.util.PrioritySorter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 public class Theme extends PrioritizedEntity {
@@ -55,6 +57,12 @@ public class Theme extends PrioritizedEntity {
 
     public void setLevels(List<Level> levels) {
         this.levels = levels;
+    }
+
+    public List<Level> getOrderedLevels() {
+        return levels.stream()
+                .sorted(new PrioritySorter())
+                .collect(Collectors.toList());
     }
 
 }

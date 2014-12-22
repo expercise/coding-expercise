@@ -3,6 +3,7 @@ package com.kodility.dao.challenge;
 import com.kodility.dao.AbstractHibernateDao;
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.challenge.Solution;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
 import org.hibernate.Criteria;
@@ -33,6 +34,15 @@ public class SolutionDao extends AbstractHibernateDao<Solution> {
         criteria.createAlias("challenge", "challenge");
         criteria.add(Restrictions.eq("user", user));
         criteria.add(Restrictions.eq("challenge.approved", true));
+        return criteria.list();
+    }
+
+    public List<Solution> findAllSolutionsInLevelsOf(User user, List<Level> levels) {
+        Criteria criteria = getCriteria();
+        criteria.createAlias("challenge", "challenge");
+        criteria.add(Restrictions.eq("user", user));
+        criteria.add(Restrictions.eq("challenge.approved", true));
+        criteria.add(Restrictions.in("challenge.level", levels));
         return criteria.list();
     }
 

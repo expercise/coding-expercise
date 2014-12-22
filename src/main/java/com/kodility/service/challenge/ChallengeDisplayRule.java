@@ -1,6 +1,7 @@
 package com.kodility.service.challenge;
 
 import com.kodility.domain.challenge.Challenge;
+import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.service.challenge.model.CurrentLevelModel;
 import com.kodility.service.level.CurrentLevelHelper;
@@ -27,9 +28,14 @@ public class ChallengeDisplayRule {
             return challenge.isNotAuthor(currentUser) && currentUser.isNotAdmin();
         }
 
-        CurrentLevelModel currentLevelModel = currentLevelHelper.prepareCurrentLevelModelFor(currentUser);
-        if (challenge.hasLevel() && currentLevelModel.isLevelDeactive(challenge.getLevel())) {
-            return true;
+        if (challenge.hasNotLevel()) {
+            return false;
+        }
+
+        Level level = challenge.getLevel();
+        if (level.hasTheme()) {
+            CurrentLevelModel currentLevelModel = currentLevelHelper.prepareCurrentLevelModelFor(currentUser, level.getTheme().getOrderedLevels());
+            return currentLevelModel.isLevelDeactive(level);
         }
 
         return false;
