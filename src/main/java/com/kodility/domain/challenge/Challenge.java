@@ -123,6 +123,13 @@ public class Challenge extends AbstractEntity {
         return !hasLevel();
     }
 
+    public String getThemeId() {
+        if (hasLevel() && level.hasTheme()) {
+            return level.getTheme().getId().toString();
+        }
+        return "others";
+    }
+
     public Long getLevelId() {
         return level != null ? level.getId() : null;
     }

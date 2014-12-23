@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
-    <legend th:text="${theme.getNameFor(#locale)}"></legend>
+
+    <div class="row pageTitleWithLink">
+        <div class="col-xs-8 left">
+            <legend th:text="${theme.getNameFor(#locale)}"></legend>
+        </div>
+
+        <div class="col-xs-4 right">
+            <div class="linkContainer">
+                <a th:href="@{/themes/}">
+                    <span th:text="#{button.goBack}"></span>
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="row" th:if="${#lists.isEmpty(levelList)}">
-        <div class="col-xs-12">
+        <div class="col-xs-12 noTheme">
             <p th:text="#{label.nope}"></p>
         </div>
     </div>
@@ -28,7 +42,7 @@
                     <tr th:each="challenge, iteration : ${level.approvedChallenges}">
                         <td class="indexColumn" th:text="${level.priority} + '.' + ${iteration.count}"></td>
                         <td class="fixedWidthColumn">
-                            <a th:if="${levelActive}" th:href="@{'/challenges/' + ${challenge.id} + '?ref=levels'}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                            <a th:if="${levelActive}" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
                             <span th:unless="${levelActive}" th:text="${challenge.getTitleFor(#locale)}"></span>
                             <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
