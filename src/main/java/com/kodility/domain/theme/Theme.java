@@ -38,6 +38,10 @@ public class Theme extends PrioritizedEntity {
         this.id = id;
     }
 
+    public String getIdAsString() {
+        return id != null ? id.toString() : "others";
+    }
+
     public Map<Lingo, String> getNames() {
         return names;
     }

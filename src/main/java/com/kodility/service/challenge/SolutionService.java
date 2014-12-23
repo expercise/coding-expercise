@@ -68,6 +68,10 @@ public class SolutionService {
                 .collect(Collectors.toSet());
     }
 
+    public Set<Challenge> getSolvedChallengesOfCurrentUser() {
+        return getSolvedChallengesOf(authenticationService.getCurrentUser());
+    }
+
     private List<Solution> getSolutionsOfUser(Challenge challenge) {
         User currentUser = authenticationService.getCurrentUser();
         return solutionDao.findSolutionsBy(challenge, currentUser);

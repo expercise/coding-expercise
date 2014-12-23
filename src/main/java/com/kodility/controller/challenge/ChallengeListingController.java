@@ -26,12 +26,6 @@ public class ChallengeListingController {
         return prepareModelAndViewForListing(challenges, ChallengeListingMode.User.name());
     }
 
-    @RequestMapping("/challenges/notLeveledChallenges")
-    public ModelAndView listNotLeveledChallenges() {
-        List<Challenge> challenges = challengeService.findNotLeveledApprovedChallenges();
-        return prepareModelAndViewForListing(challenges, ChallengeListingMode.NotLeveledChallenges.name());
-    }
-
     private ModelAndView prepareModelAndViewForListing(List<Challenge> challenges, String mode) {
         ModelAndView modelAndView = new ModelAndView("challenge/challengeList");
         modelAndView.addObject("challenges", challenges);

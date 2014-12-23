@@ -4,7 +4,7 @@
 
     <div class="row pageTitleWithLink">
         <div class="col-xs-8 left">
-            <legend th:text="${theme.getNameFor(#locale)}"></legend>
+            <legend th:text="#{header.notThemedChallenges}"></legend>
         </div>
 
         <div class="col-xs-4 right">
@@ -17,17 +17,16 @@
         </div>
     </div>
 
-    <div class="row" th:if="${#lists.isEmpty(levelList)}">
+    <div class="row" th:if="${#lists.isEmpty(challengeList)}">
         <div class="col-xs-12 noItem">
             <p th:text="#{label.nope}"></p>
         </div>
     </div>
 
-    <div class="row levelContainer" th:each="level : ${levelList}" th:if="${not #lists.isEmpty(level.approvedChallenges)}">
-        <div th:with="levelActive=${currentLevelModel.isLevelActive(level)}" th:class="${levelActive} ? 'col-xs-12' : 'col-xs-12 notActiveLevel'">
+    <div class="row levelContainer" th:unless="${#lists.isEmpty(challengeList)}">
+        <div th:class="col-xs-12">
             <h3>
-                <span th:text="${level.getNameFor(#locale)}"></span>
-                <span th:if="${currentLevelModel.isCurrentLevel(level)}" class="glyphicon glyphicon-flag"></span>
+                <span th:text="#{theme.listing.header.notThemedChallenges}"></span>
             </h3>
 
             <table class="table">
@@ -39,12 +38,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="challenge, iteration : ${level.approvedChallenges}">
-                        <td class="indexColumn" th:text="${level.priority} + '.' + ${iteration.count}"></td>
+                    <tr th:each="challenge, iteration : ${challengeList}">
+                        <td class="indexColumn" th:text="${iteration.count}"></td>
                         <td class="fixedWidthColumn">
-                            <a th:if="${levelActive}" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
-                            <span th:unless="${levelActive}" th:text="${challenge.getTitleFor(#locale)}"></span>
-                            <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
+                            <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                            <span th:if="${solvedChallengesByCurrentUser.contains(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
                         <td th:text="${solutionCountMap.get(challenge)}"></td>
                     </tr>

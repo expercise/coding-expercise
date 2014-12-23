@@ -40,8 +40,8 @@ public class ChallengeService {
         return challengeDao.findOne(id);
     }
 
-    public List<Challenge> findNotLeveledApprovedChallenges() {
-        return challengeDao.findNotLeveledApprovedChallenges();
+    public List<Challenge> findNotThemedApprovedChallenges() {
+        return challengeDao.findNotThemedApprovedChallenges();
     }
 
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {

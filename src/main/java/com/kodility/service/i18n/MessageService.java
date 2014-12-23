@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,11 +17,19 @@ public class MessageService {
     private MessagesResourceBundleSource bundleMessageSource;
 
     public String getMessage(String code) {
-        return bundleMessageSource.getMessage(code, new Object[]{}, LocaleContextHolder.getLocale());
+        return getMessage(code, new Object[]{});
     }
 
     public String getMessage(String code, Object... args) {
-        return bundleMessageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+        return getMessage(code, LocaleContextHolder.getLocale(), args);
+    }
+
+    public String getMessage(String code, Locale locale) {
+        return getMessage(code, locale, new Object[]{});
+    }
+
+    public String getMessage(String code, Locale locale, Object... args) {
+        return bundleMessageSource.getMessage(code, args, locale);
     }
 
     public Map<String, String> getAllMessages() {

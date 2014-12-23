@@ -6,6 +6,7 @@ import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.LevelBuilder;
+import com.kodility.testutils.builder.ThemeBuilder;
 import com.kodility.testutils.builder.UserBuilder;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,18 +53,24 @@ public class ChallengeDaoTest extends AbstractDaoTest {
     }
 
     @Test
-    public void shouldFindNotLeveledApprovedChallenges() {
+    public void shouldFindNotThemedApprovedChallenges() {
         User user = new UserBuilder().persist(getCurrentSession());
-        Level level = new LevelBuilder().persist(getCurrentSession());
+
+        Level themedLevel = new LevelBuilder().persist(getCurrentSession());
+        new ThemeBuilder().levels(themedLevel).persist(getCurrentSession());
+
+        Level notThemedLevel = new LevelBuilder().persist(getCurrentSession());
+
         Challenge challenge1 = new ChallengeBuilder().user(user).approved(false).persist(getCurrentSession());
-        Challenge challenge2 = new ChallengeBuilder().user(user).level(level).approved(true).persist(getCurrentSession());
+        Challenge challenge2 = new ChallengeBuilder().user(user).level(themedLevel).approved(true).persist(getCurrentSession());
         Challenge challenge3 = new ChallengeBuilder().user(user).approved(true).persist(getCurrentSession());
+        Challenge challenge4 = new ChallengeBuilder().user(user).level(notThemedLevel).approved(true).persist(getCurrentSession());
 
         flushAndClear();
 
-        List<Challenge> resultList = dao.findNotLeveledApprovedChallenges();
+        List<Challenge> resultList = dao.findNotThemedApprovedChallenges();
 
-        assertExpectedItems(resultList, challenge3);
+        assertExpectedItems(resultList, challenge3, challenge4);
         assertNotExpectedItems(resultList, challenge1, challenge2);
     }
 

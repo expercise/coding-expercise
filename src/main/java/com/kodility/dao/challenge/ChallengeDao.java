@@ -6,6 +6,7 @@ import com.kodility.domain.user.User;
 import com.kodility.utils.collection.MapBuilder;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,11 +26,19 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
         return findAllBy(new MapBuilder<String, Object>().put("user", user).build());
     }
 
-    public List<Challenge> findNotLeveledApprovedChallenges() {
+    public List<Challenge> findNotThemedApprovedChallenges() {
         Criteria criteria = getCriteria();
-        criteria.add(Restrictions.isNull("level"));
+
+        criteria.createAlias("level", "level", JoinType.LEFT_OUTER_JOIN);
+        criteria.add(Restrictions.disjunction(
+                Restrictions.isNull("level"),
+                Restrictions.isNull("level.theme")
+
+        ));
+
         criteria.add(Restrictions.eq("approved", true));
-        return criteria.list();
+
+        return list(criteria);
     }
 
 }

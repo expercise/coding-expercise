@@ -3,7 +3,9 @@ package com.kodility.controller.theme;
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.level.Level;
 import com.kodility.domain.theme.Theme;
+import com.kodility.service.challenge.ChallengeService;
 import com.kodility.service.challenge.SolutionCountService;
+import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.level.LevelService;
 import com.kodility.service.theme.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,13 @@ public class ThemedLevelsController {
     private LevelService levelService;
 
     @Autowired
+    private ChallengeService challengeService;
+
+    @Autowired
     private SolutionCountService solutionCountService;
+
+    @Autowired
+    private SolutionService solutionService;
 
     @RequestMapping("/themes/{themeId}")
     public ModelAndView listThemedLevels(@PathVariable("themeId") Long themeId) {
@@ -37,15 +45,31 @@ public class ThemedLevelsController {
 
         List<Level> levelList = theme.getOrderedLevels();
         modelAndView.addObject("levelList", levelList);
-        modelAndView.addObject("solutionCountMap", prepareSolutionCountMapFor(levelList));
+        modelAndView.addObject("solutionCountMap", prepareSolutionCountMapForLevels(levelList));
         modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOfCurrentUserFor(theme));
 
         return modelAndView;
     }
 
-    private Map<Challenge, Long> prepareSolutionCountMapFor(List<Level> levelList) {
+    @RequestMapping("/themes/others")
+    public ModelAndView listNotThemedChallenges() {
+        ModelAndView modelAndView = new ModelAndView("theme/notThemedChallenges");
+
+        List<Challenge> challengeList = challengeService.findNotThemedApprovedChallenges();
+        modelAndView.addObject("challengeList", challengeList);
+        modelAndView.addObject("solutionCountMap", prepareSolutionCountMapForChallenges(challengeList));
+        modelAndView.addObject("solvedChallengesByCurrentUser", solutionService.getSolvedChallengesOfCurrentUser());
+
+        return modelAndView;
+    }
+
+    private Map<Challenge, Long> prepareSolutionCountMapForLevels(List<Level> levelList) {
         List<Challenge> challenges = new ArrayList<>();
         levelList.forEach(l -> challenges.addAll(l.getApprovedChallenges()));
+        return prepareSolutionCountMapForChallenges(challenges);
+    }
+
+    private Map<Challenge, Long> prepareSolutionCountMapForChallenges(List<Challenge> challenges) {
         return solutionCountService.prepareSolutionCountMapFor(challenges);
     }
 
