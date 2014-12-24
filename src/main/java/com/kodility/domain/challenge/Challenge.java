@@ -2,6 +2,7 @@ package com.kodility.domain.challenge;
 
 import com.kodility.domain.AbstractEntity;
 import com.kodility.domain.level.Level;
+import com.kodility.domain.theme.Theme;
 import com.kodility.domain.user.User;
 import com.kodility.enums.DataType;
 import com.kodility.enums.Lingo;
@@ -125,9 +126,9 @@ public class Challenge extends AbstractEntity {
 
     public String getThemeId() {
         if (hasLevel() && level.hasTheme()) {
-            return level.getTheme().getId().toString();
+            return level.getTheme().getIdAsString();
         }
-        return "others";
+        return Theme.THEME_ID_FOR_NOT_THEMED_CHALLENGES;
     }
 
     public Long getLevelId() {

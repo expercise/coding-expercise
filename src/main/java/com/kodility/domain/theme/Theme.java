@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @Entity
 public class Theme extends PrioritizedEntity {
 
+    public static final String THEME_ID_FOR_NOT_THEMED_CHALLENGES = "others";
+
     @Id
     @GeneratedValue
     private Long id;
@@ -39,7 +41,7 @@ public class Theme extends PrioritizedEntity {
     }
 
     public String getIdAsString() {
-        return id != null ? id.toString() : "others";
+        return id != null ? id.toString() : THEME_ID_FOR_NOT_THEMED_CHALLENGES;
     }
 
     public Map<Lingo, String> getNames() {
