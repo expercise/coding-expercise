@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class ThemedLevelsController {
@@ -64,8 +64,10 @@ public class ThemedLevelsController {
     }
 
     private Map<Challenge, Long> prepareSolutionCountMapForLevels(List<Level> levelList) {
-        List<Challenge> challenges = new ArrayList<>();
-        levelList.forEach(l -> challenges.addAll(l.getApprovedChallenges()));
+        List<Challenge> challenges = levelList.stream()
+                .flatMap(l -> l.getApprovedChallenges().stream())
+                .collect(Collectors.toList());
+
         return prepareSolutionCountMapForChallenges(challenges);
     }
 

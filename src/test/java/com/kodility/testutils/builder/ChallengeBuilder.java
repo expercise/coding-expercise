@@ -20,7 +20,6 @@ public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, Challenge
 
     @Override
     protected Challenge doBuild() {
-
         Challenge challenge = new Challenge();
         challenge.setApproved(approved);
         challenge.setUser(user);
