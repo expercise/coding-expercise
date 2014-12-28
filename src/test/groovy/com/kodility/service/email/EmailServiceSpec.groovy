@@ -1,5 +1,4 @@
 package com.kodility.service.email
-
 import com.kodility.service.email.model.Email
 import com.kodility.service.i18n.MessageService
 import spock.lang.Specification

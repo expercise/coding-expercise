@@ -479,6 +479,7 @@
                                 <include>/locale.js</include>
                                 <include>/codeEditor.js</include>
                                 <include>/challengeManagement.js</include>
+                                <include>/password.js</include>
                                 <include>/bootstrapper.js</include>
                             </includes>
                             <output>
