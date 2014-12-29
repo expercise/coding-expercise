@@ -36,13 +36,19 @@
                 <th th:text="#{label.priority}"></th>
                 <th th:text="#{Turkish}"></th>
                 <th th:text="#{English}"></th>
+                <th></th>
             </tr>
         </thead>
-        <tbody>
-            <tr th:each="level : ${levels}">
+        <tbody id="levelsTableBody">
+            <tr th:each="level : ${levels}" th:id="${'level_' + level.id}">
                 <td th:text="${level.priority}"></td>
                 <td th:text="${level.turkishName}"></td>
                 <td th:text="${level.englishName}"></td>
+                <td>
+                    <a href="#" th:text="#{button.delete}"
+                       myth:update="[[levelsTableBody>>${'level_' + level.id}]]"
+                       myth:url="@{/manage/levels/delete/__${level.id}__}">Delete</a>
+                </td>
             </tr>
         </tbody>
     </table>

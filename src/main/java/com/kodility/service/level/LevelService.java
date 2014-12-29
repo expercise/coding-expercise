@@ -43,6 +43,10 @@ public class LevelService {
         levelDao.save(level);
     }
 
+    public void delete(Level level) {
+        levelDao.delete(level);
+    }
+
     public Level getByPriority(Integer priority) {
         return levelDao.findOneBy(priority);
     }
