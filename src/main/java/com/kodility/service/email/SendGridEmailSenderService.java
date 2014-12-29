@@ -5,6 +5,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -14,12 +15,18 @@ public class SendGridEmailSenderService implements EmailSenderService {
 
     private Logger LOGGER = LoggerFactory.getLogger(SendGridEmailSenderService.class);
 
+    @Value("${sendGrid.username}")
+    private String username;
+
+    @Value("${sendGrid.password}")
+    private String password;
+
     private SendGrid sendGridClient;
 
     @PostConstruct
     public void init() {
         // TODO batu: username and pass must be taken from configurationService
-        sendGridClient = new SendGrid("SENDGRIDUSER", "SENDGRIDPASS");
+        sendGridClient = new SendGrid(username, password);
     }
 
     @Override

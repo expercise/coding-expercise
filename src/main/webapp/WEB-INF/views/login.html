@@ -30,7 +30,9 @@
                 <div class="form-group">
                     <div class="col-xs-offset-2 col-xs-4">
                         <button type="submit" class="btn btn-primary" th:text="#{button.login}"></button>
-                        <a id="notRegisteredYetLink" th:if="${#strings.isEmpty(param.logout) and #strings.isEmpty(param.newMember)}" th:href="@{/register}" th:text="#{login.notRegisteredYet}"></a>
+                        <!--todo:batu temp alignment-->
+                        <a id="forgotMyPassword" class="pull-right" th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
+                        <a id="notRegisteredYetLink" class="pull-right" th:if="${#strings.isEmpty(param.logout) and #strings.isEmpty(param.newMember)}" th:href="@{/register}" th:text="#{login.notRegisteredYet}"></a>
                     </div>
                 </div>
             </form>
