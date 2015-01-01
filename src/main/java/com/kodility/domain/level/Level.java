@@ -86,7 +86,7 @@ public class Level extends PrioritizedEntity {
 
     public List<Challenge> getApprovedChallenges() {
         return challenges.stream()
-                .filter(c -> c.isApproved())
+                .filter(Challenge::isApproved)
                 .collect(Collectors.toList());
     }
 

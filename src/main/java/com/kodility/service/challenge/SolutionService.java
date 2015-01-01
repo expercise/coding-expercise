@@ -8,11 +8,11 @@ import com.kodility.domain.level.Level;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
 import com.kodility.service.user.AuthenticationService;
+import com.kodility.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -51,15 +51,11 @@ public class SolutionService {
         return solutionDao.countByChallenge(challenge);
     }
 
-    public ArrayList<UserSolutionModel> getUserSolutionModels(Challenge challenge) {
-        ArrayList<UserSolutionModel> userSolutionModels = new ArrayList<>();
-        for (Solution solution : getSolutionsOfUser(challenge)) {
-            UserSolutionModel userSolutionModel = UserSolutionModel.createFrom(solution);
-            userSolutionModels.add(userSolutionModel);
-        }
-
-        Collections.sort(userSolutionModels);
-        return userSolutionModels;
+    public List<UserSolutionModel> getUserSolutionModels(Challenge challenge) {
+        return getSolutionsOfUser(challenge).stream()
+                .map(UserSolutionModel::createFrom)
+                .sorted((o1, o2) -> DateUtils.toDateTimeWithNamedMonth(o2.getSolutionDate()).compareTo(DateUtils.toDateTimeWithNamedMonth(o1.getSolutionDate())))
+                .collect(Collectors.toList());
     }
 
     public Set<Challenge> getSolvedChallengesOf(User user) {

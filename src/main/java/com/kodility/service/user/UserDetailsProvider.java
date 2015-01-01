@@ -37,7 +37,7 @@ public class UserDetailsProvider implements UserDetailsService {
 
     private List<GrantedAuthority> getAuthorities(User user) {
         return Arrays.asList(user.getUserRole().getAuthorities()).stream()
-                .map(a -> new SimpleGrantedAuthority(a))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 

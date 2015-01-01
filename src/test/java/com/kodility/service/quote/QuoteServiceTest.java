@@ -13,8 +13,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -58,7 +58,7 @@ public class QuoteServiceTest {
 
     @Test
     public void shouldReturnNullIfQuoteListIsEmpty() {
-        when(quoteDao.findAll()).thenReturn(Collections.EMPTY_LIST);
+        when(quoteDao.findAll()).thenReturn(new ArrayList<>());
 
         service.init();
 

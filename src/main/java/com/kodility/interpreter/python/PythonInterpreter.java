@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PythonInterpreter extends Interpreter {
@@ -61,22 +62,16 @@ public class PythonInterpreter extends Interpreter {
     private PyFunction getSolutionFunctionToCall(org.python.util.PythonInterpreter pythonInterpreter) throws InterpreterException {
         PyStringMap locals = (PyStringMap) pythonInterpreter.getLocals();
 
-        PyFunction funcToCall = null;
+        Optional<PyFunction> functionToCall = (Optional<PyFunction>) locals.values().stream()
+                .filter(o -> o instanceof PyFunction)
+                .filter(f -> "solution".equals(((PyFunction) f).getFuncName().asString()))
+                .findFirst();
 
-        for (Object o : locals.values()) {
-            if (o instanceof PyFunction) {
-                PyFunction func = (PyFunction) o;
-                if (func.getFuncName().getString().equals("solution")) {
-                    funcToCall = func;
-                }
-            }
-        }
-
-        if (funcToCall == null) {
+        if (!functionToCall.isPresent()) {
             throw new InterpreterException(InterpreterResult.noResultFailedResult());
         }
 
-        return funcToCall;
+        return functionToCall.get();
     }
 
     private Object makeFunctionCallAndGetResultValue(PyFunction solutionFunctionToCall, Challenge challenge, TestCase testCase) throws InterpreterException {

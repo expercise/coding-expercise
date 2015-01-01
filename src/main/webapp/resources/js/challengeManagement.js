@@ -114,7 +114,7 @@ kodility.ChallengeManagement = {
             if (currentInputsCount < inputValuesCount) {
                 inputValues.last().remove();
             } else if (currentInputsCount > inputValuesCount) {
-                var inputValueRow = '<input class="form-control" type="text" name="inputValue"/>'
+                var inputValueRow = '<input class="form-control" type="text" name="inputValue"/>';
                 $($tr.find('td')[0]).append(inputValueRow);
             }
         });
@@ -202,7 +202,7 @@ kodility.ChallengeManagement = {
             inputTypes: inputTypes,
             outputType: outputType,
             testCases: testCases
-        }
+        };
 
         var $approveCheckbox = $('input[name="approved"]');
         if ($approveCheckbox.length == 1) {

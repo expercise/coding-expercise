@@ -18,11 +18,11 @@ public class CookieUtils {
 
     public Optional<String> getCookieValue(String name) {
         return Optional.ofNullable(request.getCookies())
-                .map(cookies -> Arrays.asList(cookies))
+                .map(Arrays::asList)
                 .orElse(new ArrayList<>()).stream()
                 .filter(c -> c.getName().equals(name))
                 .findFirst()
-                .map(c -> c.getValue());
+                .map(Cookie::getValue);
     }
 
     public void setCookieValue(HttpServletResponse response, String name, String value, int maxAge) {

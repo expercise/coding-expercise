@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -25,7 +24,7 @@ import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.validation.Validator;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -110,9 +109,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     public AjaxRequestResponseBodyReturnValueHandler ajaxRequestResponseBodyReturnValueHandler() {
-        return new AjaxRequestResponseBodyReturnValueHandler(new ArrayList<HttpMessageConverter<?>>() {{
-            add(mappingJackson2HttpMessageConverter());
-        }});
+        return new AjaxRequestResponseBodyReturnValueHandler(Arrays.asList(mappingJackson2HttpMessageConverter()));
     }
 
     @Bean

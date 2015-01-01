@@ -35,12 +35,7 @@ public class MessagesForClientSideController {
                 .map(e -> String.format("\"%s\": \"%s\"", e.getKey(), e.getValue().replace("\"", "\\\"")))
                 .collect(Collectors.toList());
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("var messages = {\n\t");
-        stringBuilder.append(String.join(",\n\t", keyValuePairsAsList));
-        stringBuilder.append("\n};");
-
-        return stringBuilder.toString();
+        return "var messages = {\n\t" + String.join(",\n\t", keyValuePairsAsList) + "\n};";
     }
 
 }

@@ -5,10 +5,10 @@ import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.challenge.UserPoint;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
-import com.kodility.utils.DateUtils;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.UserBuilder;
 import com.kodility.utils.Clock;
+import com.kodility.utils.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -16,10 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

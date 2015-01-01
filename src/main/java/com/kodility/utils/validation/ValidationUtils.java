@@ -1,5 +1,6 @@
 package com.kodility.utils.validation;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class ValidationUtils {
 
     public static List<String> extractAllErrorCodes(BindingResult bindingResult) {
         return bindingResult.getAllErrors().stream()
-                .map(e -> e.getCode())
+                .map(DefaultMessageSourceResolvable::getCode)
                 .collect(Collectors.toList());
     }
 

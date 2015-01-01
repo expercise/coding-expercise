@@ -1,11 +1,10 @@
 package com.kodility.service.challenge.model;
 
 import com.kodility.domain.challenge.Challenge;
-import com.kodility.domain.level.Level;
 import com.kodility.domain.challenge.Solution;
+import com.kodility.domain.level.Level;
+import com.kodility.utils.NumberUtils;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class CurrentLevelModel {
@@ -42,12 +41,12 @@ public class CurrentLevelModel {
         this.challengeCountToNextLevel = challengeCountToNextLevel;
     }
 
-    public void setSolutions(List<Solution> solutions) {
-        this.solutions = solutions;
-    }
-
     public List<Solution> getSolutions() {
         return solutions;
+    }
+
+    public void setSolutions(List<Solution> solutions) {
+        this.solutions = solutions;
     }
 
     public boolean isLevelActive(Level levelToCompare) {
@@ -75,13 +74,12 @@ public class CurrentLevelModel {
         if (currentLevel == null) {
             return 0;
         }
-        int totalChallengesCount = currentLevel.getApprovedChallenges().size();
-        if (totalChallengesCount == 0) {
+        int totalChallengeCount = currentLevel.getApprovedChallenges().size();
+        if (totalChallengeCount == 0) {
             return 0;
         }
-        BigDecimal remainingChallengeCount = BigDecimal.valueOf(totalChallengesCount - challengeCountToNextLevel);
-        BigDecimal rawProgress = remainingChallengeCount.divide(BigDecimal.valueOf(totalChallengesCount), 2, RoundingMode.CEILING);
-        return rawProgress.multiply(BigDecimal.valueOf(100)).intValue();
+        int remainingChallengeCount = totalChallengeCount - challengeCountToNextLevel;
+        return NumberUtils.toPercentage(remainingChallengeCount, totalChallengeCount);
     }
 
 }

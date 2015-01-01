@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenService {
 
+    public static final int TOKEN_LENGTH = 32;
+
     @Autowired
     private TokenDao tokenDao;
 
@@ -35,7 +37,7 @@ public class TokenService {
         String generatedToken;
         Token foundToken;
         do {
-            generatedToken = RandomStringUtils.randomAlphabetic(32);
+            generatedToken = RandomStringUtils.randomAlphabetic(TOKEN_LENGTH);
             foundToken = tokenDao.findOneBy("token", generatedToken);
         }
         while (foundToken != null);

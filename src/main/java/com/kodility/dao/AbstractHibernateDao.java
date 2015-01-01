@@ -18,7 +18,7 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
     @Autowired
     private SessionFactory sessionFactory;
 
-    private Class klass;
+    private final Class klass;
 
     protected AbstractHibernateDao(Class klass) {
         this.klass = klass;

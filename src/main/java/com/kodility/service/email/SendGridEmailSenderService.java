@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 @Service
 public class SendGridEmailSenderService implements EmailSenderService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(SendGridEmailSenderService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendGridEmailSenderService.class);
 
     @Value("${sendGrid.username}")
     private String username;

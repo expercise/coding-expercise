@@ -5,15 +5,15 @@ import com.kodility.domain.challenge.Solution;
 import com.kodility.domain.user.User;
 import com.kodility.enums.ProgrammingLanguage;
 import com.kodility.interpreter.InterpreterResult;
-import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.challenge.SolutionCountService;
+import com.kodility.service.challenge.SolutionService;
 import com.kodility.service.challenge.model.ChallengeEvaluationContext;
 import com.kodility.service.user.AuthenticationService;
-import com.kodility.utils.DateUtils;
 import com.kodility.testutils.builder.ChallengeBuilder;
 import com.kodility.testutils.builder.SolutionBuilder;
 import com.kodility.testutils.builder.UserBuilder;
 import com.kodility.utils.Clock;
+import com.kodility.utils.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -21,13 +21,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SaveUserSolutionPostActionTest {

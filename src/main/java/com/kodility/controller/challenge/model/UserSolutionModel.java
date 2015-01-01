@@ -5,7 +5,7 @@ import com.kodility.utils.DateUtils;
 
 import java.io.Serializable;
 
-public class UserSolutionModel implements Serializable, Comparable<UserSolutionModel> {
+public class UserSolutionModel implements Serializable {
 
     private String programmingLanguage;
 
@@ -24,7 +24,6 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
         userSolutionModel.setLanguageShortName(solution.getProgrammingLanguage().getShortName());
         userSolutionModel.setSolution(solution.getSolution());
         userSolutionModel.setSolutionDate(DateUtils.formatDateTimeWithNamedMonth(solution.getCreateDate()));
-
         return userSolutionModel;
     }
 
@@ -58,11 +57,6 @@ public class UserSolutionModel implements Serializable, Comparable<UserSolutionM
 
     public void setLanguageShortName(String languageShortName) {
         this.languageShortName = languageShortName;
-    }
-
-    @Override
-    public int compareTo(UserSolutionModel other) {
-        return DateUtils.toDateTimeWithNamedMonth(other.getSolutionDate()).compareTo(DateUtils.toDateTimeWithNamedMonth(this.getSolutionDate()));
     }
 
 }

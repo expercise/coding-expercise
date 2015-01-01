@@ -7,7 +7,7 @@ import com.kodility.service.challenge.model.ChallengeEvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PrepareChallengeSolutionsPostAction implements PostEvaluationAction {
@@ -22,7 +22,7 @@ public class PrepareChallengeSolutionsPostAction implements PostEvaluationAction
 
     @Override
     public void execute(ChallengeEvaluationContext context) {
-        ArrayList<UserSolutionModel> userSolutionModels = solutionService.getUserSolutionModels(context.getChallenge());
+        List<UserSolutionModel> userSolutionModels = solutionService.getUserSolutionModels(context.getChallenge());
         context.getSolutionValidationResult().setUserSolutionModels(userSolutionModels);
     }
 

@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    public static final int PASSWORD_ENCODING_STRENGTH = 256;
+
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
     private UserDetailsService userDetailsService;
@@ -52,7 +54,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ShaPasswordEncoder shaPasswordEncoder() {
-        return new ShaPasswordEncoder(256);
+        return new ShaPasswordEncoder(PASSWORD_ENCODING_STRENGTH);
     }
 
 }

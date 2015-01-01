@@ -49,13 +49,13 @@ public class SolutionValidationService {
     }
 
     private void interpret(ChallengeEvaluationContext context) {
-        Interpreter interpreter = findInterpreterFor(context.getLanguage());
-        interpreter.interpret(context);
+        findInterpreterFor(context.getLanguage()).interpret(context);
     }
 
+    // TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
+    @SuppressWarnings("UnusedParameters")
     private Interpreter findInterpreterFor(ProgrammingLanguage programmingLanguage) {
-// TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
-//        String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
+        // String interpreterBeanName = Introspector.decapitalize(programmingLanguage.name()) + "Interpreter";
         String interpreterBeanName = Introspector.decapitalize(ProgrammingLanguage.JavaScript.name()) + "Interpreter";
         return (Interpreter) applicationContext.getBean(interpreterBeanName);
     }

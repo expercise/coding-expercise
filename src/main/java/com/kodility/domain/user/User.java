@@ -39,7 +39,7 @@ public class User extends AbstractEntity {
     private ProgrammingLanguage programmingLanguage;
 
     public String getFavoriteProgrammingLanguage() {
-        return Optional.ofNullable(programmingLanguage).map(p -> p.name()).orElse(StringUtils.EMPTY);
+        return Optional.ofNullable(programmingLanguage).map(Enum::name).orElse(StringUtils.EMPTY);
     }
 
     public Long getId() {

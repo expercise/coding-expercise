@@ -2,7 +2,7 @@ package com.kodility.service.challenge.model;
 
 import com.kodility.controller.challenge.model.UserSolutionModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SolutionValidationResult {
 
@@ -10,7 +10,7 @@ public class SolutionValidationResult {
 
     private boolean success;
 
-    private ArrayList<UserSolutionModel> userSolutionModels;
+    private List<UserSolutionModel> userSolutionModels;
 
     private SolutionValidationResult(String result, boolean success) {
         this.result = result;
@@ -37,11 +37,11 @@ public class SolutionValidationResult {
         this.success = success;
     }
 
-    public ArrayList<UserSolutionModel> getUserSolutionModels() {
+    public List<UserSolutionModel> getUserSolutionModels() {
         return userSolutionModels;
     }
 
-    public void setUserSolutionModels(ArrayList<UserSolutionModel> userSolutionModels) {
+    public void setUserSolutionModels(List<UserSolutionModel> userSolutionModels) {
         this.userSolutionModels = userSolutionModels;
     }
 

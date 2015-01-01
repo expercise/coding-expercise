@@ -43,7 +43,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"com.kodility.domain"});
+        sessionFactory.setPackagesToScan("com.kodility.domain");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
