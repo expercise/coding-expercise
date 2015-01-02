@@ -58,7 +58,7 @@ public class ThymeleafConfiguration {
 
     @Bean
     public ViewResolver viewResolver() {
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        ThymeleafViewResolver viewResolver = new CustomThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setOrder(1);
         viewResolver.setCharacterEncoding("UTF-8");
