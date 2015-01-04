@@ -1,4 +1,4 @@
-kodility.Password = {
+kodility.ForgottenPassword = {
 
     bindEvents: function () {
         $('.sendForgotEmailBtn').click(this.sendResetEmail);
@@ -6,7 +6,7 @@ kodility.Password = {
 
     sendResetEmail: function () {
         var emailVal = $('#email').val();
-        kodility.utils.post("forgotMyPassword/sendForgotMyPasswordEmail", {email: emailVal}, kodility.Password.responseCallback);
+        kodility.utils.post("forgotMyPassword/sendForgotMyPasswordEmail", {email: emailVal}, kodility.ForgottenPassword.responseCallback);
     },
 
     responseCallback: function (response) {
