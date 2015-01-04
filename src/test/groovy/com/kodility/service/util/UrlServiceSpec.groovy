@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class UrlServiceSpec extends Specification {
 
-    private UrlService service
+    UrlService service
 
     def setup() {
         service = new UrlService(rootUrl: "http://www.kodility.com")

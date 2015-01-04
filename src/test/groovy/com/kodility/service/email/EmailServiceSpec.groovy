@@ -1,4 +1,5 @@
 package com.kodility.service.email
+
 import com.kodility.service.email.model.Email
 import com.kodility.service.i18n.MessageService
 import spock.lang.Specification
@@ -8,9 +9,7 @@ class EmailServiceSpec extends Specification {
     EmailService service
 
     MessageService messageService = Mock();
-
     EmailTemplateProcessor emailTemplateProcessor = Mock();
-
     EmailSenderService emailSenderService = Mock();
 
     Email emailCaptor

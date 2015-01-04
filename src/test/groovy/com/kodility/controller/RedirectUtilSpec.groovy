@@ -9,6 +9,7 @@ class RedirectUtilSpec extends Specification {
     def "should redirect #path to #redirectedPath"() {
         expect:
         RedirectUtil.redirectTo(path).getViewName() == redirectedPath
+
         where:
         path               | redirectedPath
         "/"                | "redirect:/"

@@ -45,9 +45,9 @@ public class ForgotMyPasswordService {
 
     private Email prepareEmailFor(User user) {
         return new Email().setTo(user.getEmail())
-                    .setFrom(PASSWORD_SERVICE_EMAIL)
-                    .setSubjectKey("forgotmypassword.subject")
-                    .setTemplateName("forgotmypassword_email");
+                .setFrom(PASSWORD_SERVICE_EMAIL)
+                .setSubjectKey("forgotmypassword.subject")
+                .setTemplateName("forgotmypassword_email");
     }
 
     private Map<String, Object> prepareEmailParameters(User user, String resetUrl) {
@@ -60,4 +60,5 @@ public class ForgotMyPasswordService {
     public void deleteToken(String token) {
         tokenService.deleteToken(token, TokenType.FORGOT_MY_PASSWORD);
     }
+
 }

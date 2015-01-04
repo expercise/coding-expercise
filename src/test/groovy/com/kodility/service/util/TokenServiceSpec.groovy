@@ -1,4 +1,5 @@
 package com.kodility.service.util
+
 import com.kodility.dao.user.TokenDao
 import com.kodility.domain.token.Token
 import com.kodility.domain.token.TokenType
@@ -7,9 +8,9 @@ import spock.lang.Specification
 
 class TokenServiceSpec extends Specification {
 
-    private TokenDao tokenDao = Mock()
+    TokenService service
 
-    private TokenService service
+    TokenDao tokenDao = Mock()
 
     Token tokenCaptor
 
@@ -21,8 +22,10 @@ class TokenServiceSpec extends Specification {
         given:
         User user = new User(id: 1L, email: "user@kodility.com", firstName: "Ahmet", lastName: "Mehmet")
         tokenDao.findOneBy("token", _ as String) >> null
+
         when:
         String tokenValue = service.createTokenFor(user, TokenType.FORGOT_MY_PASSWORD)
+
         then:
         tokenValue.size() == 32
         1 * tokenDao.save({ tokenCaptor = it } as Token)
@@ -36,8 +39,10 @@ class TokenServiceSpec extends Specification {
         User user = new User(id: 1L, email: "user@kodility.com", firstName: "Ahmet", lastName: "Mehmet")
         tokenDao.findOneBy("user", user) >> null
         tokenDao.findOneBy("token", _ as String) >> null
+
         when:
         String tokenValue = service.createTokenFor(user, TokenType.FORGOT_MY_PASSWORD)
+
         then:
         0 * tokenDao.delete(_ as Token)
         tokenValue.size() == 32
@@ -50,13 +55,16 @@ class TokenServiceSpec extends Specification {
     def "should delete if user has a token before new token creation"() {
         given:
         User user = new User(id: 1L, email: "user@kodility.com", firstName: "Ahmet", lastName: "Mehmet")
-        Token token = new Token(id:2L, user: user, token: "123456")
+        Token token = new Token(id: 2L, user: user, token: "123456")
         tokenDao.findOneBy("user", user) >> token
         tokenDao.findOneBy("token", _ as String) >> null
+
         when:
         String tokenValue = service.createTokenFor(user, TokenType.FORGOT_MY_PASSWORD)
+
         then: "delete before new token creation"
         1 * tokenDao.delete(token)
+
         then: "create new token"
         tokenValue.size() == 32
         1 * tokenDao.save({ tokenCaptor = it } as Token)
@@ -69,8 +77,10 @@ class TokenServiceSpec extends Specification {
         given:
         def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
         1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+
         when:
         def foundToken = service.findBy("token_123", TokenType.FORGOT_MY_PASSWORD);
+
         then:
         foundToken == tokenFromDB
     }
@@ -79,17 +89,21 @@ class TokenServiceSpec extends Specification {
         given:
         def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
         1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+
         when:
         service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);
+
         then:
         1 * tokenDao.delete(tokenFromDB)
     }
 
     def "should not delete token if not available"() {
-        setup:
+        given:
         1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> null
+
         when:
         service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);
+
         then:
         0 * tokenDao.delete(_)
     }
