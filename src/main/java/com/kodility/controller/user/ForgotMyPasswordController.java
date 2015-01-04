@@ -66,7 +66,7 @@ public class ForgotMyPasswordController {
             return RedirectUtil.redirectHome();
         }
         processForValidToken(passwordResetModel, foundToken.getUser());
-        return RedirectUtil.redirectLoginFor("resetpasswordsuccess");
+        return RedirectUtil.redirectLoginFor("resetPasswordSuccess");
     }
 
     private void processForValidToken(PasswordResetModel passwordResetModel, User user) {

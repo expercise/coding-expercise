@@ -46,8 +46,8 @@ public class ForgotMyPasswordService {
     private Email prepareEmailFor(User user) {
         return new Email().setTo(user.getEmail())
                 .setFrom(PASSWORD_SERVICE_EMAIL)
-                .setSubjectKey("forgotmypassword.subject")
-                .setTemplateName("forgotmypassword_email");
+                .setSubjectKey("forgotMyPassword.subject")
+                .setTemplateName("forgotMyPasswordEmail");
     }
 
     private Map<String, Object> prepareEmailParameters(User user, String resetUrl) {

@@ -124,7 +124,7 @@ class ForgotMyPasswordControllerSpec extends Specification {
         ModelAndView mav = controller.resetPassword(passwordResetModel, bindingResult)
 
         then:
-        mav.getViewName() == "redirect:/login?resetpasswordsuccess"
+        mav.getViewName() == "redirect:/login?resetPasswordSuccess"
         1 * userService.saveUser({ it.password == "password123qwe" })
 
         then:

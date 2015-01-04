@@ -40,8 +40,8 @@ class ForgotMyPasswordServiceSpec extends Specification {
         1 * emailService.send({ emailCaptor = it } as Email, { paramCaptor = it } as Map)
         emailCaptor.to == "user@kodility.com"
         emailCaptor.from == "passwordservice@kodility.com"
-        emailCaptor.subjectKey == "forgotmypassword.subject"
-        emailCaptor.templateName == "forgotmypassword_email"
+        emailCaptor.subjectKey == "forgotMyPassword.subject"
+        emailCaptor.templateName == "forgotMyPasswordEmail"
 
         and: "verify email parameters"
         paramCaptor.user == user
