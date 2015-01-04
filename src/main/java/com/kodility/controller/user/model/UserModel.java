@@ -3,14 +3,13 @@ package com.kodility.controller.user.model;
 import com.kodility.domain.user.User;
 import com.kodility.enums.Lingo;
 import com.kodility.enums.ProgrammingLanguage;
-import com.kodility.utils.validation.PasswordMatch;
 import com.kodility.utils.validation.UniqueEmail;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-@PasswordMatch
 public class UserModel {
 
     @Size(min = 2, max = 15)
@@ -24,11 +23,8 @@ public class UserModel {
     @UniqueEmail
     private String email;
 
-    @Size(min = 6, max = 16)
-    private String password;
-
-    @Size(min = 6, max = 16)
-    private String passwordRetype;
+    @Valid
+    private PasswordModel passwordModel;
 
     private Lingo lingo = Lingo.Turkish;
 
@@ -58,20 +54,12 @@ public class UserModel {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public PasswordModel getPasswordModel() {
+        return passwordModel;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPasswordRetype() {
-        return passwordRetype;
-    }
-
-    public void setPasswordRetype(String passwordRetype) {
-        this.passwordRetype = passwordRetype;
+    public void setPasswordModel(PasswordModel passwordModel) {
+        this.passwordModel = passwordModel;
     }
 
     public Lingo getLingo() {
@@ -95,7 +83,7 @@ public class UserModel {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(getPasswordModel().getPassword());
         user.setProgrammingLanguage(programmingLanguage);
         user.setLingo(lingo);
         return user;

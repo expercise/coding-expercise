@@ -1,5 +1,6 @@
 package com.kodility.service.user
 
+import com.kodility.domain.token.Token
 import com.kodility.domain.token.TokenType
 import com.kodility.domain.user.User
 import com.kodility.service.email.EmailService
@@ -44,6 +45,28 @@ class ForgotMyPasswordServiceSpec extends Specification {
         and: "verify email parameters"
         paramCaptor.user == user
         paramCaptor.url == "http://www.kodility.com/forgotMyPassword/reset?token=token_123"
+    }
+
+    def "should check for valid token"() {
+        given:
+        def foundToken = new Token(id: 1L, tokenType: TokenType.FORGOT_MY_PASSWORD, token: "test_token")
+        1 * tokenService.findBy("test_token", TokenType.FORGOT_MY_PASSWORD) >> foundToken
+        expect:
+        service.validPasswordResetToken("test_token")
+    }
+
+    def "should return false if token does not exists"() {
+        given:
+        1 * tokenService.findBy("different_token", TokenType.FORGOT_MY_PASSWORD) >> null
+        expect:
+        !service.validPasswordResetToken("different_token")
+    }
+
+    def "should delete token"() {
+        when:
+        service.deleteToken("tokenToBeDeleted")
+        then:
+        1 * tokenService.deleteToken("tokenToBeDeleted", TokenType.FORGOT_MY_PASSWORD)
     }
 
 }

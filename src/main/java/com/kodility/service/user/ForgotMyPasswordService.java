@@ -1,5 +1,6 @@
 package com.kodility.service.user;
 
+import com.kodility.domain.token.Token;
 import com.kodility.domain.token.TokenType;
 import com.kodility.domain.user.User;
 import com.kodility.service.email.EmailService;
@@ -34,6 +35,14 @@ public class ForgotMyPasswordService {
         emailService.send(email, params);
     }
 
+    public boolean validPasswordResetToken(String token) {
+        return getForgotMyPasswordTokenFor(token) != null;
+    }
+
+    public Token getForgotMyPasswordTokenFor(String token) {
+        return tokenService.findBy(token, TokenType.FORGOT_MY_PASSWORD);
+    }
+
     private Email prepareEmailFor(User user) {
         return new Email().setTo(user.getEmail())
                     .setFrom(PASSWORD_SERVICE_EMAIL)
@@ -48,4 +57,7 @@ public class ForgotMyPasswordService {
         return params;
     }
 
+    public void deleteToken(String token) {
+        tokenService.deleteToken(token, TokenType.FORGOT_MY_PASSWORD);
+    }
 }

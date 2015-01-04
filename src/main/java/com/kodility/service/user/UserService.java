@@ -18,7 +18,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String hashedUserPassword = hashPassword(user.getPassword());
+        user.setPassword(hashedUserPassword);
         userDao.save(user);
     }
 
@@ -36,6 +37,10 @@ public class UserService {
 
     public List<User> findAll() {
         return userDao.findAll();
+    }
+
+    private String hashPassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
 }

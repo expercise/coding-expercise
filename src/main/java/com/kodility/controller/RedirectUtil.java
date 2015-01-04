@@ -8,19 +8,23 @@ public final class RedirectUtil {
     }
 
     public static ModelAndView redirectHome() {
-        return redirect("/");
+        return redirectTo("/");
     }
 
     public static ModelAndView redirectLoginForNewMember() {
-        return redirect("/login?newMember");
+        return redirectLoginFor("newMember");
+    }
+
+    public static ModelAndView redirectLoginFor(String purpose) {
+        return redirectTo("/login?" + purpose);
     }
 
     // TODO ufuk: create a 404 page
     public static ModelAndView redirect404() {
-        return redirect("/404");
+        return redirectTo("/404");
     }
 
-    private static ModelAndView redirect(String url) {
+    public static ModelAndView redirectTo(String url) {
         return new ModelAndView("redirect:" + url);
     }
 

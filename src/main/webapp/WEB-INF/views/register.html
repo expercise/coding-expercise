@@ -34,22 +34,22 @@
                     <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('password')} ? ' has-error' : '')">
+                <div th:class="'form-group' + (${#fields.hasErrors('passwordModel.password')} ? ' has-error' : '')">
                     <label for="password" class="col-xs-2 control-label" th:text="#{label.password}"></label>
 
                     <div class="col-xs-4">
-                        <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
+                        <input type="password" id="password" name="passwordModel.password" class="form-control" th:field="*{passwordModel.password}"/>
                     </div>
-                    <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    <span class="help-block" th:if="${#fields.hasErrors('passwordModel.password')}" th:errors="*{passwordModel.password}"></span>
                 </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('passwordRetype')} ? ' has-error' : '')">
+                <div th:class="'form-group' + (${#fields.hasErrors('passwordModel.passwordRetype')} ? ' has-error' : '')">
                     <label for="passwordRetype" class="col-xs-2 control-label" th:text="#{label.passwordRetype}"></label>
 
                     <div class="col-xs-4">
-                        <input type="password" id="passwordRetype" name="passwordRetype" class="form-control" th:field="*{passwordRetype}"/>
+                        <input type="password" id="passwordRetype" name="passwordModel.passwordRetype" class="form-control" th:field="*{passwordModel.passwordRetype}"/>
                     </div>
-                    <span class="help-block" th:if="${#fields.hasErrors('passwordRetype')}" th:errors="*{passwordRetype}"></span>
+                    <span class="help-block" th:if="${#fields.hasErrors('passwordModel.passwordRetype')}" th:text="${#fields.errors('passwordModel.passwordRetype')[0]}"></span>
                 </div>
 
                 <div th:class="'form-group'">

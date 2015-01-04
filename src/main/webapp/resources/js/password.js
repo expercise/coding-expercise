@@ -1,7 +1,7 @@
 kodility.Password = {
 
     bindEvents: function () {
-        $('.resetBtn').click(this.sendResetEmail);
+        $('.sendForgotEmailBtn').click(this.sendResetEmail);
     },
 
     sendResetEmail: function () {

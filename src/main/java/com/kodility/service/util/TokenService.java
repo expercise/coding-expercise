@@ -21,7 +21,7 @@ public class TokenService {
         Token token = new Token();
         token.setUser(user);
         token.setTokenType(tokenType);
-        token.setToken(generateUniqueToken());
+        token.setToken(generateUniqueTokenFor(tokenType));
         tokenDao.save(token);
         return token.getToken();
     }
@@ -33,15 +33,25 @@ public class TokenService {
         }
     }
 
-    private String generateUniqueToken() {
+    private String generateUniqueTokenFor(TokenType tokenType) {
         String generatedToken;
         Token foundToken;
         do {
             generatedToken = RandomStringUtils.randomAlphabetic(TOKEN_LENGTH);
-            foundToken = tokenDao.findOneBy("token", generatedToken);
+            foundToken = findBy(generatedToken, tokenType);
         }
         while (foundToken != null);
         return generatedToken;
     }
 
+    public Token findBy(String token, TokenType tokenType) {
+        return tokenDao.findToken(token, tokenType);
+    }
+
+    public void deleteToken(String token, TokenType tokenType) {
+        Token foundToken = findBy(token, tokenType);
+        if (foundToken != null) {
+            tokenDao.delete(foundToken);
+        }
+    }
 }

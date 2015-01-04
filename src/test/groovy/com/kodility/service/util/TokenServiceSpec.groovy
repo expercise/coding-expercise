@@ -65,4 +65,33 @@ class TokenServiceSpec extends Specification {
         tokenCaptor.user == user
     }
 
+    def "should get token by token and token type"() {
+        given:
+        def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
+        1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+        when:
+        def foundToken = service.findBy("token_123", TokenType.FORGOT_MY_PASSWORD);
+        then:
+        foundToken == tokenFromDB
+    }
+
+    def "should delete token if available"() {
+        given:
+        def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
+        1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+        when:
+        service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);
+        then:
+        1 * tokenDao.delete(tokenFromDB)
+    }
+
+    def "should not delete token if not available"() {
+        setup:
+        1 * tokenDao.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> null
+        when:
+        service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);
+        then:
+        0 * tokenDao.delete(_)
+    }
+
 }
