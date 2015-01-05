@@ -1,6 +1,5 @@
 package com.kodility.service.level;
 
-import com.kodility.AbstractDaoTest;
 import com.kodility.domain.challenge.Challenge;
 import com.kodility.domain.challenge.Solution;
 import com.kodility.domain.level.Level;
@@ -27,7 +26,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CurrentLevelHelperTest extends AbstractDaoTest {
+public class CurrentLevelHelperTest {
 
     @InjectMocks
     private CurrentLevelHelper helper;
