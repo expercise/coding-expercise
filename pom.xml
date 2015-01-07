@@ -226,7 +226,7 @@
         <!-- Myth -->
         <dependency>
             <groupId>com.ufukuzun</groupId>
-            <artifactId>myth</artifactId>
+            <artifactId>myth-dialect</artifactId>
             <version>${myth.version}</version>
         </dependency>
 
