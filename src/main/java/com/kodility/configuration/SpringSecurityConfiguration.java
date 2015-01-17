@@ -1,5 +1,7 @@
 package com.kodility.configuration;
 
+import com.kodility.service.user.UserRememberMeTokenRepository;
+import com.kodility.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebMvcSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    public static final int PASSWORD_ENCODING_STRENGTH = 256;
+    private static final int PASSWORD_ENCODING_STRENGTH = 256;
 
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
@@ -39,6 +41,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .permitAll();
 
+        http.rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(DateUtils.ONE_WEEK);
+
         http.logout()
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
@@ -46,8 +52,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 
+    @Bean
+    public UserRememberMeTokenRepository persistentTokenRepository() {
+        return new UserRememberMeTokenRepository();
+    }
+
     @Autowired
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(shaPasswordEncoder());
     }
