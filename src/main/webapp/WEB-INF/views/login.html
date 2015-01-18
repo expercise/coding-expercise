@@ -28,28 +28,30 @@
                     </div>
                 </div>
 
-                <div class="rememberMeContainer">
-                    <div class="checkbox">
-                        <label for="rememberMeCheckBox" class="control-label">
-                            <input id="rememberMeCheckBox" type="checkbox" name="remember-me" />
-                            <span th:text="#{login.rememberme}">Remember Me</span>
-                        </label>
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <div class="col-xs-offset-2 col-xs-4">
-                        <button type="submit" class="btn btn-primary" th:text="#{button.login}"></button>
-                        <a id="notRegisteredYetLink" class="pull-right" th:if="${#strings.isEmpty(param.logout) and #strings.isEmpty(param.newMember)}" th:href="@{/register}" th:text="#{login.notRegisteredYet}"></a>
+                        <div>
+                            <div class="loginButtonContainer">
+                                <button type="submit" class="btn btn-primary" th:text="#{button.login}"></button>
+                            </div>
+                            <div class="rememberMeContainer checkbox">
+                                <div>
+                                    <input id="rememberMeCheckBox" type="checkbox" name="remember-me"/>
+                                    <label for="rememberMeCheckBox" th:text="#{login.rememberMe}">Remember Me</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-xs-offset-2 col-xs-4">
+                <div class="form-group" th:if="${#strings.isEmpty(param.logout) and #strings.isEmpty(param.newMember)}">
+                    <div class="col-xs-offset-2 col-xs-6">
+                        <a id="notRegisteredYetLink" th:href="@{/register}" th:text="#{login.notRegisteredYet}"></a>
+                        <span>|</span>
                         <a id="forgotMyPassword" th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
