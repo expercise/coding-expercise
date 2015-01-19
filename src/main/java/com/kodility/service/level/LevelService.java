@@ -39,12 +39,32 @@ public class LevelService {
         return currentLevelHelper.prepareCurrentLevelModelFor(user, theme.getOrderedLevels());
     }
 
-    public void save(Level level) {
-        levelDao.save(level);
+    public void saveNewLevelOrUpdate(Level candidateLevel) {
+        if (candidateLevel.isPersisted()) {
+            Level originalLevel = mergeWithOriginalLevel(candidateLevel);
+            levelDao.save(originalLevel);
+        } else {
+            levelDao.save(candidateLevel);
+        }
+    }
+
+    private Level mergeWithOriginalLevel(Level candidateLevel) {
+        Level originalLevel = findById(candidateLevel.getId());
+        originalLevel.setNames(candidateLevel.getNames());
+        originalLevel.setPriority(candidateLevel.getPriority());
+        return originalLevel;
     }
 
     public void delete(Level level) {
         levelDao.delete(level);
+    }
+
+    public boolean isValidToSave(Integer priority, Long levelId) {
+        if (levelId != null) {
+            Level level = findById(levelId);
+            return level.getPriority() == priority;
+        }
+        return getByPriority(priority) == null;
     }
 
     public Level getByPriority(Integer priority) {

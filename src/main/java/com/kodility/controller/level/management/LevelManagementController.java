@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.kodility.controller.level.model.SaveLevelAjaxRequest.LevelModel;
+
 @Controller
 public class LevelManagementController extends BaseManagementController {
 
@@ -31,7 +33,7 @@ public class LevelManagementController extends BaseManagementController {
     public AjaxResponse saveLevel(@AjaxRequestBody(validate = true, targetName = "level") SaveLevelAjaxRequest ajaxRequest) {
         ModelAndView modelAndView;
         if (ajaxRequest.isModelValid()) {
-            levelService.save(ajaxRequest.getModel().toLevel());
+            levelService.saveNewLevelOrUpdate(ajaxRequest.getModel().toLevel());
             modelAndView = getModelAndView();
         } else {
             modelAndView = getModelAndView(ajaxRequest.getModel());
@@ -49,10 +51,10 @@ public class LevelManagementController extends BaseManagementController {
     }
 
     private ModelAndView getModelAndView() {
-        return getModelAndView(new SaveLevelAjaxRequest.LevelModel());
+        return getModelAndView(new LevelModel());
     }
 
-    private ModelAndView getModelAndView(SaveLevelAjaxRequest.LevelModel levelModel) {
+    private ModelAndView getModelAndView(LevelModel levelModel) {
         ModelAndView modelAndView = new ModelAndView("level/levelManagement");
         modelAndView.addObject("levels", levelService.getAllLevelsInOrder());
         modelAndView.addObject("level", levelModel);

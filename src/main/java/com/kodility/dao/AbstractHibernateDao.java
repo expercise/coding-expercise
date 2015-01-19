@@ -15,13 +15,12 @@ import java.util.Map;
 
 public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
+    private final Class clazz;
     @Autowired
     private SessionFactory sessionFactory;
 
-    private final Class klass;
-
-    protected AbstractHibernateDao(Class klass) {
-        this.klass = klass;
+    protected AbstractHibernateDao(Class clazz) {
+        this.clazz = clazz;
     }
 
     @Transactional
@@ -40,7 +39,7 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
     }
 
     public T findOne(final long id) {
-        return (T) getCurrentSession().get(klass, id);
+        return (T) getCurrentSession().get(clazz, id);
     }
 
     public T findOneBy(String propertyName, Object value) {
@@ -74,7 +73,12 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
     }
 
     protected long countBy(Map<String, Object> restrictions) {
-        return (long) getCriteria(restrictions).setProjection(Projections.rowCount()).uniqueResult();
+        return countBy(getCriteria(restrictions));
+    }
+
+    protected long countBy(Criteria criteria) {
+        Long result = (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+        return result != null ? result : 0;
     }
 
     protected long sumBy(String propertyName, Criteria criteria) {
@@ -84,7 +88,7 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
     }
 
     protected Criteria getCriteria() {
-        return getCurrentSession().createCriteria(klass);
+        return getCurrentSession().createCriteria(clazz);
     }
 
     protected Criteria getCriteria(Map<String, Object> restrictions) {

@@ -13,7 +13,10 @@ import java.util.Map;
 
 public class SaveLevelAjaxRequest extends AjaxRequest<SaveLevelAjaxRequest.LevelModel> {
 
+    @UniqueLevelPriority
     public static class LevelModel {
+
+        private Long levelId;
 
         @NotEmpty
         private String turkishName;
@@ -23,11 +26,12 @@ public class SaveLevelAjaxRequest extends AjaxRequest<SaveLevelAjaxRequest.Level
 
         @Range(min = 1, max = 100)
         @NotNull
-        @UniqueLevelPriority
         private Integer priority;
 
         public Level toLevel() {
             Level level = new Level();
+
+            level.setId(levelId);
 
             Map<Lingo, String> names = new HashMap<>();
             names.put(Lingo.Turkish, turkishName);
@@ -37,6 +41,14 @@ public class SaveLevelAjaxRequest extends AjaxRequest<SaveLevelAjaxRequest.Level
             level.setPriority(priority);
 
             return level;
+        }
+
+        public Long getLevelId() {
+            return levelId;
+        }
+
+        public void setLevelId(Long levelId) {
+            this.levelId = levelId;
         }
 
         public String getTurkishName() {

@@ -25,7 +25,10 @@
             <input type="number" class="form-control" th:field="*{priority}" name="priority" th:placeholder="#{levelManagement.priority.placeholder}"/>
         </div>
 
-        <button type="submit" class="btn btn-primary" th:text="#{button.create}"></button>
+        <input type="hidden" th:field="*{levelId}" />
+
+        <button type="submit" class="btn btn-primary" th:text="#{button.save}"></button>
+        <button id="resetButton" type="button" class="btn btn-default" th:text="#{button.reset}"></button>
     </form>
 
     <hr/>
@@ -36,7 +39,7 @@
                 <th th:text="#{label.priority}"></th>
                 <th th:text="#{Turkish}"></th>
                 <th th:text="#{English}"></th>
-                <th></th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody id="levelsTableBody">
@@ -45,6 +48,9 @@
                 <td th:text="${level.turkishName}"></td>
                 <td th:text="${level.englishName}"></td>
                 <td>
+                    <a href="#saveLevelForm" class="updateButton" th:text="#{button.update}" th:attr="data-level-id=${level.id}">Update</a>
+                </td>
+                <td>
                     <a href="#" th:text="#{button.delete}"
                        myth:update="[[levelsTableBody>>${'level_' + level.id}]]"
                        myth:url="@{/manage/levels/delete/__${level.id}__}">Delete</a>
@@ -52,5 +58,7 @@
             </tr>
         </tbody>
     </table>
+
+    <input id="javaScriptModules" type="hidden" value="LevelManagement"/>
 </body>
 </html>

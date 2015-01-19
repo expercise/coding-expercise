@@ -28,6 +28,8 @@
         <thymeleaf.extras.springsecurity.version>2.1.1.RELEASE</thymeleaf.extras.springsecurity.version>
         <thymeleaf.dialects.layout.version>1.2.5</thymeleaf.dialects.layout.version>
         <myth.version>1.0.0-SNAPSHOT</myth.version>
+        <jsoup.version>1.8.1</jsoup.version>
+
         <jython.version>2.5.3</jython.version>
         <jackson.mapper.version>2.4.1</jackson.mapper.version>
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
@@ -235,6 +237,13 @@
             <artifactId>myth-resources</artifactId>
             <version>${myth.version}</version>
             <type>war</type>
+        </dependency>
+
+        <!-- jsoup for Myth -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
         <!-- Python Interpreter -->
@@ -479,6 +488,7 @@
                                 <include>/locale.js</include>
                                 <include>/codeEditor.js</include>
                                 <include>/challengeManagement.js</include>
+                                <include>/levelManagement.js</include>
                                 <include>/forgottenPassword.js</include>
                                 <include>/bootstrapper.js</include>
                             </includes>
