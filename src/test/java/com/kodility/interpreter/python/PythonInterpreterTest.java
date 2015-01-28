@@ -7,7 +7,7 @@ import com.kodility.domain.challenge.TestCaseInputValue;
 import com.kodility.enums.DataType;
 import com.kodility.interpreter.InterpreterFailureType;
 import com.kodility.service.challenge.model.ChallengeEvaluationContext;
-import com.kodility.testutils.InterpreterTestUtils;
+import com.kodility.testutils.FileTestUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -42,7 +42,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluatePythonCodeWithSingleTestCaseForSuccessfulCase() {
-        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
+        String sumSolution = FileTestUtils.getFileContentFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
@@ -73,7 +73,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluatePythonCodeFromImportedModule() {
-        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simpleImport.py");
+        String sumSolution = FileTestUtils.getFileContentFrom("/pythonTestSourceCodes/simpleImport.py");
 
         Challenge challenge = new Challenge();
 
@@ -102,7 +102,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluateMultipleTestCaseWithPythonSourceCodeForSuccessfulCase() {
-        String sumSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
+        String sumSolution = FileTestUtils.getFileContentFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
@@ -142,7 +142,7 @@ public class PythonInterpreterTest {
 
     @Test
     public void shouldEvaluateCodeForConcatenationCodeOfStringInputs() {
-        String concatSolution = InterpreterTestUtils.getSourceFrom("/pythonTestSourceCodes/simplePlus.py");
+        String concatSolution = FileTestUtils.getFileContentFrom("/pythonTestSourceCodes/simplePlus.py");
 
         Challenge challenge = new Challenge();
 
