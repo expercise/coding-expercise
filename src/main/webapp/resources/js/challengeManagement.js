@@ -1,4 +1,4 @@
-kodility.ChallengeManagement = {
+expercise.ChallengeManagement = {
 
     challengeModel: {},
 
@@ -22,7 +22,7 @@ kodility.ChallengeManagement = {
         $saveButton.click(this.saveChallenge);
 
         $('#manageChallengeButtons').scrollToFixed({
-            marginTop: kodility.Header.marginTopForScrollFixedElement($saveButton)
+            marginTop: expercise.Header.marginTopForScrollFixedElement($saveButton)
         });
     },
 
@@ -48,7 +48,7 @@ kodility.ChallengeManagement = {
         var $inputsTableBody = $('#inputsTable > tbody');
         $inputsTableBody.find('tr').remove();
         challengeModel.inputTypes.forEach(function (inputType) {
-            kodility.ChallengeManagement.addNewInputAction();
+            expercise.ChallengeManagement.addNewInputAction();
             $inputsTableBody.find('tr:last').find('select > option[value=' + inputType + ']').attr('selected', 'selected');
         });
 
@@ -57,7 +57,7 @@ kodility.ChallengeManagement = {
         var $testCasesTableBody = $('#testCasesTable').find('tbody');
         $testCasesTableBody.find('tr').remove();
         challengeModel.testCases.forEach(function () {
-            kodility.ChallengeManagement.addNewTestCaseAction();
+            expercise.ChallengeManagement.addNewTestCaseAction();
         });
         var $testCaseRows = $testCasesTableBody.find('tr');
         for (var testCaseIndex = 0; testCaseIndex < challengeModel.testCases.length; testCaseIndex++) {
@@ -81,7 +81,7 @@ kodility.ChallengeManagement = {
     removeInputAction: function () {
         $(this).parents('tr').remove();
 
-        kodility.ChallengeManagement.adjustInputValues();
+        expercise.ChallengeManagement.adjustInputValues();
     },
 
     addNewInputAction: function () {
@@ -89,18 +89,18 @@ kodility.ChallengeManagement = {
             + '<tr>'
             + '   <td>'
             + '       <select name="inputType">'
-            + '           <option value="Integer">' + kodility.utils.i18n('Integer') + '</option>'
-            + '           <option value="Text">' + kodility.utils.i18n('Text') + '</option>'
+            + '           <option value="Integer">' + expercise.utils.i18n('Integer') + '</option>'
+            + '           <option value="Text">' + expercise.utils.i18n('Text') + '</option>'
             + '       </select>'
             + '   </td>'
             + '   <td>'
-            + '       <a class="removeInput">' + kodility.utils.i18n('button.remove') + '</a>'
+            + '       <a class="removeInput">' + expercise.utils.i18n('button.remove') + '</a>'
             + '   </td>'
             + '</tr>';
 
         $('#inputsTable > tbody').append($(inputRow));
 
-        kodility.ChallengeManagement.adjustInputValues();
+        expercise.ChallengeManagement.adjustInputValues();
     },
 
     adjustInputValues: function () {
@@ -141,7 +141,7 @@ kodility.ChallengeManagement = {
             + '         <input class="form-control" type="text" name="outputValue"/>'
             + '     </td>'
             + '     <td>'
-            + '         <a class="removeTestCase">' + kodility.utils.i18n('button.remove') + '</a>'
+            + '         <a class="removeTestCase">' + expercise.utils.i18n('button.remove') + '</a>'
             + '     </td>'
             + '</tr>';
 
@@ -196,7 +196,7 @@ kodility.ChallengeManagement = {
         });
 
         var requestData = {
-            challengeId: kodility.ChallengeManagement.challengeModel.challengeId,
+            challengeId: expercise.ChallengeManagement.challengeModel.challengeId,
             titles: titles,
             descriptions: descriptions,
             inputTypes: inputTypes,
@@ -214,15 +214,15 @@ kodility.ChallengeManagement = {
             requestData.level = $levelSelection.val();
         }
 
-        var loadingStateConfig = kodility.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});
-        kodility.utils.resetHash();
-        kodility.utils.post(
+        var loadingStateConfig = expercise.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});
+        expercise.utils.resetHash();
+        expercise.utils.post(
             'challenges/saveChallenge',
             requestData,
             function (response) {
-                kodility.utils.resetLoadingState(loadingStateConfig);
+                expercise.utils.resetLoadingState(loadingStateConfig);
                 if (response.success) {
-                    kodility.utils.go(kodility.utils.urlFor('challenges/' + response.challengeId));
+                    expercise.utils.go(expercise.utils.urlFor('challenges/' + response.challengeId));
                 } else {
                     var $validationMessages = $('#validationMessages');
                     $validationMessages.removeClass('hide');
@@ -230,7 +230,7 @@ kodility.ChallengeManagement = {
                     var $messageList = $validationMessages.find('ul');
                     $messageList.find('li').remove();
                     response.errorCodes.forEach(function (errorCode) {
-                        $messageList.append('<li>' + kodility.utils.i18n(errorCode) + '</li>');
+                        $messageList.append('<li>' + expercise.utils.i18n(errorCode) + '</li>');
                     });
 
                     location.hash = '#header';

@@ -1,8 +1,8 @@
 var coreModules = [
-    kodility,
-    kodility.utils,
-    kodility.Header,
-    kodility.Locale
+    expercise,
+    expercise.utils,
+    expercise.Header,
+    expercise.Locale
 ];
 
 $(function () {
@@ -21,7 +21,7 @@ function initPageSpecificModules() {
     if ($moduleNamesHolder.length) {
         var pageSpecificModules = $moduleNamesHolder.val().split(" ");
         pageSpecificModules.forEach(function (eachModule) {
-            initModule(kodility[eachModule]);
+            initModule(expercise[eachModule]);
         });
     }
 }

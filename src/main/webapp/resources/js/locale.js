@@ -1,8 +1,8 @@
-kodility.Locale = {
+expercise.Locale = {
 
     bindEvents: function () {
         $('#lingoSelection').find('a').click(function () {
-            kodility.CodeEditor.resetMode();
+            expercise.CodeEditor.resetMode();
         });
     }
 

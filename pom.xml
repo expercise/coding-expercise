@@ -3,11 +3,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.kodility</groupId>
-    <artifactId>kodility</artifactId>
+    <groupId>com.expercise</groupId>
+    <artifactId>expercise</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>Kodility</name>
+    <name>Expercise</name>
 
     <properties>
         <!-- Dependencies -->
@@ -326,7 +326,7 @@
     </dependencies>
 
     <build>
-        <finalName>kodility</finalName>
+        <finalName>expercise</finalName>
         <plugins>
             <!-- Surefire plugin with configuration for spock -->
             <plugin>
@@ -428,9 +428,9 @@
                     <compress>true</compress>
                     <force>true</force>
                     <includes>
-                        <include>kodility.less</include>
+                        <include>expercise.less</include>
                     </includes>
-                    <outputFileFormat>kodility.min.css</outputFileFormat>
+                    <outputFileFormat>expercise.min.css</outputFileFormat>
                 </configuration>
             </plugin>
 
@@ -454,7 +454,7 @@
                                 <include>/bootstrap/bootstrap-theme.min.css</include>
                                 <include>/codemirror/codemirror.css</include>
                                 <include>/codemirror/theme/ambiance.css</include>
-                                <include>/kodility.min.css</include>
+                                <include>/expercise.min.css</include>
                             </includes>
                             <output>
                                 ${project.build.directory}/${project.build.finalName}/resources/style/compressed/compressed-${build.id}.css
@@ -481,7 +481,7 @@
                                 <include>/codemirror/mode/javascript.js</include>
                                 <include>/codemirror/mode/python.js</include>
                                 <include>/codemirror/mode/clike.js</include>
-                                <include>/kodility.js</include>
+                                <include>/expercise.js</include>
                                 <include>/utils.js</include>
                                 <include>/header.js</include>
                                 <include>/challenge.js</include>

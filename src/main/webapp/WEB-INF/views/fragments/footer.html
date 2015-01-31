@@ -3,8 +3,8 @@
 <body>
     <div id="footer" th:fragment="footer">
         <p class="text-muted">
-            <span>© Kodility 2014 | </span>
-            <a href="https://github.com/orgs/kodility/people" target="_blank" th:text="#{footer.credit}">Kodility Team</a>
+            <span>© Expercise 2014 | </span>
+            <a href="https://github.com/orgs/expercise/people" target="_blank" th:text="#{footer.credit}">Expercise Team</a>
         </p>
 
         <input id="contextPath" type="hidden" th:value="@{/}"/>
@@ -29,7 +29,7 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/python.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/clike.js}"></script>
 
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/kodility.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/expercise.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/utils.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/header.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>

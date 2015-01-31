@@ -1,4 +1,4 @@
-kodility.Challenge = {
+expercise.Challenge = {
 
     solutionSignatures: {},
 
@@ -12,30 +12,30 @@ kodility.Challenge = {
     bindEvents: function () {
         var $challengeButtons = $('#challengeButtons');
         $challengeButtons.scrollToFixed({
-            marginTop: kodility.Header.marginTopForScrollFixedElement($challengeButtons)
+            marginTop: expercise.Header.marginTopForScrollFixedElement($challengeButtons)
         });
 
         $('#runButton').click(function () {
             var $runButton = $(this);
 
             var requestData = {
-                solution: kodility.CodeEditor.getSolution(),
+                solution: expercise.CodeEditor.getSolution(),
                 language: $('#languageSelection').val(),
                 challengeId: $('#challengeId').val()
             };
 
-            var loadingStateConfig = kodility.utils.setLoadingState({element: $runButton, icon: 'refresh'});
-            kodility.utils.post(
+            var loadingStateConfig = expercise.utils.setLoadingState({element: $runButton, icon: 'refresh'});
+            expercise.utils.post(
                 'challenges/eval',
                 requestData,
                 function (response) {
-                    kodility.utils.resetLoadingState(loadingStateConfig);
-                    kodility.Challenge.resetConsole();
+                    expercise.utils.resetLoadingState(loadingStateConfig);
+                    expercise.Challenge.resetConsole();
                     var $resultsTextarea = $('#resultsTextarea');
                     $resultsTextarea.val(response.result);
                     if (response.success) {
                         $resultsTextarea.addClass('successResult');
-                        kodility.Challenge.populateUserSolutionTable(response.userSolutionModels);
+                        expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
                     } else {
                         $resultsTextarea.addClass('failedResult');
                     }
@@ -45,15 +45,15 @@ kodility.Challenge = {
 
         $('#resetButton').click(function () {
             bootbox.dialog({
-                message: kodility.utils.i18n('challenge.reset.dialog.confirm'),
-                title: kodility.utils.i18n('challenge.reset.dialog.header'),
+                message: expercise.utils.i18n('challenge.reset.dialog.confirm'),
+                title: expercise.utils.i18n('challenge.reset.dialog.header'),
                 buttons: {
                     no: {
-                        label: kodility.utils.i18n('button.no')
+                        label: expercise.utils.i18n('button.no')
                     },
                     yes: {
-                        label: kodility.utils.i18n('button.yes'),
-                        callback: kodility.Challenge.reset
+                        label: expercise.utils.i18n('button.yes'),
+                        callback: expercise.Challenge.reset
                     }
                 }
             });
@@ -63,15 +63,15 @@ kodility.Challenge = {
     },
 
     reset: function () {
-        kodility.Challenge.adjustProgrammingLanguage();
-        kodility.Challenge.resetConsole();
+        expercise.Challenge.adjustProgrammingLanguage();
+        expercise.Challenge.resetConsole();
     },
 
     populateUserSolutionTable: function (userSolutionModels) {
         var $userSolutionsTable = $('.userSolutionsTable');
         if (userSolutionModels.length == 0) {
             $userSolutionsTable.hide();
-            var noContent = $('<p id="noPreviousSolution"></p>').text(kodility.utils.i18n('challenge.noPreviousSolution'));
+            var noContent = $('<p id="noPreviousSolution"></p>').text(expercise.utils.i18n('challenge.noPreviousSolution'));
             noContent.insertAfter($userSolutionsTable);
             return;
         }
@@ -86,7 +86,7 @@ kodility.Challenge = {
                 .data('langName', value['languageShortName'])
                 .click(function (e) {
                     var clickedLanguage = $(this).data('langName');
-                    kodility.Challenge.changeProgrammingLanguage(clickedLanguage, value['solution']);
+                    expercise.Challenge.changeProgrammingLanguage(clickedLanguage, value['solution']);
                     $('#languageSelection').val(clickedLanguage);
                     e.preventDefault();
                 })
@@ -103,13 +103,13 @@ kodility.Challenge = {
 
     adjustProgrammingLanguage: function () {
         var selectedLanguage = $('#languageSelection').val();
-        kodility.Challenge.changeProgrammingLanguage(selectedLanguage, kodility.Challenge.solutionSignatures[selectedLanguage]);
+        expercise.Challenge.changeProgrammingLanguage(selectedLanguage, expercise.Challenge.solutionSignatures[selectedLanguage]);
     },
 
     changeProgrammingLanguage: function (langName, solution) {
-        kodility.Challenge.resetConsole();
-        kodility.CodeEditor.setSolution(solution);
-        kodility.CodeEditor.changeMode(langName);
+        expercise.Challenge.resetConsole();
+        expercise.CodeEditor.setSolution(solution);
+        expercise.CodeEditor.changeMode(langName);
     },
 
     resetConsole: function () {

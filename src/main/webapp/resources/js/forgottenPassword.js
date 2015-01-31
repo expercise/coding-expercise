@@ -1,4 +1,4 @@
-kodility.ForgottenPassword = {
+expercise.ForgottenPassword = {
 
     bindEvents: function () {
         $('.sendForgotEmailBtn').click(this.sendResetEmail);
@@ -6,7 +6,7 @@ kodility.ForgottenPassword = {
 
     sendResetEmail: function () {
         var emailVal = $('#email').val();
-        kodility.utils.post("forgotMyPassword/sendForgotMyPasswordEmail", {email: emailVal}, kodility.ForgottenPassword.responseCallback);
+        expercise.utils.post("forgotMyPassword/sendForgotMyPasswordEmail", {email: emailVal}, expercise.ForgottenPassword.responseCallback);
     },
 
     responseCallback: function (response) {
@@ -19,7 +19,7 @@ kodility.ForgottenPassword = {
         } else {
             resultContainer.addClass('alert-danger');
         }
-        var message = kodility.utils.i18n(response['messageKey']);
+        var message = expercise.utils.i18n(response['messageKey']);
         resultContainer.find('.forgotMyPasswordResultMessage').text(message);
     }
 

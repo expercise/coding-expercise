@@ -5,9 +5,9 @@
 
     <meta name="content-type" content="text/html; charset=utf-8"/>
     <meta name="content-language" content="en, tr"/>
-    <meta name="description" content="Kodility.com; programming challenges for champion developers!"/>
+    <meta name="description" content="Expercise.com; programming challenges for champion developers!"/>
     <meta name="author" content="Ufuk Uzun, Batuhan Bayrakçı"/>
-    <meta name="keywords" content="codility, kodility, challenge, programming, java, javascript, python, development"/>
+    <meta name="keywords" content="expercise, challenge, programming, java, javascript, python, development"/>
 
     <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}"/>
 
@@ -18,7 +18,7 @@
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/codemirror.css}" rel="stylesheet"/>
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/theme/ambiance.css}" rel="stylesheet"/>
 
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/kodility.less}" rel="stylesheet/less"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
 
     <!-- If only environment is not 'development' -->
     <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>

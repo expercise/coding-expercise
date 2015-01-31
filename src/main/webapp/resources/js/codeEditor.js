@@ -1,4 +1,4 @@
-kodility.CodeEditor = {
+expercise.CodeEditor = {
 
     codeEditor: null,
 
@@ -12,10 +12,10 @@ kodility.CodeEditor = {
 
     bindEvents: function () {
         $('#themeButton').click(function () {
-            kodility.CodeEditor.toggleTheme();
+            expercise.CodeEditor.toggleTheme();
         });
         $('#fullScreenButton').click(function () {
-            kodility.CodeEditor.codeEditor.focus();
+            expercise.CodeEditor.codeEditor.focus();
             $('.CodeMirror').fullscreen();
         });
     },

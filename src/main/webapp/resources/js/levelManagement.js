@@ -1,4 +1,4 @@
-kodility.LevelManagement = {
+expercise.LevelManagement = {
 
     bindEvents: function () {
         $(document).on('click', '.updateButton', this.setUpdatingLevelContentToForm);

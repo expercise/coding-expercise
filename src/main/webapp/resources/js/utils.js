@@ -1,4 +1,4 @@
-kodility.utils = {
+expercise.utils = {
 
     urlFor: function (uri) {
         return $('#contextPath').val() + uri;
@@ -15,7 +15,7 @@ kodility.utils = {
     post: function (url, data, success) {
         $.ajax({
             type: 'POST', dataType: 'json', contentType: 'application/json; charset=utf-8',
-            url: kodility.utils.urlFor(url),
+            url: expercise.utils.urlFor(url),
             data: JSON.stringify(data),
             success: success
         });

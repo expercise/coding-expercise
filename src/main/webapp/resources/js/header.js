@@ -1,4 +1,4 @@
-kodility.Header = {
+expercise.Header = {
 
     bindEvents: function () {
         $('#header').scrollToFixed({
