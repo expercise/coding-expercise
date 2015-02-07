@@ -42,7 +42,7 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
 
         <!-- If only environment is not 'development' -->
-        <script th:if="${not developmentEnvironment}" type="text/javascript" th:src="@{'/resources/js/compressed/compressed-' + __${buildId}__ + '.js'}" defer="defer"></script>
+        <script th:if="${not developmentEnvironment}" type="text/javascript" th:src="@{'/resources/js/compressed-' + __${buildId}__ + '.js'}" defer="defer"></script>
     </div>
 </body>
 </html>

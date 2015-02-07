@@ -457,7 +457,7 @@
                                 <include>/expercise.min.css</include>
                             </includes>
                             <output>
-                                ${project.build.directory}/${project.build.finalName}/resources/style/compressed/compressed-${build.id}.css
+                                ${project.build.directory}/${project.build.finalName}/resources/style/compressed-${build.id}.css
                             </output>
                         </configuration>
                     </execution>
@@ -493,7 +493,7 @@
                                 <include>/bootstrapper.js</include>
                             </includes>
                             <output>
-                                ${project.build.directory}/${project.build.finalName}/resources/js/compressed/compressed-${build.id}.js
+                                ${project.build.directory}/${project.build.finalName}/resources/js/compressed-${build.id}.js
                             </output>
                         </configuration>
                     </execution>

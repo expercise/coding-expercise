@@ -21,7 +21,7 @@
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
 
     <!-- If only environment is not 'development' -->
-    <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
+    <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
 
     <script th:unless="${#strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
 </head>
