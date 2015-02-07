@@ -450,10 +450,10 @@
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
                             <includes>
-                                <include>/bootstrap/bootstrap.min.css</include>
-                                <include>/bootstrap/bootstrap-theme.min.css</include>
-                                <include>/codemirror/codemirror.css</include>
-                                <include>/codemirror/theme/ambiance.css</include>
+                                <include>/bootstrap.min.css</include>
+                                <include>/bootstrap-theme.min.css</include>
+                                <include>/codemirror.css</include>
+                                <include>/ambiance.css</include>
                                 <include>/expercise.min.css</include>
                             </includes>
                             <output>

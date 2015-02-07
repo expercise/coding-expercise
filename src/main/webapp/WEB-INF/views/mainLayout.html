@@ -11,16 +11,14 @@
 
     <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}"/>
 
-    <!-- If only environment is 'development' -->
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap/bootstrap-theme.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap-theme.min.css}" rel="stylesheet"/>
 
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/codemirror.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror/theme/ambiance.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/ambiance.css}" rel="stylesheet"/>
 
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
 
-    <!-- If only environment is not 'development' -->
     <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
 
     <script th:unless="${#strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
