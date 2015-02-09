@@ -27,7 +27,7 @@ public class Challenge extends AbstractEntity {
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "Lingo", nullable = false)
-    @Column(name = "Description", nullable = false)
+    @Column(name = "Description", nullable = false, length = 2048)
     private Map<Lingo, String> descriptions = new HashMap<>();
 
     @OneToMany(mappedBy = "challenge", orphanRemoval = true, cascade = CascadeType.ALL)
