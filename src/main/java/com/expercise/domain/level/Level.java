@@ -60,6 +60,15 @@ public class Level extends PrioritizedEntity {
         return getNameFor(lingo);
     }
 
+    public String getNameForChallengeManagement(String lingoShortName) {
+        Lingo lingo = Lingo.getLingo(lingoShortName).get();
+        String levelName = getNameFor(lingo);
+        if (theme != null) {
+            levelName = theme.getNameFor(lingoShortName) + " - " + levelName;
+        }
+        return levelName;
+    }
+
     private String getNameFor(Lingo lingo) {
         return names.get(lingo);
     }

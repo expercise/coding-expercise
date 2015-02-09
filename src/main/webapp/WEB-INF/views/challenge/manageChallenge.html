@@ -149,7 +149,7 @@
 
             <select name="level">
                 <option value="" th:text="#{label.select}"></option>
-                <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.getNameFor(#locale)}"></option>
+                <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.getNameForChallengeManagement(#locale)}"></option>
             </select>
         </div>
     </div>
