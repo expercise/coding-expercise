@@ -34,7 +34,7 @@
 
             <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
                 <h4 th:text="${#messages.msg(lingo.name())}"></h4>
-                <textarea class="form-control description" name="description" rows="4"></textarea>
+                <textarea class="form-control description" name="description" rows="12"></textarea>
             </div>
         </div>
     </div>
