@@ -59,7 +59,7 @@
                 <option disabled="disabled">Python</option>
                 <option disabled="disabled">Java</option>
             </select>
-            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right"></span>
+            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right" th:unless="${mobileClient}"></span>
             <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
         </div>
     </div>

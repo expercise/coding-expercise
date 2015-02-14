@@ -8,6 +8,7 @@
         </p>
 
         <input id="contextPath" type="hidden" th:value="@{/}"/>
+        <input id="mobileClient" type="hidden" th:value="${mobileClient}"/>
 
         <script type="text/javascript" th:src="@{'/generatedResources/js/messages_' + __${#locale}__ + '-' + ${buildId} + '.js'}" defer="defer"></script>
 

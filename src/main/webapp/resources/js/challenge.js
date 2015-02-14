@@ -11,7 +11,7 @@ expercise.Challenge = {
 
     bindEvents: function () {
         var $challengeButtons = $('#challengeButtons');
-        $challengeButtons.scrollToFixed({
+        expercise.utils.scrollToFixed($challengeButtons, {
             marginTop: expercise.Header.marginTopForScrollFixedElement($challengeButtons)
         });
 

@@ -37,6 +37,18 @@ expercise.utils = {
         config.element.removeClass('disabled');
         config.element.removeClass('glyphicon glyphicon-' + config.icon);
         config.element.text(config.oldText);
+    },
+
+    isMobileClient: function () {
+        return $('#mobileClient').val() == "true";
+    },
+
+    scrollToFixed: function ($element, config) {
+        if (expercise.utils.isMobileClient()) {
+            return;
+        }
+
+        $element.scrollToFixed(config);
     }
 
 };

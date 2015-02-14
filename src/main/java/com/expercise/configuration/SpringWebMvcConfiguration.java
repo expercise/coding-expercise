@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -74,9 +75,19 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public DeviceResolverHandlerInterceptor deviceResolverHandlerInterceptor() {
+        return new DeviceResolverHandlerInterceptor();
+    }
+
+    @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-        handlerMapping.setInterceptors(new Object[]{setLocaleInterceptor(), commonViewParamsInterceptor(), generatedResourcesCachingInterceptor()});
+        handlerMapping.setInterceptors(new Object[]{
+                setLocaleInterceptor(),
+                deviceResolverHandlerInterceptor(),
+                commonViewParamsInterceptor(),
+                generatedResourcesCachingInterceptor()
+        });
         return handlerMapping;
     }
 

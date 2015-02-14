@@ -1,7 +1,7 @@
 expercise.Header = {
 
     bindEvents: function () {
-        $('#header').scrollToFixed({
+        expercise.utils.scrollToFixed($('#header'), {
             zIndex: 1025,
             dontSetWidth: true,
             marginTop: 0

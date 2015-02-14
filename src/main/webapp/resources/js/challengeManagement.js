@@ -21,7 +21,7 @@ expercise.ChallengeManagement = {
         var $saveButton = $('#saveButton');
         $saveButton.click(this.saveChallenge);
 
-        $('#manageChallengeButtons').scrollToFixed({
+        expercise.utils.scrollToFixed($('#manageChallengeButtons'), {
             marginTop: expercise.Header.marginTopForScrollFixedElement($saveButton)
         });
     },

@@ -5,11 +5,14 @@ import com.expercise.service.user.AuthenticationService;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -34,9 +37,17 @@ public class CommonViewParamsInterceptorTest {
     @Mock
     private AuthenticationService authenticationService;
 
+    @Mock
+    private Device device;
+
     private HttpServletRequest request = new MockHttpServletRequest();
 
     private HttpServletResponse response = new MockHttpServletResponse();
+
+    @Before
+    public void before() {
+        request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, device);
+    }
 
     @Test
     public void shouldAddGoogleAnalyticsScript() {
@@ -86,6 +97,37 @@ public class CommonViewParamsInterceptorTest {
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("currentUsersEmail", (Object) "user@expercise.com"));
+    }
+
+    @Test
+    public void shouldSetTrueAsMobileClientIfDeviceIsMobile() {
+        when(device.isMobile()).thenReturn(true);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        interceptor.postHandle(request, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("mobileClient", (Object) true));
+    }
+
+    @Test
+    public void shouldSetTrueAsMobileClientIfDeviceIsTablet() {
+        when(device.isTablet()).thenReturn(true);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        interceptor.postHandle(request, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("mobileClient", (Object) true));
+    }
+
+    @Test
+    public void shouldSetFalseAsMobileClientIfDeviceIsNormal() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        interceptor.postHandle(request, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("mobileClient", (Object) false));
     }
 
 }
