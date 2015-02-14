@@ -9,6 +9,5 @@ target
 .externalToolBuilders
 .cache
 .springBeans
-production.properties
-developerSpecific.properties
+environmentSpecific.properties
 expercise.min*.css

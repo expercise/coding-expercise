@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource(ignoreResourceNotFound = true, value = {"classpath:${targetEnvironment:development}.properties", "classpath:developerSpecific.properties", "classpath:build.properties"})
+@PropertySource(ignoreResourceNotFound = true, value = {"classpath:default.properties", "classpath:environmentSpecific.properties", "classpath:build.properties"})
 public class PropertiesConfiguration {
 
     @Bean
