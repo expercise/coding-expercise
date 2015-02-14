@@ -7,7 +7,7 @@
     <artifactId>expercise</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>Expercise</name>
+    <name>expercise</name>
 
     <properties>
         <!-- Dependencies -->

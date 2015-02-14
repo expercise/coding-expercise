@@ -17,7 +17,7 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
         webApplicationContext.register(SpringWebMvcConfiguration.class);
-        webApplicationContext.setDisplayName("Expercise");
+        webApplicationContext.setDisplayName("expercise");
 
         FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", new CharacterEncodingFilter());
         characterEncodingFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
