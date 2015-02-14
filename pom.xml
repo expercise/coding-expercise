@@ -30,16 +30,17 @@
         <myth.version>1.0.0-SNAPSHOT</myth.version>
         <jsoup.version>1.8.1</jsoup.version>
 
+        <hibernate.orm.version>4.3.8.Final</hibernate.orm.version>
+        <javassist.version>3.19.0-GA</javassist.version>
+        <mysql.connector.version>5.1.34</mysql.connector.version>
+        <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
+
         <jython.version>2.5.3</jython.version>
         <jackson.mapper.version>2.4.1</jackson.mapper.version>
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
-        <mysql.connector.version>5.1.33</mysql.connector.version>
-        <hibernate.orm.version>4.3.6.Final</hibernate.orm.version>
-        <javassist.version>3.18.2-GA</javassist.version>
         <apache.commons.io.version>2.4</apache.commons.io.version>
         <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
         <apache.commons.collections.version>4.0</apache.commons.collections.version>
-        <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
         <slf4j.version>1.7.7</slf4j.version>
         <sendgrid.javaapi.version>2.0.0</sendgrid.javaapi.version>
 
