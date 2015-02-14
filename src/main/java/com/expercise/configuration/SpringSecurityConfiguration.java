@@ -19,7 +19,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final int PASSWORD_ENCODING_STRENGTH = 256;
 
     @Autowired
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     private UserDetailsService userDetailsService;
 
     @Override
@@ -58,8 +57,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(shaPasswordEncoder());
+    public void configureGlobal(@SuppressWarnings("SpringJavaAutowiringInspection") AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService).passwordEncoder(shaPasswordEncoder());
     }
 
     @Bean
