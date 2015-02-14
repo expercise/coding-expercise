@@ -11,7 +11,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.*;
 import java.util.EnumSet;
 
-@SuppressWarnings("UnusedDeclaration")
 public class SpringWebApplicationInitializer implements WebApplicationInitializer {
 
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -32,7 +31,9 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
         springSecurityFilterChain.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.ERROR, DispatcherType.ASYNC), true, "/*");
 
         servletContext.setInitParameter("defaultHtmlEscape", "true");
+
         servletContext.addListener(new ContextLoaderListener(webApplicationContext));
+        servletContext.addListener(new MySQLDriverMemoryLeakServletContextListener());
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(webApplicationContext));
         dispatcher.addMapping("/");
