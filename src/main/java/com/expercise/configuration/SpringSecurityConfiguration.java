@@ -1,7 +1,7 @@
 package com.expercise.configuration;
 
-import com.expercise.service.user.UserRememberMeTokenRepository;
 import com.expercise.utils.DateUtils;
+import com.expercise.service.user.UserRememberMeTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

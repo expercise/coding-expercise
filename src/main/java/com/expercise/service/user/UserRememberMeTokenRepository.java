@@ -1,55 +1,38 @@
 package com.expercise.service.user;
 
-import com.expercise.utils.Clock;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.expercise.domain.user.RememberMeToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
+@Service
 public class UserRememberMeTokenRepository implements PersistentTokenRepository {
 
-    private final Map<String, PersistentRememberMeToken> seriesTokens = new ConcurrentHashMap<>();
+    @Autowired
+    private UserService userService;
 
     @Override
     public void createNewToken(PersistentRememberMeToken token) {
-        PersistentRememberMeToken current = seriesTokens.get(token.getSeries());
-
-        if (current != null) {
-            throw new DataIntegrityViolationException("Series Id '"+ token.getSeries() +"' already exists!");
-        }
-
-        seriesTokens.put(token.getSeries(), token);
+        userService.saveRememberMeToken(token.getUsername(), token.getTokenValue(), token.getSeries(), token.getDate());
     }
 
     @Override
     public void updateToken(String series, String tokenValue, Date lastUsed) {
-        PersistentRememberMeToken token = getTokenForSeries(series);
-        PersistentRememberMeToken newToken = new PersistentRememberMeToken(token.getUsername(), series, tokenValue, Clock.getTime());
-        seriesTokens.put(series, newToken);
+        userService.updateRememberMeToken(tokenValue, series, lastUsed);
     }
 
     @Override
     public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-        return seriesTokens.get(seriesId);
+        RememberMeToken rememberMeToken = userService.findRememberMeToken(seriesId);
+        return new PersistentRememberMeToken(rememberMeToken.getEmail(), seriesId, rememberMeToken.getToken(), rememberMeToken.getLastUsedTime());
     }
 
     @Override
-    public void removeUserTokens(String username) {
-        Iterator<String> series = seriesTokens.keySet().iterator();
-
-        while (series.hasNext()) {
-            String seriesId = series.next();
-
-            PersistentRememberMeToken token = seriesTokens.get(seriesId);
-
-            if (username.equals(token.getUsername())) {
-                series.remove();
-            }
-        }
+    public void removeUserTokens(String userId) {
+        userService.removeRememberMeToken(userId);
     }
 
 }
