@@ -4,11 +4,9 @@ import com.expercise.domain.user.RememberMeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
 public class UserRememberMeTokenRepository implements PersistentTokenRepository {
 
     @Autowired
