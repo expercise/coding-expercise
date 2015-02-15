@@ -30,7 +30,7 @@ class EmailServiceSpec extends Specification {
         service.send(emailToSend, new HashMap<String, Object>())
 
         then:
-        1 * messageService.getMessage("emailSubjectKey") >> "email subject"
+        1 * messageService.getEmailMessage("emailSubjectKey") >> "email subject"
         1 * emailTemplateProcessor.createEmail("emailTemplateName", [:]) >> "email content"
         1 * emailSenderService.send({ emailCaptor = it })
         emailCaptor.to == "user@kodiliy.com"

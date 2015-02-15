@@ -13,8 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class MessageService {
 
+    private static final String EMAILS_BUNDLE = "emails";
+
     @Autowired
     private MessagesResourceBundleSource bundleMessageSource;
+
+    @Autowired
+    private ResourceBundleService resourceBundleService;
 
     public String getMessage(String code) {
         return getMessage(code, new Object[]{});
@@ -39,8 +44,11 @@ public class MessageService {
         messagesResourceBundle.keySet().forEach(
                 k -> messages.put(k, messagesResourceBundle.getString(k))
         );
-
         return messages;
+    }
+
+    public String getEmailMessage(String key) {
+        return resourceBundleService.getMessage(EMAILS_BUNDLE, key);
     }
 
 }

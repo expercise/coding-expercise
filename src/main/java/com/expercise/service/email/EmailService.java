@@ -27,8 +27,7 @@ public class EmailService {
         if ("deactive".equals(emailStatus)) {
             return;
         }
-        // TODO ufuk & batu: we must use different message bundle for emails
-        email.setSubject(messageService.getMessage(email.getSubjectKey()));
+        email.setSubject(messageService.getEmailMessage(email.getSubjectKey()));
         email.setContent(emailTemplateProcessor.createEmail(email.getTemplateName(), params));
         emailSenderService.send(email);
     }
