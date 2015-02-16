@@ -25,6 +25,9 @@ public class UserRememberMeTokenRepository implements PersistentTokenRepository 
     @Override
     public PersistentRememberMeToken getTokenForSeries(String seriesId) {
         RememberMeToken rememberMeToken = userService.findRememberMeToken(seriesId);
+        if (rememberMeToken == null) {
+            return null;
+        }
         return new PersistentRememberMeToken(rememberMeToken.getEmail(), seriesId, rememberMeToken.getToken(), rememberMeToken.getLastUsedTime());
     }
 
