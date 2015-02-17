@@ -19,6 +19,10 @@ public final class RedirectUtils {
         return redirectTo("/login?" + purpose);
     }
 
+    public static ModelAndView redirect403() {
+        return redirectTo("/403");
+    }
+
     public static ModelAndView redirect404() {
         return redirectTo("/404");
     }

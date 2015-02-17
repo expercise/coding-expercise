@@ -37,13 +37,6 @@ public class ChallengeDisplayRuleTest {
     private CurrentLevelHelper currentLevelHelper;
 
     @Test
-    public void shouldReturnTrueIfChallengeIsNull() {
-        assertTrue(rule.isNotDisplayable(null));
-
-        verifyZeroInteractions(authenticationService, currentLevelHelper);
-    }
-
-    @Test
     public void shouldReturnTrueIfChallengeIsNotApprovedButUserNotAdminOrAuthorOfChallenge() {
         User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
 

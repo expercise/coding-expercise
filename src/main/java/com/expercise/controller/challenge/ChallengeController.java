@@ -34,8 +34,10 @@ public class ChallengeController {
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
     public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {
         Challenge challenge = challengeService.findById(challengeId);
-        if (challengeDisplayRule.isNotDisplayable(challenge)) {
+        if (challenge == null) {
             return RedirectUtils.redirect404();
+        } else if (challengeDisplayRule.isNotDisplayable(challenge)) {
+            return RedirectUtils.redirect403();
         }
 
         ModelAndView modelAndView = new ModelAndView("challenge/challenge");

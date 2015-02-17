@@ -19,13 +19,13 @@ public class ChallengeDisplayRule {
     private CurrentLevelHelper currentLevelHelper;
 
     public boolean isNotDisplayable(Challenge challenge) {
-        if (challenge == null) {
-            return true;
+        User currentUser = authenticationService.getCurrentUser();
+        if (currentUser.isAdmin()) {
+            return false;
         }
 
-        User currentUser = authenticationService.getCurrentUser();
         if (challenge.isNotApproved()) {
-            return challenge.isNotAuthor(currentUser) && currentUser.isNotAdmin();
+            return challenge.isNotAuthor(currentUser);
         }
 
         if (challenge.hasNotLevel()) {

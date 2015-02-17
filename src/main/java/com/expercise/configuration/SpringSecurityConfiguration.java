@@ -26,7 +26,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(
                         "/",
+                        "/403",
                         "/404",
+                        "/500",
                         "/generatedResources/**",
                         "/resources/**",
                         "/login/**",
