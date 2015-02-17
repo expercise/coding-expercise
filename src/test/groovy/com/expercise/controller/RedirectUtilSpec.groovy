@@ -8,7 +8,7 @@ class RedirectUtilSpec extends Specification {
     @Unroll
     def "should redirect #path to #redirectedPath"() {
         expect:
-        RedirectUtil.redirectTo(path).getViewName() == redirectedPath
+        RedirectUtils.redirectTo(path).getViewName() == redirectedPath
 
         where:
         path               | redirectedPath

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html layout:decorator="mainLayout">
+<body layout:fragment="content" th:remove="tag">
+
+    <div class="mainPage jumbotron">
+        <h1 th:text="#{errorPage.title}">Ups!</h1>
+
+        <h2 th:text="#{errorPage.subtitle.404}">Page not found!</h2>
+
+        <div th:text="#{errorPage.description.404}">
+            Sorry, requested page not found!
+        </div>
+
+        <hr />
+
+        <div>
+            <a th:href="@{/}" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-home"></span>
+                <span th:text="#{errorPage.actions.backToHome}">Back Home</span>
+            </a>
+            <a href="mailto:support@expercise.com" target="_blank" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-envelope"></span>
+                <span th:text="#{errorPage.actions.contactSupport}">Report Us</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

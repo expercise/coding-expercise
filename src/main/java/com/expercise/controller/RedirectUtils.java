@@ -2,9 +2,9 @@ package com.expercise.controller;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public final class RedirectUtil {
+public final class RedirectUtils {
 
-    private RedirectUtil() {
+    private RedirectUtils() {
     }
 
     public static ModelAndView redirectHome() {
@@ -19,7 +19,6 @@ public final class RedirectUtil {
         return redirectTo("/login?" + purpose);
     }
 
-    // TODO ufuk: create a 404 page
     public static ModelAndView redirect404() {
         return redirectTo("/404");
     }

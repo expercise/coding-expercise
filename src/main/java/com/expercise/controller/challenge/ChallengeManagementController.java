@@ -1,6 +1,6 @@
 package com.expercise.controller.challenge;
 
-import com.expercise.controller.RedirectUtil;
+import com.expercise.controller.RedirectUtils;
 import com.expercise.controller.challenge.model.ChallengeModel;
 import com.expercise.controller.challenge.model.SaveChallengeResponse;
 import com.expercise.domain.challenge.Challenge;
@@ -65,7 +65,7 @@ public class ChallengeManagementController {
         Challenge challenge = challengeService.findById(challengeId);
 
         if (isCurrentUserNotAuthorOrAdmin(challenge)) {
-            return RedirectUtil.redirectHome();
+            return RedirectUtils.redirectHome();
         }
 
         ModelAndView modelAndView = prepareChallengeManagementViewModel(ManagementMode.Update);

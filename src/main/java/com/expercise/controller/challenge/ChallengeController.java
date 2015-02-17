@@ -1,6 +1,6 @@
 package com.expercise.controller.challenge;
 
-import com.expercise.controller.RedirectUtil;
+import com.expercise.controller.RedirectUtils;
 import com.expercise.controller.challenge.model.SolutionFromUser;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.enums.ProgrammingLanguage;
@@ -35,7 +35,7 @@ public class ChallengeController {
     public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {
         Challenge challenge = challengeService.findById(challengeId);
         if (challengeDisplayRule.isNotDisplayable(challenge)) {
-            return RedirectUtil.redirect404();
+            return RedirectUtils.redirect404();
         }
 
         ModelAndView modelAndView = new ModelAndView("challenge/challenge");

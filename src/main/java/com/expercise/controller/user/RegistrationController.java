@@ -1,6 +1,6 @@
 package com.expercise.controller.user;
 
-import com.expercise.controller.RedirectUtil;
+import com.expercise.controller.RedirectUtils;
 import com.expercise.controller.user.model.UserModel;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
@@ -39,7 +39,7 @@ public class RegistrationController {
         User user = userModel.createUser();
         userService.saveUser(user);
 
-        return RedirectUtil.redirectLoginForNewMember();
+        return RedirectUtils.redirectLoginForNewMember();
     }
 
     private void initializeModelAndView(ModelAndView modelAndView) {

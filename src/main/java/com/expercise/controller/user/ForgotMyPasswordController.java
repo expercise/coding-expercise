@@ -1,6 +1,6 @@
 package com.expercise.controller.user;
 
-import com.expercise.controller.RedirectUtil;
+import com.expercise.controller.RedirectUtils;
 import com.expercise.controller.user.model.EmailRequestModel;
 import com.expercise.controller.user.model.ForgotMyPasswordResponse;
 import com.expercise.controller.user.model.PasswordResetModel;
@@ -51,7 +51,7 @@ public class ForgotMyPasswordController {
             modelAndView.addObject("passwordResetModel", passwordResetModel);
             return modelAndView;
         }
-        return RedirectUtil.redirectHome();
+        return RedirectUtils.redirectHome();
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
@@ -63,10 +63,10 @@ public class ForgotMyPasswordController {
         Token foundToken = forgotMyPasswordService.getForgotMyPasswordTokenFor(token);
         if (foundToken == null) {
             forgotMyPasswordService.deleteToken(token);
-            return RedirectUtil.redirectHome();
+            return RedirectUtils.redirectHome();
         }
         processForValidToken(passwordResetModel, foundToken.getUser());
-        return RedirectUtil.redirectLoginFor("resetPasswordSuccess");
+        return RedirectUtils.redirectLoginFor("resetPasswordSuccess");
     }
 
     private void processForValidToken(PasswordResetModel passwordResetModel, User user) {

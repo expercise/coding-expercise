@@ -1,7 +1,7 @@
 package com.expercise.configuration;
 
-import com.expercise.utils.DateUtils;
 import com.expercise.service.user.UserRememberMeTokenRepository;
+import com.expercise.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +24,23 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/generatedResources/**", "/resources/**", "/login/**", "/register/**", "/forgotMyPassword/**")
+                .antMatchers(
+                        "/",
+                        "/404",
+                        "/generatedResources/**",
+                        "/resources/**",
+                        "/login/**",
+                        "/register/**",
+                        "/forgotMyPassword/**"
+                )
                 .permitAll();
 
         http.authorizeRequests()
-                .antMatchers("/challenges/**", "/profile/**", "/themes/**")
+                .antMatchers(
+                        "/challenges/**",
+                        "/profile/**",
+                        "/themes/**"
+                )
                 .hasAnyRole("USER")
                 .antMatchers("/manage/**")
                 .hasRole("ADMIN")
