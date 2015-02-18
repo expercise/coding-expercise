@@ -1,5 +1,6 @@
 package com.expercise.service.quote;
 
+import com.expercise.caching.Caching;
 import com.expercise.dao.quote.QuoteDao;
 import com.expercise.domain.quote.Quote;
 import com.expercise.utils.collection.RandomElement;
@@ -13,9 +14,8 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO ufuk: create a generic cache mechanism
 @Service
-public class QuoteService {
+public class QuoteService implements Caching {
 
     private static List<Quote> QUOTES = new ArrayList<>();
 
@@ -41,6 +41,11 @@ public class QuoteService {
             QUOTES = freshQuotes;
             return null;
         });
+    }
+
+    @Override
+    public void flush() {
+        populateQuoteList();
     }
 
 }

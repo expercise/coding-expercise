@@ -1,5 +1,6 @@
 package com.expercise.service.configuration;
 
+import com.expercise.caching.Caching;
 import com.expercise.dao.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
 import com.expercise.utils.EnvironmentUtils;
@@ -11,13 +12,12 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
-public class ConfigurationService {
+public class ConfigurationService implements Caching {
 
-    private static final Map<String, String> CONFIGURATIONS = new ConcurrentHashMap<>();
+    private static Map<String, String> CONFIGURATIONS;
 
     @Autowired
     private ConfigurationDao configurationDao;
@@ -51,9 +51,14 @@ public class ConfigurationService {
 
     private void populateConfigurationsMap() {
         new TransactionTemplate(transactionManager).execute(status -> {
-            CONFIGURATIONS.putAll(configurationDao.findAll().stream().collect(Collectors.toMap(Configuration::getName, Configuration::getValue)));
+            CONFIGURATIONS = configurationDao.findAll().stream().collect(Collectors.toMap(Configuration::getName, Configuration::getValue));
             return null;
         });
+    }
+
+    @Override
+    public void flush() {
+        populateConfigurationsMap();
     }
 
 }

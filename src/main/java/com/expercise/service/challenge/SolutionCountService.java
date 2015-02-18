@@ -1,5 +1,6 @@
 package com.expercise.service.challenge;
 
+import com.expercise.caching.Caching;
 import com.expercise.domain.challenge.Challenge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-// TODO ufuk: create a generic cache mechanism
 @Service
-public class SolutionCountService {
+public class SolutionCountService implements Caching {
 
     private static final Map<Long, Long> SOLUTION_COUNTS = new ConcurrentHashMap<>();
 
@@ -38,6 +38,11 @@ public class SolutionCountService {
 
     public void clearCacheFor(Long challengeId) {
         SOLUTION_COUNTS.remove(challengeId);
+    }
+
+    @Override
+    public void flush() {
+        SOLUTION_COUNTS.clear();
     }
 
 }
