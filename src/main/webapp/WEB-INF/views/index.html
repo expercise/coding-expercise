@@ -2,12 +2,12 @@
 <html layout:decorator="mainLayout">
 <body layout:fragment="content" th:remove="tag">
     <div class="mainPage jumbotron">
-        <!-- Heading -->
+        <!--/* Heading */-->
         <h1 th:text="#{projectName}"></h1>
         <h2 th:text="#{catchLine}"></h2>
         <hr/>
 
-        <!-- What's Expercise -->
+        <!--/* What's Expercise */-->
         <div>
             <h3 th:text="#{whatIsExpercise.header}"></h3>
 
@@ -35,7 +35,7 @@
         </div>
         <hr/>
 
-        <!-- Programming Languages -->
+        <!--/* Programming Languages */-->
         <h3 th:text="#{mainPage.programmingLanguages}"></h3>
         <br/>
         <div>
@@ -47,14 +47,14 @@
         </div>
         <hr/>
 
-        <!-- Quote -->
+        <!--/* Quote */-->
         <p th:if="${quote} != null">
             <span class="quote" th:text="${quote.getQuoteFor(#locale)}"></span>
             <br/>
             <span th:text="${quote.author}"></span>
         </p>
 
-        <!-- Start Button -->
+        <!--/* Start Button */-->
         <br/>
         <p>
             <a class="btn btn-primary btn-lg" role="button" th:href="@{'/themes/'}" th:text="#{button.start}"></a>
