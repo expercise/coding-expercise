@@ -37,8 +37,12 @@ public class ConfigurationService {
         return CONFIGURATIONS.get(key);
     }
 
-    public String getGoogleAnalyticsScript() {
-        return getValue("google.analytics.script");
+    public String getGoogleAnalyticsApplicationKey() {
+        return getValue("googleAnalytics.applicationKey");
+    }
+
+    public String getUserReportApplicationKey() {
+        return getValue("userReport.applicationKey");
     }
 
     public boolean isDevelopment() {

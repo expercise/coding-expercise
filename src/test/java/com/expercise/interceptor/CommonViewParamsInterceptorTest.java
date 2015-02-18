@@ -50,16 +50,29 @@ public class CommonViewParamsInterceptorTest {
     }
 
     @Test
-    public void shouldAddGoogleAnalyticsScript() {
-        String googleAnalyticsScript = RandomStringUtils.randomAlphabetic(11);
+    public void shouldAddGoogleAnalyticsApplicationKey() {
+        String googleAnalyticsApplicationKey = RandomStringUtils.randomAlphabetic(11);
 
-        when(configurationService.getGoogleAnalyticsScript()).thenReturn(googleAnalyticsScript);
+        when(configurationService.getGoogleAnalyticsApplicationKey()).thenReturn(googleAnalyticsApplicationKey);
 
         ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
 
-        assertThat(modelAndView.getModel(), hasEntry("googleAnalyticsScript", (Object) googleAnalyticsScript));
+        assertThat(modelAndView.getModel(), hasEntry("googleAnalyticsApplicationKey", (Object) googleAnalyticsApplicationKey));
+    }
+
+    @Test
+    public void shouldAddUserReportApplicationKey() {
+        String userReportApplicationKey = RandomStringUtils.randomAlphabetic(11);
+
+        when(configurationService.getUserReportApplicationKey()).thenReturn(userReportApplicationKey);
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        interceptor.postHandle(request, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("userReportApplicationKey", (Object) userReportApplicationKey));
     }
 
     @Test

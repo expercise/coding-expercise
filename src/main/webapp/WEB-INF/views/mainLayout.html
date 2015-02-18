@@ -11,6 +11,7 @@
 
     <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}"/>
 
+    <!--/* If only environment is 'development' */-->
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap.min.css}" rel="stylesheet"/>
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap-theme.min.css}" rel="stylesheet"/>
 
@@ -19,9 +20,26 @@
 
     <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
 
+    <!--/* If only environment is not 'development' */-->
     <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
 
-    <script th:unless="${#strings.isEmpty(googleAnalyticsScript)}" th:utext="${googleAnalyticsScript}"></script>
+    <!--/* Google Analytics integration script */-->
+    <script th:unless="${#strings.isEmpty(googleAnalyticsApplicationKey)}" th:inline="javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', [[${googleAnalyticsApplicationKey}]], 'auto');
+        ga('require', 'displayfeatures');
+        ga('require', 'linkid', 'linkid.js');
+        ga('send', 'pageview');
+    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header">Header</div>
@@ -35,5 +53,20 @@
 
         <div th:replace="fragments/footer :: footer">Footer</div>
     </div>
+
+    <!--/* UserReport integration script */-->
+    <script type="text/javascript" th:unless="${#strings.isEmpty(userReportApplicationKey)}" th:inline="javascript">
+        var _urq = _urq || [];
+        _urq.push(['initSite', [[${userReportApplicationKey}]]]);
+
+        (function () {
+            var ur = document.createElement('script');
+            ur.type = 'text/javascript';
+            ur.async = true;
+            ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ur, s);
+        })();
+    </script>
 </body>
 </html>
