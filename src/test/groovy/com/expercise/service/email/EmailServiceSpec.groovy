@@ -24,17 +24,17 @@ class EmailServiceSpec extends Specification {
     def "should prepare and send email if email sending is activated"() {
         given:
         service.emailStatus = "active"
-        def emailToSend = new Email(to: "user@kodiliy.com", from: "noreply@kodiliy.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
+        def emailToSend = new Email(to: "user@expercise.com", from: "noreply@expercise.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
 
         when:
         service.send(emailToSend, new HashMap<String, Object>())
 
         then:
-        1 * messageService.getEmailMessage("emailSubjectKey") >> "email subject"
+        1 * messageService.getMessageForEmail("emailSubjectKey") >> "email subject"
         1 * emailTemplateProcessor.createEmail("emailTemplateName", [:]) >> "email content"
         1 * emailSenderService.send({ emailCaptor = it })
-        emailCaptor.to == "user@kodiliy.com"
-        emailCaptor.from == "noreply@kodiliy.com"
+        emailCaptor.to == "user@expercise.com"
+        emailCaptor.from == "noreply@expercise.com"
         emailCaptor.subject == "email subject"
         emailCaptor.content == "email content"
     }
@@ -42,7 +42,7 @@ class EmailServiceSpec extends Specification {
     def "should not prepare and send email if email sending is deactivated"() {
         given:
         service.emailStatus = "deactive"
-        def emailToSend = new Email(to: "user@kodiliy.com", from: "noreply@kodiliy.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
+        def emailToSend = new Email(to: "user@expercise.com", from: "noreply@expercise.com", subjectKey: "emailSubjectKey", templateName: "emailTemplateName")
 
         when:
         service.send(emailToSend, new HashMap<String, Object>())

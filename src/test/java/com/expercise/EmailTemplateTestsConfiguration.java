@@ -20,7 +20,7 @@ public class EmailTemplateTestsConfiguration {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new MessagesResourceBundleSource();
-        messageSource.setBasenames("messages", "emails");
+        messageSource.setBasenames("messages", "messagesForEmails");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }

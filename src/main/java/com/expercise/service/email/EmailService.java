@@ -27,7 +27,7 @@ public class EmailService {
         if ("deactive".equals(emailStatus)) {
             return;
         }
-        email.setSubject(messageService.getEmailMessage(email.getSubjectKey()));
+        email.setSubject(messageService.getMessageForEmail(email.getSubjectKey()));
         email.setContent(emailTemplateProcessor.createEmail(email.getTemplateName(), params));
         emailSenderService.send(email);
     }

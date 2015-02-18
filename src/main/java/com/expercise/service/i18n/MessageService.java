@@ -13,13 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class MessageService {
 
-    private static final String EMAILS_BUNDLE = "emails";
+    private static final String MESSAGES_FOR_EMAILS_BUNDLE_NAME = "messagesForEmails";
 
     @Autowired
-    private MessagesResourceBundleSource bundleMessageSource;
+    private MessagesResourceBundleSource messagesBundleSource;
 
     @Autowired
-    private ResourceBundleService resourceBundleService;
+    private AlternateMessageResourceBundleService alternateMessageResourceBundleService;
 
     public String getMessage(String code) {
         return getMessage(code, new Object[]{});
@@ -34,21 +34,20 @@ public class MessageService {
     }
 
     public String getMessage(String code, Locale locale, Object... args) {
-        return bundleMessageSource.getMessage(code, args, locale);
+        return messagesBundleSource.getMessage(code, args, locale);
     }
 
     public Map<String, String> getAllMessages() {
         Map<String, String> messages = new ConcurrentHashMap<>();
-
-        ResourceBundle messagesResourceBundle = bundleMessageSource.getMessagesResourceBundle();
+        ResourceBundle messagesResourceBundle = messagesBundleSource.getMessagesResourceBundle();
         messagesResourceBundle.keySet().forEach(
                 k -> messages.put(k, messagesResourceBundle.getString(k))
         );
         return messages;
     }
 
-    public String getEmailMessage(String key) {
-        return resourceBundleService.getMessage(EMAILS_BUNDLE, key);
+    public String getMessageForEmail(String key) {
+        return alternateMessageResourceBundleService.getMessage(MESSAGES_FOR_EMAILS_BUNDLE_NAME, key);
     }
 
 }

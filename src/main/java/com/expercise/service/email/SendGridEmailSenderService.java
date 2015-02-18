@@ -25,7 +25,6 @@ public class SendGridEmailSenderService implements EmailSenderService {
 
     @PostConstruct
     public void init() {
-        // TODO ufuk & batu: username and password must be taken from configurationService
         sendGridClient = new SendGrid(username, password);
     }
 

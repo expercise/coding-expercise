@@ -7,7 +7,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 @Service
-public class ResourceBundleService {
+public class AlternateMessageResourceBundleService {
 
     public String getMessage(String bundleName, String key) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
