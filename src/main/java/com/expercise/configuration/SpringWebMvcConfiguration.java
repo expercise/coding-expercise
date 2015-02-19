@@ -50,7 +50,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new MessagesResourceBundleSource();
-        messageSource.setBasenames("messages", "messagesForEmails");
+        messageSource.setBasenames("messages");
         messageSource.setDefaultEncoding("UTF-8");
 
         if (EnvironmentUtils.isDevelopment(environment)) {

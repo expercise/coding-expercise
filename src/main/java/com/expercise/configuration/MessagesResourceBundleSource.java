@@ -11,4 +11,8 @@ public class MessagesResourceBundleSource extends ResourceBundleMessageSource {
         return getResourceBundle("messages", LocaleContextHolder.getLocale());
     }
 
+    public ResourceBundle getEmailMessagesResourceBundle() {
+        return getResourceBundle("messagesForEmails", LocaleContextHolder.getLocale());
+    }
+
 }

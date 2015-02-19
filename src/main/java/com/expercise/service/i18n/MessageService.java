@@ -5,21 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class MessageService {
 
-    private static final String MESSAGES_FOR_EMAILS_BUNDLE_NAME = "messagesForEmails";
-
     @Autowired
     private MessagesResourceBundleSource messagesBundleSource;
-
-    @Autowired
-    private AlternateMessageResourceBundleService alternateMessageResourceBundleService;
 
     public String getMessage(String code) {
         return getMessage(code, new Object[]{});
@@ -46,8 +43,15 @@ public class MessageService {
         return messages;
     }
 
-    public String getMessageForEmail(String key) {
-        return alternateMessageResourceBundleService.getMessage(MESSAGES_FOR_EMAILS_BUNDLE_NAME, key);
+    public String getMessageForEmail(String key, Object... args) {
+        ResourceBundle resourceBundle = messagesBundleSource.getEmailMessagesResourceBundle();
+        try {
+            String foundRawMessage = resourceBundle.getString(key);
+            MessageFormat messageFormat = new MessageFormat(foundRawMessage, LocaleContextHolder.getLocale());
+            return messageFormat.format(args);
+        } catch (MissingResourceException e) {
+            return "???_" + key + "_???";
+        }
     }
 
 }
