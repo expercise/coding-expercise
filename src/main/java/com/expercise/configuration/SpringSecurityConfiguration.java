@@ -33,15 +33,15 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/resources/**",
                         "/login/**",
                         "/register/**",
-                        "/forgotMyPassword/**"
+                        "/forgotMyPassword/**",
+                        "/themes/**"
                 )
                 .permitAll();
 
         http.authorizeRequests()
                 .antMatchers(
                         "/challenges/**",
-                        "/profile/**",
-                        "/themes/**"
+                        "/profile/**"
                 )
                 .hasAnyRole("USER")
                 .antMatchers("/manage/**")
@@ -54,13 +54,12 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .permitAll();
 
-        http.rememberMe()
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(DateUtils.ONE_WEEK);
-
         http.logout()
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
+        http.rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(DateUtils.ONE_WEEK);
 
         http.csrf().disable();
     }
