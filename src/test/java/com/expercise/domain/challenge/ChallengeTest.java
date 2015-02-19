@@ -34,27 +34,27 @@ public class ChallengeTest {
     }
 
     @Test
-    public void shouldReturnThemeIdIfChallengeHaveLevelAndLevelHaveTheme() {
+    public void shouldReturnThemeUrlIfChallengeHaveLevelAndLevelHaveTheme() {
         Level level = new LevelBuilder().buildWithRandomId();
-        Theme theme = new ThemeBuilder().levels(level).buildWithRandomId();
+        Theme theme = new ThemeBuilder().addName(Lingo.English, "Theme Name").levels(level).buildWithRandomId();
         Challenge challenge = new ChallengeBuilder().level(level).buildWithRandomId();
 
-        assertThat(challenge.getThemeId(), equalTo(theme.getId().toString()));
+        assertThat(challenge.getThemeBookmarkableUrl("en"), equalTo("/themes/" + theme.getId().toString() + "/theme-name"));
     }
 
     @Test
-    public void shouldReturnOthersAsThemeIdIfChallengeHaveLevelButLevelHaveNotTheme() {
+    public void shouldReturnOtherChallengesAsThemeUrlIfChallengeHaveLevelButLevelHaveNotTheme() {
         Level level = new LevelBuilder().buildWithRandomId();
         Challenge challenge = new ChallengeBuilder().level(level).buildWithRandomId();
 
-        assertThat(challenge.getThemeId(), equalTo("others"));
+        assertThat(challenge.getThemeBookmarkableUrl("en"), equalTo("/themes/other-challenges"));
     }
 
     @Test
-    public void shouldReturnOthersAsThemeIdIfChallengeHaveNotLevel() {
+    public void shouldReturnOtherChallengesAsThemeUrlIfChallengeHaveNotLevel() {
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();
 
-        assertThat(challenge.getThemeId(), equalTo("others"));
+        assertThat(challenge.getThemeBookmarkableUrl("tr"), equalTo("/themes/other-challenges"));
     }
 
 }

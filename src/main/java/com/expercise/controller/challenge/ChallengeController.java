@@ -32,7 +32,7 @@ public class ChallengeController {
     private SolutionService solutionService;
 
     @RequestMapping(value = "/{challengeId}", method = RequestMethod.GET)
-    public ModelAndView challengePage(@PathVariable("challengeId") long challengeId) {
+    public ModelAndView challengePage(@PathVariable long challengeId) {
         Challenge challenge = challengeService.findById(challengeId);
         if (challenge == null) {
             return RedirectUtils.redirect404();

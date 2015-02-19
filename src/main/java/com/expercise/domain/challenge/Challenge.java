@@ -124,11 +124,11 @@ public class Challenge extends AbstractEntity {
         return !hasLevel();
     }
 
-    public String getThemeId() {
+    public String getThemeBookmarkableUrl(String lingoShortName) {
         if (hasLevel() && level.hasTheme()) {
-            return level.getTheme().getIdAsString();
+            return level.getTheme().getBookmarkableUrl(lingoShortName);
         }
-        return Theme.THEME_ID_FOR_NOT_THEMED_CHALLENGES;
+        return Theme.URL_FOR_NOT_THEMED_CHALLENGES;
     }
 
     public Long getLevelId() {

@@ -60,7 +60,7 @@ public class ChallengeManagementController {
     }
 
     @RequestMapping(value = "/updateChallenge/{challengeId}", method = RequestMethod.GET)
-    public ModelAndView updateChallengePage(@PathVariable("challengeId") long challengeId) {
+    public ModelAndView updateChallengePage(@PathVariable long challengeId) {
 
         Challenge challenge = challengeService.findById(challengeId);
 

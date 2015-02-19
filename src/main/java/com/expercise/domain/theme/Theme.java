@@ -4,6 +4,7 @@ import com.expercise.domain.PrioritizedEntity;
 import com.expercise.domain.level.Level;
 import com.expercise.enums.Lingo;
 import com.expercise.service.util.PrioritySorter;
+import com.expercise.utils.UrlUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 @Entity
 public class Theme extends PrioritizedEntity {
 
-    public static final String THEME_ID_FOR_NOT_THEMED_CHALLENGES = "others";
+    public static final String URL_FOR_NOT_THEMED_CHALLENGES = "/themes/other-challenges";
 
     @Id
     @GeneratedValue
@@ -40,8 +41,15 @@ public class Theme extends PrioritizedEntity {
         this.id = id;
     }
 
-    public String getIdAsString() {
-        return id != null ? id.toString() : THEME_ID_FOR_NOT_THEMED_CHALLENGES;
+    public String getBookmarkableUrl(String lingoShortName) {
+        if (id != null) {
+            return "/themes/" + id + "/" + getBookmarkableName(lingoShortName);
+        }
+        return URL_FOR_NOT_THEMED_CHALLENGES;
+    }
+
+    public String getBookmarkableName(String lingoShortName) {
+        return UrlUtils.makeBookmarkable(getNameFor(lingoShortName));
     }
 
     public Map<Lingo, String> getNames() {

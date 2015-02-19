@@ -1,5 +1,6 @@
 package com.expercise.controller.theme;
 
+import com.expercise.controller.RedirectUtils;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
@@ -8,7 +9,9 @@ import com.expercise.service.challenge.SolutionCountService;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.level.LevelService;
 import com.expercise.service.theme.ThemeService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +39,22 @@ public class ThemedLevelsController {
     @Autowired
     private SolutionService solutionService;
 
-    @RequestMapping("/themes/{themeId}")
-    public ModelAndView listThemedLevels(@PathVariable("themeId") Long themeId) {
-        ModelAndView modelAndView = new ModelAndView("theme/levelList");
-
+    @RequestMapping("/themes/{themeId}/{bookmarkableThemeName}")
+    public ModelAndView listThemedLevels(@PathVariable Long themeId, @PathVariable String bookmarkableThemeName) {
         Theme theme = themeService.findById(themeId);
+
+        if (theme == null) {
+            return RedirectUtils.redirect404();
+        }
+
+        String lingoShortName = LocaleContextHolder.getLocale().toString();
+        String freshBookmarkableName = theme.getBookmarkableName(lingoShortName);
+        boolean isBookmarkableNameChanged = !StringUtils.equals(freshBookmarkableName, bookmarkableThemeName);
+        if (isBookmarkableNameChanged) {
+            return RedirectUtils.redirectTo(theme.getBookmarkableUrl(lingoShortName));
+        }
+
+        ModelAndView modelAndView = new ModelAndView("theme/levelList");
         modelAndView.addObject("theme", theme);
 
         List<Level> levelList = theme.getOrderedLevels();
@@ -51,7 +65,7 @@ public class ThemedLevelsController {
         return modelAndView;
     }
 
-    @RequestMapping("/themes/others")
+    @RequestMapping(Theme.URL_FOR_NOT_THEMED_CHALLENGES)
     public ModelAndView listNotThemedChallenges() {
         ModelAndView modelAndView = new ModelAndView("theme/notThemedChallenges");
 

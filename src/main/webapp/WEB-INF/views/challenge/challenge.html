@@ -9,7 +9,7 @@
 
         <div class="col-xs-4 right">
             <div class="linkContainer">
-                <a th:href="@{'/themes/' + ${challenge.getThemeId()}}">
+                <a th:href="@{${challenge.getThemeBookmarkableUrl(#locale)}}">
                     <span th:text="#{button.goBack}"></span>
                     <span class="glyphicon glyphicon-share-alt"></span>
                 </a>
