@@ -10,7 +10,6 @@ public class PasswordModel {
     @Size(min = 6, max = 16)
     private String password;
 
-    @Size(min = 6, max = 16)
     private String passwordRetype;
 
     public String getPassword() {
