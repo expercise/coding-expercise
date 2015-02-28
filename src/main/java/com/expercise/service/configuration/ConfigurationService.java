@@ -3,15 +3,18 @@ package com.expercise.service.configuration;
 import com.expercise.caching.Caching;
 import com.expercise.dao.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
+import com.expercise.enums.Lingo;
 import com.expercise.utils.EnvironmentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +45,8 @@ public class ConfigurationService implements Caching {
     }
 
     public String getUserReportApplicationKey() {
-        return getValue("userReport.applicationKey");
+        Optional<Lingo> currentLingo = Lingo.getLingo(LocaleContextHolder.getLocale().toString());
+        return getValue("userReport.applicationKey." + currentLingo.get());
     }
 
     public boolean isDevelopment() {
