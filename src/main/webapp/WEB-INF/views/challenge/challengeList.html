@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html layout:decorator="mainLayout" th:with="title = #{'challengeList.header.mode.' + ${mode}}">
+<head>
+    <title th:text="${title}"></title>
+</head>
 <body layout:fragment="content" th:remove="tag">
-    <legend th:text="#{'challengeList.header.mode.' + ${mode}}"></legend>
+    <legend th:text="${title}"></legend>
 
     <table class="table table-striped">
         <thead>

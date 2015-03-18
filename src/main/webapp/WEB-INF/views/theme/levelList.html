@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html layout:decorator="mainLayout" th:with="title = ${theme.getNameFor(#locale)}">
+<head>
+    <title th:text="${title}"></title>
+</head>
 <body layout:fragment="content" th:remove="tag">
 
     <div class="row pageTitleWithLink">
         <div class="col-xs-8 left">
-            <legend th:text="${theme.getNameFor(#locale)}"></legend>
+            <legend th:text="${title}"></legend>
         </div>
 
         <div class="col-xs-4 right">

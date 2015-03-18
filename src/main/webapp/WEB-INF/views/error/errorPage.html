@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html layout:decorator="mainLayout" th:with="title = #{'errorPage.subtitle.' + __${errorCode}__}">
+<head>
+    <title th:text="${title}"></title>
+</head>
 <body layout:fragment="content" th:remove="tag">
 
     <div class="mainPage jumbotron">
         <h1 th:text="#{errorPage.title}">Ups!</h1>
 
-        <h2 th:text="#{'errorPage.subtitle.' + __${errorCode}__}">Page not found!</h2>
+        <h2 th:text="${title}">Page not found!</h2>
 
         <div th:text="#{'errorPage.description.' + __${errorCode}__}">
             Sorry, requested page not found!

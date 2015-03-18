@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html layout:decorator="mainLayout" th:with="title = (${mode.name() == 'Add'} ? #{challengeManagement.addNewChallenge}: #{challengeManagement.updateChallenge})">
+<head>
+    <title th:text="${title}"></title>
+</head>
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="${mode.name() == 'Add'} ? #{challengeManagement.addNewChallenge}: #{challengeManagement.updateChallenge}"></legend>
+    <legend th:text="${title}"></legend>
 
     <div id="validationMessages" class="hide row">
         <div class="col-xs-12">
