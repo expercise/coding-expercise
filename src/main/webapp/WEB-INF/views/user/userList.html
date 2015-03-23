@@ -9,6 +9,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th></th>
                 <th th:text="#{label.email}"></th>
                 <th th:text="#{label.firstName}"></th>
                 <th th:text="#{label.lastName}"></th>
@@ -19,6 +20,9 @@
         </thead>
         <tbody>
             <tr th:each="user : ${users}">
+                <td>
+                    <span th:if="${user.hasAvatar()}" th:class="${'avatar ' + user.avatar}"></span>
+                </td>
                 <td>
                     <a th:href="@{'/profile/'} + ${user.id}" th:text="${user.email}"></a>
                 </td>

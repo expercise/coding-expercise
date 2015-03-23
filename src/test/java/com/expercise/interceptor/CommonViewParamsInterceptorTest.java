@@ -1,7 +1,9 @@
 package com.expercise.interceptor;
 
+import com.expercise.domain.user.User;
 import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.user.AuthenticationService;
+import com.expercise.testutils.builder.UserBuilder;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -103,13 +105,15 @@ public class CommonViewParamsInterceptorTest {
 
     @Test
     public void shouldAddIfCurrentUsersEmail() {
-        when(authenticationService.getCurrentUsersEmail()).thenReturn("user@expercise.com");
+        User user = new UserBuilder().buildWithRandomId();
+
+        when(authenticationService.getCurrentUser()).thenReturn(user);
 
         ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
 
-        assertThat(modelAndView.getModel(), hasEntry("currentUsersEmail", (Object) "user@expercise.com"));
+        assertThat(modelAndView.getModel(), hasEntry("currentUser", (Object) user));
     }
 
     @Test

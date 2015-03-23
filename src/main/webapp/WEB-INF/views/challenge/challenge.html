@@ -22,6 +22,7 @@
 
     <div class="row challengeInfo">
         <div class="col-xs-8">
+            <span th:if="${challenge.getUser().hasAvatar()}" th:class="${'avatar ' + currentUser.avatar}"></span>
             <a th:href="@{'/profile/' + ${challenge.getUser().getId()}}" class="small" th:text="${challenge.getUser().getFullName()}">
                 Author Full Name
             </a>

@@ -28,10 +28,6 @@ public class AuthenticationService {
         return isNotAnonymousUser(authentication.getAuthorities());
     }
 
-    public String getCurrentUsersEmail() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
     public boolean isCurrentUserAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return hasRole(authentication.getAuthorities(), "ROLE_ADMIN");

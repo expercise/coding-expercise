@@ -1,6 +1,7 @@
 var coreModules = [
     expercise,
     expercise.utils,
+    expercise.Avatar,
     expercise.Header,
     expercise.Locale
 ];

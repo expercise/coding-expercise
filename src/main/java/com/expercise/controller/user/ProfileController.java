@@ -1,5 +1,6 @@
 package com.expercise.controller.user;
 
+import com.expercise.controller.RedirectUtils;
 import com.expercise.domain.user.User;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.UserPointService;
@@ -37,6 +38,14 @@ public class ProfileController {
     public ModelAndView showPublicProfile(@PathVariable long userId) {
         User user = userService.findById(userId);
         return prepareModelAndView(user);
+    }
+
+    @RequestMapping("/selectAvatar/{avatar}")
+    public ModelAndView showPublicProfile(@PathVariable String avatar) {
+        User user = authenticationService.getCurrentUser();
+        user.setAvatar(avatar);
+        userService.saveUser(user);
+        return RedirectUtils.redirectToProfile(user);
     }
 
     private ModelAndView prepareModelAndView(User user) {

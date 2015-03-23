@@ -1,0 +1,957 @@
+@font-face {
+    font-family: 'Expercise-Avatars';
+    src: url('../fonts/Expercise-Avatars.eot?twbcol');
+    src: url('../fonts/Expercise-Avatars.eot?#iefixtwbcol') format('embedded-opentype'),
+    url('../fonts/Expercise-Avatars.woff?twbcol') format('woff'),
+    url('../fonts/Expercise-Avatars.ttf?twbcol') format('truetype'),
+    url('../fonts/Expercise-Avatars.svg?twbcol#Expercise-Avatars') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.avatar {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Expercise-Avatars';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.animal-avatar-1 .path1:before {
+    content: "\e753";
+    color: rgb(87, 169, 170);
+}
+
+.animal-avatar-1 .path2:before {
+    content: "\e754";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-1 .path3:before {
+    content: "\e755";
+    margin-left: -1em;
+    color: rgb(102, 102, 102);
+}
+
+.animal-avatar-1 .path4:before {
+    content: "\e756";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-1 .path5:before {
+    content: "\e757";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-1 .path6:before {
+    content: "\e758";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-1 .path7:before {
+    content: "\e759";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-1 .path8:before {
+    content: "\e75a";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-1 .path9:before {
+    content: "\e75b";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-1 .path10:before {
+    content: "\e75c";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-1 .path11:before {
+    content: "\e75d";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-1 .path12:before {
+    content: "\e75e";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-1 .path13:before {
+    content: "\e75f";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-1 .path14:before {
+    content: "\e760";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path15:before {
+    content: "\e761";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path16:before {
+    content: "\e762";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path17:before {
+    content: "\e763";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path18:before {
+    content: "\e764";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path19:before {
+    content: "\e765";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path20:before {
+    content: "\e766";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path21:before {
+    content: "\e767";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path22:before {
+    content: "\e768";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path23:before {
+    content: "\e769";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path24:before {
+    content: "\e76a";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path25:before {
+    content: "\e76b";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path26:before {
+    content: "\e76c";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path27:before {
+    content: "\e76d";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path28:before {
+    content: "\e76e";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path29:before {
+    content: "\e76f";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path30:before {
+    content: "\e770";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path31:before {
+    content: "\e771";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path32:before {
+    content: "\e772";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path33:before {
+    content: "\e773";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path34:before {
+    content: "\e774";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path35:before {
+    content: "\e775";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path36:before {
+    content: "\e776";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path37:before {
+    content: "\e777";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path38:before {
+    content: "\e778";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path39:before {
+    content: "\e779";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-1 .path40:before {
+    content: "\e77a";
+    margin-left: -1em;
+    color: rgb(195, 195, 195);
+}
+
+.animal-avatar-2 .path1:before {
+    content: "\e77b";
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-2 .path2:before {
+    content: "\e77c";
+    margin-left: -1em;
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-2 .path3:before {
+    content: "\e77d";
+    margin-left: -1em;
+    color: rgb(255, 215, 218);
+}
+
+.animal-avatar-2 .path4:before {
+    content: "\e77e";
+    margin-left: -1em;
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-2 .path5:before {
+    content: "\e77f";
+    margin-left: -1em;
+    color: rgb(255, 215, 218);
+}
+
+.animal-avatar-2 .path6:before {
+    content: "\e780";
+    margin-left: -1em;
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-2 .path7:before {
+    content: "\e781";
+    margin-left: -1em;
+    color: rgb(255, 215, 218);
+}
+
+.animal-avatar-2 .path8:before {
+    content: "\e782";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-2 .path9:before {
+    content: "\e783";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-2 .path10:before {
+    content: "\e784";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-2 .path11:before {
+    content: "\e785";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-2 .path12:before {
+    content: "\e786";
+    margin-left: -1em;
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-2 .path13:before {
+    content: "\e787";
+    margin-left: -1em;
+    color: rgb(255, 215, 218);
+}
+
+.animal-avatar-2 .path14:before {
+    content: "\e788";
+    margin-left: -1em;
+    color: rgb(255, 215, 218);
+}
+
+.animal-avatar-3 .path1:before {
+    content: "\e789";
+    color: rgb(87, 169, 170);
+}
+
+.animal-avatar-3 .path2:before {
+    content: "\e78a";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-3 .path3:before {
+    content: "\e78b";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-3 .path4:before {
+    content: "\e78c";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-3 .path5:before {
+    content: "\e78d";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-3 .path6:before {
+    content: "\e78e";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-3 .path7:before {
+    content: "\e78f";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-3 .path8:before {
+    content: "\e790";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-3 .path9:before {
+    content: "\e791";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-3 .path10:before {
+    content: "\e792";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-3 .path11:before {
+    content: "\e793";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-3 .path12:before {
+    content: "\e794";
+    margin-left: -1em;
+    color: rgb(231, 204, 189);
+}
+
+.animal-avatar-3 .path13:before {
+    content: "\e795";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-3 .path14:before {
+    content: "\e796";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-3 .path15:before {
+    content: "\e797";
+    margin-left: -1em;
+    color: rgb(231, 204, 189);
+}
+
+.animal-avatar-4 .path1:before {
+    content: "\e798";
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-4 .path2:before {
+    content: "\e799";
+    margin-left: -1em;
+    color: rgb(201, 157, 109);
+}
+
+.animal-avatar-4 .path3:before {
+    content: "\e79a";
+    margin-left: -1em;
+    color: rgb(160, 119, 71);
+}
+
+.animal-avatar-4 .path4:before {
+    content: "\e79b";
+    margin-left: -1em;
+    color: rgb(201, 157, 109);
+}
+
+.animal-avatar-4 .path5:before {
+    content: "\e79c";
+    margin-left: -1em;
+    color: rgb(225, 193, 158);
+}
+
+.animal-avatar-4 .path6:before {
+    content: "\e79d";
+    margin-left: -1em;
+    color: rgb(201, 157, 109);
+}
+
+.animal-avatar-4 .path7:before {
+    content: "\e79e";
+    margin-left: -1em;
+    color: rgb(160, 119, 71);
+}
+
+.animal-avatar-4 .path8:before {
+    content: "\e79f";
+    margin-left: -1em;
+    color: rgb(201, 157, 109);
+}
+
+.animal-avatar-4 .path9:before {
+    content: "\e7a0";
+    margin-left: -1em;
+    color: rgb(160, 119, 71);
+}
+
+.animal-avatar-4 .path10:before {
+    content: "\e7a1";
+    margin-left: -1em;
+    color: rgb(160, 119, 71);
+}
+
+.animal-avatar-4 .path11:before {
+    content: "\e7a2";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-4 .path12:before {
+    content: "\e7a3";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-4 .path13:before {
+    content: "\e7a4";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-4 .path14:before {
+    content: "\e7a5";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-4 .path15:before {
+    content: "\e7a6";
+    margin-left: -1em;
+    color: rgb(225, 193, 158);
+}
+
+.animal-avatar-4 .path16:before {
+    content: "\e7a7";
+    margin-left: -1em;
+    color: rgb(160, 119, 71);
+}
+
+.animal-avatar-4 .path17:before {
+    content: "\e7a8";
+    margin-left: -1em;
+    color: rgb(117, 85, 48);
+}
+
+.animal-avatar-4 .path18:before {
+    content: "\e7a9";
+    margin-left: -1em;
+    color: rgb(77, 77, 77);
+}
+
+.animal-avatar-4 .path19:before {
+    content: "\e7aa";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-4 .path20:before {
+    content: "\e7ab";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-5 .path1:before {
+    content: "\e7ac";
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-5 .path2:before {
+    content: "\e7ad";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path3:before {
+    content: "\e7ae";
+    margin-left: -1em;
+    color: rgb(229, 229, 229);
+}
+
+.animal-avatar-5 .path4:before {
+    content: "\e7af";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path5:before {
+    content: "\e7b0";
+    margin-left: -1em;
+    color: rgb(229, 229, 229);
+}
+
+.animal-avatar-5 .path6:before {
+    content: "\e7b1";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path7:before {
+    content: "\e7b2";
+    margin-left: -1em;
+    color: rgb(229, 229, 229);
+}
+
+.animal-avatar-5 .path8:before {
+    content: "\e7b3";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path9:before {
+    content: "\e7b4";
+    margin-left: -1em;
+    color: rgb(229, 229, 229);
+}
+
+.animal-avatar-5 .path10:before {
+    content: "\e7b5";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path11:before {
+    content: "\e7b6";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path12:before {
+    content: "\e7b7";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path13:before {
+    content: "\e7b8";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path14:before {
+    content: "\e7b9";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path15:before {
+    content: "\e7ba";
+    margin-left: -1em;
+    color: rgb(178, 178, 178);
+}
+
+.animal-avatar-5 .path16:before {
+    content: "\e7bb";
+    margin-left: -1em;
+    color: rgb(211, 211, 211);
+}
+
+.animal-avatar-5 .path17:before {
+    content: "\e7bc";
+    margin-left: -1em;
+    color: rgb(211, 211, 211);
+}
+
+.animal-avatar-5 .path18:before {
+    content: "\e7bd";
+    margin-left: -1em;
+    color: rgb(87, 169, 170);
+}
+
+.animal-avatar-5 .path19:before {
+    content: "\e7be";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path20:before {
+    content: "\e7bf";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-5 .path21:before {
+    content: "\e7c0";
+    margin-left: -1em;
+    color: rgb(87, 169, 170);
+}
+
+.animal-avatar-5 .path22:before {
+    content: "\e7c1";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path23:before {
+    content: "\e7c2";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-5 .path24:before {
+    content: "\e7c3";
+    margin-left: -1em;
+    color: rgb(229, 229, 229);
+}
+
+.animal-avatar-5 .path25:before {
+    content: "\e7c4";
+    margin-left: -1em;
+    color: rgb(132, 96, 75);
+}
+
+.animal-avatar-5 .path26:before {
+    content: "\e7c5";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path27:before {
+    content: "\e7c6";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path28:before {
+    content: "\e7c7";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path29:before {
+    content: "\e7c8";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path30:before {
+    content: "\e7c9";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-5 .path31:before {
+    content: "\e7ca";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-6 .path1:before {
+    content: "\e7cb";
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-6 .path2:before {
+    content: "\e7cc";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-6 .path3:before {
+    content: "\e7cd";
+    margin-left: -1em;
+    color: rgb(51, 51, 51);
+}
+
+.animal-avatar-6 .path4:before {
+    content: "\e7ce";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-6 .path5:before {
+    content: "\e7cf";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-6 .path6:before {
+    content: "\e7d0";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-6 .path7:before {
+    content: "\e7d1";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-6 .path8:before {
+    content: "\e7d2";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-6 .path9:before {
+    content: "\e7d3";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-6 .path10:before {
+    content: "\e7d4";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-6 .path11:before {
+    content: "\e7d5";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-7 .path1:before {
+    content: "\e7d6";
+    color: rgb(87, 169, 170);
+}
+
+.animal-avatar-7 .path2:before {
+    content: "\e7d7";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-7 .path3:before {
+    content: "\e7d8";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-7 .path4:before {
+    content: "\e7d9";
+    margin-left: -1em;
+    color: rgb(162, 69, 15);
+}
+
+.animal-avatar-7 .path5:before {
+    content: "\e7da";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-7 .path6:before {
+    content: "\e7db";
+    margin-left: -1em;
+    color: rgb(162, 69, 15);
+}
+
+.animal-avatar-7 .path7:before {
+    content: "\e7dc";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-7 .path8:before {
+    content: "\e7dd";
+    margin-left: -1em;
+    color: rgb(162, 69, 15);
+}
+
+.animal-avatar-7 .path9:before {
+    content: "\e7de";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-7 .path10:before {
+    content: "\e7df";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-7 .path11:before {
+    content: "\e7e0";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-7 .path12:before {
+    content: "\e7e1";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-7 .path13:before {
+    content: "\e7e2";
+    margin-left: -1em;
+    color: rgb(26, 26, 26);
+}
+
+.animal-avatar-7 .path14:before {
+    content: "\e7e3";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-8 .path1:before {
+    content: "\e7e4";
+    color: rgb(246, 167, 170);
+}
+
+.animal-avatar-8 .path2:before {
+    content: "\e7e5";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-8 .path3:before {
+    content: "\e7e6";
+    margin-left: -1em;
+    color: rgb(231, 204, 189);
+}
+
+.animal-avatar-8 .path4:before {
+    content: "\e7e7";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-8 .path5:before {
+    content: "\e7e8";
+    margin-left: -1em;
+    color: rgb(231, 204, 189);
+}
+
+.animal-avatar-8 .path6:before {
+    content: "\e7e9";
+    margin-left: -1em;
+    color: rgb(244, 118, 47);
+}
+
+.animal-avatar-8 .path7:before {
+    content: "\e7ea";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-8 .path8:before {
+    content: "\e7eb";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-8 .path9:before {
+    content: "\e7ec";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+
+.animal-avatar-8 .path10:before {
+    content: "\e7ed";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+
+.animal-avatar-8 .path11:before {
+    content: "\e7ee";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+
+.animal-avatar-8 .path12:before {
+    content: "\e7ef";
+    margin-left: -1em;
+    color: rgb(106, 71, 51);
+}
+

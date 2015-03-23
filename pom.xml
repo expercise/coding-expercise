@@ -462,6 +462,7 @@
                                 <include>/bootstrap-theme.min.css</include>
                                 <include>/codemirror.css</include>
                                 <include>/ambiance.css</include>
+                                <include>/avatars.css</include>
                                 <include>/expercise.min.css</include>
                             </includes>
                             <output>
@@ -491,7 +492,9 @@
                                 <include>/codemirror/mode/clike.js</include>
                                 <include>/expercise.js</include>
                                 <include>/utils.js</include>
+                                <include>/avatar.js</include>
                                 <include>/header.js</include>
+                                <include>/profile.js</include>
                                 <include>/challenge.js</include>
                                 <include>/locale.js</include>
                                 <include>/codeEditor.js</include>

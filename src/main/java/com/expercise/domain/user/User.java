@@ -38,6 +38,8 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
+    private String avatar;
+
     public String getFavoriteProgrammingLanguage() {
         return Optional.ofNullable(programmingLanguage).map(Enum::name).orElse(StringUtils.EMPTY);
     }
@@ -108,6 +110,18 @@ public class User extends AbstractEntity {
 
     public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
         this.programmingLanguage = programmingLanguage;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public boolean hasAvatar() {
+        return avatar != null;
     }
 
     public boolean isAdmin() {
