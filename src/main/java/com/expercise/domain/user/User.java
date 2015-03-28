@@ -121,7 +121,7 @@ public class User extends AbstractEntity {
     }
 
     public boolean hasAvatar() {
-        return avatar != null;
+        return StringUtils.isNotBlank(avatar);
     }
 
     public boolean isAdmin() {

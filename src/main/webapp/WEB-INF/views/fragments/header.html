@@ -14,10 +14,9 @@
 
                 <div id="userMenu" class="col-xs-6">
                     <a id="userMenuDropdown" data-toggle="dropdown" th:with="userAuthenticated = ${#authorization.expression('isAuthenticated()')}">
-                        <span th:if="${userAuthenticated and currentUser.hasAvatar()}" th:class="${'img-circle avatar ' + currentUser.avatar}"></span>
-                        <span th:if="${not userAuthenticated or not currentUser.hasAvatar()}" class="glyphicon glyphicon-user"></span>
                         <span th:text="${userAuthenticated} ? ${currentUser.fullName} : #{label.menu}"></span>
-                        <span class="caret"></span>
+                        <span th:if="${userAuthenticated and currentUser.hasAvatar()}" th:class="${'userMenuImage img-circle avatar ' + currentUser.avatar}"></span>
+                        <span th:if="${not userAuthenticated or not currentUser.hasAvatar()}" class="userMenuImage glyphicon glyphicon-user"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li>
