@@ -6,10 +6,10 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="${user.fullName}"></legend>
 
-    <div class="row">
+    <div class="row" th:with="isCurrentUser = ${currentUser.equals(user)}">
         <div class="col-xs-4">
             <div class="userPicture">
-                <div class="avatarSelectionContainer" th:if="${currentUser.equals(user)}">
+                <div class="avatarSelectionContainer" th:if="${isCurrentUser}">
                     <div>
                         <a id="selectAvatar" data-toggle="collapse" href="#avatarsCollapse" aria-expanded="false" aria-controls="avatarsCollapse" th:text="#{user.profile.selectAvatar}"></a>
                     </div>
@@ -76,10 +76,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" th:unless="${user.programmingLanguage == null}">
                         <label class="col-xs-5" th:text="#{label.favoriteProgrammingLanguage}"></label>
                         <div class="col-xs-7">
-                            <span th:text="${user.getFavoriteProgrammingLanguage()}"></span>
+                            <span th:text="${user.programmingLanguage}"></span>
                         </div>
                     </div>
 
