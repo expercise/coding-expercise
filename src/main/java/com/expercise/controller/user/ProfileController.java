@@ -44,7 +44,7 @@ public class ProfileController {
     public ModelAndView showPublicProfile(@PathVariable String avatar) {
         User user = authenticationService.getCurrentUser();
         user.setAvatar(avatar);
-        userService.saveUser(user);
+        userService.updateUser(user);
         return RedirectUtils.redirectToProfile(user);
     }
 

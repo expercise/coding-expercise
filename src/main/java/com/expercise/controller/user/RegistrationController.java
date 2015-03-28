@@ -37,7 +37,7 @@ public class RegistrationController {
         }
 
         User user = userModel.createUser();
-        userService.saveUser(user);
+        userService.saveNewUser(user);
 
         return RedirectUtils.redirectLoginForNewMember();
     }

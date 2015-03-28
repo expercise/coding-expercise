@@ -24,10 +24,14 @@ public class UserService {
     @Autowired
     private UserRememberMeTokenDao userRememberMeTokenDao;
 
-    public void saveUser(User user) {
+    public void saveNewUser(User user) {
         String hashedUserPassword = hashPassword(user.getPassword());
         user.setPassword(hashedUserPassword);
         userDao.save(user);
+    }
+
+    public void updateUser(User user) {
+        userDao.update(user);
     }
 
     public User findByEmail(String email) {

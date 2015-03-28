@@ -125,7 +125,7 @@ class ForgotMyPasswordControllerSpec extends Specification {
 
         then:
         mav.getViewName() == "redirect:/login?resetPasswordSuccess"
-        1 * userService.saveUser({ it.password == "password123qwe" })
+        1 * userService.saveNewUser({ it.password == "password123qwe" })
 
         then:
         1 * forgotMyPasswordService.deleteToken("token_123")

@@ -72,7 +72,7 @@ public class ForgotMyPasswordController {
     private void processForValidToken(PasswordResetModel passwordResetModel, User user) {
         String password = passwordResetModel.getPasswordModel().getPassword();
         user.setPassword(password);
-        userService.saveUser(user);
+        userService.saveNewUser(user);
         forgotMyPasswordService.deleteToken(passwordResetModel.getToken());
     }
 

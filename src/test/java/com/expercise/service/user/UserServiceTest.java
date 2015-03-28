@@ -38,7 +38,7 @@ public class UserServiceTest {
 
         when(passwordEncoder.encode("password")).thenReturn("hashedPassword");
 
-        userService.saveUser(user);
+        userService.saveNewUser(user);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(userDao).save(userCaptor.capture());
