@@ -6,7 +6,7 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="${user.fullName}"></legend>
 
-    <div class="row" th:with="isCurrentUser = ${currentUser.equals(user)}">
+    <div class="row" th:with="isCurrentUser = ${currentUser != null and currentUser.equals(user)}">
         <div class="col-xs-4">
             <div class="userPicture">
                 <div class="avatarSelectionContainer" th:if="${isCurrentUser}">

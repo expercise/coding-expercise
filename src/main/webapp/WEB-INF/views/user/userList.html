@@ -24,7 +24,7 @@
                     <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar ' + user.avatar}"></span>
                 </td>
                 <td>
-                    <a th:href="@{'/profile/'} + ${user.id}" th:text="${user.email}"></a>
+                    <a th:href="@{${user.bookmarkableUrl}}" th:text="${user.email}"></a>
                 </td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>

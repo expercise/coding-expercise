@@ -12,7 +12,7 @@
 
         <div class="col-xs-4 right">
             <div class="linkContainer">
-                <a th:href="@{${challenge.getThemeBookmarkableUrl(#locale)}}">
+                <a th:href="@{${challenge.themeBookmarkableUrl}}">
                     <span th:text="#{button.goBack}"></span>
                     <span class="glyphicon glyphicon-share-alt"></span>
                 </a>
@@ -23,7 +23,7 @@
     <div class="row challengeInfo">
         <div class="col-xs-8">
             <span th:if="${challenge.getUser().hasAvatar()}" th:class="${'img-circle avatar ' + challenge.getUser().getAvatar()}"></span>
-            <a th:href="@{'/profile/' + ${challenge.getUser().getId()}}" class="small" th:text="${challenge.getUser().getFullName()}">
+            <a th:href="@{${challenge.user.bookmarkableUrl}}" class="small" th:text="${challenge.getUser().getFullName()}">
                 Author Full Name
             </a>
             <span class="small" th:text="#{'challenge.addedBy'}">added.</span>

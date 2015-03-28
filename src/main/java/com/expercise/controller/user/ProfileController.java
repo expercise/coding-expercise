@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/user")
 public class ProfileController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class ProfileController {
         return prepareModelAndView(user);
     }
 
-    @RequestMapping("/{userId}")
+    @RequestMapping("/{userId}/{bookmarkableFullName}")
     public ModelAndView showPublicProfile(@PathVariable long userId) {
         User user = userService.findById(userId);
         return prepareModelAndView(user);
@@ -45,7 +45,7 @@ public class ProfileController {
         User user = authenticationService.getCurrentUser();
         user.setAvatar(avatar);
         userService.updateUser(user);
-        return RedirectUtils.redirectToProfile(user);
+        return RedirectUtils.redirectTo(user.getBookmarkableUrl());
     }
 
     private ModelAndView prepareModelAndView(User user) {

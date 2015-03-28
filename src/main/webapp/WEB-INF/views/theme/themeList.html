@@ -14,7 +14,7 @@
 
     <div class="row" th:unless="${#lists.isEmpty(themeList)}">
         <div class="themeContainer" th:each="theme : ${themeList}">
-            <a th:href="@{${theme.getBookmarkableUrl(#locale)}}">
+            <a th:href="@{${theme.bookmarkableUrl}}">
                 <div class="theme" th:text="${theme.getNameFor(#locale)}"></div>
             </a>
         </div>

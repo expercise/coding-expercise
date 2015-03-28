@@ -1,6 +1,5 @@
 package com.expercise.controller;
 
-import com.expercise.domain.user.User;
 import org.springframework.web.servlet.ModelAndView;
 
 public final class RedirectUtils {
@@ -18,10 +17,6 @@ public final class RedirectUtils {
 
     public static ModelAndView redirectLoginFor(String purpose) {
         return redirectTo("/login?" + purpose);
-    }
-
-    public static ModelAndView redirectToProfile(User user) {
-        return redirectTo("/profile/" + user.getId());
     }
 
     public static ModelAndView redirect403() {

@@ -4,10 +4,10 @@ import com.expercise.domain.AbstractEntity;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.enums.UserRole;
+import com.expercise.utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 public class User extends AbstractEntity {
@@ -39,6 +39,10 @@ public class User extends AbstractEntity {
     private ProgrammingLanguage programmingLanguage;
 
     private String avatar;
+
+    public String getBookmarkableUrl() {
+        return String.format("/user/%s/%s", getId().toString(), UrlUtils.makeBookmarkable(getFullName()));
+    }
 
     public Long getId() {
         return id;

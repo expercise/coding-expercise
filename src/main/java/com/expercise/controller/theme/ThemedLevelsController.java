@@ -47,11 +47,8 @@ public class ThemedLevelsController {
             return RedirectUtils.redirect404();
         }
 
-        String lingoShortName = LocaleContextHolder.getLocale().toString();
-        String freshBookmarkableName = theme.getBookmarkableName(lingoShortName);
-        boolean isBookmarkableNameChanged = !StringUtils.equals(freshBookmarkableName, bookmarkableThemeName);
-        if (isBookmarkableNameChanged) {
-            return RedirectUtils.redirectTo(theme.getBookmarkableUrl(lingoShortName));
+        if (theme.isBookmarkableNameChanged(bookmarkableThemeName)) {
+            return RedirectUtils.redirectTo(theme.getBookmarkableUrl());
         }
 
         ModelAndView modelAndView = new ModelAndView("theme/levelList");
