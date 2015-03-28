@@ -69,7 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" th:if="${isCurrentUser}">
                         <label class="col-xs-5" th:text="#{label.email}"></label>
                         <div class="col-xs-7">
                             <a th:href="${'mailto:' + user.email}" th:text="${user.email}" target="_blank"></a>
