@@ -10,6 +10,22 @@
         <input id="contextPath" type="hidden" th:value="@{/}"/>
         <input id="mobileClient" type="hidden" th:value="${mobileClient}"/>
 
+    <!--/* CSS Files */-->
+        <!--/* If only environment is 'development' */-->
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap-theme.min.css}" rel="stylesheet"/>
+
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror.css}" rel="stylesheet"/>
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/ambiance.css}" rel="stylesheet"/>
+
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/avatars.css}" rel="stylesheet"/>
+        <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
+
+        <!--/* If only environment is not 'development' */-->
+        <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
+        <!--/* END OF CSS FILES */-->
+
+    <!--/* JavaScript Files */-->
         <script type="text/javascript" th:src="@{'/generatedResources/js/messages_' + __${#locale}__ + '-' + ${buildId} + '.js'}" defer="defer"></script>
 
         <script type="text/javascript" th:src="@{/resources/js/myth-1.0.0-SNAPSHOT.js}"></script>
