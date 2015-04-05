@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout" th:with="title = #{'errorPage.subtitle.' + __${errorCode}__}">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = #{'errorPage.subtitle.' + __${errorCode}__}">
 <head>
     <title th:text="${title}"></title>
 </head>
