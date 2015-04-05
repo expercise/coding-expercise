@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 @Scope("request")
 public class CurrentUserHolder {
 
-    private final ThreadLocal<User> CURRENT_USER_THREAD_LOCAL = new ThreadLocal<>();
+    private User currentUser;
 
     public boolean hasNotCurrentUser() {
-        return CURRENT_USER_THREAD_LOCAL.get() == null;
+        return currentUser == null;
     }
 
     public User getCurrentUser() {
-        return CURRENT_USER_THREAD_LOCAL.get();
+        return currentUser;
     }
 
-    public void setCurrentUser(User user) {
-        CURRENT_USER_THREAD_LOCAL.set(user);
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
 }
