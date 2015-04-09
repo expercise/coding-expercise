@@ -4,7 +4,7 @@ expercise.Header = {
 
     bindEvents: function () {
         this.setUpHeaderScrollToFixed();
-        this.userMenuToggle();
+        this.menuToggles();
     },
 
     setUpHeaderScrollToFixed: function () {
@@ -15,11 +15,16 @@ expercise.Header = {
         });
     },
 
-    userMenuToggle: function () {
-        var $userMenuDropdown = $('#userMenuDropdown');
-        $userMenuDropdown.mouseenter(function () {
-            if ($('#userMenu').hasClass('open') == false) {
-                $userMenuDropdown.dropdown('toggle');
+    menuToggles: function () {
+        $('#userMenuDropdown').mouseenter(function () {
+            if ($('#userMenuDropdownContainer').hasClass('open') == false) {
+                $(this).dropdown('toggle');
+            }
+        });
+
+        $('#lingoMenuDropdown').mouseenter(function () {
+            if ($('#lingoMenuDropdownContainer').hasClass('open') == false) {
+                $(this).dropdown('toggle');
             }
         });
     },
