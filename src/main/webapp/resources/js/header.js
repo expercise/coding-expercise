@@ -16,6 +16,10 @@ expercise.Header = {
     },
 
     menuToggles: function () {
+        if (expercise.utils.isMobileClient()) {
+            return;
+        }
+
         $('#userMenuDropdown').mouseenter(function () {
             if ($('#userMenuDropdownContainer').hasClass('open') == false) {
                 $(this).dropdown('toggle');
