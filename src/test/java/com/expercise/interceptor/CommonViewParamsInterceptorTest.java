@@ -3,6 +3,7 @@ package com.expercise.interceptor;
 import com.expercise.domain.user.User;
 import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.user.AuthenticationService;
+import com.expercise.service.util.UrlService;
 import com.expercise.testutils.builder.UserBuilder;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -38,6 +39,9 @@ public class CommonViewParamsInterceptorTest {
 
     @Mock
     private AuthenticationService authenticationService;
+
+    @Mock
+    private UrlService urlService;
 
     @Mock
     private Device device;
@@ -135,12 +139,9 @@ public class CommonViewParamsInterceptorTest {
 
     @Test
     public void shouldAddCanonicalUrlWithoutWWW() {
-        HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+        when(urlService.getCanonical(request)).thenReturn("http://expercise.com/");
 
-        when(mockRequest.getRequestURL()).thenReturn(new StringBuffer("http://www.expercise.com/"));
-        when(mockRequest.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE)).thenReturn(device);
-
-        interceptor.postHandle(mockRequest, response, null, modelAndView);
+        interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("canonical", (Object) "http://expercise.com/"));
     }
