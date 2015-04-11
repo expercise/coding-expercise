@@ -2,6 +2,7 @@ package com.expercise.interceptor;
 
 import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.user.AuthenticationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.DeviceUtils;
@@ -34,6 +35,7 @@ public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
         modelAndView.addObject("userReportApplicationKey", configurationService.getUserReportApplicationKey());
         modelAndView.addObject("currentUser", authenticationService.getCurrentUser());
         modelAndView.addObject("mobileClient", DeviceUtils.getCurrentDevice(request).isMobile() || DeviceUtils.getCurrentDevice(request).isTablet());
+        modelAndView.addObject("canonical", StringUtils.replace(request.getRequestURL().toString(), "://www.", "://"));
     }
 
 }

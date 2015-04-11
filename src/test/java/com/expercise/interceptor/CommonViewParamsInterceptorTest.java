@@ -21,10 +21,10 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static org.hamcrest.Matchers.hasEntry;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -42,9 +42,11 @@ public class CommonViewParamsInterceptorTest {
     @Mock
     private Device device;
 
-    private HttpServletRequest request = new MockHttpServletRequest();
+    private MockHttpServletRequest request = new MockHttpServletRequest();
 
-    private HttpServletResponse response = new MockHttpServletResponse();
+    private MockHttpServletResponse response = new MockHttpServletResponse();
+
+    private ModelAndView modelAndView = new ModelAndView();
 
     @Before
     public void before() {
@@ -57,8 +59,6 @@ public class CommonViewParamsInterceptorTest {
 
         when(configurationService.getGoogleAnalyticsApplicationKey()).thenReturn(googleAnalyticsApplicationKey);
 
-        ModelAndView modelAndView = new ModelAndView();
-
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("googleAnalyticsApplicationKey", (Object) googleAnalyticsApplicationKey));
@@ -69,8 +69,6 @@ public class CommonViewParamsInterceptorTest {
         String userReportApplicationKey = RandomStringUtils.randomAlphabetic(11);
 
         when(configurationService.getUserReportApplicationKey()).thenReturn(userReportApplicationKey);
-
-        ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
 
@@ -83,8 +81,6 @@ public class CommonViewParamsInterceptorTest {
 
         ReflectionTestUtils.setField(interceptor, "buildId", buildId);
 
-        ModelAndView modelAndView = new ModelAndView();
-
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("buildId", (Object) buildId));
@@ -95,8 +91,6 @@ public class CommonViewParamsInterceptorTest {
         boolean developmentEnvironment = BooleanUtils.toBoolean(RandomUtils.nextInt(0, 2));
 
         when(configurationService.isDevelopment()).thenReturn(developmentEnvironment);
-
-        ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
 
@@ -109,8 +103,6 @@ public class CommonViewParamsInterceptorTest {
 
         when(authenticationService.getCurrentUser()).thenReturn(user);
 
-        ModelAndView modelAndView = new ModelAndView();
-
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("currentUser", (Object) user));
@@ -119,8 +111,6 @@ public class CommonViewParamsInterceptorTest {
     @Test
     public void shouldSetTrueAsMobileClientIfDeviceIsMobile() {
         when(device.isMobile()).thenReturn(true);
-
-        ModelAndView modelAndView = new ModelAndView();
 
         interceptor.postHandle(request, response, null, modelAndView);
 
@@ -131,8 +121,6 @@ public class CommonViewParamsInterceptorTest {
     public void shouldSetTrueAsMobileClientIfDeviceIsTablet() {
         when(device.isTablet()).thenReturn(true);
 
-        ModelAndView modelAndView = new ModelAndView();
-
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("mobileClient", (Object) true));
@@ -140,11 +128,21 @@ public class CommonViewParamsInterceptorTest {
 
     @Test
     public void shouldSetFalseAsMobileClientIfDeviceIsNormal() {
-        ModelAndView modelAndView = new ModelAndView();
-
         interceptor.postHandle(request, response, null, modelAndView);
 
         assertThat(modelAndView.getModel(), hasEntry("mobileClient", (Object) false));
+    }
+
+    @Test
+    public void shouldAddCanonicalUrlWithoutWWW() {
+        HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+
+        when(mockRequest.getRequestURL()).thenReturn(new StringBuffer("http://www.expercise.com/"));
+        when(mockRequest.getAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE)).thenReturn(device);
+
+        interceptor.postHandle(mockRequest, response, null, modelAndView);
+
+        assertThat(modelAndView.getModel(), hasEntry("canonical", (Object) "http://expercise.com/"));
     }
 
 }
