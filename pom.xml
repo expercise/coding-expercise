@@ -496,6 +496,7 @@
                                 <include>/header.js</include>
                                 <include>/profile.js</include>
                                 <include>/challenge.js</include>
+                                <include>/themeListing.js</include>
                                 <include>/locale.js</include>
                                 <include>/codeEditor.js</include>
                                 <include>/challengeManagement.js</include>
