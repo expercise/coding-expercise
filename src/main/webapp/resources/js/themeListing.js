@@ -14,6 +14,12 @@ expercise.ThemeListing = {
                 });
             }, 500);
         }
+    },
+
+    bindEvents: function() {
+        $('.themeContainer').click(function () {
+            expercise.utils.go($(this).find('a').attr('href'));
+        });
     }
 
 };
