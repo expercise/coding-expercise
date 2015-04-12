@@ -32,6 +32,14 @@ public class TestCaseModel implements Serializable {
         return inputs;
     }
 
+    public void setInputs(List<String> inputs) {
+        this.inputs = inputs;
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
     public void setOutput(String output) {
         this.output = output;
     }
@@ -44,8 +52,11 @@ public class TestCaseModel implements Serializable {
         this.actualValue = actualValue;
     }
 
+    public TestCaseResult getTestCaseResult() {
+        return testCaseResult;
+    }
+
     public void setTestCaseResult(TestCaseResult testCaseResult) {
         this.testCaseResult = testCaseResult;
     }
-
 }
