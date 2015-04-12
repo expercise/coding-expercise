@@ -34,12 +34,20 @@ public class TestCasesWithSourceModel implements Serializable {
         return testCasesWithSourceModel;
     }
 
+    public String getCurrentSourceCode() {
+        return currentSourceCode;
+    }
+
     public void setCurrentSourceCode(String currentSourceCode) {
         this.currentSourceCode = currentSourceCode;
     }
 
     public List<TestCaseModel> getTestCaseModels() {
         return testCaseModels;
+    }
+
+    public void setTestCaseModels(List<TestCaseModel> testCaseModels) {
+        this.testCaseModels = testCaseModels;
     }
 
 }
