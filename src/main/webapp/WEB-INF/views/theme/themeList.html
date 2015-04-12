@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout">
 <head>
     <title th:text="#{theme.listing.header}"></title>
 </head>
@@ -14,10 +14,13 @@
 
     <div class="row" th:unless="${#lists.isEmpty(themeList)}">
         <div class="themeContainer" th:each="theme : ${themeList}">
-            <a th:href="@{${theme.getBookmarkableUrl(#locale)}}">
+            <a th:href="@{${theme.bookmarkableUrl}}">
                 <div class="theme" th:text="${theme.getNameFor(#locale)}"></div>
             </a>
         </div>
     </div>
+
+    <input id="newMember" type="hidden" th:value="${param.newMember != null}"/>
+    <input id="javaScriptModules" type="hidden" value="ThemeListing"/>
 </body>
 </html>

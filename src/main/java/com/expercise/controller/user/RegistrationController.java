@@ -5,8 +5,13 @@ import com.expercise.controller.user.model.UserModel;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.service.user.AuthenticationService;
 import com.expercise.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +26,9 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @RequestMapping("/register")
     public ModelAndView registrationPage(ModelAndView modelAndView) {
@@ -39,7 +47,9 @@ public class RegistrationController {
         User user = userModel.createUser();
         userService.saveNewUser(user);
 
-        return RedirectUtils.redirectLoginForNewMember();
+        authenticationService.authenticate(userModel.getEmail(), userModel.getPasswordModel().getPassword());
+
+        return RedirectUtils.redirectToThemesForNewMember();
     }
 
     private void initializeModelAndView(ModelAndView modelAndView) {

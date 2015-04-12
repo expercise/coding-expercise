@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout" th:with="title = ${theme.getNameFor(#locale)}">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = ${theme.getNameFor(#locale)}">
 <head>
     <title th:text="${title}"></title>
 </head>

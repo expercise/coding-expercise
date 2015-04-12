@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div id="footer" th:fragment="footer">
         <p class="text-muted">
@@ -22,8 +22,8 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.min.js}"></script>
 
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/bootstrap.min.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/bootbox.min.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootstrap.min.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootbox.min.js}"></script>
 
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/javascript.js}"></script>
@@ -36,6 +36,7 @@
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/header.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/profile.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>
+        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/themeListing.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/locale.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codeEditor.js}"></script>
         <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>

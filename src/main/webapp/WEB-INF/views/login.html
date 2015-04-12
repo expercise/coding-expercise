@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout">
 <head>
     <title th:text="#{login.legend}"></title>
 </head>
@@ -11,7 +11,6 @@
         <div class="col-xs-12">
             <p class="alert alert-danger" th:if="${param.error}" th:text="#{login.failedMessage}"></p>
             <p class="alert alert-info" th:if="${param.logout}" th:text="#{login.logoutMessage}"></p>
-            <p class="alert alert-success" th:if="${param.newMember}" th:text="#{login.register.welcome}"></p>
             <p class="alert alert-success" th:if="${param.resetPasswordSuccess}" th:text="#{login.passwordResetSuccess}"></p>
 
             <form th:action="@{/login}" method="POST" class="form-horizontal">

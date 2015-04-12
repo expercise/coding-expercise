@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout" th:with="title = #{'challengeList.header.mode.' + ${mode}}">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = #{'challengeList.header.mode.' + ${mode}}">
 <head>
     <title th:text="${title}"></title>
 </head>

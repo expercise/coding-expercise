@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="mainLayout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout">
 <head>
     <title th:text="#{userList.header}"></title>
 </head>
@@ -15,7 +15,7 @@
                 <th th:text="#{label.lastName}"></th>
                 <th th:text="#{userList.table.header.userType}"></th>
                 <th th:text="#{userList.table.header.favoriteLanguage}"></th>
-                <th th:text="#{userList.table.header.lingo}"></th>
+                <th th:text="#{label.lingo}"></th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
                     <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar ' + user.avatar}"></span>
                 </td>
                 <td>
-                    <a th:href="@{'/profile/'} + ${user.id}" th:text="${user.email}"></a>
+                    <a th:href="@{${user.bookmarkableUrl}}" th:text="${user.email}"></a>
                 </td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>

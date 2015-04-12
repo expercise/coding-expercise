@@ -5,6 +5,8 @@ import com.expercise.domain.level.Level;
 import com.expercise.enums.Lingo;
 import com.expercise.service.util.PrioritySorter;
 import com.expercise.utils.UrlUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -41,14 +43,19 @@ public class Theme extends PrioritizedEntity {
         this.id = id;
     }
 
-    public String getBookmarkableUrl(String lingoShortName) {
+    public String getBookmarkableUrl() {
         if (id != null) {
-            return "/themes/" + id + "/" + getBookmarkableName(lingoShortName);
+            return "/themes/" + id + "/" + getBookmarkableName();
         }
         return URL_FOR_NOT_THEMED_CHALLENGES;
     }
 
-    public String getBookmarkableName(String lingoShortName) {
+    public boolean isBookmarkableNameChanged(String bookmarkableThemeName) {
+        return !StringUtils.equals(getBookmarkableName(), bookmarkableThemeName);
+    }
+
+    private String getBookmarkableName() {
+        String lingoShortName = LocaleContextHolder.getLocale().toString();
         return UrlUtils.makeBookmarkable(getNameFor(lingoShortName));
     }
 

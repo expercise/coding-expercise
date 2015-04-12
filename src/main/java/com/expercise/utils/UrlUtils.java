@@ -10,11 +10,9 @@ public final class UrlUtils {
     }
 
     public static String makeBookmarkable(String text) {
-        String normalizedText = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        return Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
                 .matcher(Normalizer.normalize(text.replaceAll("[ı]", "i"), Normalizer.Form.NFD))
-                .replaceAll("");
-
-        return normalizedText
+                .replaceAll("")
                 .toLowerCase(Locale.ENGLISH)
                 .replaceAll("\\s+", " ")
                 .trim()

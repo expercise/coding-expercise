@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{title}" layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE"></title>
 
-    <meta name="content-type" content="text/html; charset=utf-8"/>
-    <meta name="content-language" content="en, tr"/>
+    <meta charset="UTF-8"/>
+    <meta name="content-type" content="text/html"/>
+    <meta name="content-language" th:content="${#locale}"/>
+
     <meta name="description" content="expercise.com; programming challenges for champion developers!"/>
     <meta name="author" content="Ufuk Uzun, Batuhan Bayrakci"/>
     <meta name="keywords" content="expercise, exercise, challenge, programming, game, java, javascript, python, development"/>
+
+    <link rel="canonical" th:href="${canonical}"/>
 
     <link rel="shortcut icon" th:href="@{/resources/assets/favicon.ico}"/>
 
@@ -24,7 +28,7 @@
     <!--/* If only environment is not 'development' */-->
     <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
 
-    <!--/* Google Analytics integration script */-->
+    <!--/* Google Analytics */-->
     <script th:unless="${#strings.isEmpty(googleAnalyticsApplicationKey)}" th:inline="javascript">
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
