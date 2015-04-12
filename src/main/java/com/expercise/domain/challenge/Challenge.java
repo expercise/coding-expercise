@@ -18,6 +18,9 @@ public class Challenge extends AbstractEntity {
     @GeneratedValue
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private ChallengeType challengeType = ChallengeType.ALGORITHM;
+
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "Lingo", nullable = false)
@@ -39,6 +42,7 @@ public class Challenge extends AbstractEntity {
     private DataType outputType;
 
     @OneToMany(mappedBy = "challenge", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OrderBy("priority")
     private List<TestCase> testCases = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -179,6 +183,14 @@ public class Challenge extends AbstractEntity {
         this.createDate = createDate;
     }
 
+    public ChallengeType getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeType challengeType) {
+        this.challengeType = challengeType;
+    }
+
     public void addTestCase(TestCase testCase) {
         testCase.setChallenge(this);
         testCases.add(testCase);
@@ -211,6 +223,10 @@ public class Challenge extends AbstractEntity {
 
     public Object getOutputValueFor(TestCase testCase) {
         return outputType.convert(testCase.getOutput());
+    }
+
+    public boolean isCodeKata() {
+        return getChallengeType() == ChallengeType.CODE_KATA;
     }
 
 }

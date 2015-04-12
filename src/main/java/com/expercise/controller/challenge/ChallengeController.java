@@ -1,9 +1,11 @@
 package com.expercise.controller.challenge;
 
 import com.expercise.controller.RedirectUtils;
+import com.expercise.controller.challenge.model.ChallengeResetModel;
 import com.expercise.controller.challenge.model.SolutionFromUser;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.interpreter.TestCasesWithSourceModel;
 import com.expercise.service.challenge.ChallengeDisplayRule;
 import com.expercise.service.challenge.ChallengeService;
 import com.expercise.service.challenge.SolutionService;
@@ -45,6 +47,8 @@ public class ChallengeController {
         modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
         modelAndView.addObject("solutionSignatures", JsonUtils.toJsonString(challengeService.prepareSignaturesMapFor(challenge)));
         modelAndView.addObject("userSolutions", JsonUtils.toJsonString(solutionService.getUserSolutionModels(challenge)));
+        //todo:batu get state for other languages later
+        modelAndView.addObject("testCasesWithSource", JsonUtils.toJsonString(challengeService.getUserStateFor(challenge, ProgrammingLanguage.JavaScript)));
 
         return modelAndView;
     }
@@ -53,6 +57,14 @@ public class ChallengeController {
     @ResponseBody
     public SolutionValidationResult evaluate(@RequestBody SolutionFromUser solutionFromUser) {
         return solutionValidationService.validateSolution(solutionFromUser);
+    }
+
+    @RequestMapping(value = "/reset", method = RequestMethod.POST)
+    @ResponseBody
+    public TestCasesWithSourceModel reset(@RequestBody ChallengeResetModel challengeResetModel) {
+        Challenge challenge = challengeService.findById(challengeResetModel.getChallengeId());
+        ProgrammingLanguage programmingLanguage = ProgrammingLanguage.getLanguage(challengeResetModel.getLanguage()).get();
+        return challengeService.resetUserStateFor(challenge, programmingLanguage);
     }
 
 }

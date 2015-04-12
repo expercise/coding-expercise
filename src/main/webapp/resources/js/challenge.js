@@ -7,6 +7,8 @@ expercise.Challenge = {
         var userSolutions = JSON.parse($('#userSolutions').val());
         this.populateUserSolutionTable(userSolutions);
         this.adjustProgrammingLanguage();
+        var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
+        this.populateKataTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
     },
 
     bindEvents: function () {
@@ -39,6 +41,8 @@ expercise.Challenge = {
                     } else {
                         $resultsTextarea.addClass('failedResult');
                     }
+                    var model = response.testCasesWithSourceModel;
+                    expercise.Challenge.populateKataTestCaseState(model.currentSourceCode, model.testCaseModels);
                 }
             );
         });
@@ -65,9 +69,13 @@ expercise.Challenge = {
     reset: function () {
         expercise.Challenge.adjustProgrammingLanguage();
         expercise.Challenge.resetConsole();
+        expercise.Challenge.resetTestCases();
     },
 
     populateUserSolutionTable: function (userSolutionModels) {
+        if (userSolutionModels == null) {
+            return;
+        }
         var $userSolutionsTable = $('.userSolutionsTable');
         if (userSolutionModels.length == 0) {
             $userSolutionsTable.hide();
@@ -106,6 +114,49 @@ expercise.Challenge = {
         expercise.Challenge.changeProgrammingLanguage(selectedLanguage, expercise.Challenge.solutionSignatures[selectedLanguage]);
     },
 
+    populateKataTestCaseState: function (currentSourceCode, testCaseModels) {
+        var challengeType = $('#challengeType').val();
+        if (challengeType != 'CODE_KATA') {
+            return;
+        }
+
+        var showSignatureIfSourceCodeIsEmpty = function () {
+            if (currentSourceCode.trim() === '') {
+                expercise.Challenge.adjustProgrammingLanguage();
+            } else {
+                expercise.CodeEditor.setSolution(currentSourceCode);
+            }
+        };
+
+        var decideTestCaseStyle = function (testCaseResult) {
+            var rowStyleClass = "newTestCase";
+            if (testCaseResult === 'PASSED') {
+                rowStyleClass = "passedTestCase";
+            } else if (testCaseResult === 'FAILED') {
+                rowStyleClass = "failedTestCase";
+            }
+            return rowStyleClass;
+        };
+
+        showSignatureIfSourceCodeIsEmpty();
+
+        $('.userTestCaseStatus tbody').remove();
+        var tbody = $('<tbody>');
+        $.each(testCaseModels, function (i, value) {
+
+            var testInputsCell = $('<td></td>').html(value['inputs'].join(", "));
+            var testExpectedOutputCell = $('<td></td>').html(value['output']);
+            var testActualValueCell = $('<td></td>').html(value['actualValue']);
+            var testCaseResult = value['testCaseResult'];
+            var testResultStatusCell = $('<td></td>').html(expercise.utils.i18n('challenge.testCase.status.' + testCaseResult.toLowerCase()));
+            var row = $('<tr class="' + decideTestCaseStyle(testCaseResult) + '"></tr>').append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
+            tbody.append(row);
+        });
+
+        var $userTestCaseTable = $('.userTestCaseStatus');
+        $userTestCaseTable.append(tbody);
+    },
+
     changeProgrammingLanguage: function (langName, solution) {
         expercise.Challenge.resetConsole();
         expercise.CodeEditor.setSolution(solution);
@@ -117,6 +168,29 @@ expercise.Challenge = {
         $resultsTextarea.val('');
         $resultsTextarea.removeClass('successResult');
         $resultsTextarea.removeClass('failedResult');
+    },
+
+    resetTestCases: function () {
+        var requestData = {
+            language: $('#languageSelection').val(),
+            challengeId: $('#challengeId').val()
+        };
+
+        expercise.utils.post(
+            'challenges/reset',
+            requestData,
+            function (response) {
+                var $resultsTextarea = $('#resultsTextarea');
+                $resultsTextarea.val(response.result);
+                if (response.success) {
+                    $resultsTextarea.addClass('successResult');
+                    expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
+                } else {
+                    $resultsTextarea.addClass('failedResult');
+                }
+                expercise.Challenge.populateKataTestCaseState(response.currentSourceCode, response.testCaseModels);
+            }
+        );
     }
 
 };

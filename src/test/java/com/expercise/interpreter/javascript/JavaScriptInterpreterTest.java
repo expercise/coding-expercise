@@ -6,6 +6,9 @@ import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.challenge.TestCaseInputValue;
 import com.expercise.enums.DataType;
 import com.expercise.interpreter.InterpreterFailureType;
+import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.TestCaseResult;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,6 +54,10 @@ public class JavaScriptInterpreterTest {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(challenge);
         context.setSource(sumSolution);
+        TestCaseWithResult successfulTestCase = new TestCaseWithResult(testCase);
+        successfulTestCase.setActualValue("35");
+        successfulTestCase.setTestCaseResult(TestCaseResult.PASSED);
+        context.addTestCaseWithResult(successfulTestCase);
 
         interpreter.interpret(context);
 
@@ -81,14 +88,71 @@ public class JavaScriptInterpreterTest {
 
         challenge.addTestCase(testCase);
 
-        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setChallenge(challenge);
-        context.setSource(sumSolution);
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
 
         interpreter.interpret(context);
 
-        assertFalse(context.getInterpreterResult().isSuccess());
-        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+        InterpreterResult interpreterResult = context.getInterpreterResult();
+        assertFalse(interpreterResult.isSuccess());
+        assertThat(interpreterResult.getFailureType(), nullValue());
+
+        List<TestCaseWithResult> testCaseWithResults = context.getTestCaseWithResults();
+        assertThat(testCaseWithResults.size(), equalTo(1));
+        TestCaseWithResult firstTestCaseWithResult = testCaseWithResults.get(0);
+        assertThat(firstTestCaseWithResult.getExpectedValue(), equalTo("35"));
+        assertThat(firstTestCaseWithResult.getActualValue(), equalTo("12"));
+        assertFalse(interpreterResult.isSuccess());
+    }
+
+    @Test
+    public void shouldFailForBothTwoTestCases() {
+        String sumSolution = "function solution(a, b) { return a; }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase1 = new TestCase();
+        List<String> inputValues1 = new ArrayList<>();
+        inputValues1.add("12");
+        inputValues1.add("23");
+        testCase1.setInputs(TestCaseInputValue.createFrom(inputValues1));
+        testCase1.setOutput("35");
+
+        TestCase testCase2 = new TestCase();
+        List<String> inputValues2 = new ArrayList<>();
+        inputValues2.add("11");
+        inputValues2.add("21");
+        testCase2.setInputs(TestCaseInputValue.createFrom(inputValues2));
+        testCase2.setOutput("32");
+
+        challenge.addTestCase(testCase1);
+        challenge.addTestCase(testCase2);
+
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
+
+        interpreter.interpret(context);
+
+        InterpreterResult interpreterResult = context.getInterpreterResult();
+        assertFalse(interpreterResult.isSuccess());
+        assertThat(interpreterResult.getFailureType(), nullValue());
+
+        List<TestCaseWithResult> testCaseWithResults = context.getTestCaseWithResults();
+        assertThat(testCaseWithResults.size(), equalTo(2));
+        TestCaseWithResult firstTestCaseWithResult = testCaseWithResults.get(0);
+        assertThat(firstTestCaseWithResult.getExpectedValue(), equalTo("35"));
+        assertThat(firstTestCaseWithResult.getActualValue(), equalTo("12"));
+
+        TestCaseWithResult secondTestCaseWithResult = testCaseWithResults.get(1);
+        assertThat(secondTestCaseWithResult.getExpectedValue(), equalTo("32"));
+        assertThat(secondTestCaseWithResult.getActualValue(), equalTo("11"));
+
+        assertFalse(interpreterResult.isSuccess());
     }
 
     @Test
@@ -201,6 +265,9 @@ public class JavaScriptInterpreterTest {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(challenge);
         context.setSource(source);
+        for (TestCase testCase : challenge.getTestCases()) {
+            context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+        }
         return context;
     }
 

@@ -27,6 +27,8 @@ expercise.ChallengeManagement = {
     },
 
     prepareForUpdate: function (challengeModel) {
+        $('select[name="challengeType"]').val(challengeModel.challengeType);
+
         $('input[name="title"]').each(function () {
             var $that = $(this);
             var lingo = $that.parent('div').data('lingo');
@@ -151,6 +153,8 @@ expercise.ChallengeManagement = {
     saveChallenge: function () {
         var $saveButton = $(this);
 
+        var challengeType = $('select[name="challengeType"]').val();
+
         var titles = [];
         $('input[name="title"]').each(function () {
             var lingo = $(this).parent('div').data('lingo');
@@ -197,6 +201,7 @@ expercise.ChallengeManagement = {
 
         var requestData = {
             challengeId: expercise.ChallengeManagement.challengeModel.challengeId,
+            challengeType: challengeType,
             titles: titles,
             descriptions: descriptions,
             inputTypes: inputTypes,

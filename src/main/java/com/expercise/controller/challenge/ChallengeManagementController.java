@@ -4,6 +4,7 @@ import com.expercise.controller.RedirectUtils;
 import com.expercise.controller.challenge.model.ChallengeModel;
 import com.expercise.controller.challenge.model.SaveChallengeResponse;
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.challenge.ChallengeType;
 import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
@@ -79,6 +80,7 @@ public class ChallengeManagementController {
         modelAndView.addObject("mode", managementMode);
         modelAndView.addObject("lingos", Lingo.values());
         modelAndView.addObject("dataTypes", DataType.values());
+        modelAndView.addObject("challengeTypes", ChallengeType.values());
         modelAndView.addObject("levels", levelService.getAllLevelsInOrder());
         return modelAndView;
     }

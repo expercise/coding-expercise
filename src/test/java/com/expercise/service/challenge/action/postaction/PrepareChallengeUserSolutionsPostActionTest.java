@@ -3,8 +3,10 @@ package com.expercise.service.challenge.action.postaction;
 import com.expercise.controller.challenge.model.UserSolutionModel;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
+import com.expercise.domain.challenge.TestCase;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.service.challenge.model.SolutionValidationResult;
@@ -26,10 +28,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PrepareChallengeSolutionsPostActionTest {
+public class PrepareChallengeUserSolutionsPostActionTest {
 
     @InjectMocks
-    private PrepareChallengeSolutionsPostAction action;
+    private PrepareChallengeUserSolutionsPostAction action;
 
     @Mock
     private SolutionService solutionService;
@@ -41,18 +43,24 @@ public class PrepareChallengeSolutionsPostActionTest {
 
     @Test
     public void shouldExecuteWhenInterpretationIsSuccessful() {
+        TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         InterpreterResult successResult = InterpreterResult.createSuccessResult();
         context.setInterpreterResult(successResult);
+        context.setChallenge(new ChallengeBuilder().id(1L).testCases(testCase).build());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
         assertTrue(action.canExecute(context));
     }
 
     @Test
     public void shouldNotExecuteWhenInterpretationIsFailed() {
+        TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().id(2L).testCases(testCase).build());
         InterpreterResult failedResult = InterpreterResult.createFailedResult();
         context.setInterpreterResult(failedResult);
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
         assertFalse(action.canExecute(context));
     }

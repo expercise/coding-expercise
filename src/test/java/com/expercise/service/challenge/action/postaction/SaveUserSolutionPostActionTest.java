@@ -2,9 +2,11 @@ package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
+import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.SolutionCountService;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
@@ -44,16 +46,22 @@ public class SaveUserSolutionPostActionTest {
 
     @Test
     public void shouldBeAbleToExecuteIfEvaluationIsSucceed() {
+        TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().testCases(testCase).buildWithRandomId());
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
         assertTrue(action.canExecute(context));
     }
 
     @Test
     public void shouldNotBeAbleToExecuteIfEvaluationIsFailed() {
+        TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().testCases(testCase).buildWithRandomId());
         context.setInterpreterResult(InterpreterResult.createFailedResult());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
         assertFalse(action.canExecute(context));
     }

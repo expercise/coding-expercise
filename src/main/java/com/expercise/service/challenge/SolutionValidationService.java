@@ -2,8 +2,11 @@ package com.expercise.service.challenge;
 
 import com.expercise.controller.challenge.model.SolutionFromUser;
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.challenge.ChallengeType;
+import com.expercise.domain.challenge.TestCase;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.Interpreter;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.action.PostEvaluationExecutor;
 import com.expercise.service.challenge.action.PreEvaluationExecutor;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
@@ -13,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.beans.Introspector;
+import java.util.List;
 
 @Service
 public class SolutionValidationService {
@@ -28,6 +32,9 @@ public class SolutionValidationService {
 
     @Autowired
     private PostEvaluationExecutor postEvaluationExecutor;
+
+    @Autowired
+    private UserTestCaseStateService userTestCaseStateService;
 
     public SolutionValidationResult validateSolution(SolutionFromUser solutionFromUser) {
         ChallengeEvaluationContext context = createEvaluationContextFrom(solutionFromUser);
@@ -45,6 +52,15 @@ public class SolutionValidationService {
         challengeEvaluationContext.setChallenge(challenge);
         challengeEvaluationContext.setSource(solutionFromUser.getSolution());
         challengeEvaluationContext.setLanguage(solutionFromUser.getProgrammingLanguage());
+        if (challenge.getChallengeType() == ChallengeType.CODE_KATA) {
+            List<TestCaseWithResult> testCaseResults = userTestCaseStateService.getUserTestCasesOf(challenge, solutionFromUser.getProgrammingLanguage()).getTestCaseResults();
+            challengeEvaluationContext.getTestCaseWithResults().addAll(testCaseResults);
+        }
+        if (challenge.getChallengeType() == ChallengeType.ALGORITHM) {
+            for (TestCase testCase : challenge.getTestCases()) {
+                challengeEvaluationContext.addTestCaseWithResult(new TestCaseWithResult(testCase));
+            }
+        }
         return challengeEvaluationContext;
     }
 

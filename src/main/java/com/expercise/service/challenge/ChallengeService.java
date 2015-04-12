@@ -4,6 +4,8 @@ import com.expercise.controller.challenge.model.ChallengeModel;
 import com.expercise.dao.challenge.ChallengeDao;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.interpreter.TestCasesWithSourceCacheModel;
+import com.expercise.interpreter.TestCasesWithSourceModel;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class ChallengeService {
 
     @Autowired
     private ChallengeModelHelper challengeModelHelper;
+
+    @Autowired
+    private UserTestCaseStateService userTestCaseStateService;
 
     public List<Challenge> findAllChallengesOfUser() {
         return challengeDao.findAllByUser(authenticationService.getCurrentUser());
@@ -76,6 +81,16 @@ public class ChallengeService {
             challenge = challengeModelHelper.createChallengeFrom(challengeModel);
         }
         return challenge;
+    }
+
+    public TestCasesWithSourceModel getUserStateFor(Challenge challenge, ProgrammingLanguage programmingLanguage) {
+        TestCasesWithSourceCacheModel cacheStateOfUser = userTestCaseStateService.getUserTestCasesOf(challenge, programmingLanguage);
+        return TestCasesWithSourceModel.createFrom(cacheStateOfUser);
+    }
+
+    public TestCasesWithSourceModel resetUserStateFor(Challenge challenge, ProgrammingLanguage programmingLanguage) {
+        userTestCaseStateService.resetUserState(challenge, programmingLanguage);
+        return getUserStateFor(challenge, programmingLanguage);
     }
 
 }

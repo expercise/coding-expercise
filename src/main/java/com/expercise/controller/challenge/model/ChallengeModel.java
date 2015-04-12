@@ -1,5 +1,6 @@
 package com.expercise.controller.challenge.model;
 
+import com.expercise.domain.challenge.ChallengeType;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,8 @@ import java.util.List;
 public class ChallengeModel {
 
     private Long challengeId;
+
+    private ChallengeType challengeType = ChallengeType.ALGORITHM;
 
     private List<MultiLingoText> titles = new ArrayList<>();
 
@@ -101,8 +104,16 @@ public class ChallengeModel {
         return filterByLingo(lingo, descriptions);
     }
 
-    private String filterByLingo(Lingo lingo, List<MultiLingoText> descriptions1) {
-        for (MultiLingoText multiLingoText : descriptions1) {
+    public ChallengeType getChallengeType() {
+        return challengeType;
+    }
+
+    public void setChallengeType(ChallengeType challengeType) {
+        this.challengeType = challengeType;
+    }
+
+    private String filterByLingo(Lingo lingo, List<MultiLingoText> _descriptions) {
+        for (MultiLingoText multiLingoText : _descriptions) {
             if (lingo == multiLingoText.getLingo()) {
                 return multiLingoText.getText();
             }

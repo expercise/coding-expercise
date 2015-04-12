@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PrepareChallengeSolutionsPostAction implements PostEvaluationAction {
+public class PrepareChallengeUserSolutionsPostAction implements PostEvaluationAction {
 
     @Autowired
     private SolutionService solutionService;
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
-        return context.getInterpreterResult().isSuccess();
+        return context.isChallengeCompleted();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class PrepareChallengeSolutionsPostAction implements PostEvaluationAction
 
     @Override
     public int getPriority() {
-        return PostEvaluationActionOrder.PREPARE_CHALLENGE_SOLUTIONS.ordinal();
+        return PostEvaluationActionOrder.PREPARE_CHALLENGE_USER_SOLUTIONS.ordinal();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.challenge.ChallengeType;
 import com.expercise.domain.user.User;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.service.challenge.UserPointService;
@@ -28,7 +29,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
-        return true;
+        return context.getChallenge().getChallengeType() == ChallengeType.ALGORITHM;
     }
 
     @Override

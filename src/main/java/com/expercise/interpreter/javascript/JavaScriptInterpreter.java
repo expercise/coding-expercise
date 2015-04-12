@@ -3,9 +3,7 @@ package com.expercise.interpreter.javascript;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.enums.DataType;
-import com.expercise.interpreter.Interpreter;
-import com.expercise.interpreter.InterpreterException;
-import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.*;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -29,15 +27,12 @@ public class JavaScriptInterpreter extends Interpreter {
         evaluateSourceCode(context.getSource(), javaScriptEngine);
 
         Challenge challenge = context.getChallenge();
-        for (TestCase testCase : challenge.getTestCases()) {
-            Object resultValue = makeFunctionCallAndGetResultValue(javaScriptEngine, challenge, testCase);
-            if (isTestCaseFailedByResult(challenge, testCase, resultValue)) {
-                context.setInterpreterResult(InterpreterResult.createFailedResult());
-                return;
-            }
-        }
 
-        context.setInterpreterResult(InterpreterResult.createSuccessResult());
+        for (TestCaseWithResult eachTestCase : context.getTestCaseWithResults()) {
+            Object resultValue = makeFunctionCallAndGetResultValue(javaScriptEngine, challenge, eachTestCase.getTestCaseUnderTest());
+            processTestCase(eachTestCase, resultValue, challenge);
+        }
+        context.decideInterpreterResult();
     }
 
     private ScriptEngine getScriptEngine() {
@@ -73,19 +68,21 @@ public class JavaScriptInterpreter extends Interpreter {
         return evaluationResult;
     }
 
-    private boolean isTestCaseFailedByResult(Challenge challenge, TestCase testCase, Object resultValue) {
-        boolean testCaseFailed = false;
+    private void processTestCase(TestCaseWithResult testCaseWithResult, Object resultValue, Challenge challenge) {
+        TestCaseResult testCaseResult = TestCaseResult.FAILED;
 
         if (challenge.getOutputType().equals(DataType.Integer)) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
-            int expectedValue = ((Number) Double.parseDouble(testCase.getOutput())).intValue();
-            testCaseFailed = evaluationResultAsInteger != expectedValue;
+            int expectedValue = ((Number) Double.parseDouble(testCaseWithResult.getTestCaseUnderTest().getOutput())).intValue();
+            testCaseResult = evaluationResultAsInteger == expectedValue ? TestCaseResult.PASSED : TestCaseResult.FAILED;
+            testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (challenge.getOutputType().equals(DataType.Text)) {
             String evaluationResultAsString = (String) resultValue;
-            testCaseFailed = !evaluationResultAsString.equals(resultValue);
+            testCaseResult = evaluationResultAsString.equals(resultValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;
+            testCaseWithResult.setActualValue(evaluationResultAsString);
         }
 
-        return testCaseFailed;
+        testCaseWithResult.setTestCaseResult(testCaseResult);
     }
 
 }

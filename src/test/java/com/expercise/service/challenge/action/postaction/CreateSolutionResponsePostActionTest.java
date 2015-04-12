@@ -1,6 +1,7 @@
 package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.challenge.ChallengeType;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterFailureType;
@@ -55,8 +56,17 @@ public class CreateSolutionResponsePostActionTest {
     }
 
     @Test
-    public void shouldExecuteEveryTime() {
-        assertTrue(action.canExecute(new ChallengeEvaluationContext()));
+    public void shouldExecuteForOnlyAlgorithmChallenges() {
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().challengeType(ChallengeType.ALGORITHM).buildWithRandomId());
+        assertTrue(action.canExecute(context));
+    }
+
+    @Test
+    public void shouldNotExecuteForNonAlgorithmChallenges() {
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().challengeType(ChallengeType.CODE_KATA).buildWithRandomId());
+        assertFalse(action.canExecute(context));
     }
 
     @Test

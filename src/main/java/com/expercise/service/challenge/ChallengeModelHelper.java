@@ -29,6 +29,8 @@ public class ChallengeModelHelper {
     }
 
     public void mergeChallengeWithModel(ChallengeModel challengeModel, Challenge challenge) {
+        challenge.setChallengeType(challengeModel.getChallengeType());
+
         challenge.getTitles().clear();
         for (ChallengeModel.MultiLingoText title : challengeModel.getTitles()) {
             challenge.getTitles().put(title.getLingo(), title.getText());
@@ -48,6 +50,7 @@ public class ChallengeModelHelper {
         for (ChallengeModel.TestCase testCase : challengeModel.getTestCases()) {
             challenge.addTestCase(testCase.getInputValues(), testCase.getOutputValue());
         }
+        TestCase.prioritize(challenge.getTestCases());
 
         if (challengeModel.getApproved() != null) {
             challenge.setApproved(challengeModel.getApproved());
@@ -65,6 +68,8 @@ public class ChallengeModelHelper {
         ChallengeModel challengeModel = new ChallengeModel();
 
         challengeModel.setChallengeId(challenge.getId());
+
+        challengeModel.setChallengeType(challenge.getChallengeType());
 
         for (Map.Entry<Lingo, String> eachTitle : challenge.getTitles().entrySet()) {
             challengeModel.getTitles().add(new ChallengeModel.MultiLingoText(eachTitle.getKey(), eachTitle.getValue()));

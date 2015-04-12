@@ -7,7 +7,7 @@ public enum InterpreterFailureType {
 
     private String messageKey;
 
-    private InterpreterFailureType(String messageKey) {
+    InterpreterFailureType(String messageKey) {
         this.messageKey = messageKey;
     }
 

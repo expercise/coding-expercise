@@ -29,7 +29,7 @@ public class UserPointService {
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
-        return !challenge.isNotApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
+        return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
     }
 
     public long getTotalPointsOf(User user) {

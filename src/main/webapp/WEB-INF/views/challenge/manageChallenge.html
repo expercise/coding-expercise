@@ -18,6 +18,18 @@
 
     <div class="row">
         <div class="col-xs-10">
+            <h3 th:text="#{challengeManagement.challengeType}"></h3>
+
+            <div class="challengeTypeContainer">
+                <select name="challengeType">
+                    <option th:each="cType : ${challengeTypes}" th:text="${#messages.msg(cType.name())}" th:value="${cType.name()}"></option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.title}"></h3>
 
             <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">

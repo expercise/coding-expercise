@@ -1,6 +1,8 @@
 package com.expercise.service.challenge.model;
 
 import com.expercise.controller.challenge.model.UserSolutionModel;
+import com.expercise.interpreter.TestCaseModel;
+import com.expercise.interpreter.TestCasesWithSourceModel;
 
 import java.util.List;
 
@@ -9,6 +11,10 @@ public class SolutionValidationResult {
     private String result;
 
     private boolean success;
+
+    private ChallengeSolutionStatus challengeSolutionStatus;
+
+    private TestCasesWithSourceModel testCasesWithSourceModel = new TestCasesWithSourceModel();
 
     private List<UserSolutionModel> userSolutionModels;
 
@@ -45,8 +51,24 @@ public class SolutionValidationResult {
         this.userSolutionModels = userSolutionModels;
     }
 
+    public ChallengeSolutionStatus getChallengeSolutionStatus() {
+        return challengeSolutionStatus;
+    }
+
+    public void setChallengeSolutionStatus(ChallengeSolutionStatus challengeSolutionStatus) {
+        this.challengeSolutionStatus = challengeSolutionStatus;
+    }
+
+    public TestCasesWithSourceModel getTestCasesWithSourceModel() {
+        return testCasesWithSourceModel;
+    }
+
     public void addErrorDescriptionToResult(String errorDescription) {
         this.result = errorDescription + ". " + this.result;
+    }
+
+    public void addTestCaseModel(TestCaseModel testCaseModel) {
+        getTestCasesWithSourceModel().getTestCaseModels().add(testCaseModel);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.UserPointService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.service.user.AuthenticationService;
@@ -33,13 +35,12 @@ public class GiveSuccessPointPostActionTest {
     private AuthenticationService authenticationService;
 
     @Test
-    public void shouldBeAbleToGiveUserPointWhenEvaluationIsSucceed() {
-        InterpreterResult successResult = InterpreterResult.createSuccessResult();
-
+    public void shouldBeAbleToGiveUserPointWhenAllTestCasesEvaluationIsSucceed() {
+        TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(successResult);
-        context.setChallenge(new ChallengeBuilder().id(1L).approved(true).build());
-        context.setLanguage(ProgrammingLanguage.Python);
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
+        context.setChallenge(new ChallengeBuilder().id(1L).approved(true).testCases(testCase).build());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
         User user = new UserBuilder().id(1L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);
@@ -66,16 +67,26 @@ public class GiveSuccessPointPostActionTest {
 
     @Test
     public void shouldNotBeAbleToGiveUserPointWhenEvaluationIsFailed() {
-        InterpreterResult failedResult = InterpreterResult.createFailedResult();
+        TestCase testCase0 = new TestCase();
+        TestCase testCase1 = new TestCase();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
-        context.setInterpreterResult(failedResult);
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase0));
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase1));
+
+        Challenge challenge = new ChallengeBuilder().id(2L).build();
+        challenge.addTestCase(testCase0);
+        challenge.addTestCase(testCase1);
+
+        context.setChallenge(challenge);
+
+        context.setInterpreterResult(InterpreterResult.createFailedResult());
 
         assertFalse(action.canExecute(context));
     }
 
     @Test
-    public void shouldGiveUserChallengePointWhenEvaluationIsSucceed() {
+    public void shouldGiveUserChallengePointWhenChallengeIsCompleted() {
         InterpreterResult successResult = InterpreterResult.createSuccessResult();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();

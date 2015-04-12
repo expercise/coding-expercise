@@ -1,13 +1,13 @@
 package com.expercise.domain.challenge;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.PrioritizedEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class TestCase extends AbstractEntity {
+public class TestCase extends PrioritizedEntity {
 
     @Id
     @GeneratedValue

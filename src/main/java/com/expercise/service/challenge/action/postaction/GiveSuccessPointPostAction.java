@@ -20,7 +20,7 @@ public class GiveSuccessPointPostAction implements PostEvaluationAction {
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
         User currentUser = authenticationService.getCurrentUser();
-        return context.getInterpreterResult().isSuccess() && userPointService.canUserWinPoint(context.getChallenge(), currentUser, context.getLanguage());
+        return context.isChallengeCompleted() && userPointService.canUserWinPoint(context.getChallenge(), currentUser, context.getLanguage());
     }
 
     @Override
