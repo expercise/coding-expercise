@@ -78,7 +78,8 @@ public class JavaScriptInterpreter extends Interpreter {
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (challenge.getOutputType().equals(DataType.Text)) {
             String evaluationResultAsString = (String) resultValue;
-            testCaseResult = evaluationResultAsString.equals(resultValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;
+            String expectedValue = testCaseWithResult.getTestCaseUnderTest().getOutput();
+            testCaseResult = evaluationResultAsString.equals(expectedValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(evaluationResultAsString);
         }
 
