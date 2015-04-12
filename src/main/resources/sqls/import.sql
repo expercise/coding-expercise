@@ -7,3 +7,14 @@ INSERT INTO Configuration (name,value) VALUES ('userReport.applicationKey.Turkis
 
 -- batu - 29/03/2015 14:40
 UPDATE Challenge set ChallengeType = 'ALGORITHM';
+
+
+-- batu - 12/04/2015 15:40
+SET @prev := -1000;
+SET @cnt := 1;
+UPDATE expercise.TestCase AS atc JOIN
+	(SELECT tc.id, IF(@prev <> tc.challenge_id, @cnt := 1, @cnt := @cnt + 1) AS rank,
+									@prev := tc.challenge_id
+		FROM expercise.TestCase as tc) qu
+		ON qu.id = atc.id
+SET atc.priority = qu.rank;
