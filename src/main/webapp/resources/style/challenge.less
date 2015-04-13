@@ -56,14 +56,38 @@ div.challengeInfo {
   padding-bottom: 10px;
 }
 
-tr.newTestCase {
-  background-color: #F0FFFF;
-}
+table {
+  tr.testCaseRow {
+    font-weight: bold;
 
-tr.passedTestCase {
-  background-color: #a2fc49;
-}
+    &.success {
+      color: green;
 
-tr.failedTestCase {
-  background-color: #cd6061;
+      .testCaseStatus {
+        &:before {
+          content: "\e084";
+        }
+      }
+    }
+
+    &.danger {
+      color: #a94442;
+
+      .testCaseStatus {
+        &:before {
+          content: "\e083";
+        }
+      }
+    }
+
+    &.info {
+      color: #666666;
+
+      .testCaseStatus {
+        &:before {
+          content: "\e085";
+        }
+      }
+    }
+  }
 }

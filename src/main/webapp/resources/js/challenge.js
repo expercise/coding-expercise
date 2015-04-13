@@ -129,32 +129,33 @@ expercise.Challenge = {
         };
 
         var decideTestCaseStyle = function (testCaseResult) {
-            var rowStyleClass = "newTestCase";
+            var rowStyleClass = "info";
             if (testCaseResult === 'PASSED') {
-                rowStyleClass = "passedTestCase";
+                rowStyleClass = "success";
             } else if (testCaseResult === 'FAILED') {
-                rowStyleClass = "failedTestCase";
+                rowStyleClass = "danger";
             }
-            return rowStyleClass;
+            return "testCaseRow " + rowStyleClass;
         };
 
         showSignatureIfSourceCodeIsEmpty();
 
         $('.userTestCaseStatus tbody').remove();
-        var tbody = $('<tbody>');
+        var $tbody = $('<tbody>');
         $.each(testCaseModels, function (i, value) {
 
             var testInputsCell = $('<td></td>').html(value['inputs'].join(", "));
             var testExpectedOutputCell = $('<td></td>').html(value['output']);
             var testActualValueCell = $('<td></td>').html(value['actualValue']);
             var testCaseResult = value['testCaseResult'];
-            var testResultStatusCell = $('<td></td>').html(expercise.utils.i18n('challenge.testCase.status.' + testCaseResult.toLowerCase()));
+            var testCaseStatus = $('<span class="glyphicon testCaseStatus"></span>');
+            var testResultStatusCell = $('<td></td>').html(testCaseStatus);
             var row = $('<tr class="' + decideTestCaseStyle(testCaseResult) + '"></tr>').append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
-            tbody.append(row);
+            $tbody.append(row);
         });
 
         var $userTestCaseTable = $('.userTestCaseStatus');
-        $userTestCaseTable.append(tbody);
+        $userTestCaseTable.append($tbody);
     },
 
     changeProgrammingLanguage: function (langName, solution) {

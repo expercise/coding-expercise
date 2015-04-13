@@ -61,7 +61,7 @@ public class UserTestCaseStateService {
 
     private String getCacheKeyFrom(Challenge challenge, ProgrammingLanguage programmingLanguage) {
         User user = authenticationService.getCurrentUser();
-        return challenge.getId().toString() + "_" + programmingLanguage.name() + "_" + user.getId().toString();
+        return challenge.getId() + "_" + programmingLanguage.name() + "_" + user.getId();
     }
 
 }
