@@ -7,8 +7,7 @@ expercise.Challenge = {
         var userSolutions = JSON.parse($('#userSolutions').val());
         this.populateUserSolutionTable(userSolutions);
         this.adjustProgrammingLanguage();
-        var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
-        this.populateKataTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
+        this.initializeKataChallenge();
     },
 
     bindEvents: function () {
@@ -42,7 +41,7 @@ expercise.Challenge = {
                         $resultsTextarea.addClass('failedResult');
                     }
                     var model = response.testCasesWithSourceModel;
-                    expercise.Challenge.populateKataTestCaseState(model.currentSourceCode, model.testCaseModels);
+                    expercise.Challenge.populateSourceAndTestCaseState(model.currentSourceCode, model.testCaseModels);
                 }
             );
         });
@@ -114,7 +113,7 @@ expercise.Challenge = {
         expercise.Challenge.changeProgrammingLanguage(selectedLanguage, expercise.Challenge.solutionSignatures[selectedLanguage]);
     },
 
-    populateKataTestCaseState: function (currentSourceCode, testCaseModels) {
+    populateSourceAndTestCaseState: function (currentSourceCode, testCaseModels) {
         var challengeType = $('#challengeType').val();
         if (challengeType != 'CODE_KATA') {
             return;
@@ -158,6 +157,14 @@ expercise.Challenge = {
         $userTestCaseTable.append($tbody);
     },
 
+    initializeKataChallenge: function () {
+        var challengeType = $('#challengeType').val();
+        if (challengeType === 'CODE_KATA') {
+            var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
+            this.populateSourceAndTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
+        }
+    },
+
     changeProgrammingLanguage: function (langName, solution) {
         expercise.Challenge.resetConsole();
         expercise.CodeEditor.setSolution(solution);
@@ -189,7 +196,7 @@ expercise.Challenge = {
                 } else {
                     $resultsTextarea.addClass('failedResult');
                 }
-                expercise.Challenge.populateKataTestCaseState(response.currentSourceCode, response.testCaseModels);
+                expercise.Challenge.populateSourceAndTestCaseState(response.currentSourceCode, response.testCaseModels);
             }
         );
     }
