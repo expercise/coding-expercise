@@ -1,0 +1,44 @@
+.avatar {
+  @avatar-count: 8;
+  @default-width: 32px;
+  @background-size: 256px;
+
+  display: inline-block;
+  margin-bottom: -4px;
+  background: url(../img/avatars.svg) no-repeat;
+  width: @default-width;
+  height: @default-width;
+
+  .avatars-for-size(1);
+
+  &.small {
+    .avatars-for-size(0.5);
+  }
+
+  &.medium {
+    .avatars-for-size(1.5);
+  }
+
+  &.large {
+    .avatars-for-size(4.5);
+  }
+
+  .avatars-for-size(@multiplier) {
+    width: @default-width * @multiplier;
+    height: @default-width * @multiplier;
+    background-size: @background-size * @multiplier;
+
+    .background-position(@avatar-index) {
+      background-position: (@multiplier * (@avatar-index - 1) * (-1 * @default-width)) 0;
+    }
+
+    .generate-avatars(@avatar-count);
+
+    .generate-avatars(@n, @i: 1) when (@i =< @n) {
+      &.animal-avatar-@{i} {
+        .background-position(@i);
+      }
+      .generate-avatars(@n, (@i + 1));
+    }
+  }
+}

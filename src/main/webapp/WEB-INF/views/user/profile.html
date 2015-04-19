@@ -14,19 +14,19 @@
                         <a id="selectAvatar" data-toggle="collapse" href="#avatarsCollapse" aria-expanded="false" aria-controls="avatarsCollapse" th:text="#{user.profile.selectAvatar}"></a>
                     </div>
                     <div class="collapse" id="avatarsCollapse">
-                        <a href="#"><span class="img-circle avatar animal-avatar-1" data-avatar-type="animal-avatar-1"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-2" data-avatar-type="animal-avatar-2"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-3" data-avatar-type="animal-avatar-3"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-4" data-avatar-type="animal-avatar-4"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-5" data-avatar-type="animal-avatar-5"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-6" data-avatar-type="animal-avatar-6"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-7" data-avatar-type="animal-avatar-7"></span></a>
-                        <a href="#"><span class="img-circle avatar animal-avatar-8" data-avatar-type="animal-avatar-8"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-1" data-avatar-type="animal-avatar-1"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-2" data-avatar-type="animal-avatar-2"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-3" data-avatar-type="animal-avatar-3"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-4" data-avatar-type="animal-avatar-4"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-5" data-avatar-type="animal-avatar-5"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-6" data-avatar-type="animal-avatar-6"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-7" data-avatar-type="animal-avatar-7"></span></a>
+                        <a href="#"><span class="img-circle avatar medium animal-avatar-8" data-avatar-type="animal-avatar-8"></span></a>
                     </div>
                 </div>
 
                 <div>
-                    <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar ' + user.avatar}"></span>
+                    <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar large ' + user.avatar}"></span>
                     <span th:unless="${user.hasAvatar()}" class="glyphicon glyphicon-user"></span>
                 </div>
             </div>

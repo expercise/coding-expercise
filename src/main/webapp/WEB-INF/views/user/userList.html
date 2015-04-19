@@ -21,7 +21,7 @@
         <tbody>
             <tr th:each="user : ${users}">
                 <td>
-                    <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar ' + user.avatar}"></span>
+                    <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar small ' + user.avatar}"></span>
                 </td>
                 <td>
                     <a th:href="@{${user.bookmarkableUrl}}" th:text="${user.email}"></a>
