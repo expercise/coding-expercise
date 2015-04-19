@@ -30,6 +30,12 @@ public class InterpreterResult {
         return failedResult;
     }
 
+    public static InterpreterResult typeErrorFailedResult() {
+        InterpreterResult failedResult = createFailedResult();
+        failedResult.setFailureType(InterpreterFailureType.TYPE_ERROR);
+        return failedResult;
+    }
+
     public InterpreterFailureType getFailureType() {
         return failureType;
     }

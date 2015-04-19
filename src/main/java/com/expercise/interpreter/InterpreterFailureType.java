@@ -3,7 +3,8 @@ package com.expercise.interpreter;
 public enum InterpreterFailureType {
 
     NO_RESULT("interpreter.noResult"),
-    SYNTAX_ERROR("interpreter.syntaxError");
+    SYNTAX_ERROR("interpreter.syntaxError"),
+    TYPE_ERROR("interpreter.typeError");
 
     private String messageKey;
 

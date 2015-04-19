@@ -4,6 +4,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.challenge.TestCaseInputValue;
 import com.expercise.domain.user.User;
+import com.expercise.enums.DataType;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.TestCaseModel;
 import com.expercise.interpreter.TestCaseWithResult;
@@ -11,10 +12,7 @@ import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.user.AuthenticationService;
-import com.expercise.testutils.builder.ChallengeBuilder;
-import com.expercise.testutils.builder.TestCaseBuilder;
-import com.expercise.testutils.builder.TestCaseInputValueBuilder;
-import com.expercise.testutils.builder.UserBuilder;
+import com.expercise.testutils.builder.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -48,7 +46,7 @@ public class ChallengeServiceTest {
     @Test
     public void shouldPrepareChallengeSignatures() {
         User user = new UserBuilder().id(1L).build();
-        Challenge challenge = new ChallengeBuilder().id(1L).user(user).build();
+        Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).user(user).build();
 
         when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.Python)).thenReturn("def solution():");
         when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.JavaScript)).thenReturn("function solution() {}");
@@ -66,7 +64,8 @@ public class ChallengeServiceTest {
 
     @Test
     public void shouldGetUserStateFromCache() {
-        Challenge challenge = new ChallengeBuilder().id(1L).build();
+        Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).build();
+        new ChallengeInputTypeBuilder().id(1L).challenge(challenge).inputType(DataType.Text).build();
 
         TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().id(1L).inputValue("i1").build();
         TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().id(2L).inputValue("i2").build();
@@ -91,7 +90,7 @@ public class ChallengeServiceTest {
 
     @Test
     public void shouldGetUserNewStateFromCacheAfterReset() {
-        Challenge challenge = new ChallengeBuilder().id(1L).build();
+        Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).build();
 
         TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().id(1L).inputValue("i1").build();
         TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().id(2L).inputValue("i2").build();
@@ -115,6 +114,5 @@ public class ChallengeServiceTest {
         assertThat(model.getInputs().get(1), equalTo("i2"));
         assertThat(model.getOutput(), equalTo("o1"));
     }
-
 
 }

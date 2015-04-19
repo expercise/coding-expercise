@@ -9,10 +9,13 @@ import com.expercise.interpreter.InterpreterFailureType;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.interpreter.TestCaseResult;
 import com.expercise.interpreter.TestCaseWithResult;
+import com.expercise.interpreter.typechecker.TypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -21,12 +24,23 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JavaScriptInterpreterTest {
 
     @InjectMocks
     private JavaScriptInterpreter interpreter;
+
+    @Mock
+    private TypeChecker typeChecker;
+
+    @Before
+    public void init() {
+        when(typeChecker.typeCheck(any(), any(DataType.class))).thenReturn(true);
+    }
 
     @Test
     public void shouldEvaluateSolutionWithTestCases() {
@@ -182,6 +196,37 @@ public class JavaScriptInterpreterTest {
 
         assertFalse(context.getInterpreterResult().isSuccess());
         assertThat(context.getInterpreterResult().getFailureType(), equalTo(InterpreterFailureType.NO_RESULT));
+    }
+
+    @Test
+    public void shouldReturnFailedResultIfOutputTypeAndResultValueTypeHasTypeConflictError() {
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+        inputTypes.add(DataType.Integer);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        inputValues.add("23");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, "function solution(a, b) { return \"49\" }");
+
+        when(typeChecker.typeCheck(any(), eq(DataType.Integer))).thenReturn(false);
+
+        interpreter.interpret(context);
+
+        assertThat(context.getInterpreterResult().getFailureType(), equalTo(InterpreterFailureType.TYPE_ERROR));
+        assertFalse(context.getInterpreterResult().isSuccess());
     }
 
     @Test

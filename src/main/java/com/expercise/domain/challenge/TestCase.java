@@ -1,6 +1,7 @@
 package com.expercise.domain.challenge;
 
 import com.expercise.domain.PrioritizedEntity;
+import com.expercise.enums.DataType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -54,6 +55,10 @@ public class TestCase extends PrioritizedEntity {
 
     public void setOutput(String output) {
         this.output = output;
+    }
+
+    public DataType getOutputType() {
+        return getChallenge().getOutputType();
     }
 
 }

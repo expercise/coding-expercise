@@ -4,11 +4,13 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.enums.DataType;
 import com.expercise.interpreter.*;
+import com.expercise.interpreter.typechecker.TypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.script.Invocable;
@@ -20,6 +22,9 @@ public class JavaScriptInterpreter extends Interpreter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaScriptInterpreter.class);
 
+    @Autowired
+    private TypeChecker typeChecker;
+
     @Override
     protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
         ScriptEngine javaScriptEngine = getScriptEngine();
@@ -28,11 +33,19 @@ public class JavaScriptInterpreter extends Interpreter {
 
         Challenge challenge = context.getChallenge();
 
-        for (TestCaseWithResult eachTestCase : context.getTestCaseWithResults()) {
-            Object resultValue = makeFunctionCallAndGetResultValue(javaScriptEngine, challenge, eachTestCase.getTestCaseUnderTest());
-            processTestCase(eachTestCase, resultValue, challenge);
+        for (TestCaseWithResult eachTestCaseWithResult : context.getTestCaseWithResults()) {
+            TestCase eachTestCase = eachTestCaseWithResult.getTestCaseUnderTest();
+            Object resultValue = makeFunctionCallAndGetResultValue(javaScriptEngine, challenge, eachTestCase);
+            typeCheck(resultValue, eachTestCase.getOutputType());
+            processTestCase(eachTestCaseWithResult, resultValue);
         }
         context.decideInterpreterResult();
+    }
+
+    private void typeCheck(Object resultValue, DataType outputType) throws InterpreterException {
+        if (!typeChecker.typeCheck(resultValue, outputType)) {
+            throw new InterpreterException(InterpreterResult.typeErrorFailedResult());
+        }
     }
 
     private ScriptEngine getScriptEngine() {
@@ -68,15 +81,16 @@ public class JavaScriptInterpreter extends Interpreter {
         return evaluationResult;
     }
 
-    private void processTestCase(TestCaseWithResult testCaseWithResult, Object resultValue, Challenge challenge) {
+    private void processTestCase(TestCaseWithResult testCaseWithResult, Object resultValue) {
         TestCaseResult testCaseResult = TestCaseResult.FAILED;
 
-        if (challenge.getOutputType().equals(DataType.Integer)) {
+        DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
+        if (outputType == DataType.Integer) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
             int expectedValue = ((Number) Double.parseDouble(testCaseWithResult.getTestCaseUnderTest().getOutput())).intValue();
             testCaseResult = evaluationResultAsInteger == expectedValue ? TestCaseResult.PASSED : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
-        } else if (challenge.getOutputType().equals(DataType.Text)) {
+        } else if (outputType == DataType.Text) {
             String evaluationResultAsString = resultValue.toString();
             String expectedValue = testCaseWithResult.getTestCaseUnderTest().getOutput();
             testCaseResult = evaluationResultAsString.equals(expectedValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;

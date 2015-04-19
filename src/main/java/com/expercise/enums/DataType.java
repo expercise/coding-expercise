@@ -23,7 +23,7 @@ public enum DataType {
 
     private String className;
 
-    private DataType(String className) {
+    DataType(String className) {
         this.className = className;
     }
 
