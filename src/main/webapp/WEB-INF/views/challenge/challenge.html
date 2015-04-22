@@ -39,6 +39,25 @@
         </div>
     </div>
 
+    <div class="row" th:if="${challenge.isCodeKata()}">
+        <div class="col-xs-12">
+            <h4 th:text="#{challenge.userTestCaseStatus}"></h4>
+        </div>
+    </div>
+
+    <div class="row" th:if="${challenge.isCodeKata()}">
+        <div class="col-xs-10">
+            <table class="table userTestCaseStatus">
+                <thead>
+                <th th:text="#{challenge.testCase.table.header.input}">Input</th>
+                <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
+                <th th:text="#{challenge.testCase.table.header.actualOutput}">Actual Output</th>
+                <th th:text="#{challenge.testCase.table.header.resultStatus}">Result</th>
+                </thead>
+            </table>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-10">
             <textarea id="codeEditor" class="codeEditor"></textarea>
@@ -79,26 +98,6 @@
             <textarea id="resultsTextarea" class="console" disabled="disabled" th:placeholder="#{challenge.resultHeader}"></textarea>
         </div>
     </div>
-
-    <div class="row" th:if="${challenge.isCodeKata()}">
-        <div class="col-xs-12">
-            <h4 th:text="#{challenge.userTestCaseStatus}"></h4>
-        </div>
-    </div>
-
-    <div class="row" th:if="${challenge.isCodeKata()}">
-        <div class="col-xs-10">
-            <table class="table userTestCaseStatus">
-                <thead>
-                <th th:text="#{challenge.testCase.table.header.input}">Input</th>
-                <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
-                <th th:text="#{challenge.testCase.table.header.actualOutput}">Actual Output</th>
-                <th th:text="#{challenge.testCase.table.header.resultStatus}">Result</th>
-                </thead>
-            </table>
-        </div>
-    </div>
-
 
     <div class="row">
         <div class="col-xs-12">
