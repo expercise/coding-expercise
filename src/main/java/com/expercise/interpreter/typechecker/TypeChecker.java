@@ -14,7 +14,7 @@ public class TypeChecker {
 
     @PostConstruct
     public void init() {
-        javaDataTypeMapping.put(DataType.Integer, Integer.class);
+        javaDataTypeMapping.put(DataType.Integer, Number.class);
         javaDataTypeMapping.put(DataType.Text, String.class);
     }
 
