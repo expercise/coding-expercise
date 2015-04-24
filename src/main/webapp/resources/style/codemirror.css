@@ -4,12 +4,8 @@
     /* Set height, width, borders, and global font properties here */
     font-family: monospace;
     height: 350px;
+    color: black;
     border: 1px solid #ccc;
-}
-
-.CodeMirror-scroll {
-    /* Set scrolling behaviour here */
-    overflow: auto;
 }
 
 /* PADDING */
@@ -29,7 +25,7 @@
 /* GUTTER */
 
 .CodeMirror-gutters {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #ddd;
     background-color: #f7f7f7;
     white-space: nowrap;
 }
@@ -42,8 +38,15 @@
     min-width: 20px;
     text-align: right;
     color: #999;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+    white-space: nowrap;
+}
+
+.CodeMirror-guttermarker {
+    color: black;
+}
+
+.CodeMirror-guttermarker-subtle {
+    color: #999;
 }
 
 /* CURSOR */
@@ -57,10 +60,58 @@
     border-left: 1px solid silver;
 }
 
-.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor {
+.CodeMirror.cm-fat-cursor div.CodeMirror-cursor {
     width: auto;
     border: 0;
     background: #7e7;
+}
+
+.CodeMirror.cm-fat-cursor div.CodeMirror-cursors {
+    z-index: 1;
+}
+
+.cm-animate-fat-cursor {
+    width: auto;
+    border: 0;
+    -webkit-animation: blink 1.06s steps(1) infinite;
+    -moz-animation: blink 1.06s steps(1) infinite;
+    animation: blink 1.06s steps(1) infinite;
+}
+
+@-moz-keyframes blink {
+    0% {
+        background: #7e7;
+    }
+    50% {
+        background: none;
+    }
+    100% {
+        background: #7e7;
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {
+        background: #7e7;
+    }
+    50% {
+        background: none;
+    }
+    100% {
+        background: #7e7;
+    }
+}
+
+@keyframes blink {
+    0% {
+        background: #7e7;
+    }
+    50% {
+        background: none;
+    }
+    100% {
+        background: #7e7;
+    }
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
@@ -69,6 +120,7 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
 
 .cm-tab {
     display: inline-block;
+    text-decoration: inherit;
 }
 
 .CodeMirror-ruler {
@@ -94,8 +146,10 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
     color: #00f;
 }
 
-.cm-s-default .cm-variable {
-    color: black;
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {
 }
 
 .cm-s-default .cm-variable-2 {
@@ -104,14 +158,6 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
 
 .cm-s-default .cm-variable-3 {
     color: #085;
-}
-
-.cm-s-default .cm-property {
-    color: black;
-}
-
-.cm-s-default .cm-operator {
-    color: black;
 }
 
 .cm-s-default .cm-comment {
@@ -186,6 +232,10 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
     text-decoration: underline;
 }
 
+.cm-strikethrough {
+    text-decoration: line-through;
+}
+
 .cm-s-default .cm-error {
     color: #f00;
 }
@@ -194,12 +244,22 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
     color: #f00;
 }
 
+.CodeMirror-composing {
+    border-bottom: 2px solid;
+}
+
+/* Default styles for common addons */
+
 div.CodeMirror span.CodeMirror-matchingbracket {
     color: #0f0;
 }
 
 div.CodeMirror span.CodeMirror-nonmatchingbracket {
     color: #f22;
+}
+
+.CodeMirror-matchingtag {
+    background: rgba(255, 150, 0, .3);
 }
 
 .CodeMirror-activeline-background {
@@ -212,14 +272,13 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
    the editor. You probably shouldn't touch them. */
 
 .CodeMirror {
-    line-height: 1;
     position: relative;
     overflow: hidden;
     background: white;
-    color: black;
 }
 
 .CodeMirror-scroll {
+    overflow: scroll !important; /* Things will break if this is overridden */
     /* 30px is the magic margin used to hide the element's real scrollbars */
     /* See overflow: hidden in .CodeMirror */
     margin-bottom: -30px;
@@ -228,15 +287,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     height: 100%;
     outline: none; /* Prevent dragging from highlighting the element */
     position: relative;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
 }
 
 .CodeMirror-sizer {
     position: relative;
     border-right: 30px solid transparent;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
 }
 
 /* The fake, visible scrollbars. Used to force redraw during scrolling
@@ -276,21 +331,23 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     position: absolute;
     left: 0;
     top: 0;
-    padding-bottom: 30px;
     z-index: 3;
 }
 
 .CodeMirror-gutter {
     white-space: normal;
     height: 100%;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-    padding-bottom: 30px;
-    margin-bottom: -32px;
     display: inline-block;
+    margin-bottom: -30px;
     /* Hack to make IE7 behave */
     *zoom: 1;
     *display: inline;
+}
+
+.CodeMirror-gutter-wrapper {
+    position: absolute;
+    z-index: 4;
+    height: 100%;
 }
 
 .CodeMirror-gutter-elt {
@@ -299,8 +356,15 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     z-index: 4;
 }
 
+.CodeMirror-gutter-wrapper {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
 .CodeMirror-lines {
     cursor: text;
+    min-height: 1px; /* prevents collapsing before first draw */
 }
 
 .CodeMirror pre {
@@ -320,6 +384,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     z-index: 2;
     position: relative;
     overflow: visible;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .CodeMirror-wrap pre {
@@ -346,8 +411,18 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-widget {
 }
 
-.CodeMirror-wrap .CodeMirror-scroll {
-    overflow-x: hidden;
+.CodeMirror-code {
+    outline: none;
+}
+
+/* Force content-box sizing for the elements where we expect it */
+.CodeMirror-scroll,
+.CodeMirror-sizer,
+.CodeMirror-gutter,
+.CodeMirror-gutters,
+.CodeMirror-linenumber {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .CodeMirror-measure {
@@ -371,7 +446,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 div.CodeMirror-cursors {
     visibility: hidden;
     position: relative;
-    z-index: 1;
+    z-index: 3;
 }
 
 .CodeMirror-focused div.CodeMirror-cursors {
@@ -383,6 +458,18 @@ div.CodeMirror-cursors {
 }
 
 .CodeMirror-focused .CodeMirror-selected {
+    background: #d7d4f0;
+}
+
+.CodeMirror-crosshair {
+    cursor: crosshair;
+}
+
+.CodeMirror ::selection {
+    background: #d7d4f0;
+}
+
+.CodeMirror ::-moz-selection {
     background: #d7d4f0;
 }
 
@@ -406,4 +493,14 @@ div.CodeMirror-cursors {
     .CodeMirror div.CodeMirror-cursors {
         visibility: hidden;
     }
+}
+
+/* See issue #2901 */
+.cm-tab-wrap-hack:after {
+    content: '';
+}
+
+/* Help users use markselection to safely style text background */
+span.CodeMirror-selectedtext {
+    background: none;
 }
