@@ -14,9 +14,16 @@ expercise.CodeEditor = {
         $('#themeButton').click(function () {
             expercise.CodeEditor.toggleTheme();
         });
+
         $('#fullScreenButton').click(function () {
             expercise.CodeEditor.codeEditor.focus();
             $('.CodeMirror').fullscreen();
+        });
+
+        this.codeEditor.setOption("extraKeys", {
+            "Ctrl-R": function () {
+                expercise.Challenge.runChallenge();
+            }
         });
     },
 

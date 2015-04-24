@@ -199,6 +199,10 @@ expercise.Challenge = {
                 expercise.Challenge.populateSourceAndTestCaseState(response.currentSourceCode, response.testCaseModels);
             }
         );
+    },
+
+    runChallenge: function () {
+        $('#runButton').click();
     }
 
 };
