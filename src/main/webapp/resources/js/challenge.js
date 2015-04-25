@@ -209,6 +209,10 @@ expercise.Challenge = {
     isNotChallengeCodeKata: function () {
         var challengeType = $('#challengeType').val();
         return challengeType !== 'CODE_KATA';
+    },
+
+    runChallenge: function () {
+        $('#runButton').click();
     }
 
 };
