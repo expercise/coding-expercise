@@ -158,11 +158,12 @@ expercise.Challenge = {
     },
 
     initializeKataChallenge: function () {
-        var challengeType = $('#challengeType').val();
-        if (challengeType === 'CODE_KATA') {
-            var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
-            this.populateSourceAndTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
+        if (expercise.Challenge.isNotChallengeCodeKata()) {
+            return;
         }
+
+        var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
+        this.populateSourceAndTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
     },
 
     changeProgrammingLanguage: function (langName, solution) {
@@ -179,6 +180,10 @@ expercise.Challenge = {
     },
 
     resetTestCases: function () {
+        if (expercise.Challenge.isNotChallengeCodeKata()) {
+            return;
+        }
+
         var requestData = {
             language: $('#languageSelection').val(),
             challengeId: $('#challengeId').val()
@@ -199,6 +204,11 @@ expercise.Challenge = {
                 expercise.Challenge.populateSourceAndTestCaseState(response.currentSourceCode, response.testCaseModels);
             }
         );
+    },
+
+    isNotChallengeCodeKata: function () {
+        var challengeType = $('#challengeType').val();
+        return challengeType !== 'CODE_KATA';
     }
 
 };
