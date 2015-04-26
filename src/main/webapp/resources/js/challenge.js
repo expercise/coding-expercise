@@ -2,6 +2,8 @@ expercise.Challenge = {
 
     solutionSignatures: {},
 
+    running: false,
+
     constructor: function () {
         this.solutionSignatures = JSON.parse($('#solutionSignatures').val());
         var userSolutions = JSON.parse($('#userSolutions').val());
@@ -42,6 +44,8 @@ expercise.Challenge = {
                     }
                     var model = response.testCasesWithSourceModel;
                     expercise.Challenge.populateSourceAndTestCaseState(model.currentSourceCode, model.testCaseModels);
+
+                    expercise.Challenge.toggleRunningState();
                 }
             );
         });
@@ -63,6 +67,14 @@ expercise.Challenge = {
         });
 
         $('#languageSelection').change(this.adjustProgrammingLanguage);
+
+        this.bindRunChallengeShortcut();
+    },
+
+    bindRunChallengeShortcut: function () {
+        $(document).on('keydown', null, 'alt+ctrl+r', function () {
+            expercise.Challenge.runChallenge();
+        });
     },
 
     reset: function () {
@@ -212,7 +224,15 @@ expercise.Challenge = {
     },
 
     runChallenge: function () {
+        if (expercise.Challenge.running) {
+            return;
+        }
+        expercise.Challenge.toggleRunningState();
         $('#runButton').click();
+    },
+
+    toggleRunningState: function () {
+        expercise.Challenge.running = !expercise.Challenge.running;
     }
 
 };

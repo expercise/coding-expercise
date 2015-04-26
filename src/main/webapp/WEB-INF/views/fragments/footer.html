@@ -1,51 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-    <div id="footer" th:fragment="footer">
+    <div id="footer">
         <p class="text-muted">
             <span>© expercise 2014-2015 | </span>
             <a href="https://github.com/orgs/expercise/people" target="_blank" th:text="#{footer.credit}">expercise Team</a>
         </p>
-
-        <input id="contextPath" type="hidden" th:value="@{/}"/>
-        <input id="mobileClient" type="hidden" th:value="${mobileClient}"/>
-
-        <script type="text/javascript" th:src="@{'/generatedResources/js/messages_' + __${#locale}__ + '-' + ${buildId} + '.js'}" defer="defer"></script>
-
-        <script type="text/javascript" th:src="@{/resources/js/myth-1.0.0-SNAPSHOT.js}"></script>
-
-        <!--/* If only environment is 'development' */-->
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/less.min.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.min.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.scrolltofixed.min.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.min.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootstrap.min.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootbox.min.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/javascript.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/python.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/clike.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/expercise.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/utils.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/header.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/profile.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/themeListing.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/locale.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codeEditor.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/levelManagement.js}"></script>
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/forgottenPassword.js}"></script>
-
-        <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
-
-        <!--/* If only environment is not 'development' */-->
-        <script th:unless="${developmentEnvironment}" type="text/javascript" th:src="@{'/resources/js/compressed-' + __${buildId}__ + '.js'}" defer="defer"></script>
     </div>
-</body>
 </html>

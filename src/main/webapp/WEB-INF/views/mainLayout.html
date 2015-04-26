@@ -46,7 +46,7 @@
     </script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header">Header</div>
+    <div th:replace="fragments/header">Header</div>
 
     <div class="container">
         <div class="subContainer">
@@ -55,8 +55,12 @@
             </div>
         </div>
 
-        <div th:replace="fragments/footer :: footer">Footer</div>
+        <div th:replace="fragments/footer">Footer</div>
     </div>
+
+    <input th:replace="fragments/inputHiddens"/>
+
+    <script th:replace="fragments/scripts"></script>
 
     <!--/* UserReport integration script */-->
     <script type="text/javascript" th:unless="${#strings.isEmpty(userReportApplicationKey)}" th:inline="javascript">

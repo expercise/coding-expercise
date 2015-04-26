@@ -16,12 +16,15 @@ expercise.CodeEditor = {
         });
 
         $('#fullScreenButton').click(function () {
-            expercise.CodeEditor.codeEditor.focus();
-            $('.CodeMirror').fullscreen();
+            expercise.CodeEditor.fullscreen();
         });
 
+        this.bindRunChallengeShortcut();
+    },
+
+    bindRunChallengeShortcut: function () {
         this.codeEditor.setOption("extraKeys", {
-            "Ctrl-R": function () {
+            "Ctrl-Alt-R": function () {
                 expercise.Challenge.runChallenge();
             }
         });
@@ -77,6 +80,11 @@ expercise.CodeEditor = {
 
     resetMode: function () {
         $.removeCookie("editorMode");
+    },
+
+    fullscreen: function () {
+        expercise.CodeEditor.codeEditor.focus();
+        $('.CodeMirror').fullscreen();
     }
 
 };
