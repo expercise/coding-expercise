@@ -11,3 +11,4 @@ target
 .springBeans
 environmentSpecific.properties
 expercise.min*.css
+/overlays/
