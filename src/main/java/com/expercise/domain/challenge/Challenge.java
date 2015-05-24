@@ -7,6 +7,7 @@ import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
 import com.expercise.utils.Clock;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.*;
@@ -207,8 +208,16 @@ public class Challenge extends AbstractEntity {
         return Lingo.getValueWithLingoSafe(descriptions);
     }
 
+    public boolean hasDescriptionForCurrentLocale() {
+        return StringUtils.isNotBlank(descriptions.get(Lingo.getCurrentLingo()));
+    }
+
     public String getTitle() {
         return Lingo.getValueWithLingoSafe(titles);
+    }
+
+    public boolean hasTitleForCurrentLocale() {
+        return StringUtils.isNotBlank(titles.get(Lingo.getCurrentLingo()));
     }
 
     public List<Object> getConvertedInputValues(List<TestCaseInputValue> inputValues) {

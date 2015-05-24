@@ -7,7 +7,15 @@
 
     <div class="row pageTitleWithLink">
         <div class="col-xs-8 left">
-            <legend th:text="${title}"></legend>
+            <legend>
+                <span th:text="${title}"></span>
+                <small>
+                    <span class="noTranslationTooltip showOnLoad glyphicon glyphicon-exclamation-sign"
+                          th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
+                          data-toggle="tooltip" data-placement="bottom">
+                    </span>
+                </small>
+            </legend>
         </div>
 
         <div class="col-xs-4 right">
@@ -34,8 +42,11 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
-            <pre th:text="${challenge.getDescription()}"></pre>
+        <div class="col-xs-12" th:with="hasTranslation = ${challenge.hasDescriptionForCurrentLocale()}">
+            <pre th:if="${hasTranslation}" th:text="${challenge.getDescription()}"></pre>
+
+            <pre class="noTranslationTooltip showOnLoad" th:if="${not hasTranslation}" th:text="${challenge.getDescription()}"
+                 th:title="#{label.noTranslation}" data-toggle="tooltip" data-placement="bottom"></pre>
         </div>
     </div>
 

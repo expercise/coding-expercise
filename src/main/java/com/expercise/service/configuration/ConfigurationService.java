@@ -45,8 +45,7 @@ public class ConfigurationService implements Caching {
     }
 
     public String getUserReportApplicationKey() {
-        Optional<Lingo> currentLingo = Lingo.getLingo(LocaleContextHolder.getLocale().toString());
-        return getValue("userReport.applicationKey." + currentLingo.get());
+        return getValue("userReport.applicationKey." + Lingo.getCurrentLingo());
     }
 
     public boolean isDevelopment() {

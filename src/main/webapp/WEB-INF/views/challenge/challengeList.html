@@ -20,6 +20,12 @@
             <tr th:each="challenge : ${challenges}">
                 <td>
                     <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
+                    <small>
+                        <span class="noTranslationTooltip glyphicon glyphicon-exclamation-sign"
+                              th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
+                              data-toggle="tooltip" data-placement="bottom">
+                        </span>
+                    </small>
                 </td>
                 <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>

@@ -23,15 +23,19 @@ public enum Lingo {
 
     public static Optional<Lingo> getLingo(String shortName) {
         return Arrays.asList(values()).stream()
-                .filter(l -> l.getShortName().equals(shortName))
+                .filter(l -> shortName.startsWith(l.getShortName()))
                 .findFirst();
+    }
+
+    public static Lingo getCurrentLingo() {
+        return getLingo(LocaleContextHolder.getLocale().toString()).get();
     }
 
     public static List<Lingo> sortedLingosByCurrentLocale() {
         return Stream.of(values())
                 .sorted((l1, l2) -> {
                     String currentLocale = LocaleContextHolder.getLocale().toString();
-                    return l1.getShortName().equals(currentLocale) ? -1 : l1.compareTo(l2);
+                    return currentLocale.startsWith(l1.getShortName()) ? -1 : l1.compareTo(l2);
                 }).collect(Collectors.toList());
     }
 
