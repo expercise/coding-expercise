@@ -238,7 +238,7 @@ expercise.ChallengeManagement = {
                         $messageList.append('<li>' + expercise.utils.i18n(errorCode) + '</li>');
                     });
 
-                    location.hash = '#header';
+                    expercise.utils.scrollTop();
                 }
             }
         );

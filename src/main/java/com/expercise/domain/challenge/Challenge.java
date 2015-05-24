@@ -203,14 +203,12 @@ public class Challenge extends AbstractEntity {
         addTestCase(testCase);
     }
 
-    public String getDescriptionFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName).get();
-        return descriptions.get(lingo);
+    public String getDescription() {
+        return Lingo.getValueWithLingoSafe(descriptions);
     }
 
-    public String getTitleFor(String lingoShortName) {
-        Lingo lingo = Lingo.getLingo(lingoShortName).get();
-        return titles.get(lingo);
+    public String getTitle() {
+        return Lingo.getValueWithLingoSafe(titles);
     }
 
     public List<Object> getConvertedInputValues(List<TestCaseInputValue> inputValues) {

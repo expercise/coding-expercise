@@ -1,8 +1,11 @@
 package com.expercise.enums;
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public enum Lingo {
 
@@ -13,7 +16,7 @@ public enum Lingo {
 
     private Locale locale;
 
-    private Lingo(String shortName, Locale locale) {
+    Lingo(String shortName, Locale locale) {
         this.shortName = shortName;
         this.locale = locale;
     }
@@ -22,6 +25,25 @@ public enum Lingo {
         return Arrays.asList(values()).stream()
                 .filter(l -> l.getShortName().equals(shortName))
                 .findFirst();
+    }
+
+    public static List<Lingo> sortedLingosByCurrentLocale() {
+        return Stream.of(values())
+                .sorted((l1, l2) -> {
+                    String currentLocale = LocaleContextHolder.getLocale().toString();
+                    return l1.getShortName().equals(currentLocale) ? -1 : l1.compareTo(l2);
+                }).collect(Collectors.toList());
+    }
+
+    public static String getValueWithLingoSafe(Map<Lingo, String> source) {
+        for (Lingo lingo : sortedLingosByCurrentLocale()) {
+            String value = source.get(lingo);
+            if (StringUtils.isNotBlank(value)) {
+                return value;
+            }
+        }
+
+        throw new IllegalArgumentException("Lingo safe value could not be found!");
     }
 
     public String getShortName() {

@@ -6,6 +6,7 @@ import com.expercise.enums.Lingo;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.LevelBuilder;
 import com.expercise.testutils.builder.ThemeBuilder;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -23,29 +24,13 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @PrepareForTest({LocaleContextHolder.class})
 public class ChallengeTest {
 
-    @Test
-    public void shouldGetDescriptionByLingo() {
-        Challenge challenge = new Challenge();
-        challenge.getDescriptions().put(Lingo.English, "Description");
-        challenge.getDescriptions().put(Lingo.Turkish, "Açıklama");
-
-        assertThat(challenge.getDescriptionFor(Lingo.English.getShortName()), equalTo("Description"));
-        assertThat(challenge.getDescriptionFor(Lingo.Turkish.getShortName()), equalTo("Açıklama"));
-    }
-
-    @Test
-    public void shouldGetTitleByLingo() {
-        Challenge challenge = new Challenge();
-        challenge.getTitles().put(Lingo.English, "Title");
-        challenge.getTitles().put(Lingo.Turkish, "Başlık");
-
-        assertThat(challenge.getTitleFor(Lingo.English.getShortName()), equalTo("Title"));
-        assertThat(challenge.getTitleFor(Lingo.Turkish.getShortName()), equalTo("Başlık"));
+    @Before
+    public void before() {
+        mockStatic(LocaleContextHolder.class);
     }
 
     @Test
     public void shouldReturnThemeUrlIfChallengeHaveLevelAndLevelHaveTheme() {
-        mockStatic(LocaleContextHolder.class);
         when(LocaleContextHolder.getLocale()).thenReturn(Locale.ENGLISH);
 
         Level level = new LevelBuilder().buildWithRandomId();
@@ -57,7 +42,6 @@ public class ChallengeTest {
 
     @Test
     public void shouldReturnOtherChallengesAsThemeUrlIfChallengeHaveLevelButLevelHaveNotTheme() {
-        mockStatic(LocaleContextHolder.class);
         when(LocaleContextHolder.getLocale()).thenReturn(Locale.ENGLISH);
 
         Level level = new LevelBuilder().buildWithRandomId();
@@ -68,7 +52,6 @@ public class ChallengeTest {
 
     @Test
     public void shouldReturnOtherChallengesAsThemeUrlIfChallengeHaveNotLevel() {
-        mockStatic(LocaleContextHolder.class);
         when(LocaleContextHolder.getLocale()).thenReturn(Lingo.Turkish.getLocale());
 
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();

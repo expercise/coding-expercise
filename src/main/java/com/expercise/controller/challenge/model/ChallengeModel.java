@@ -64,12 +64,12 @@ public class ChallengeModel {
         return outputType;
     }
 
-    public boolean hasOutputType() {
-        return outputType != null;
-    }
-
     public void setOutputType(DataType outputType) {
         this.outputType = outputType;
+    }
+
+    public boolean hasOutputType() {
+        return outputType != null;
     }
 
     public List<TestCase> getTestCases() {
@@ -102,6 +102,10 @@ public class ChallengeModel {
 
     public String getDescriptionFor(Lingo lingo) {
         return filterByLingo(lingo, descriptions);
+    }
+
+    public boolean isSupportedLingo(Lingo lingo) {
+        return StringUtils.isNotBlank(getDescriptionFor(lingo)) && StringUtils.isNotBlank(getTitleFor(lingo));
     }
 
     public ChallengeType getChallengeType() {

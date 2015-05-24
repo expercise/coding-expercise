@@ -49,6 +49,10 @@ expercise.utils = {
         }
 
         $element.scrollToFixed(config);
+    },
+
+    scrollTop: function () {
+        $(window).scrollTop(0);
     }
 
 };

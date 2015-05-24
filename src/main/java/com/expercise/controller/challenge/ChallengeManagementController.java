@@ -78,7 +78,7 @@ public class ChallengeManagementController {
     private ModelAndView prepareChallengeManagementViewModel(ManagementMode managementMode) {
         ModelAndView modelAndView = new ModelAndView("challenge/manageChallenge");
         modelAndView.addObject("mode", managementMode);
-        modelAndView.addObject("lingos", Lingo.values());
+        modelAndView.addObject("lingos", Lingo.sortedLingosByCurrentLocale());
         modelAndView.addObject("dataTypes", DataType.values());
         modelAndView.addObject("challengeTypes", ChallengeType.values());
         modelAndView.addObject("levels", levelService.getAllLevelsInOrder());

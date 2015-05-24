@@ -98,7 +98,7 @@
 
                     <ul class="list-group" th:unless="${#lists.isEmpty(solvedChallenges)}">
                         <li class="list-group-item" th:each="solvedChallenge : ${solvedChallenges}">
-                            <a th:href="@{'/challenges/' + ${solvedChallenge.id}}" th:text="${solvedChallenge.getTitleFor(#locale)}"></a>
+                            <a th:href="@{'/challenges/' + ${solvedChallenge.id}}" th:text="${solvedChallenge.getTitle()}"></a>
                         </li>
                     </ul>
 

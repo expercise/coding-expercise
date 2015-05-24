@@ -19,7 +19,7 @@
         <tbody>
             <tr th:each="challenge : ${challenges}">
                 <td>
-                    <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                    <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
                 </td>
                 <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>

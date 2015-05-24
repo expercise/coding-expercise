@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = ${challenge.getTitleFor(#locale)}">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = ${challenge.getTitle()}">
 <head>
     <title th:text="${title}"></title>
 </head>
@@ -26,7 +26,7 @@
             <a th:href="@{${challenge.user.bookmarkableUrl}}" class="small" th:text="${challenge.getUser().getFullName()}">
                 Author Full Name
             </a>
-            <span class="small" th:text="#{'challenge.addedBy'}">added.</span>
+            <span class="small" th:text="#{challenge.addedBy}">added.</span>
         </div>
         <div class="col-xs-4 text-right">
             <span class="small" th:text="${#messages.msg('challenge.addedOnDate', #dates.format(challenge.getCreateDate(),'dd MMMM yyyy'))}">Added on 01 Jan 2014.</span>
@@ -35,7 +35,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <pre th:text="${challenge.getDescriptionFor(#locale)}"></pre>
+            <pre th:text="${challenge.getDescription()}"></pre>
         </div>
     </div>
 

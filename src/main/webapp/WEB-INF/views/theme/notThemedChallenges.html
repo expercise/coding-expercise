@@ -44,7 +44,7 @@
                     <tr th:each="challenge, iteration : ${challengeList}">
                         <td class="indexColumn" th:text="${iteration.count}"></td>
                         <td class="fixedWidthColumn">
-                            <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitleFor(#locale)}"></a>
+                            <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
                             <span th:if="${solvedChallengesByCurrentUser.contains(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
                         <td th:text="${solutionCountMap.get(challenge)}"></td>

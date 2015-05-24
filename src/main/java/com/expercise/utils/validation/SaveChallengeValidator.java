@@ -7,12 +7,12 @@ import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
 import com.expercise.service.challenge.ChallengeService;
 import com.expercise.service.user.AuthenticationService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
@@ -61,12 +61,12 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
     }
 
     private void validateTitlesAndDescriptions(ChallengeModel challenge, BindingResult bindingResult) {
-        for (Lingo lingo : Lingo.values()) {
-            boolean noTitleOrDescriptionForThisLingo = StringUtils.isBlank(challenge.getDescriptionFor(lingo)) || StringUtils.isBlank(challenge.getTitleFor(lingo));
-            if (noTitleOrDescriptionForThisLingo) {
-                addError(bindingResult, "titlesAndDescriptions", new String[]{"NotEmpty.challenge.titlesAndDescriptions"});
-                break;
-            }
+        long lingoCountWithTitleAndDescription = Stream.of(Lingo.values())
+                .filter(challenge::isSupportedLingo)
+                .count();
+
+        if (lingoCountWithTitleAndDescription == 0) {
+            addError(bindingResult, "titlesAndDescriptions", new String[]{"NotEmpty.challenge.titlesAndDescriptions"});
         }
     }
 
