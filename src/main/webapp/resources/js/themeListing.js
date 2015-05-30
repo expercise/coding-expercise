@@ -14,6 +14,7 @@ expercise.ThemeListing = {
                 });
             }, 500);
         }
+        $('[data-toggle="tooltip"]').tooltip();
     },
 
     bindEvents: function() {
