@@ -46,7 +46,7 @@ public class LingoTest {
     }
 
     @Test
-    public void getLingoSafeValueWhenLocaleEnglishButNoValueForEnglish() {
+    public void shouldGetLingoSafeValueWhenLocaleEnglishButNoValueForEnglish() {
         when(LocaleContextHolder.getLocale()).thenReturn(Locale.ENGLISH);
 
         Map<Lingo, String> valueMap = new HashMap<>();
@@ -58,7 +58,7 @@ public class LingoTest {
     }
 
     @Test
-    public void getLingoSafeValueWhenLocaleTurkishButNoValueForTurkish() {
+    public void shouldGetLingoSafeValueWhenLocaleTurkishButNoValueForTurkish() {
         when(LocaleContextHolder.getLocale()).thenReturn(Lingo.Turkish.getLocale());
 
         Map<Lingo, String> valueMap = new HashMap<>();
@@ -70,7 +70,7 @@ public class LingoTest {
     }
 
     @Test
-    public void getLingoSafeValueWhenLocaleEnglishAndThereIsValueForEnglish() {
+    public void shouldGetLingoSafeValueWhenLocaleEnglishAndThereIsValueForEnglish() {
         when(LocaleContextHolder.getLocale()).thenReturn(Locale.ENGLISH);
 
         Map<Lingo, String> valueMap = new HashMap<>();
@@ -80,6 +80,15 @@ public class LingoTest {
         String result = Lingo.getValueWithLingoSafe(valueMap);
 
         assertThat(result, equalTo("In English"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowExceptionWhileGettingValueWithLingoSafeIfNoDescriptionFoundForAllLingos() {
+        when(LocaleContextHolder.getLocale()).thenReturn(Locale.ENGLISH);
+
+        Map<Lingo, String> valueMap = new HashMap<>();
+
+        Lingo.getValueWithLingoSafe(valueMap);
     }
 
 }

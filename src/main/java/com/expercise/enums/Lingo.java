@@ -39,6 +39,10 @@ public enum Lingo {
                 }).collect(Collectors.toList());
     }
 
+    public static String getValueFrom(Map<Lingo, String> source) {
+        return source.get(getCurrentLingo());
+    }
+
     public static String getValueWithLingoSafe(Map<Lingo, String> source) {
         for (Lingo lingo : sortedLingosByCurrentLocale()) {
             String value = source.get(lingo);

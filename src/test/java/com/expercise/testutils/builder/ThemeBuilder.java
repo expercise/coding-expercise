@@ -15,12 +15,15 @@ public class ThemeBuilder extends AbstractPrioritizedEntityBuilder<Theme, ThemeB
 
     private Map<Lingo, String> names = new HashMap<>();
 
+    private Map<Lingo, String> descriptions = new HashMap<>();
+
     private List<Level> levels = new ArrayList<>();
 
     @Override
     protected Theme getInstance() {
         Theme theme = new Theme();
         theme.setNames(names);
+        theme.setDescriptions(descriptions);
         theme.setLevels(levels);
         levels.forEach(l -> l.setTheme(theme));
         return theme;
@@ -33,6 +36,11 @@ public class ThemeBuilder extends AbstractPrioritizedEntityBuilder<Theme, ThemeB
 
     public ThemeBuilder addName(Lingo lingo, String name) {
         this.names.put(lingo, name);
+        return this;
+    }
+
+    public ThemeBuilder addDescription(Lingo lingo, String description) {
+        this.descriptions.put(lingo, description);
         return this;
     }
 

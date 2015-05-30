@@ -33,6 +33,12 @@ public class Theme extends PrioritizedEntity {
     @OneToMany(mappedBy = "theme")
     private List<Level> levels = new ArrayList<>();
 
+    @ElementCollection
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "Lingo", nullable = false)
+    @Column(name = "Description", nullable = false)
+    private Map<Lingo, String> descriptions = new HashMap<>();
+
     @Override
     public Long getId() {
         return id;
@@ -78,6 +84,22 @@ public class Theme extends PrioritizedEntity {
 
     public void setLevels(List<Level> levels) {
         this.levels = levels;
+    }
+
+    public Map<Lingo, String> getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(Map<Lingo, String> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public String getDescription() {
+        String description = Lingo.getValueFrom(descriptions);
+        if (StringUtils.isBlank(description)) {
+            return StringUtils.EMPTY;
+        }
+        return description;
     }
 
     public List<Level> getOrderedLevels() {

@@ -209,7 +209,7 @@ public class Challenge extends AbstractEntity {
     }
 
     public boolean hasDescriptionForCurrentLocale() {
-        return StringUtils.isNotBlank(descriptions.get(Lingo.getCurrentLingo()));
+        return StringUtils.isNotBlank(Lingo.getValueFrom(descriptions));
     }
 
     public String getTitle() {
@@ -217,7 +217,7 @@ public class Challenge extends AbstractEntity {
     }
 
     public boolean hasTitleForCurrentLocale() {
-        return StringUtils.isNotBlank(titles.get(Lingo.getCurrentLingo()));
+        return StringUtils.isNotBlank(Lingo.getValueFrom(titles));
     }
 
     public List<Object> getConvertedInputValues(List<TestCaseInputValue> inputValues) {

@@ -20,6 +20,12 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-12 themeDescriptionContainer">
+            <p th:text="${theme.getDescription()}"></p>
+        </div>
+    </div>
+
     <div class="row" th:if="${#lists.isEmpty(levelList)}">
         <div class="col-xs-12 noItem">
             <p th:text="#{label.nope}"></p>
