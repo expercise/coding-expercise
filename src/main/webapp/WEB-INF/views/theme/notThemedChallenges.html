@@ -28,9 +28,7 @@
 
     <div class="row levelContainer" th:unless="${#lists.isEmpty(challengeList)}">
         <div th:class="col-xs-12">
-            <h3>
-                <span th:text="#{theme.listing.header.notThemedChallenges}"></span>
-            </h3>
+            <h4 th:text="#{theme.listing.header.notThemedChallenges}"></h4>
 
             <table class="table">
                 <thead>

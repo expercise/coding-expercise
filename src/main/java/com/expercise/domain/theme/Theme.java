@@ -49,6 +49,11 @@ public class Theme extends PrioritizedEntity {
         this.id = id;
     }
 
+    public long getTitleColor() {
+        int mod = 4;
+        return isPersisted() ? id % mod : mod;
+    }
+
     public String getBookmarkableUrl() {
         if (id != null) {
             return "/themes/" + id + "/" + getBookmarkableName();

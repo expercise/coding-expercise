@@ -14,13 +14,24 @@ expercise.ThemeListing = {
                 });
             }, 500);
         }
-        $('[data-toggle="tooltip"]').tooltip();
     },
 
-    bindEvents: function() {
-        $('.themeContainer').click(function () {
-            expercise.utils.go($(this).find('a').attr('href'));
-        });
+    bindEvents: function () {
+        $('.themeItem').hover(
+            function () {
+                var $that = $(this);
+                var $title = $that.find('.themeItemTitle');
+                //$title.css('font-weight', 'bold');
+                var fontColor = $title.css('background-color');
+                $that.find('.themeItemDescription').css('color', fontColor);
+            },
+            function () {
+                var $that = $(this);
+                var $title = $that.find('.themeItemTitle');
+                //$title.css('font-weight', 'normal');
+                $that.find('.themeItemDescription').css('color', '#333');
+            }
+        );
     }
 
 };
