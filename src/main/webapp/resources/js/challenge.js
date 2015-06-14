@@ -9,6 +9,7 @@ expercise.Challenge = {
         var userSolutions = JSON.parse($('#userSolutions').val());
         this.populateUserSolutionTable(userSolutions);
         this.adjustProgrammingLanguage();
+        this.adjustEditorKeyMap();
         this.initializeKataChallenge();
     },
 
@@ -69,11 +70,22 @@ expercise.Challenge = {
         $('#languageSelection').change(this.adjustProgrammingLanguage);
 
         this.bindRunChallengeShortcut();
+        this.bindCodeEditorKeyMapChange();
     },
 
     bindRunChallengeShortcut: function () {
         $(document).on('keydown', null, 'alt+ctrl+r', function () {
             expercise.Challenge.runChallenge();
+        });
+    },
+
+    bindCodeEditorKeyMapChange: function () {
+        $('input:checkbox#useVimKeyMapCheckBox').change(function (e) {
+            var vimKeyMapSelected = $(this).is(':checked');
+            var newKeyMap = vimKeyMapSelected ?
+                expercise.CodeEditor.KEYMAPS.VIM :
+                expercise.CodeEditor.KEYMAPS.DEFAULT;
+            expercise.CodeEditor.changeKeyMap(newKeyMap);
         });
     },
 
@@ -123,6 +135,11 @@ expercise.Challenge = {
     adjustProgrammingLanguage: function () {
         var selectedLanguage = $('#languageSelection').val();
         expercise.Challenge.changeProgrammingLanguage(selectedLanguage, expercise.Challenge.solutionSignatures[selectedLanguage]);
+    },
+
+    adjustEditorKeyMap: function () {
+        var $useVimKeyMapCheckBox = $('input:checkbox#useVimKeyMapCheckBox');
+        $useVimKeyMapCheckBox.prop('checked', expercise.CodeEditor.isVimKeyMap());
     },
 
     populateSourceAndTestCaseState: function (currentSourceCode, testCaseModels) {

@@ -1,10 +1,17 @@
 expercise.CodeEditor = {
 
+    KEYMAPS : {
+        DEFAULT: 'default',
+        VIM: 'vim'
+    },
+
     codeEditor: null,
 
     theme: "default",
 
     mode: "javascript",
+
+    keyMap: "default",
 
     constructor: function () {
         this.initCodeEditor();
@@ -41,10 +48,16 @@ expercise.CodeEditor = {
             this.mode = savedMode;
         }
 
+        var savedKeyMap = $.cookie("keyMap");
+        if (savedKeyMap) {
+            this.keyMap = savedKeyMap;
+        }
+
         this.codeEditor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
             lineNumbers: true,
             theme: this.theme,
             mode: this.mode,
+            keyMap: this.keyMap,
             indentUnit: 4,
             indentWithTabs: true
         });
@@ -85,6 +98,16 @@ expercise.CodeEditor = {
     fullscreen: function () {
         expercise.CodeEditor.codeEditor.focus();
         $('.CodeMirror').fullscreen();
+    },
+
+    isVimKeyMap: function () {
+        return $.cookie("keyMap") == expercise.CodeEditor.KEYMAPS.VIM;
+    },
+
+    changeKeyMap: function (keyMap) {
+        this.keyMap = keyMap;
+        this.codeEditor.setOption("keyMap", this.keyMap);
+        $.cookie("keyMap", this.keyMap);
     }
 
 };
