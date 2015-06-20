@@ -55,7 +55,7 @@ public class UserPointServiceTest {
     @Test
     public void shouldBeAbleToWinPointIfUserHadNotWonPointFromTheChallengeBeforeAndChallengeIsApproved() {
         User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).approved(true).build();
+        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(true).build();
 
         when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
 
@@ -65,7 +65,7 @@ public class UserPointServiceTest {
     @Test
     public void shouldNotBeAbleToWinPointIfUserHadWonPointFromTheChallengeBefore() {
         User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).approved(true).build();
+        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(true).build();
 
         when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
 
@@ -75,7 +75,17 @@ public class UserPointServiceTest {
     @Test
     public void shouldNotBeAbleToWinPointIfChallengeIsNotApproved() {
         User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).approved(false).build();
+        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(false).build();
+
+        assertFalse(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
+
+        verifyZeroInteractions(userPointDao);
+    }
+
+    @Test
+    public void shouldNotBeAbleToWinPointIfChallengeAuthorIsSamePersonAsUser() {
+        User user = new UserBuilder().id(2L).build();
+        Challenge challenge = new ChallengeBuilder().id(3L).user(user).approved(true).build();
 
         assertFalse(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
 

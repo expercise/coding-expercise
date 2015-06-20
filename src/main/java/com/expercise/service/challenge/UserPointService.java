@@ -29,6 +29,9 @@ public class UserPointService {
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
+        if (challenge.getUser().equals(user)) {
+            return false;
+        }
         return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
     }
 
