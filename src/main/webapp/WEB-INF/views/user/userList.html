@@ -6,6 +6,8 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="#{userList.header}"></legend>
 
+    <p th:text="${#messages.msg('userList.userCountMessage', users.size())}">User count</p>
+
     <table class="table table-striped">
         <thead>
             <tr>
