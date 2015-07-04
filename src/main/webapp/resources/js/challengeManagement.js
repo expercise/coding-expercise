@@ -47,6 +47,15 @@ expercise.ChallengeManagement = {
             $that.val(description);
         });
 
+        $('textarea[name="signature"]').each(function () {
+            var $that = $(this);
+            var lingo = $that.parent('div').data('lingo');
+            var signature = challengeModel.signatures.filter(function (element) {
+                return element.lingo == lingo;
+            })[0].text;
+            $that.val(signature);
+        });
+
         var $inputsTableBody = $('#inputsTable > tbody');
         $inputsTableBody.find('tr').remove();
         challengeModel.inputTypes.forEach(function (inputType) {
@@ -175,6 +184,16 @@ expercise.ChallengeManagement = {
             });
         });
 
+        var signatures = [];
+        $('textarea[name="signature"]').each(function () {
+            var lingo = $(this).parent('div').data('lingo');
+            var signature = $(this).val();
+            signatures.push({
+                lingo: lingo,
+                text: signature
+            });
+        });
+
         var inputTypes = [];
         $('#inputsTable select[name="inputType"]').each(function () {
             inputTypes.push($(this).val());
@@ -204,6 +223,7 @@ expercise.ChallengeManagement = {
             challengeType: challengeType,
             titles: titles,
             descriptions: descriptions,
+            signatures: signatures,
             inputTypes: inputTypes,
             outputType: outputType,
             testCases: testCases

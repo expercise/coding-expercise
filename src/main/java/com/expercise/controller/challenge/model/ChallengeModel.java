@@ -18,6 +18,8 @@ public class ChallengeModel {
 
     private List<MultiLingoText> descriptions = new ArrayList<>();
 
+    private List<MultiLingoText> signatures = new ArrayList<>();
+
     private List<DataType> inputTypes = new ArrayList<>();
 
     private DataType outputType;
@@ -50,6 +52,14 @@ public class ChallengeModel {
 
     public void setTitles(List<MultiLingoText> titles) {
         this.titles = titles;
+    }
+
+    public List<MultiLingoText> getSignatures() {
+        return signatures;
+    }
+
+    public void setSignatures(List<MultiLingoText> signatures) {
+        this.signatures = signatures;
     }
 
     public List<DataType> getInputTypes() {

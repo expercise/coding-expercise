@@ -41,6 +41,11 @@ public class ChallengeModelHelper {
             challenge.getDescriptions().put(description.getLingo(), description.getText());
         }
 
+        challenge.getSignatures().clear();
+        for (ChallengeModel.MultiLingoText signature : challengeModel.getSignatures()) {
+            challenge.getSignatures().put(signature.getLingo(), signature.getText());
+        }
+
         challenge.getInputTypes().clear();
         challenge.setInputTypes(ChallengeInputType.createFrom(challengeModel.getInputTypes()));
 
@@ -77,6 +82,10 @@ public class ChallengeModelHelper {
 
         for (Map.Entry<Lingo, String> eachDescription : challenge.getDescriptions().entrySet()) {
             challengeModel.getDescriptions().add(new ChallengeModel.MultiLingoText(eachDescription.getKey(), eachDescription.getValue()));
+        }
+
+        for (Map.Entry<Lingo, String> eachSignature : challenge.getSignatures().entrySet()) {
+            challengeModel.getSignatures().add(new ChallengeModel.MultiLingoText(eachSignature.getKey(), eachSignature.getValue()));
         }
 
         for (ChallengeInputType eachInputType : challenge.getInputTypes()) {

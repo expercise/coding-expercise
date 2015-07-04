@@ -11,7 +11,7 @@ public enum ProgrammingLanguage {
 
     private String shortName;
 
-    private ProgrammingLanguage(String shortName) {
+    ProgrammingLanguage(String shortName) {
         this.shortName = shortName;
     }
 

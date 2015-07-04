@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.script.Invocable;
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
@@ -24,6 +25,9 @@ public class JavaScriptInterpreter extends Interpreter {
 
     @Autowired
     private TypeChecker typeChecker;
+
+    @Autowired
+    private JavaScriptOutputWriter javaScriptOutputWriter;
 
     @Override
     protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
@@ -50,6 +54,7 @@ public class JavaScriptInterpreter extends Interpreter {
 
     private ScriptEngine getScriptEngine() {
         NashornScriptEngine javaScriptEngine = (NashornScriptEngine) new NashornScriptEngineFactory().getScriptEngine(new String[]{"-strict", "--no-java", "--no-syntax-extensions"});
+        javaScriptEngine.getContext().setWriter(javaScriptOutputWriter);
         javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
         return javaScriptEngine;
     }
@@ -58,7 +63,6 @@ public class JavaScriptInterpreter extends Interpreter {
         try {
             javaScriptEngine.eval(sourceCode);
         } catch (ScriptException e) {
-            LOGGER.debug("Exception while evaluation", e);
             throw new InterpreterException(InterpreterResult.syntaxErrorFailedResult());
         }
     }
@@ -68,7 +72,13 @@ public class JavaScriptInterpreter extends Interpreter {
 
         try {
             Object[] convertedInputValues = challenge.getConvertedInputValues(testCase.getInputs()).toArray();
-            evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
+            boolean hasSolutionTopLevelFunction = javaScriptEngine.getBindings(ScriptContext.ENGINE_SCOPE).containsKey("solution");
+            if (hasSolutionTopLevelFunction) {
+                evaluationResult = ((Invocable) javaScriptEngine).invokeFunction("solution", convertedInputValues);
+            } else {
+                evaluationResult = OutputMessageAggregator.getOutputMessage();
+            }
+
         } catch (Exception e) {
             LOGGER.debug("Exception while interpreting", e);
             throw new InterpreterException(InterpreterResult.createFailedResult());
@@ -91,7 +101,7 @@ public class JavaScriptInterpreter extends Interpreter {
             testCaseResult = evaluationResultAsInteger == expectedValue ? TestCaseResult.PASSED : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (outputType == DataType.Text) {
-            String evaluationResultAsString = resultValue.toString();
+            String evaluationResultAsString = resultValue.toString().trim();
             String expectedValue = testCaseWithResult.getTestCaseUnderTest().getOutput();
             testCaseResult = evaluationResultAsString.equals(expectedValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(evaluationResultAsString);

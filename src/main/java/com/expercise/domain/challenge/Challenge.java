@@ -34,6 +34,12 @@ public class Challenge extends AbstractEntity {
     @Column(name = "Description", nullable = false, length = 2048)
     private Map<Lingo, String> descriptions = new HashMap<>();
 
+    @ElementCollection
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "Lingo", nullable = false)
+    @Column(name = "Signature", nullable = false, length = 1024)
+    private Map<Lingo, String> signatures = new HashMap<>();
+
     @OneToMany(mappedBy = "challenge", orphanRemoval = true, cascade = CascadeType.ALL)
     @OrderBy("priority")
     private List<ChallengeInputType> inputTypes = new ArrayList<>();
@@ -218,6 +224,14 @@ public class Challenge extends AbstractEntity {
 
     public boolean hasTitleForCurrentLocale() {
         return StringUtils.isNotBlank(Lingo.getValueFrom(titles));
+    }
+
+    public Map<Lingo, String> getSignatures() {
+        return signatures;
+    }
+
+    public void setSignatures(Map<Lingo, String> signatures) {
+        this.signatures = signatures;
     }
 
     public List<Object> getConvertedInputValues(List<TestCaseInputValue> inputValues) {

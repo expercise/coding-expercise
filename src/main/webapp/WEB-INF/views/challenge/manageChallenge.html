@@ -54,6 +54,20 @@
 
     <div class="row">
         <div class="col-xs-10">
+            <h3 th:text="#{challengeManagement.signatures}"></h3>
+
+            <div th:each="lingo : ${lingos}" class="signatureContainer" th:attr="data-lingo=${lingo}">
+                <h4>
+                    <span th:text="${#messages.msg(lingo.name())}"></span>
+                    <small>(<span th:text="#{label.optional}"></span>)</small>
+                </h4>
+                <textarea class="form-control signature" name="signature" rows="12"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.challengeType}"></h3>
 
             <div class="challengeTypeContainer">
