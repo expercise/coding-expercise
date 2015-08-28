@@ -30,8 +30,8 @@
 
         <input type="hidden" th:field="*{levelId}" />
 
-        <button type="submit" class="btn btn-primary" th:text="#{button.save}"></button>
-        <button id="resetButton" type="button" class="btn btn-default" th:text="#{button.reset}"></button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <button id="resetButton" type="button" class="btn btn-default"><i class="fa fa-eraser"></i></button>
     </form>
 
     <hr/>
@@ -50,13 +50,17 @@
                 <td th:text="${level.priority}"></td>
                 <td th:text="${level.turkishName}"></td>
                 <td th:text="${level.englishName}"></td>
-                <td>
-                    <a href="#saveLevelForm" class="updateButton" th:text="#{button.update}" th:attr="data-level-id=${level.id}">Update</a>
-                </td>
-                <td>
-                    <a href="#" th:text="#{button.delete}"
+                <td class="text-right">
+                    <a href="#saveLevelForm" class="updateButton btn btn-primary btn-sm" th:attr="data-level-id=${level.id}">
+                        <i class="fa fa-edit"></i>
+                        <span th:text="#{button.edit}"></span>
+                    </a>
+                    <a href="#" class="btn btn-danger btn-sm"
                        myth:update="[[levelsTableBody>>${'level_' + level.id}]]"
-                       myth:url="@{/manage/levels/delete/__${level.id}__}">Delete</a>
+                       myth:url="@{/manage/levels/delete/__${level.id}__}">
+                        <i class="fa fa-trash"></i>
+                        <span th:text="#{button.delete}"></span>
+                    </a>
                 </td>
             </tr>
         </tbody>

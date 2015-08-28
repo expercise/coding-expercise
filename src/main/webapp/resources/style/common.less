@@ -69,13 +69,21 @@ legend.subHeader {
   font-size: 19px;
 }
 
-table .indexColumn {
-  width: 20px;
-  text-align: right;
-}
+table {
+  .indexColumn {
+    width: 20px;
+    text-align: right;
+  }
 
-table tbody tr td {
-  vertical-align: middle !important;
+  tbody tr td {
+    vertical-align: middle !important;
+  }
+
+  td.operations {
+    .btn {
+      margin-left: 5px;
+    }
+  }
 }
 
 a {
