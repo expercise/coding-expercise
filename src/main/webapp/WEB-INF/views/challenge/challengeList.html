@@ -10,16 +10,16 @@
         <thead>
             <tr>
                 <th th:text="#{challengeList.table.header.challenge}"></th>
-                <th th:text="#{challengeList.table.header.solutionCount}"></th>
                 <th th:text="#{challengeManagement.challengeType}"></th>
                 <th th:text="#{challengeManagement.approved}"></th>
+                <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="challenge : ${challenges}">
                 <td>
-                    <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
+                    <a target="_blank" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
                     <small>
                         <span class="noTranslationTooltip glyphicon glyphicon-exclamation-sign"
                               th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
@@ -27,9 +27,9 @@
                         </span>
                     </small>
                 </td>
-                <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>
                 <td th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>
+                <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
                 <td class="text-right">
                     <a class="btn btn-sm btn-primary" th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}">
                         <i class="fa fa-edit"></i>
