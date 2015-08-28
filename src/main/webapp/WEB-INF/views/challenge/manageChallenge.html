@@ -169,7 +169,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="3">
-                            <a id="addNewTestCase">
+                            <a id="addNewTestCase" class="btn btn-success">
                                 <span class="glyphicon glyphicon-plus"></span>
                                 <span th:text="#{challengeManagement.addNewTestCase}"></span>
                             </a>
@@ -184,7 +184,7 @@
         <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.level}"></h3>
 
-            <select name="level">
+            <select name="level" class="form-control">
                 <option value="" th:text="#{label.select}"></option>
                 <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.getNameForChallengeManagement(#locale)}"></option>
             </select>
