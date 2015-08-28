@@ -36,7 +36,7 @@ textarea.failedResult {
 #fullScreenButton, #themeButton {
   margin-left: 5px;
   cursor: pointer;
-  line-height: 20px !important;
+  line-height: 28px !important;
 }
 
 .editorOptions {
@@ -53,12 +53,20 @@ textarea.failedResult {
   .keyMapSelectionPanel {
     margin-left: 5px;
 
-    label {
-      margin: 0;
-      font-weight: normal;
+    &.checkbox {
+      display: inline;
+    }
+
+    input[type=checkbox] {
+      margin-left: 3px;
+      margin-top: 8px;
     }
   }
 
+  #languageSelection {
+    width: 30%;
+    display: inline;
+  }
 }
 
 div.challengeInfo {

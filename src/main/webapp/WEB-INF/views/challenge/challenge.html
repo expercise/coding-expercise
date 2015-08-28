@@ -74,16 +74,20 @@
             <textarea id="codeEditor" class="codeEditor"></textarea>
         </div>
         <div id="challengeButtons" class="col-xs-2">
-            <a id="runButton" th:text="#{button.run}" class="editorButton btn btn-primary btn-lg" role="button"></a>
-            <a id="resetButton" th:text="#{button.reset}" class="editorButton btn btn-default btn-lg" role="button"></a>
+            <a id="runButton" class="editorButton btn btn-primary btn-lg" role="button">
+                <i class="fa fa-play"></i>
+            </a>
+            <a id="resetButton" class="editorButton btn btn-default btn-lg" role="button">
+                <i class="fa fa-eraser"></i>
+            </a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-10 editorOptions">
             <span th:text="#{challenge.language}"></span>:
-            <select id="languageSelection" name="languageSelection">
-                <!--*/ TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
+            <select id="languageSelection" name="languageSelection" class="form-control input-sm">
+                <!--/* TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
                 <option th:each="each : ${programmingLanguages}"
                         th:value="${each.getShortName()}"
                         th:text="${each}">
@@ -93,10 +97,10 @@
                 <option disabled="disabled">Python</option>
                 <option disabled="disabled">Java</option>
             </select>
-            <span class="keyMapSelectionPanel">
+            <div class="keyMapSelectionPanel checkbox">
                 <input id="useVimKeyMapCheckBox" type="checkbox" name="useVimKeyMap" />
                 <label for="useVimKeyMapCheckBox" th:text="#{codeEditor.useVimKeyMap}">Use Vim Keymap</label>
-            </span>
+            </div>
             <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right" th:unless="${mobileClient}"></span>
             <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
         </div>

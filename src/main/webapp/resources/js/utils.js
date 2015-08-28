@@ -26,17 +26,18 @@ expercise.utils = {
     },
 
     setLoadingState: function (config) {
-        config.element.addClass('glyphicon glyphicon-' + config.icon);
+        var $icon = config.element.find('i');
+        config.oldIcon = $icon.attr('class');
+        $icon.addClass('fa fa-hourglass-half');
         config.element.addClass('disabled');
-        config.oldText = config.element.text();
-        config.element.text('');
         return config;
     },
 
     resetLoadingState: function (config) {
         config.element.removeClass('disabled');
-        config.element.removeClass('glyphicon glyphicon-' + config.icon);
-        config.element.text(config.oldText);
+        var $icon = config.element.find('i');
+        $icon.removeClass('fa fa-hourglass-half');
+        $icon.addClass(config.oldIcon);
     },
 
     isMobileClient: function () {

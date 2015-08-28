@@ -239,7 +239,7 @@ expercise.ChallengeManagement = {
             requestData.level = $levelSelection.val();
         }
 
-        var loadingStateConfig = expercise.utils.setLoadingState({element: $saveButton, icon: 'floppy-open'});
+        var loadingStateConfig = expercise.utils.setLoadingState({element: $saveButton});
         expercise.utils.resetHash();
         expercise.utils.post(
             'challenges/saveChallenge',

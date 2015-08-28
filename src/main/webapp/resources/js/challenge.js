@@ -28,7 +28,7 @@ expercise.Challenge = {
                 challengeId: $('#challengeId').val()
             };
 
-            var loadingStateConfig = expercise.utils.setLoadingState({element: $runButton, icon: 'refresh'});
+            var loadingStateConfig = expercise.utils.setLoadingState({element: $runButton});
             expercise.utils.post(
                 'challenges/eval',
                 requestData,
