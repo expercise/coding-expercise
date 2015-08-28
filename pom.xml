@@ -459,7 +459,7 @@
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
                             <includes>
                                 <include>/bootstrap.min.css</include>
-                                <include>/bootstrap-theme.min.css</include>
+                                <include>/font-awesome.min.css</include>
                                 <include>/codemirror.css</include>
                                 <include>/ambiance.css</include>
                                 <include>/expercise.min.css</include>
