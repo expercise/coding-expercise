@@ -30,15 +30,18 @@
                 <td th:text="${solutionCountMap.get(challenge)}"></td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>
                 <td th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>
-                <td>
-                    <a th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}" th:text="#{button.modify}"></a>
+                <td class="text-right">
+                    <a class="btn btn-sm btn-primary" th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}">
+                        <i class="fa fa-edit"></i>
+                        <span th:text="#{button.edit}"></span>
+                    </a>
                 </td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="100%">
-                    <a th:href="@{/challenges/addChallenge}">
+                    <a th:href="@{/challenges/addChallenge}" class="btn btn-primary">
                         <span class="glyphicon glyphicon-plus"></span>
                         <span th:text="#{challengeManagement.addNewChallenge}"></span>
                     </a>
