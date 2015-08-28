@@ -47,7 +47,7 @@
                         (<span th:text="#{label.optional}"></span>)
                     </small>
                 </h4>
-                <textarea class="form-control description" name="description" rows="12"></textarea>
+                <textarea class="form-control description" name="description" rows="8"></textarea>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                     <span th:text="${#messages.msg(lingo.name())}"></span>
                     <small>(<span th:text="#{label.optional}"></span>)</small>
                 </h4>
-                <textarea class="form-control signature" name="signature" rows="12"></textarea>
+                <textarea class="form-control signature" name="signature" rows="8"></textarea>
             </div>
         </div>
     </div>
@@ -70,11 +70,9 @@
         <div class="col-xs-10">
             <h3 th:text="#{challengeManagement.challengeType}"></h3>
 
-            <div class="challengeTypeContainer">
-                <select name="challengeType">
-                    <option th:each="cType : ${challengeTypes}" th:text="${#messages.msg(cType.name())}" th:value="${cType.name()}"></option>
-                </select>
-            </div>
+            <select name="challengeType" class="form-control">
+                <option th:each="cType : ${challengeTypes}" th:text="${#messages.msg(cType.name())}" th:value="${cType.name()}"></option>
+            </select>
         </div>
     </div>
 
@@ -92,29 +90,29 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select name="inputType">
+                            <select name="inputType" class="form-control">
                                 <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
                         <td>
-                            <a class="removeInput" th:text="#{button.remove}"></a>
+                            <a class="removeInput btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <select name="inputType">
+                            <select name="inputType" class="form-control">
                                 <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
                         <td>
-                            <a class="removeInput" th:text="#{button.remove}"></a>
+                            <a class="removeInput btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>
                         </td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="2">
-                            <a id="addNewInput">
+                            <a id="addNewInput" class="btn btn-success">
                                 <span class="glyphicon glyphicon-plus"></span>
                                 <span th:text="#{challengeManagement.addNewInput}"></span>
                             </a>
@@ -132,7 +130,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select name="outputType">
+                            <select name="outputType" class="form-control">
                                 <option th:each="type : ${dataTypes}" th:text="${#messages.msg(type.name())}" th:value="${type.name()}"></option>
                             </select>
                         </td>
@@ -164,7 +162,7 @@
                             <input class="form-control" type="text" name="outputValue"/>
                         </td>
                         <td>
-                            <a class="removeTestCase" th:text="#{button.remove}"></a>
+                            <a class="removeTestCase btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>
                         </td>
                     </tr>
                 </tbody>

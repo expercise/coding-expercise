@@ -99,13 +99,13 @@ expercise.ChallengeManagement = {
         var inputRow = ''
             + '<tr>'
             + '   <td>'
-            + '       <select name="inputType">'
+            + '       <select name="inputType" class="form-control">'
             + '           <option value="Integer">' + expercise.utils.i18n('Integer') + '</option>'
             + '           <option value="Text">' + expercise.utils.i18n('Text') + '</option>'
             + '       </select>'
             + '   </td>'
             + '   <td>'
-            + '       <a class="removeInput">' + expercise.utils.i18n('button.remove') + '</a>'
+            + '       <a class="removeInput btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>'
             + '   </td>'
             + '</tr>';
 
@@ -152,7 +152,7 @@ expercise.ChallengeManagement = {
             + '         <input class="form-control" type="text" name="outputValue"/>'
             + '     </td>'
             + '     <td>'
-            + '         <a class="removeTestCase">' + expercise.utils.i18n('button.remove') + '</a>'
+            + '         <a class="removeTestCase btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>'
             + '     </td>'
             + '</tr>';
 
