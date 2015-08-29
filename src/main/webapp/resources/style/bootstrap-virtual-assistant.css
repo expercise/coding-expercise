@@ -1,0 +1,21 @@
+/*!
+ * Bootstrap Virtual Assistant v0.1.0 (http://...)
+ * Copyright (C) 2015 Ufuk Uzun (ufukuzun.ce@gmail.com), Batuhan Bayrakçı (batuhanbayrakci@gmail.com)
+ * Licensed under MIT (https://github.com/expercise/.../LICENSE.md)
+ */
+
+.virtual-assistant {
+    position: fixed;
+    z-index: 1000;
+    cursor: pointer;
+    background-position: right bottom;
+}
+
+.virtual-assistant .popover {
+    max-width: 400px;
+}
+
+.virtual-assistant.bottom-left {
+    top: 70%;
+    left: 70%;
+}

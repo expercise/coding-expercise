@@ -459,6 +459,7 @@
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
                             <includes>
                                 <include>/bootstrap.min.css</include>
+                                <include>/bootstrap-virtual-assistant.css</include>
                                 <include>/font-awesome.min.css</include>
                                 <include>/codemirror.css</include>
                                 <include>/ambiance.css</include>
@@ -480,12 +481,14 @@
                             <sourceDirectory>${project.basedir}/src/main/webapp/resources/js</sourceDirectory>
                             <includes>
                                 <include>/lib/jquery.min.js</include>
+                                <include>/lib/jquery-ui.min.js</include>
                                 <include>/lib/jquery.scrolltofixed.min.js</include>
                                 <include>/lib/jquery.cookie.js</include>
                                 <include>/lib/jquery.fullscreen.min.js</include>
                                 <include>/lib/jquery.hotkeys.js</include>
                                 <include>/bootstrap/bootstrap.min.js</include>
                                 <include>/bootstrap/bootbox.min.js</include>
+                                <include>/bootstrap/bootstrap-virtual-assistant.js</include>
                                 <include>/codemirror/codemirror.js</include>
                                 <include>/codemirror/vim.js</include>
                                 <include>/codemirror/mode/javascript.js</include>
@@ -502,6 +505,7 @@
                                 <include>/challengeManagement.js</include>
                                 <include>/levelManagement.js</include>
                                 <include>/forgottenPassword.js</include>
+                                <include>/home.js</include>
                                 <include>/bootstrapper.js</include>
                             </includes>
                             <output>

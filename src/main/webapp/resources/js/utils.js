@@ -8,8 +8,14 @@ expercise.utils = {
         window.location = url;
     },
 
-    i18n: function (key) {
-        return messages[key];
+    i18n: function (key, args) {
+        var value = window['messages'][key];
+
+        (args || []).forEach(function (each) {
+            value = value.replace(/{[0-9]}/g, each);
+        });
+
+        return value;
     },
 
     post: function (url, data, success) {

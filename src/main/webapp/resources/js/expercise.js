@@ -1,5 +1,15 @@
 expercise = {
 
+    assistant: new Assistant(),
+
+    constructor: function () {
+        this.assistant.init({
+            image: expercise.utils.urlFor('/resources/img/assistant-robot.svg'),
+            width: '100px',
+            height: '166px'
+        });
+    },
+
     bindEvents: function () {
         this.configureTooltips();
     },
