@@ -37,54 +37,21 @@
                     <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                 </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('passwordModel.password')} ? ' has-error' : '')">
+                <div th:class="'form-group' + (${#fields.hasErrors('password')} ? ' has-error' : '')">
                     <label for="password" class="col-xs-2 control-label" th:text="#{label.password}"></label>
 
                     <div class="col-xs-4">
-                        <input type="password" id="password" name="passwordModel.password" class="form-control" th:field="*{passwordModel.password}"/>
+                        <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
                     </div>
-                    <span class="help-block" th:if="${#fields.hasErrors('passwordModel.password')}" th:errors="*{passwordModel.password}"></span>
-                </div>
-
-                <div th:class="'form-group' + (${#fields.hasErrors('passwordModel.passwordRetype')} ? ' has-error' : '')">
-                    <label for="passwordRetype" class="col-xs-2 control-label" th:text="#{label.passwordRetype}"></label>
-
-                    <div class="col-xs-4">
-                        <input type="password" id="passwordRetype" name="passwordModel.passwordRetype" class="form-control" th:field="*{passwordModel.passwordRetype}"/>
-                    </div>
-                    <span class="help-block" th:if="${#fields.hasErrors('passwordModel.passwordRetype')}" th:text="${#fields.errors('passwordModel.passwordRetype')[0]}"></span>
-                </div>
-
-                <div th:class="'form-group'">
-                    <label for="lingoPreference" class="col-xs-2 control-label" th:text="#{label.lingo}"></label>
-
-                    <div id="lingoPreference">
-                        <ul class="nav nav-pills">
-                            <li th:each="lingo : ${lingos}">
-                                <input type="radio" th:field="*{lingo}" th:value="${lingo}" />
-                                <label class="control-label" th:for="${#ids.prev('lingo')}" th:text="#{${'label.lingo.' + lingo.getShortName()}}"></label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div th:class="'form-group'">
-                    <label for="programmingLanguage" class="col-xs-2 control-label" th:text="#{label.favoriteProgrammingLanguage}"></label>
-
-                    <div class="col-xs-4">
-                        <select id="programmingLanguage" name="programmingLanguage" th:field="*{programmingLanguage}">
-                            <option th:text="#{label.programmingLanguage.None}" th:value="${null}"></option>
-                            <option th:each="each : ${programmingLanguages}"
-                                    th:value="${each}"
-                                    th:text="${each}">
-                            </option>
-                        </select>
-                    </div>
+                    <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
 
                 <div class="form-group">
                     <div class="col-xs-offset-2 col-xs-4">
-                        <button type="submit" class="btn btn-primary" th:text="#{button.register}"></button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-user-plus"></i>
+                            <span th:text="#{button.register}"></span>
+                        </button>
                     </div>
                 </div>
             </form>

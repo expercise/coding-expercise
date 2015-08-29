@@ -1,13 +1,10 @@
 package com.expercise.controller.user.model;
 
 import com.expercise.domain.user.User;
-import com.expercise.enums.Lingo;
-import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.utils.validation.UniqueEmail;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 public class UserModel {
@@ -23,12 +20,8 @@ public class UserModel {
     @UniqueEmail
     private String email;
 
-    @Valid
-    private PasswordModel passwordModel;
-
-    private Lingo lingo = Lingo.Turkish;
-
-    private ProgrammingLanguage programmingLanguage;
+    @Size(min = 6, max = 16)
+    private String password;
 
     public String getFirstName() {
         return firstName;
@@ -54,28 +47,12 @@ public class UserModel {
         this.email = email;
     }
 
-    public PasswordModel getPasswordModel() {
-        return passwordModel;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordModel(PasswordModel passwordModel) {
-        this.passwordModel = passwordModel;
-    }
-
-    public Lingo getLingo() {
-        return lingo;
-    }
-
-    public void setLingo(Lingo lingo) {
-        this.lingo = lingo;
-    }
-
-    public ProgrammingLanguage getProgrammingLanguage() {
-        return programmingLanguage;
-    }
-
-    public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
-        this.programmingLanguage = programmingLanguage;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public User createUser() {
@@ -83,9 +60,7 @@ public class UserModel {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setPassword(getPasswordModel().getPassword());
-        user.setProgrammingLanguage(programmingLanguage);
-        user.setLingo(lingo);
+        user.setPassword(password);
         return user;
     }
 
