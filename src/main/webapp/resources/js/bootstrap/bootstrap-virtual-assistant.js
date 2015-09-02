@@ -8,7 +8,7 @@
 
 /**
  * TODO ufuk:
- * - speaking animations
+ * - speaking animations (SVG animation: http://codepen.io/jlegosama/pen/LoBsD) + https://www.google.com.tr/search?q=type:svg+robot+animation
  * - paging for speech
  * - buttons with callbacks
  * - dismissible speak balloons
@@ -68,16 +68,4 @@ Assistant.prototype.speak = function (message) {
     });
 
     $content.popover('show');
-
-    var $popover = this.$container.find('.popover');
-
-    // TODO ufuk: refactor static values, calculate them
-    // FIXME ufuk: position wrong for short messages
-
-    var popoverWidth = parseInt($popover.css('width'), 10)
-
-    $popover.css('left', (parseInt($popover.css('left'), 10) - 150 - parseInt(popoverWidth / 2)) + 'px');
-    $popover.css('margin-right', '15px');
-    $popover.offset({top: parseFloat($('.virtual-assistant').offset().top) - $popover.height() - 20});
-    $popover.find('.arrow').css('left', '88%');
 };
