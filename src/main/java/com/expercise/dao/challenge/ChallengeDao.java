@@ -26,6 +26,10 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
         return findAllBy(new MapBuilder<String, Object>().put("user", user).build());
     }
 
+    public List<Challenge> findAllApprovedByUser(final User user) {
+        return findAllBy(new MapBuilder<String, Object>().put("approved", true).put("user", user).build());
+    }
+
     public List<Challenge> findNotThemedApprovedChallenges() {
         Criteria criteria = getCriteria();
 

@@ -3,6 +3,7 @@ package com.expercise.service.challenge;
 import com.expercise.controller.challenge.model.ChallengeModel;
 import com.expercise.dao.challenge.ChallengeDao;
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
@@ -35,6 +36,10 @@ public class ChallengeService {
 
     public List<Challenge> findAllChallengesOfUser() {
         return challengeDao.findAllByUser(authenticationService.getCurrentUser());
+    }
+
+    public List<Challenge> findAllApprovedChallengesOfUser(User user) {
+        return challengeDao.findAllApprovedByUser(user);
     }
 
     public List<Challenge> findAll() {
