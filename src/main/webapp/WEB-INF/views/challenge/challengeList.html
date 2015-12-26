@@ -6,7 +6,11 @@
 <body layout:fragment="content" th:remove="tag">
     <legend th:text="${title}"></legend>
 
-    <table class="table table-striped">
+    <p th:if="${challenges.isEmpty()}" th:text="#{challengeList.hasNoChallenge}">
+        bos
+    </p>
+
+    <table class="table table-striped" th:unless="${challenges.isEmpty()}">
         <thead>
             <tr>
                 <th th:text="#{challengeList.table.header.challenge}"></th>
@@ -38,16 +42,10 @@
                 </td>
             </tr>
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="100%">
-                    <a th:href="@{/challenges/addChallenge}" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <span th:text="#{challengeManagement.addNewChallenge}"></span>
-                    </a>
-                </td>
-            </tr>
-        </tfoot>
     </table>
+    <a th:href="@{/challenges/addChallenge}" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span th:text="#{challengeManagement.addNewChallenge}"></span>
+    </a>
 </body>
 </html>
