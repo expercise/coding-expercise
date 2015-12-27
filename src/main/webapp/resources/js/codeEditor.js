@@ -58,8 +58,7 @@ expercise.CodeEditor = {
             theme: this.theme,
             mode: this.mode,
             keyMap: this.keyMap,
-            indentUnit: 4,
-            indentWithTabs: true
+            indentUnit: 4
         });
     },
 
