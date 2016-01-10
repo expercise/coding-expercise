@@ -97,7 +97,7 @@ public class JavaScriptInterpreter extends Interpreter {
         DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
         if (outputType == DataType.Integer) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
-            int expectedValue = ((Number) Double.parseDouble(testCaseWithResult.getTestCaseUnderTest().getOutput())).intValue();
+            int expectedValue = (int) Double.parseDouble(testCaseWithResult.getTestCaseUnderTest().getOutput());
             testCaseResult = evaluationResultAsInteger == expectedValue ? TestCaseResult.PASSED : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (outputType == DataType.Text) {
