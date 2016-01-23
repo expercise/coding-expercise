@@ -1,6 +1,7 @@
 package com.expercise.utils;
 
 import com.expercise.exception.ExperciseGenericException;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,15 +25,15 @@ public final class DateUtils {
     }
 
     public static Date toDate(String date) {
-        return parseDate(date, new SimpleDateFormat(SIMPLE_DATE_FORMAT));
+        return parseDate(date, dateFormatter(SIMPLE_DATE_FORMAT));
     }
 
     public static Date toDateTime(String date) {
-        return parseDate(date, new SimpleDateFormat(DATE_AND_TIME_FORMAT));
+        return parseDate(date, dateFormatter(DATE_AND_TIME_FORMAT));
     }
 
     public static Date toDateTimeWithNamedMonth(String date) {
-        return parseDate(date, new SimpleDateFormat(DATE_AND_TIME_WITH_NAMED_MONTH_FORMAT));
+        return parseDate(date, dateFormatter(DATE_AND_TIME_WITH_NAMED_MONTH_FORMAT));
     }
 
     public static String formatDateTimeWithNamedMonth(Date date) {
@@ -48,7 +49,11 @@ public final class DateUtils {
     }
 
     private static String formatDate(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
+        return dateFormatter(format).format(date);
+    }
+
+    private static SimpleDateFormat dateFormatter(String format) {
+        return new SimpleDateFormat(format, LocaleContextHolder.getLocale());
     }
 
 }

@@ -54,7 +54,8 @@ public class SolutionService {
     public List<UserSolutionModel> getUserSolutionModels(Challenge challenge) {
         return getSolutionsOfUser(challenge).stream()
                 .map(UserSolutionModel::createFrom)
-                .sorted((o1, o2) -> DateUtils.toDateTimeWithNamedMonth(o2.getSolutionDate()).compareTo(DateUtils.toDateTimeWithNamedMonth(o1.getSolutionDate())))
+                .sorted((o1, o2) ->
+                        DateUtils.toDateTimeWithNamedMonth(o2.getSolutionDate()).compareTo(DateUtils.toDateTimeWithNamedMonth(o1.getSolutionDate())))
                 .collect(Collectors.toList());
     }
 

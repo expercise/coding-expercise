@@ -16,4 +16,9 @@
         <location>/500</location>
     </error-page>
 
+    <error-page>
+        <exception-type>org.springframework.security.web.authentication.rememberme.CookieTheftException</exception-type>
+        <location>/</location>
+    </error-page>
+
 </web-app>

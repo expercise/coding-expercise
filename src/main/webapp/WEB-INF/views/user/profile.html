@@ -106,6 +106,20 @@
                 </div>
             </div>
 
+            <div class="row profileContainer">
+                <div class="col-xs-12">
+                    <legend class="subHeader" th:text="#{user.profile.addedChallenges}"></legend>
+
+                    <ul class="list-group" th:unless="${#lists.isEmpty(addedChallenges)}">
+                        <li class="list-group-item" th:each="addedChallenge : ${addedChallenges}">
+                            <a th:href="@{'/challenges/' + ${addedChallenge.id}}" th:text="${addedChallenge.getTitle()}"></a>
+                        </li>
+                    </ul>
+
+                    <p th:if="${#lists.isEmpty(addedChallenges)}" th:text="#{label.nope}"></p>
+                </div>
+            </div>
+
         </div>
     </div>
 

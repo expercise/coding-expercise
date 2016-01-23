@@ -2,6 +2,7 @@ package com.expercise.controller.user;
 
 import com.expercise.controller.RedirectUtils;
 import com.expercise.domain.user.User;
+import com.expercise.service.challenge.ChallengeService;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.UserPointService;
 import com.expercise.service.user.AuthenticationService;
@@ -28,6 +29,9 @@ public class ProfileController {
     @Autowired
     private SolutionService solutionService;
 
+    @Autowired
+    private ChallengeService challengeService;
+
     @RequestMapping
     public ModelAndView showMyProfile() {
         User user = authenticationService.getCurrentUser();
@@ -52,6 +56,7 @@ public class ProfileController {
         ModelAndView modelAndView = new ModelAndView("user/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
+        modelAndView.addObject("addedChallenges", challengeService.findAllApprovedChallengesOfUser(user));
         modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
         // TODO ufuk: fix, show current level in different way
         // modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOf(user, null));

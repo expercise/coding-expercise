@@ -50,10 +50,12 @@ expercise.ChallengeManagement = {
         $('textarea[name="signature"]').each(function () {
             var $that = $(this);
             var lingo = $that.parent('div').data('lingo');
-            var signature = challengeModel.signatures.filter(function (element) {
+            var filteredSignatures = challengeModel.signatures.filter(function (element) {
                 return element.lingo == lingo;
-            })[0].text;
-            $that.val(signature);
+            });
+            if (filteredSignatures.length > 0) {
+                $that.val(filteredSignatures[0].text);
+            }
         });
 
         var $inputsTableBody = $('#inputsTable > tbody');
