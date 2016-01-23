@@ -35,18 +35,31 @@
                     <span th:text="#{whatIsExpercise.community.text}"></span>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsExpercise.openSource.header}"></h4>
+                    <span th:utext="#{whatIsExpercise.openSource.text}"></span>
+                </div>
+                <div class="col-xs-6">
+                    <h4 th:text="#{whatIsExpercise.free.header}"></h4>
+                    <span th:text="#{whatIsExpercise.free.text}"></span>
+                </div>
+            </div>
         </div>
         <hr/>
 
         <!--/* Programming Languages */-->
         <h3 th:text="#{mainPage.programmingLanguages}"></h3>
-        <br/>
         <div>
             <img class="logo" th:src="@{/resources/img/javascript-logo.png}" alt="javascript"/>
             <img class="logo" th:src="@{/resources/img/java8-logo.png}" alt="java8"/>
             <img class="logo" th:src="@{/resources/img/python-logo.png}" alt="python"/>
 
-            <p class="annotationText" th:text="#{mainPage.programmingLanguages.annotation}"></p>
+            <p class="text-center">
+                <br/>
+                <span th:text="#{mainPage.programmingLanguages.annotation}"></span>
+            </p>
         </div>
         <hr/>
 
