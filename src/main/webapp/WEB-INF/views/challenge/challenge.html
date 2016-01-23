@@ -84,25 +84,27 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10 editorOptions">
-            <span th:text="#{challenge.language}"></span>:
-            <select id="languageSelection" name="languageSelection" class="form-control input-sm">
-                <!--/* TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
-                <option th:each="each : ${programmingLanguages}"
-                        th:value="${each.getShortName()}"
-                        th:text="${each}">
-                </option>
-                */-->
-                <option value="js">JavaScript</option>
-                <option disabled="disabled">Python</option>
-                <option disabled="disabled">Java</option>
-            </select>
-            <div class="keyMapSelectionPanel checkbox">
-                <input id="useVimKeyMapCheckBox" type="checkbox" name="useVimKeyMap" />
-                <label for="useVimKeyMapCheckBox" th:text="#{codeEditor.useVimKeyMap}">Use Vim Keymap</label>
+        <div class="col-xs-10">
+            <div class="editorOptions">
+                <span th:text="#{challenge.language}"></span>:
+                <select id="languageSelection" name="languageSelection" class="form-control input-sm">
+                    <!--/* TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
+                    <option th:each="each : ${programmingLanguages}"
+                            th:value="${each.getShortName()}"
+                            th:text="${each}">
+                    </option>
+                    */-->
+                    <option value="js">JavaScript</option>
+                    <option disabled="disabled">Python</option>
+                    <option disabled="disabled">Java</option>
+                </select>
+                <div class="keyMapSelectionPanel checkbox">
+                    <input id="useVimKeyMapCheckBox" type="checkbox" name="useVimKeyMap" />
+                    <label for="useVimKeyMapCheckBox" th:text="#{codeEditor.useVimKeyMap}">Use Vim Keymap</label>
+                </div>
+                <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right" th:unless="${mobileClient}"></span>
+                <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
             </div>
-            <span id="fullScreenButton" class="glyphicon glyphicon-fullscreen pull-right" th:unless="${mobileClient}"></span>
-            <span id="themeButton" class="glyphicon glyphicon-adjust pull-right"></span>
         </div>
     </div>
 
