@@ -461,6 +461,7 @@
                                 <include>/bootstrap.min.css</include>
                                 <include>/bootstrap-virtual-assistant.css</include>
                                 <include>/font-awesome.min.css</include>
+                                <include>/hopscotch.min.css</include>
                                 <include>/codemirror.css</include>
                                 <include>/ambiance.css</include>
                                 <include>/expercise.min.css</include>
@@ -486,6 +487,7 @@
                                 <include>/lib/jquery.cookie.js</include>
                                 <include>/lib/jquery.fullscreen.min.js</include>
                                 <include>/lib/jquery.hotkeys.js</include>
+                                <include>/lib/hopscotch.min.js</include>
                                 <include>/bootstrap/bootstrap.min.js</include>
                                 <include>/bootstrap/bootbox.min.js</include>
                                 <include>/bootstrap/bootstrap-virtual-assistant.js</include>

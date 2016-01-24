@@ -39,11 +39,6 @@ Assistant.prototype.init = function (options) {
     this.$container.css('background-size', '100%');
 
     $(document.body).append(this.$container);
-
-    this.$container.draggable({
-        containment: 'body',
-        scroll: false
-    });
 };
 
 Assistant.prototype.show = function (callback) {
@@ -56,16 +51,40 @@ Assistant.prototype.hide = function (timeBeforeHide) {
     var that = this;
     setTimeout(function () {
         that.$container.fadeOut('slow');
-    }, timeBeforeHide || 0);
+        hopscotch.endTour(true);
+    }, (timeBeforeHide || 0) * 1000);
 };
 
-Assistant.prototype.speak = function (message) {
-    var $content = this.$container.find('.virtual-assistant-content');
-    $content.popover({
-        content: message,
-        placement: 'top',
-        html: true
-    });
+Assistant.prototype.speak = function (title, message, buttonName, onButtonClick) {
+    var that = this;
 
-    $content.popover('show');
+    var options = {
+        id: 'captain-coding-speaking',
+        steps: [
+            {
+                title: title,
+                content: message,
+                target: document.querySelector('.virtual-assistant'),
+                fixedElement: true,
+                placement: 'top',
+                arrowOffset: 'center',
+                xOffset: 'center',
+                showNextButton: false,
+                showCTAButton: true,
+                ctaLabel: buttonName,
+                onCTA: function () {
+                    hopscotch.endTour(true);
+                    onButtonClick && onButtonClick();
+                }
+            }
+        ],
+        onEnd: function () {
+            that.hide();
+        },
+        onClose: function () {
+            that.hide();
+        }
+    };
+
+    hopscotch.startTour(options);
 };

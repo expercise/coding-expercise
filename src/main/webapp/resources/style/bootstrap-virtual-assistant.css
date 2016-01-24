@@ -19,3 +19,11 @@
     top: 70%;
     left: 70%;
 }
+
+.hopscotch-bubble-number {
+    display: none !important;
+}
+
+div.hopscotch-bubble .hopscotch-bubble-content {
+    margin: 0 !important;
+}
