@@ -67,7 +67,7 @@ Assistant.prototype.speak = function (title, message, buttonName, onButtonClick)
                 target: document.querySelector('.virtual-assistant'),
                 fixedElement: true,
                 placement: 'top',
-                arrowOffset: 'center',
+                arrowOffset: 144, // TODO ufuk: make calculated
                 xOffset: 'center',
                 showNextButton: false,
                 showCTAButton: true,
