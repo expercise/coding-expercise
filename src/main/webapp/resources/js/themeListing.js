@@ -45,9 +45,14 @@ expercise.ThemeListing = {
     showAssistant: function () {
         expercise.assistant.show(function () {
             expercise.assistant.speak(
-                expercise.utils.i18n('assistant.themes.whatIsThemes.title'),
-                expercise.utils.i18n('assistant.themes.whatIsThemes.content'),
-                expercise.utils.i18n('assistant.themes.whatIsThemes.button')
+                {
+                    title: expercise.utils.i18n('assistant.themes.whatIsThemes.title'),
+                    message: expercise.utils.i18n('assistant.themes.whatIsThemes.content'),
+                    buttonText: expercise.utils.i18n('assistant.themes.whatIsThemes.button'),
+                    onButtonClick: function () {
+                        expercise.assistant.hide();
+                    }
+                }
             );
             expercise.assistant.hide(30);
         });

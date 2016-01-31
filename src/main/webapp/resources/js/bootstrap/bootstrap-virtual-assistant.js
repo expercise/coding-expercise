@@ -42,28 +42,39 @@ Assistant.prototype.init = function (options) {
 };
 
 Assistant.prototype.show = function (callback) {
-    this.$container.fadeIn('slow', function () {
-        callback && callback();
-    });
+    if (this.$container.is(':hidden')) {
+        this.$container.fadeIn('fast', function () {
+            callback && callback();
+        });
+    }
 };
 
 Assistant.prototype.hide = function (timeBeforeHide) {
     var that = this;
     setTimeout(function () {
-        that.$container.fadeOut('slow');
-        hopscotch.endTour(true);
+        that.$container.fadeOut('fast');
+        that.silent();
     }, (timeBeforeHide || 0) * 1000);
 };
 
-Assistant.prototype.speak = function (title, message, buttonName, onButtonClick) {
+Assistant.prototype.silent = function () {
+    if (hopscotch.isActive) {
+        hopscotch.endTour(false);
+    }
+};
+
+Assistant.prototype.speak = function (options) {
     var that = this;
 
-    var options = {
+    that.silent();
+    that.show();
+
+    var tourOptions = {
         id: 'captain-coding-speaking',
         steps: [
             {
-                title: title,
-                content: message,
+                title: options.title,
+                content: options.message,
                 target: document.querySelector('.virtual-assistant'),
                 fixedElement: true,
                 placement: 'top',
@@ -71,20 +82,20 @@ Assistant.prototype.speak = function (title, message, buttonName, onButtonClick)
                 xOffset: 'center',
                 showNextButton: false,
                 showCTAButton: true,
-                ctaLabel: buttonName,
+                ctaLabel: options.buttonText,
                 onCTA: function () {
-                    hopscotch.endTour(true);
-                    onButtonClick && onButtonClick();
+                    that.silent();
+                    options.onButtonClick && options.onButtonClick();
                 }
             }
         ],
         onEnd: function () {
-            that.hide();
+            options.onEnd && options.onEnd();
         },
         onClose: function () {
             that.hide();
         }
     };
 
-    hopscotch.startTour(options);
+    hopscotch.startTour(tourOptions);
 };
