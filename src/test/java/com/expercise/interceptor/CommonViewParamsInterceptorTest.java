@@ -50,7 +50,7 @@ public class CommonViewParamsInterceptorTest {
 
     private MockHttpServletResponse response = new MockHttpServletResponse();
 
-    private ModelAndView modelAndView = new ModelAndView();
+    private ModelAndView modelAndView = new ModelAndView("viewName");
 
     @Before
     public void before() {
