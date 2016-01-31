@@ -71,4 +71,9 @@ div.hopscotch-bubble .hopscotch-bubble-content {
     border: 1px solid #475673 !important;;
     border-radius: 4px !important;
     height: 32px !important;
+    text-shadow: none !important;
+}
+
+.hopscotch-bubble button.hopscotch-nav-button.next:hover {
+    box-shadow: none;
 }
