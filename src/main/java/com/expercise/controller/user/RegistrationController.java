@@ -55,9 +55,9 @@ public class RegistrationController {
             UserProfile userProfile = connection.fetchUserProfile();
             ConnectionData connectionData = connection.createData();
 
-            userService.saveSocialUser(userProfile, connectionData);
+            User user = userService.saveSocialUser(userProfile, connectionData);
 
-            // TODO ufuk: authenticate with social authentication token
+            authenticationService.authenticate(connection, user);
 
             return RedirectUtils.redirectToThemesForNewMember();
         } catch (Exception e) {

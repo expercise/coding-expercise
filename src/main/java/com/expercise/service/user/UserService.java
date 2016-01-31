@@ -40,7 +40,7 @@ public class UserService {
     }
 
     @Transactional
-    public void saveSocialUser(UserProfile userProfile, ConnectionData connectionData) {
+    public User saveSocialUser(UserProfile userProfile, ConnectionData connectionData) {
         String email = userProfile.getEmail();
         User user = initializeSocialUser(email);
 
@@ -69,6 +69,8 @@ public class UserService {
         userConnectionDao.save(userConnection);
 
         user.addUserConnection(userConnection);
+
+        return user;
     }
 
     private User initializeSocialUser(String email) {

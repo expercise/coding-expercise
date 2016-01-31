@@ -7,6 +7,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.security.SocialAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +20,9 @@ public class AuthenticationService {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Autowired
+    private UserDetailsProvider userDetailsProvider;
 
     public User getCurrentUser() {
         return isCurrentUserAuthenticated() ? getOrFindCurrentUser() : null;
@@ -56,6 +62,12 @@ public class AuthenticationService {
 
     public void authenticate(String email, String password) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    public void authenticate(Connection<?> connection, User user) {
+        UserDetails userDetails = userDetailsProvider.loadUserByUserId(user.getId().toString());
+        Authentication authentication = new SocialAuthenticationToken(connection, userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
