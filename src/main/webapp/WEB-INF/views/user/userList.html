@@ -11,28 +11,39 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>#</th>
                 <th></th>
-                <th th:text="#{label.email}"></th>
                 <th th:text="#{label.firstName}"></th>
                 <th th:text="#{label.lastName}"></th>
+                <th th:text="#{label.email}"></th>
                 <th th:text="#{userList.table.header.userType}"></th>
                 <th th:text="#{userList.table.header.favoriteLanguage}"></th>
                 <th th:text="#{label.lingo}"></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${users}">
+            <tr th:each="user,it : ${users}">
+                <td th:text="${it.count}"></td>
                 <td>
                     <span th:if="${user.hasAvatar()}" th:class="${'img-circle avatar small ' + user.avatar}"></span>
-                </td>
-                <td>
-                    <a th:href="@{${user.bookmarkableUrl}}" th:text="${user.email}"></a>
+
+                    <span th:if="${!user.hasAvatar() and user.hasSocialImageUrl()}">
+                        <img class="img-circle socialImage small" th:src="${user.socialImageUrl}"/>
+                    </span>
                 </td>
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
                 <td th:text="${#messages.msg(user.userRole.name())}"></td>
                 <td th:text="${user.programmingLanguage}"></td>
                 <td th:text="${#messages.msg(user.lingo.name())}"></td>
+                <td>
+                    <a class="btn btn-sm btn-default" th:href="@{${user.bookmarkableUrl}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span th:text="#{button.profile}"></span>
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

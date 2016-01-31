@@ -47,7 +47,13 @@ public class ProfileController {
     @RequestMapping("/selectAvatar/{avatar}")
     public ModelAndView showPublicProfile(@PathVariable String avatar) {
         User user = authenticationService.getCurrentUser();
-        user.setAvatar(avatar);
+
+        if ("social".equals(avatar)) {
+            user.setAvatar(null);
+        } else {
+            user.setAvatar(avatar);
+        }
+
         userService.updateUser(user);
         return RedirectUtils.redirectTo(user.getBookmarkableUrl());
     }

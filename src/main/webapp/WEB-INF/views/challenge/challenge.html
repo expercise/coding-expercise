@@ -31,6 +31,9 @@
     <div class="row challengeInfo">
         <div class="col-xs-8">
             <span th:if="${challenge.getUser().hasAvatar()}" th:class="${'img-circle avatar small ' + challenge.getUser().getAvatar()}"></span>
+            <span th:if="${!challenge.getUser().hasAvatar() and challenge.getUser().hasSocialImageUrl()}">
+                <img class="img-circle socialImage small" th:src="${challenge.getUser().socialImageUrl}"/>
+            </span>
             <a th:href="@{${challenge.user.bookmarkableUrl}}" class="small" th:text="${challenge.getUser().getFullName()}">
                 Author Full Name
             </a>

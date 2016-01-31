@@ -5,7 +5,7 @@ expercise.Profile = {
     },
 
     selectAvatar: function (event) {
-        var avatarType = $(event.target).closest('.avatar').data('avatar-type');
+        var avatarType = $(event.target).closest('a').data('avatar-type');
         var url = expercise.utils.urlFor("user/selectAvatar/" + avatarType);
         expercise.utils.go(url);
     }

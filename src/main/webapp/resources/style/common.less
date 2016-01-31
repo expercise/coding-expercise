@@ -147,8 +147,28 @@ pre {
   word-break: normal;
 }
 
-span.img-circle {
+span.img-circle, .socialImage.img-circle {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.socialImage {
+  width: 32px;
+  height: 32px;
+
+  &.large {
+    width: 144px;
+    height: 144px;
+  }
+
+  &.small {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.medium {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 table {
