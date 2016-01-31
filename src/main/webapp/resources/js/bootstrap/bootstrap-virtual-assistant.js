@@ -84,7 +84,9 @@ Assistant.prototype.speak = function (options) {
                 showCTAButton: true,
                 ctaLabel: options.buttonText,
                 onCTA: function () {
-                    that.silent();
+                    if (options.dontSilentOnButtonClick != true) {
+                        that.silent();
+                    }
                     options.onButtonClick && options.onButtonClick();
                 }
             }

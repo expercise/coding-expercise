@@ -43,19 +43,17 @@ expercise.ThemeListing = {
     },
 
     showAssistant: function () {
-        expercise.assistant.show(function () {
-            expercise.assistant.speak(
-                {
-                    title: expercise.utils.i18n('assistant.themes.whatIsThemes.title'),
-                    message: expercise.utils.i18n('assistant.themes.whatIsThemes.content'),
-                    buttonText: expercise.utils.i18n('assistant.themes.whatIsThemes.button'),
-                    onButtonClick: function () {
-                        expercise.assistant.hide();
-                    }
+        expercise.assistant.speak(
+            {
+                title: expercise.utils.i18n('assistant.themes.whatIsThemes.title'),
+                message: expercise.utils.i18n('assistant.themes.whatIsThemes.content'),
+                buttonText: expercise.utils.i18n('assistant.themes.whatIsThemes.button'),
+                onButtonClick: function () {
+                    expercise.assistant.hide();
                 }
-            );
-            expercise.assistant.hide(30);
-        });
+            }
+        );
+        expercise.assistant.hide(30);
     }
 
 };
