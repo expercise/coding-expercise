@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 @Configuration
 @EnableWebMvcSecurity
@@ -33,6 +34,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/resources/**",
                         "/login/**",
                         "/register/**",
+                        "/auth/**",
+                        "/socialRegister",
                         "/forgotMyPassword/**",
                         "/themes/**"
                 )
@@ -60,10 +63,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.logout()
                 .logoutSuccessUrl("/login?logout")
+                .deleteCookies("JSESSIONID")
                 .permitAll();
         http.rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(DateUtils.ONE_WEEK);
+
+        http.apply(new SpringSocialConfigurer().signupUrl("/socialRegister"));
 
         http.csrf().disable();
     }

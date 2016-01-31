@@ -5,7 +5,7 @@
 </head>
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="#{login.legend}"></legend>
+    <legend th:text="#{login.loginWithExperciseAccount.header}"></legend>
 
     <div class="row">
         <div class="col-xs-12">
@@ -55,6 +55,19 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <legend th:text="#{login.social.header}"></legend>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-offset-2">
+                <a class="btn btn-social btn-twitter" th:href="@{/auth/twitter}">
+                    <i class="fa fa-twitter"></i>
+                    <span th:text="#{button.loginWithTwitter}">Log In with Twitter</span>
+                </a>
+            </div>
         </div>
     </div>
 </body>

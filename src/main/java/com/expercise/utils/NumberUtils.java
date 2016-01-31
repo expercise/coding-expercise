@@ -18,4 +18,12 @@ public final class NumberUtils {
                 .multiply(ONE_HUNDRED).intValue();
     }
 
+    public static Long parseLong(String text) {
+        try {
+            return Long.parseLong(text);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

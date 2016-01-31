@@ -8,6 +8,8 @@ import com.expercise.utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -16,16 +18,12 @@ public class User extends AbstractEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -38,7 +36,12 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<UserConnection> userConnections = new ArrayList<>();
+
     private String avatar;
+
+    private String socialImageUrl;
 
     public String getBookmarkableUrl() {
         return String.format("/user/%s/%s", getId().toString(), UrlUtils.makeBookmarkable(getFullName()));
@@ -69,7 +72,11 @@ public class User extends AbstractEntity {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        String delimiter = " ";
+        if (StringUtils.isAnyBlank(firstName, lastName)) {
+            delimiter = "";
+        }
+        return String.join(delimiter, StringUtils.defaultString(firstName), StringUtils.defaultString(lastName));
     }
 
     public String getEmail() {
@@ -86,6 +93,18 @@ public class User extends AbstractEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<UserConnection> getUserConnections() {
+        return userConnections;
+    }
+
+    public void setUserConnections(List<UserConnection> userConnections) {
+        this.userConnections = userConnections;
+    }
+
+    public void addUserConnection(UserConnection userConnection) {
+        this.userConnections.add(userConnection);
     }
 
     public UserRole getUserRole() {
@@ -120,8 +139,20 @@ public class User extends AbstractEntity {
         this.avatar = avatar;
     }
 
+    public String getSocialImageUrl() {
+        return socialImageUrl;
+    }
+
+    public void setSocialImageUrl(String socialImageUrl) {
+        this.socialImageUrl = socialImageUrl;
+    }
+
     public boolean hasAvatar() {
         return StringUtils.isNotBlank(avatar);
+    }
+
+    public boolean hasSocialImageUrl() {
+        return StringUtils.isNotBlank(socialImageUrl);
     }
 
     public boolean isAdmin() {

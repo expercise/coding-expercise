@@ -1,6 +1,7 @@
 package com.expercise.service.user;
 
 import com.expercise.domain.user.User;
+import com.expercise.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ public class AuthenticationService {
     private User getOrFindCurrentUser() {
         CurrentUserHolder currentUserHolder = getCurrentUserHolder();
         if (currentUserHolder.hasNotCurrentUser()) {
-            User currentUser = userService.findByEmail(getAuthentication().getName());
+            User currentUser = userService.findById(NumberUtils.parseLong(getAuthentication().getName()));
             currentUserHolder.setCurrentUser(currentUser);
         }
         return currentUserHolder.getCurrentUser();

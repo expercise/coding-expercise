@@ -14,6 +14,10 @@ public abstract class AbstractEntity implements Serializable {
         return getId() != null;
     }
 
+    public boolean isNotPersisted() {
+        return !isPersisted();
+    }
+
     @Override
     public boolean equals(Object toCompare) {
         if (this == toCompare) {

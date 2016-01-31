@@ -1,5 +1,6 @@
 package com.expercise.service.user;
 
+import com.expercise.domain.user.SocialUserDetails;
 import com.expercise.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,12 +28,27 @@ public class UserDetailsProvider implements UserDetailsService {
             return createUserDetailsFrom(user);
         }
 
-        throw new UsernameNotFoundException("User not found");
+        throw new UsernameNotFoundException("No user found with email: " + email);
+    }
+
+    public UserDetails loadUserByUserId(String userId) {
+        User user = userService.findById(Long.parseLong(userId));
+
+        if (user != null) {
+            return createUserDetailsFrom(user);
+        }
+
+        throw new UsernameNotFoundException("No user found with user id: " + userId);
     }
 
     private UserDetails createUserDetailsFrom(User user) {
-        List<GrantedAuthority> authorities = getAuthorities(user);
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+        SocialUserDetails socialUserDetails = new SocialUserDetails(user.getId().toString(), user.getPassword(), getAuthorities(user));
+
+        socialUserDetails.setId(user.getId());
+        socialUserDetails.setFirstName(user.getFirstName());
+        socialUserDetails.setLastName(user.getLastName());
+
+        return socialUserDetails;
     }
 
     private List<GrantedAuthority> getAuthorities(User user) {
