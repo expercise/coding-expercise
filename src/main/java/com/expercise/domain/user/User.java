@@ -3,6 +3,7 @@ package com.expercise.domain.user;
 import com.expercise.domain.AbstractEntity;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.enums.SocialSignInProvider;
 import com.expercise.enums.UserRole;
 import com.expercise.utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -153,6 +154,20 @@ public class User extends AbstractEntity {
 
     public boolean hasSocialImageUrl() {
         return StringUtils.isNotBlank(socialImageUrl);
+    }
+
+    public boolean hasTwitterConnection() {
+        return getTwitterConnection() != null;
+    }
+
+    public UserConnection getTwitterConnection() {
+        return getSocialConnection(SocialSignInProvider.Twitter);
+    }
+
+    private UserConnection getSocialConnection(SocialSignInProvider provider) {
+        return userConnections.stream()
+                .filter(uc -> provider == SocialSignInProvider.getForProviderId(uc.getProviderId()).orElse(null))
+                .findFirst().orElse(null);
     }
 
     public boolean isAdmin() {
