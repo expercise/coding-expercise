@@ -19,10 +19,21 @@ public class SocialSignInAdapter implements SignInAdapter {
 
     @Override
     public String signIn(String userId, Connection<?> connection, NativeWebRequest request) {
-        User user = userService.findById(NumberUtils.parseLong(userId));
-        authenticationService.authenticate(connection, user);
-        // TODO ufuk: redirect to requested url
-        return "/themes";
+        if (authenticationService.isCurrentUserAuthenticated()) {
+            if (isMigrationFromSocialUserToCurrentUserNeeded(userId)) {
+                userService.saveSocialUser(connection.fetchUserProfile(), connection.createData());
+            }
+            return "/user";
+        } else {
+            User user = userService.findById(NumberUtils.parseLong(userId));
+            authenticationService.authenticate(connection, user);
+            // TODO ufuk: redirect to requested url
+            return "/themes";
+        }
+    }
+
+    private boolean isMigrationFromSocialUserToCurrentUserNeeded(String userId) {
+        return !authenticationService.getCurrentUser().getId().toString().equals(userId);
     }
 
 }

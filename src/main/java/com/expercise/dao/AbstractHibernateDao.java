@@ -34,6 +34,16 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
     }
 
     @Transactional
+    public T saveOrUpdate(final T entity) {
+        if (entity.isPersisted()) {
+            return update(entity);
+        } else {
+            save(entity);
+            return entity;
+        }
+    }
+
+    @Transactional
     public void delete(final T entity) {
         getCurrentSession().delete(entity);
     }

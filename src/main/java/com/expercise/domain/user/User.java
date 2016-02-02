@@ -37,7 +37,7 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguage programmingLanguage;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserConnection> userConnections = new ArrayList<>();
 
     private String avatar;

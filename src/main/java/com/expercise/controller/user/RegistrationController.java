@@ -57,9 +57,12 @@ public class RegistrationController {
 
             User user = userService.saveSocialUser(userProfile, connectionData);
 
-            authenticationService.authenticate(connection, user);
-
-            return RedirectUtils.redirectToThemesForNewMember();
+            if (authenticationService.isCurrentUserAuthenticated()) {
+                return RedirectUtils.redirectProfile();
+            } else {
+                authenticationService.authenticate(connection, user);
+                return RedirectUtils.redirectThemesForNewMember();
+            }
         } catch (Exception e) {
             LOGGER.error("Exception while social sign up: ", e);
             return RedirectUtils.redirectLogin();
@@ -78,7 +81,7 @@ public class RegistrationController {
 
         authenticationService.authenticate(userModel.getEmail(), userModel.getPassword());
 
-        return RedirectUtils.redirectToThemesForNewMember();
+        return RedirectUtils.redirectThemesForNewMember();
     }
 
     private void initializeModelAndView(ModelAndView modelAndView) {

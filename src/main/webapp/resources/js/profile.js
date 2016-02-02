@@ -2,6 +2,12 @@ expercise.Profile = {
 
     bindEvents: function () {
         $('#avatarsCollapse a').click(this.selectAvatar);
+
+        $('#connectTwitterAccount').click(function (e) {
+            e.preventDefault();
+
+            $(e.target).parents('form').submit();
+        });
     },
 
     selectAvatar: function (event) {
