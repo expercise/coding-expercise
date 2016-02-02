@@ -2,7 +2,7 @@ expercise
 =========
 
 [![Build Status](https://api.travis-ci.org/expercise/expercise.png?branch=master)](https://travis-ci.org/expercise/expercise)
-[![Code Climate](https://codeclimate.com/github/expercise/expercise/badges/gpa.svg)](https://codeclimate.com/github/expercise/expercise)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/e7a80b8eaeb44dea8438d5a04b19f349)](https://www.codacy.com/app/expercise/expercise)
 
 Learn to code. Code to be legend.
 
