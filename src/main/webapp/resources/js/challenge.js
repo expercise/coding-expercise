@@ -164,13 +164,19 @@ expercise.Challenge = {
 
         showSignatureIfSourceCodeIsEmpty();
 
+        var getOutputConsoleContentFrom = function (outputConsole, index) {
+            if (outputConsole && outputConsole.trim() !== "") {
+                return '<div class="accordion-body collapse resultMessage consoleOutput' + index + '">' + outputConsole + '</div>'
+            }
+            return '';
+        };
+
         var $userTestCaseTable = $('#userTestCaseStatus');
 
         $userTestCaseTable.find('tbody').remove();
         var $tbody = $('<tbody>');
 
         $.each(testCaseModels, function (index, value) {
-            console.log("index:" + index);
             var testInputsCell = $('<td></td>').html(value['inputs'].join(", "));
             var testExpectedOutputCell = $('<td></td>').html(value['output']);
             var testActualValueCell = $('<td></td>').html(value['actualValue']);
@@ -181,11 +187,11 @@ expercise.Challenge = {
                 'class="' + decideTestCaseStyle(testCaseResult) + ' accordion-toggle">' +
                 '</tr>')
                 .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
-            var outputConsoleRow = $('<tr></tr>')
-                .append('<td colspan="4" class="hiddenRow">' +
-                    '<div class="accordion-body collapse resultMessage consoleOutput' + index + '">'+
-                        value['resultMessage'] +
-                    '</div></td>');
+            var outputConsoleRow = $('<tr></tr>').append(
+                '<td colspan="4" class="hiddenRow">' +
+                    getOutputConsoleContentFrom(value['resultMessage'], index) +
+                '</td>'
+            );
             $tbody.append(contentRow).append(outputConsoleRow);
         });
 
