@@ -55,6 +55,7 @@ public class JavaScriptInterpreter extends Interpreter {
     private ScriptEngine getScriptEngine() {
         NashornScriptEngine javaScriptEngine = (NashornScriptEngine) new NashornScriptEngineFactory().getScriptEngine(new String[]{"-strict", "--no-java", "--no-syntax-extensions"});
         javaScriptEngine.getContext().setWriter(javaScriptOutputWriter);
+        javaScriptEngine.getContext().setErrorWriter(javaScriptOutputWriter);
         javaScriptEngine.put(ScriptEngine.FILENAME, "solution.js");
         return javaScriptEngine;
     }
@@ -63,7 +64,7 @@ public class JavaScriptInterpreter extends Interpreter {
         try {
             javaScriptEngine.eval(sourceCode);
         } catch (ScriptException e) {
-            throw new InterpreterException(InterpreterResult.syntaxErrorFailedResult());
+            throw new InterpreterException(InterpreterResult.syntaxErrorFailedResult(e.getMessage()));
         }
     }
 
@@ -108,6 +109,7 @@ public class JavaScriptInterpreter extends Interpreter {
         }
 
         testCaseWithResult.setTestCaseResult(testCaseResult);
+        testCaseWithResult.setResultMessage(OutputMessageAggregator.getOutputMessage());
     }
 
 }

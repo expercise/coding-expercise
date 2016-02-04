@@ -36,7 +36,8 @@ expercise.Challenge = {
                     expercise.utils.resetLoadingState(loadingStateConfig);
                     expercise.Challenge.resetConsole();
                     var $resultsTextarea = $('#resultsTextarea');
-                    $resultsTextarea.val(response.result);
+                    $resultsTextarea.val(response.consoleMessage);
+                    expercise.assistant.speak({'message': response.result});
                     if (response.success) {
                         $resultsTextarea.addClass('successResult');
                         expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
@@ -143,11 +144,6 @@ expercise.Challenge = {
     },
 
     populateSourceAndTestCaseState: function (currentSourceCode, testCaseModels) {
-        var challengeType = $('#challengeType').val();
-        if (challengeType != 'CODE_KATA') {
-            return;
-        }
-
         var showSignatureIfSourceCodeIsEmpty = function () {
             if (currentSourceCode.trim() === '') {
                 expercise.Challenge.adjustProgrammingLanguage();
@@ -168,29 +164,35 @@ expercise.Challenge = {
 
         showSignatureIfSourceCodeIsEmpty();
 
-        $('.userTestCaseStatus tbody').remove();
-        var $tbody = $('<tbody>');
-        $.each(testCaseModels, function (i, value) {
+        var $userTestCaseTable = $('#userTestCaseStatus');
 
+        $userTestCaseTable.find('tbody').remove();
+        var $tbody = $('<tbody>');
+
+        $.each(testCaseModels, function (index, value) {
+            console.log("index:" + index);
             var testInputsCell = $('<td></td>').html(value['inputs'].join(", "));
             var testExpectedOutputCell = $('<td></td>').html(value['output']);
             var testActualValueCell = $('<td></td>').html(value['actualValue']);
             var testCaseResult = value['testCaseResult'];
             var testCaseStatus = $('<span class="glyphicon testCaseStatus"></span>');
             var testResultStatusCell = $('<td></td>').html(testCaseStatus);
-            var row = $('<tr class="' + decideTestCaseStyle(testCaseResult) + '"></tr>').append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
-            $tbody.append(row);
+            var contentRow = $('<tr data-toggle="collapse" data-target=".consoleOutput' + index + '"' +
+                'class="' + decideTestCaseStyle(testCaseResult) + ' accordion-toggle">' +
+                '</tr>')
+                .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
+            var outputConsoleRow = $('<tr></tr>')
+                .append('<td colspan="4" class="hiddenRow">' +
+                    '<div class="accordion-body collapse resultMessage consoleOutput' + index + '">'+
+                        value['resultMessage'] +
+                    '</div></td>');
+            $tbody.append(contentRow).append(outputConsoleRow);
         });
 
-        var $userTestCaseTable = $('.userTestCaseStatus');
         $userTestCaseTable.append($tbody);
     },
 
     initializeKataChallenge: function () {
-        if (expercise.Challenge.isNotChallengeCodeKata()) {
-            return;
-        }
-
         var testCasesWithSourceModel = JSON.parse($('#testCasesWithSource').val());
         this.populateSourceAndTestCaseState(testCasesWithSourceModel.currentSourceCode, testCasesWithSourceModel.testCaseModels);
     },
@@ -209,10 +211,6 @@ expercise.Challenge = {
     },
 
     resetTestCases: function () {
-        if (expercise.Challenge.isNotChallengeCodeKata()) {
-            return;
-        }
-
         var requestData = {
             language: $('#languageSelection').val(),
             challengeId: $('#challengeId').val()
@@ -233,11 +231,6 @@ expercise.Challenge = {
                 expercise.Challenge.populateSourceAndTestCaseState(response.currentSourceCode, response.testCaseModels);
             }
         );
-    },
-
-    isNotChallengeCodeKata: function () {
-        var challengeType = $('#challengeType').val();
-        return challengeType !== 'CODE_KATA';
     },
 
     runChallenge: function () {

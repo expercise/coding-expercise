@@ -7,6 +7,7 @@ import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterFailureType;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.service.challenge.UserPointService;
+import com.expercise.service.challenge.UserTestCaseStateService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.service.i18n.MessageService;
 import com.expercise.service.user.AuthenticationService;
@@ -20,9 +21,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,6 +38,9 @@ public class CreateSolutionResponsePostActionTest {
 
     @Mock
     private AuthenticationService authenticationService;
+
+    @Mock
+    private UserTestCaseStateService userTestCaseStateService;
 
     private ChallengeEvaluationContext context;
 

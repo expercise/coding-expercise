@@ -10,6 +10,8 @@ public class SolutionValidationResult {
 
     private String result;
 
+    private String consoleMessage;
+
     private boolean success;
 
     private ChallengeSolutionStatus challengeSolutionStatus;
@@ -61,6 +63,14 @@ public class SolutionValidationResult {
 
     public TestCasesWithSourceModel getTestCasesWithSourceModel() {
         return testCasesWithSourceModel;
+    }
+
+    public String getConsoleMessage() {
+        return consoleMessage;
+    }
+
+    public void setConsoleMessage(String consoleMessage) {
+        this.consoleMessage = consoleMessage;
     }
 
     public void addErrorDescriptionToResult(String errorDescription) {

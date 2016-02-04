@@ -4,7 +4,10 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.ChallengeType;
 import com.expercise.domain.user.User;
 import com.expercise.interpreter.InterpreterResult;
+import com.expercise.interpreter.TestCaseModel;
+import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.UserPointService;
+import com.expercise.service.challenge.UserTestCaseStateService;
 import com.expercise.service.challenge.action.PostEvaluationAction;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.service.challenge.model.SolutionValidationResult;
@@ -26,6 +29,9 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private UserTestCaseStateService userTestCaseStateService;
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
@@ -49,6 +55,12 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
             result = SolutionValidationResult.createFailedResult(messageService.getMessage("challenge.failed"));
             Optional.ofNullable(interpreterResult.getFailureType())
                     .ifPresent(ft -> result.addErrorDescriptionToResult(messageService.getMessage(ft.getMessageKey())));
+        }
+        userTestCaseStateService.saveUserState(context.getChallenge(), context.getSource(), context.getLanguage(), context.getTestCaseWithResults());
+
+        result.getTestCasesWithSourceModel().setCurrentSourceCode(context.getSource());
+        for (TestCaseWithResult testCaseWithResult : context.getTestCaseWithResults()) {
+            result.addTestCaseModel(TestCaseModel.createFrom(testCaseWithResult));
         }
 
         context.setSolutionValidationResult(result);

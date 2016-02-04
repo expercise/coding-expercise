@@ -8,6 +8,8 @@ import java.util.List;
 
 public class TestCasesWithSourceCacheModel implements Serializable {
 
+    private static final long serialVersionUID = -423521965916958053L;
+
     private String currentSourceCode = StringUtils.EMPTY;
 
     private List<TestCaseWithResult> testCaseResults = new ArrayList<>();
@@ -24,6 +26,14 @@ public class TestCasesWithSourceCacheModel implements Serializable {
     public void clear() {
         this.currentSourceCode = StringUtils.EMPTY;
         this.testCaseResults.clear();
+    }
+
+    public void reset() {
+        this.currentSourceCode = StringUtils.EMPTY;
+        this.testCaseResults.stream().forEach(t -> {
+            t.setTestCaseResult(TestCaseResult.NEW);
+            t.setActualValue(StringUtils.EMPTY);
+        });
     }
 
     public String getCurrentSourceCode() {

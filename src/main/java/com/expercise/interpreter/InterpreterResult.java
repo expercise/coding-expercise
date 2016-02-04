@@ -4,6 +4,8 @@ public class InterpreterResult {
 
     private InterpreterFailureType failureType;
 
+    private String consoleMessage;
+
     private boolean success;
 
     private InterpreterResult(boolean success) {
@@ -24,9 +26,10 @@ public class InterpreterResult {
         return failedResult;
     }
 
-    public static InterpreterResult syntaxErrorFailedResult() {
+    public static InterpreterResult syntaxErrorFailedResult(String errorMessage) {
         InterpreterResult failedResult = createFailedResult();
         failedResult.setFailureType(InterpreterFailureType.SYNTAX_ERROR);
+        failedResult.setConsoleMessage(errorMessage);
         return failedResult;
     }
 
@@ -42,6 +45,14 @@ public class InterpreterResult {
 
     public void setFailureType(InterpreterFailureType failureType) {
         this.failureType = failureType;
+    }
+
+    public String getConsoleMessage() {
+        return consoleMessage;
+    }
+
+    public void setConsoleMessage(String consoleMessage) {
+        this.consoleMessage = consoleMessage;
     }
 
     public boolean isSuccess() {
