@@ -1,6 +1,7 @@
 package com.expercise.interpreter;
 
 import com.expercise.domain.challenge.TestCase;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -14,7 +15,7 @@ public class TestCaseWithResult implements Serializable {
 
     private String actualValue;
 
-    private String resultMessage = "";
+    private String resultMessage = StringUtils.EMPTY;
 
     public TestCaseWithResult(TestCase testCaseUnderTest) {
         this.testCaseUnderTest = testCaseUnderTest;
