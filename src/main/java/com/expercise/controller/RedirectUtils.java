@@ -11,7 +11,7 @@ public final class RedirectUtils {
         return redirectTo("/");
     }
 
-    public static ModelAndView redirectToThemesForNewMember() {
+    public static ModelAndView redirectThemesForNewMember() {
         return redirectTo("/themes?" + "newMember");
     }
 
@@ -21,6 +21,10 @@ public final class RedirectUtils {
 
     public static ModelAndView redirectLogin() {
         return redirectTo("/login");
+    }
+
+    public static ModelAndView redirectProfile() {
+        return redirectTo("/user");
     }
 
     public static ModelAndView redirect403() {

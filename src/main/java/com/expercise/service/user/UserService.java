@@ -6,6 +6,7 @@ import com.expercise.dao.user.UserRememberMeTokenDao;
 import com.expercise.domain.user.RememberMeToken;
 import com.expercise.domain.user.User;
 import com.expercise.domain.user.UserConnection;
+import com.expercise.utils.NumberUtils;
 import com.expercise.utils.PasswordEncoder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class UserService {
     @Autowired
     private UserRememberMeTokenDao userRememberMeTokenDao;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     public void saveNewUser(User user) {
         String hashedUserPassword = hashPassword(user.getPassword());
         user.setPassword(hashedUserPassword);
@@ -52,9 +56,12 @@ public class UserService {
             user.setPassword(UUID.randomUUID().toString());
             user.setSocialImageUrl(imageUrl);
             userDao.save(user);
+        } else {
+            user.setAvatar(null);
+            user.setSocialImageUrl(imageUrl);
         }
 
-        UserConnection userConnection = new UserConnection();
+        UserConnection userConnection = initializeUserConnection(connectionData);
         userConnection.setUserId(user.getId().toString());
         userConnection.setAccessToken(connectionData.getAccessToken());
         userConnection.setDisplayName(connectionData.getDisplayName());
@@ -66,14 +73,20 @@ public class UserService {
         userConnection.setRefreshToken(connectionData.getRefreshToken());
         userConnection.setSecret(connectionData.getSecret());
         userConnection.setRank(0);
-        userConnectionDao.save(userConnection);
+        userConnection = userConnectionDao.saveOrUpdate(userConnection);
 
         user.addUserConnection(userConnection);
+
+        user = userDao.saveOrUpdate(user);
 
         return user;
     }
 
     private User initializeSocialUser(String email) {
+        if (authenticationService.isCurrentUserAuthenticated()) {
+            return authenticationService.getCurrentUser();
+        }
+
         User user = new User();
         if (StringUtils.isNotBlank(email)) {
             User existingUser = findByEmail(email);
@@ -82,6 +95,17 @@ public class UserService {
             }
         }
         return user;
+    }
+
+    private UserConnection initializeUserConnection(ConnectionData connectionData) {
+        UserConnection existingUserConnection = userConnectionDao.findBy(connectionData.getProviderId(), connectionData.getProviderUserId());
+        if (existingUserConnection != null) {
+            User oldSocialUser = findById(NumberUtils.parseLong(existingUserConnection.getUserId()));
+            oldSocialUser.getUserConnections().clear();
+            userDao.update(oldSocialUser);
+        }
+
+        return new UserConnection();
     }
 
     public void updateUser(User user) {

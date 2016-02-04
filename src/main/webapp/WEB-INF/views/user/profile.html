@@ -97,6 +97,21 @@
                             <span th:text="${#messages.msg(user.lingo.name())}"></span>
                         </div>
                     </div>
+
+                    <div class="row" th:unless="${!isCurrentUser and !user.hasTwitterConnection()}">
+                        <label class="col-xs-5"><i class="fa fa-twitter"></i></label>
+                        <div class="col-xs-7">
+                            <form th:action="@{/signin/twitter}" method="POST" th:if="${isCurrentUser and !user.hasTwitterConnection()}">
+                                <a id="connectTwitterAccount" href="#">
+                                    <span th:text="#{user.profile.connectTwitter}"></span>
+                                </a>
+                            </form>
+
+                            <a th:if="${user.hasTwitterConnection()}" th:href="${user.twitterConnection.profileUrl}" target="_blank">
+                                <span th:text="${user.twitterConnection.displayName}"></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
