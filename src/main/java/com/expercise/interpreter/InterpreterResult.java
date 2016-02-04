@@ -20,6 +20,12 @@ public class InterpreterResult {
         return new InterpreterResult(false);
     }
 
+    public static InterpreterResult createFailedResult(String errorMessage) {
+        InterpreterResult failedResult = createFailedResult();
+        failedResult.setConsoleMessage(errorMessage);
+        return failedResult;
+    }
+
     public static InterpreterResult noResultFailedResult() {
         InterpreterResult failedResult = createFailedResult();
         failedResult.setFailureType(InterpreterFailureType.NO_RESULT);

@@ -79,7 +79,9 @@ public class JavaScriptInterpreter extends Interpreter {
             } else {
                 evaluationResult = OutputMessageAggregator.getOutputMessage();
             }
-
+        } catch (ScriptException e) {
+            LOGGER.debug("ScriptException while interpreting", e);
+            throw new InterpreterException(InterpreterResult.createFailedResult(e.getMessage()));
         } catch (Exception e) {
             LOGGER.debug("Exception while interpreting", e);
             throw new InterpreterException(InterpreterResult.createFailedResult());

@@ -203,6 +203,36 @@ public class JavaScriptInterpreterTest {
     }
 
     @Test
+    public void shouldReturnFailedResultIfSolutionHasReferenceError() {
+        String syntaxErrorMessage = "ReferenceError: \"abc\" is not defined in solution.js at line number 2";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Integer);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("12");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("35");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, "function solution(a) { \nreturn abc;\n }");
+
+        interpreter.interpret(context);
+
+        assertFalse(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getConsoleMessage(), equalTo(syntaxErrorMessage));
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
     public void shouldReturnFailedResultIfSolutionHasNoResult() {
         Challenge challenge = new Challenge();
 
