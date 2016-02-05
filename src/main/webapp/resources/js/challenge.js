@@ -188,9 +188,7 @@ expercise.Challenge = {
                 '</tr>')
                 .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
             var outputConsoleRow = $('<tr></tr>').append(
-                '<td colspan="4" class="hiddenRow">' +
-                    getOutputConsoleContentFrom(value['resultMessage'], index) +
-                '</td>'
+                '<td colspan="4" class="hiddenRow">' + getOutputConsoleContentFrom(value['resultMessage'], index) + '</td>'
             );
             $tbody.append(contentRow).append(outputConsoleRow);
         });
