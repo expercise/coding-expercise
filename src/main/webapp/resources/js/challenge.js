@@ -166,7 +166,7 @@ expercise.Challenge = {
 
         var getOutputConsoleContentFrom = function (outputConsole, index) {
             if (outputConsole && outputConsole.trim() !== "") {
-                return '<div class="accordion-body collapse resultMessage consoleOutput' + index + '">' + outputConsole + '</div>'
+                return '<pre class="accordion-body collapse resultMessage consoleOutput' + index + '">' + outputConsole + '</pre>'
             }
             return '';
         };
@@ -183,12 +183,13 @@ expercise.Challenge = {
             var testCaseResult = value['testCaseResult'];
             var testCaseStatus = $('<span class="glyphicon testCaseStatus"></span>');
             var testResultStatusCell = $('<td></td>').html(testCaseStatus);
+            var testCaseOutputCell = $('<td class="text-right"><a>' + expercise.utils.i18n('challenge.testCase.table.showOutput') + ' <i class="fa fa-chevron-down"></i> </a></td>');
             var contentRow = $('<tr data-toggle="collapse" data-target=".consoleOutput' + index + '"' +
                 'class="' + decideTestCaseStyle(testCaseResult) + ' accordion-toggle">' +
                 '</tr>')
-                .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell);
+                .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell, testCaseOutputCell);
             var outputConsoleRow = $('<tr></tr>').append(
-                '<td colspan="4" class="hiddenRow">' + getOutputConsoleContentFrom(value['resultMessage'], index) + '</td>'
+                '<td colspan="5" class="hiddenRow">' + getOutputConsoleContentFrom(value['resultMessage'], index) + '</td>'
             );
             $tbody.append(contentRow).append(outputConsoleRow);
         });

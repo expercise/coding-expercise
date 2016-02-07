@@ -63,10 +63,11 @@
         <div class="col-xs-12">
             <table id="userTestCaseStatus" class="table table-condensed" style="border-collapse:collapse;">
                 <thead>
-                <th th:text="#{challenge.testCase.table.header.input}">Input</th>
-                <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
-                <th th:text="#{challenge.testCase.table.header.actualOutput}">Actual Output</th>
-                <th th:text="#{challenge.testCase.table.header.resultStatus}">Result</th>
+                    <th th:text="#{challenge.testCase.table.header.input}">Input</th>
+                    <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
+                    <th th:text="#{challenge.testCase.table.header.actualOutput}">Actual Output</th>
+                    <th th:text="#{challenge.testCase.table.header.resultStatus}">Result</th>
+                    <th></th>
                 </thead>
             </table>
         </div>
@@ -113,14 +114,14 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h4 th:text="#{challenge.resultHeader}">Result</h4>
+            <h4 th:text="#{challenge.errorOutput}">Error Output</h4>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-10">
             <textarea id="resultsTextarea" class="console" rows="6"
-                      disabled="disabled" th:placeholder="#{challenge.resultHeader}">
+                      disabled="disabled" th:placeholder="#{challenge.errorOutput}">
             </textarea>
         </div>
     </div>
