@@ -6,7 +6,6 @@ import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
-import com.expercise.utils.collection.RandomElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +23,7 @@ public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, Challenge
 
     private Level level;
 
-    private DataType outputType = RandomElement.from(DataType.values());
+    private DataType outputType = DataType.Integer;
 
     private List<TestCase> testCases = new ArrayList<>();
 

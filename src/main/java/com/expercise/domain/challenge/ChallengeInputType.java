@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 public class ChallengeInputType extends PrioritizedEntity {
 
+    private static final long serialVersionUID = -3913959424017363332L;
+
     @Id
     @GeneratedValue
     private Long id;

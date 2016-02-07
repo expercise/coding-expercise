@@ -65,10 +65,11 @@ public class ChallengeServiceTest {
     @Test
     public void shouldGetUserStateFromCache() {
         Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).build();
-        new ChallengeInputTypeBuilder().id(1L).challenge(challenge).inputType(DataType.Text).build();
+        new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Integer).buildWithRandomId();
+        new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
 
-        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().id(1L).inputValue("i1").build();
-        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().id(2L).inputValue("i2").build();
+        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().inputValue("10").buildWithRandomId();
+        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("i2").buildWithRandomId();
         TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("o1").build();
 
         challenge.addTestCase(testCase);
@@ -83,17 +84,19 @@ public class ChallengeServiceTest {
 
         assertThat(userState.getTestCaseModels().size(), equalTo(1));
         TestCaseModel model = userState.getTestCaseModels().get(0);
-        assertThat(model.getInputs().get(0), equalTo("i1"));
-        assertThat(model.getInputs().get(1), equalTo("i2"));
-        assertThat(model.getOutput(), equalTo("o1"));
+        assertThat(model.getInputs().get(0), equalTo("10"));
+        assertThat(model.getInputs().get(1), equalTo("\"i2\""));
+        assertThat(model.getOutput(), equalTo("\"o1\""));
     }
 
     @Test
     public void shouldGetUserNewStateFromCacheAfterReset() {
-        Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).build();
+        Challenge challenge = new ChallengeBuilder().outputType(DataType.Text).buildWithRandomId();
+        new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
+        new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
 
-        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().id(1L).inputValue("i1").build();
-        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().id(2L).inputValue("i2").build();
+        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().inputValue("i1").buildWithRandomId();
+        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("i2").buildWithRandomId();
         TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("o1").build();
 
         challenge.addTestCase(testCase);
@@ -110,9 +113,9 @@ public class ChallengeServiceTest {
 
         assertThat(userState.getTestCaseModels().size(), equalTo(1));
         TestCaseModel model = userState.getTestCaseModels().get(0);
-        assertThat(model.getInputs().get(0), equalTo("i1"));
-        assertThat(model.getInputs().get(1), equalTo("i2"));
-        assertThat(model.getOutput(), equalTo("o1"));
+        assertThat(model.getInputs().get(0), equalTo("\"i1\""));
+        assertThat(model.getInputs().get(1), equalTo("\"i2\""));
+        assertThat(model.getOutput(), equalTo("\"o1\""));
     }
 
 }
