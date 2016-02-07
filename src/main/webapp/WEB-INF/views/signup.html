@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form th:action="@{/register}" th:object="${userModel}" method="POST" class="form-horizontal">
+            <form th:action="@{/signup}" th:object="${userModel}" method="POST" class="form-horizontal">
                 <div th:class="'form-group' + (${#fields.hasErrors('firstName')} ? ' has-error' : '')">
                     <label for="firstName" class="col-xs-2 control-label" th:text="#{label.firstName}"></label>
 
@@ -66,7 +66,7 @@
                 <form th:action="@{/signin/twitter}" method="POST">
                     <button type="submit" class="btn btn-social btn-twitter">
                         <i class="fa fa-twitter"></i>
-                        <span th:text="#{button.loginWithTwitter}">Log In with Twitter</span>
+                        <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
                     </button>
                 </form>
             </div>

@@ -5,15 +5,15 @@
 </head>
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="#{login.loginWithExperciseAccount.header}"></legend>
+    <legend th:text="#{login.loginWithExperciseAccount.header}" th:unless="${#authorization.expression('isAuthenticated()')}"></legend>
 
-    <div class="row">
+    <div class="row" th:unless="${#authorization.expression('isAuthenticated()')}">
         <div class="col-xs-12">
-            <p class="alert alert-danger" th:if="${param.error}" th:text="#{login.failedMessage}"></p>
-            <p class="alert alert-info" th:if="${param.logout}" th:text="#{login.logoutMessage}"></p>
+            <p class="alert alert-danger" th:if="${!#strings.isEmpty(param.error) and !#strings.equals(param.error + '', 'provider')}" th:text="#{login.failedMessage}"></p>
+            <p class="alert alert-info" th:if="${param.signout}" th:text="#{login.logoutMessage}"></p>
             <p class="alert alert-success" th:if="${param.resetPasswordSuccess}" th:text="#{login.passwordResetSuccess}"></p>
 
-            <form th:action="@{/login}" method="POST" class="form-horizontal">
+            <form th:action="@{/signin}" method="POST" class="form-horizontal">
                 <div class="form-group">
                     <label for="email" class="col-xs-2 control-label" th:text="#{label.email}"></label>
 
@@ -47,9 +47,9 @@
                     </div>
                 </div>
 
-                <div class="form-group" th:if="${#strings.isEmpty(param.logout) and #strings.isEmpty(param.newMember)}">
+                <div class="form-group" th:if="${#strings.isEmpty(param.signout) and #strings.isEmpty(param.newMember)}">
                     <div class="col-xs-offset-2 col-xs-6">
-                        <a id="notRegisteredYetLink" th:href="@{/register}" th:text="#{login.notRegisteredYet}"></a>
+                        <a id="notRegisteredYetLink" th:href="@{/signup}" th:text="#{login.notRegisteredYet}"></a>
                         <span>|</span>
                         <a id="forgotMyPassword" th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
                     </div>
@@ -62,11 +62,13 @@
 
     <div class="row">
         <div class="col-xs-12">
+            <p class="alert alert-danger" th:if="${!#strings.isEmpty(param.error) and #strings.equals(param.error + '', 'provider')}" th:text="#{login.social.failedMessage}"></p>
+
             <div class="col-xs-offset-2">
                 <form th:action="@{/signin/twitter}" method="POST">
                     <button type="submit" class="btn btn-social btn-twitter">
                         <i class="fa fa-twitter"></i>
-                        <span th:text="#{button.loginWithTwitter}">Log In with Twitter</span>
+                        <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
                     </button>
                 </form>
             </div>

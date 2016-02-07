@@ -32,10 +32,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/500",
                         "/generatedResources/**",
                         "/resources/**",
-                        "/login/**",
-                        "/register/**",
+                        "/signup/**",
                         "/signin/**",
-                        "/socialRegister",
                         "/forgotMyPassword/**",
                         "/themes/**"
                 )
@@ -57,19 +55,20 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated();
 
         http.formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
+                .loginPage("/signin")
+                .failureUrl("/signin?error")
                 .permitAll();
 
         http.logout()
-                .logoutSuccessUrl("/login?logout")
+                .logoutUrl("/signout")
+                .logoutSuccessUrl("/signin?signout")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
         http.rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(DateUtils.ONE_WEEK);
 
-        http.apply(new SpringSocialConfigurer().signupUrl("/socialRegister"));
+        http.apply(new SpringSocialConfigurer().signupUrl("/signup/social"));
 
         http.csrf().disable();
     }

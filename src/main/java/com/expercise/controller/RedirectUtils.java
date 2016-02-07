@@ -16,11 +16,11 @@ public final class RedirectUtils {
     }
 
     public static ModelAndView redirectLoginFor(String purpose) {
-        return redirectTo("/login?" + purpose);
+        return redirectTo("/signin?" + purpose);
     }
 
     public static ModelAndView redirectLogin() {
-        return redirectTo("/login");
+        return redirectTo("/signin");
     }
 
     public static ModelAndView redirectProfile() {

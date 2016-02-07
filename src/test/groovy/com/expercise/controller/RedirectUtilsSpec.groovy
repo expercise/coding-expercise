@@ -13,8 +13,8 @@ class RedirectUtilsSpec extends Specification {
         where:
         path               | redirectedPath
         "/"                | "redirect:/"
-        "/login"           | "redirect:/login"
-        "/login?newmember" | "redirect:/login?newmember"
+        "/signin"          | "redirect:/signin"
+        "/signin?newmember" | "redirect:/signin?newmember"
         "/404"             | "redirect:/404"
         "/403"             | "redirect:/403"
     }

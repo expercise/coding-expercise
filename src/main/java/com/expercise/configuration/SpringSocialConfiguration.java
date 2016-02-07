@@ -54,7 +54,7 @@ public class SpringSocialConfiguration implements SocialConfigurer {
     @Bean
     public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator, UsersConnectionRepository usersConnectionRepository, SignInAdapter signInAdapter) {
         ProviderSignInController controller = new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
-        controller.setSignUpUrl("/socialRegister");
+        controller.setSignUpUrl("/signup/social");
         controller.setApplicationUrl(rootUrl);
         return controller;
     }

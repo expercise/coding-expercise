@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/signup")
 public class RegistrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
@@ -39,14 +40,29 @@ public class RegistrationController {
     @Autowired
     private ConnectionFactoryLocator connectionFactoryLocator;
 
-    @RequestMapping("/register")
+    @RequestMapping
     public ModelAndView registrationPage(ModelAndView modelAndView) {
         initializeModelAndView(modelAndView);
         modelAndView.addObject("userModel", new UserModel());
         return modelAndView;
     }
 
-    @RequestMapping("/socialRegister")
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView register(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
+        if (bindingResult.hasErrors()) {
+            initializeModelAndView(modelAndView);
+            return modelAndView;
+        }
+
+        User user = userModel.createUser();
+        userService.saveNewUser(user);
+
+        authenticationService.authenticate(userModel.getEmail(), userModel.getPassword());
+
+        return RedirectUtils.redirectThemesForNewMember();
+    }
+
+    @RequestMapping("/social")
     public ModelAndView socialRegister(HttpServletRequest request) {
         try {
             ProviderSignInAttempt providerSignInAttempt = (ProviderSignInAttempt) request.getSession().getAttribute(ProviderSignInAttempt.SESSION_ATTRIBUTE);
@@ -69,23 +85,8 @@ public class RegistrationController {
         }
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
-        if (bindingResult.hasErrors()) {
-            initializeModelAndView(modelAndView);
-            return modelAndView;
-        }
-
-        User user = userModel.createUser();
-        userService.saveNewUser(user);
-
-        authenticationService.authenticate(userModel.getEmail(), userModel.getPassword());
-
-        return RedirectUtils.redirectThemesForNewMember();
-    }
-
     private void initializeModelAndView(ModelAndView modelAndView) {
-        modelAndView.setViewName("register");
+        modelAndView.setViewName("signup");
         modelAndView.addObject("programmingLanguages", ProgrammingLanguage.values());
         modelAndView.addObject("lingos", Lingo.values());
     }

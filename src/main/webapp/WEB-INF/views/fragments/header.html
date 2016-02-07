@@ -67,15 +67,15 @@
                             <li class="divider"></li>
 
                             <li th:if="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/logout}" th:text="#{button.logout}"></a>
+                                <a th:href="@{/signout}" th:text="#{button.logout}"></a>
                             </li>
 
                             <li th:unless="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/login}" th:text="#{button.login}"></a>
+                                <a th:href="@{/signin}" th:text="#{button.login}"></a>
                             </li>
 
                             <li th:unless="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/register}" th:text="#{button.register}"></a>
+                                <a th:href="@{/signup}" th:text="#{button.register}"></a>
                             </li>
                         </ul>
                     </span>
