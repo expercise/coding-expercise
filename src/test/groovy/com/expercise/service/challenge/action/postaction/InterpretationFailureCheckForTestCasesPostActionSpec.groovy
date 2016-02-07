@@ -14,7 +14,7 @@ class InterpretationFailureCheckForTestCasesPostActionSpec extends Specification
     def "should check interpretation result against test case if interpretation is failed by syntax error"() {
         given:
         def context = new ChallengeEvaluationContext()
-        context.setInterpreterResult(InterpreterResult.syntaxErrorFailedResult())
+        context.setInterpreterResult(InterpreterResult.syntaxErrorFailedResult("message"))
 
         expect:
         action.canExecute(context)
@@ -50,7 +50,7 @@ class InterpretationFailureCheckForTestCasesPostActionSpec extends Specification
     def "should fail all test cases"() {
         given:
         def context = new ChallengeEvaluationContext()
-        context.setInterpreterResult(InterpreterResult.syntaxErrorFailedResult())
+        context.setInterpreterResult(InterpreterResult.syntaxErrorFailedResult("message"))
 
         def passedTestCases = new TestCaseWithResult(new TestCase())
             passedTestCases.setTestCaseResult(TestCaseResult.PASSED)

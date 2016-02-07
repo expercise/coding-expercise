@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 public class UserTestCaseStateService {
@@ -30,20 +31,30 @@ public class UserTestCaseStateService {
         if (modelFromCache != null) {
             return modelFromCache;
         }
-        TestCase firstTestCaseOfChallenge = challenge.getTestCases().get(0);
-        List<TestCaseWithResult> newTestCaseWithResults = new ArrayList<>();
-        newTestCaseWithResults.add(new TestCaseWithResult(firstTestCaseOfChallenge));
-        TestCasesWithSourceCacheModel newCacheModel = new TestCasesWithSourceCacheModel(newTestCaseWithResults);
+        TestCasesWithSourceCacheModel newCacheModel = new TestCasesWithSourceCacheModel(
+                getTestCaseWithResults(challenge)
+        );
         userStateCacheMap.put(userCacheKey, newCacheModel);
         return newCacheModel;
+    }
+
+    private List<TestCaseWithResult> getTestCaseWithResults(Challenge challenge) {
+        List<TestCaseWithResult> newTestCaseWithResults = new ArrayList<>();
+        if (challenge.isCodeKata()) {
+            TestCase firstTestCaseOfChallenge = challenge.getTestCases().get(0);
+            newTestCaseWithResults.add(new TestCaseWithResult(firstTestCaseOfChallenge));
+        } else {
+            newTestCaseWithResults.addAll(challenge.getTestCases().stream().map(TestCaseWithResult::new).collect(Collectors.toList()));
+        }
+        return newTestCaseWithResults;
     }
 
     public void saveNextTestCase(Challenge challenge, String currentSourceCode, ProgrammingLanguage programmingLanguage) {
         TestCasesWithSourceCacheModel cacheModel = getUserTestCasesOf(challenge, programmingLanguage);
         cacheModel.setCurrentSourceCode(currentSourceCode);
+
         List<TestCaseWithResult> currentTestCasesStateOfUser = cacheModel.getTestCaseResults();
-        List<TestCase> testCases = challenge.getTestCases();
-        TestCase nextTestCase = testCases.get(currentTestCasesStateOfUser.size());
+        TestCase nextTestCase = challenge.getTestCases().get(currentTestCasesStateOfUser.size());
         TestCaseWithResult nextTestCaseWithResult = new TestCaseWithResult(nextTestCase);
         currentTestCasesStateOfUser.add(nextTestCaseWithResult);
     }
@@ -55,8 +66,13 @@ public class UserTestCaseStateService {
     }
 
     public void resetUserState(Challenge challenge, ProgrammingLanguage programmingLanguage) {
-        getUserTestCasesOf(challenge, programmingLanguage).clear();
-        saveNextTestCase(challenge, StringUtils.EMPTY, programmingLanguage);
+        TestCasesWithSourceCacheModel userTestCasesOf = getUserTestCasesOf(challenge, programmingLanguage);
+        if (challenge.isCodeKata()) {
+            userTestCasesOf.clear();
+            saveNextTestCase(challenge, StringUtils.EMPTY, programmingLanguage);
+        } else {
+            userTestCasesOf.reset();
+        }
     }
 
     private String getCacheKeyFrom(Challenge challenge, ProgrammingLanguage programmingLanguage) {

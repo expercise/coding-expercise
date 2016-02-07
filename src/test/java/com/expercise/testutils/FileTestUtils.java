@@ -1,5 +1,6 @@
 package com.expercise.testutils;
 
+import com.expercise.exception.ExperciseGenericException;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public final class FileTestUtils {
         try {
             return IOUtils.toString(inputStream);
         } catch (IOException e) {
-            throw new RuntimeException("File couldn't be read: " + file);
+            throw new ExperciseGenericException("File couldn't be read: " + file, e);
         }
     }
 

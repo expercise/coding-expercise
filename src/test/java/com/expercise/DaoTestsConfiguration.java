@@ -56,6 +56,8 @@ public class DaoTestsConfiguration {
 
     Properties hibernateProperties() {
         return new Properties() {
+            private static final long serialVersionUID = -4643610408755704133L;
+
             {
                 setProperty("hibernate.hbm2ddl.auto", "create");
                 setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");

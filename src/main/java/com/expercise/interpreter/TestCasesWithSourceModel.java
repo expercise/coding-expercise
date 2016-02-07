@@ -8,6 +8,8 @@ import java.util.List;
 
 public class TestCasesWithSourceModel implements Serializable {
 
+    private static final long serialVersionUID = 5558397147480824685L;
+
     private String currentSourceCode = StringUtils.EMPTY;
 
     private List<TestCaseModel> testCaseModels = new ArrayList<>();

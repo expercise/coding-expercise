@@ -17,8 +17,8 @@ public interface PostEvaluationAction extends Prioritized {
         CREATE_KATA_SOLUTION_RESPONSE,
         GIVE_SUCCESS_POINT,
         SAVE_USER_SOLUTION,
-        PREPARE_CHALLENGE_USER_SOLUTIONS
-
+        PREPARE_CHALLENGE_USER_SOLUTIONS,
+        PREPARE_CONSOLE_MESSAGE_RESPONSE
     }
 
 }

@@ -53,15 +53,15 @@
         </div>
     </div>
 
-    <div class="row" th:if="${challenge.isCodeKata()}">
+    <div class="row">
         <div class="col-xs-12">
             <h4 th:text="#{challenge.userTestCaseStatus}"></h4>
         </div>
     </div>
 
-    <div class="row" th:if="${challenge.isCodeKata()}">
+    <div class="row">
         <div class="col-xs-12">
-            <table class="table userTestCaseStatus">
+            <table id="userTestCaseStatus" class="table table-condensed" style="border-collapse:collapse;">
                 <thead>
                 <th th:text="#{challenge.testCase.table.header.input}">Input</th>
                 <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
@@ -119,7 +119,9 @@
 
     <div class="row">
         <div class="col-xs-10">
-            <textarea id="resultsTextarea" class="console" disabled="disabled" th:placeholder="#{challenge.resultHeader}"></textarea>
+            <textarea id="resultsTextarea" class="console" rows="6"
+                      disabled="disabled" th:placeholder="#{challenge.resultHeader}">
+            </textarea>
         </div>
     </div>
 
@@ -145,7 +147,7 @@
     <input id="challengeType" type="hidden" th:value="${challenge.getChallengeType().name()}"/>
     <input id="solutionSignatures" type="hidden" th:value="${solutionSignatures}"/>
     <input id="userSolutions" type="hidden" th:value="${userSolutions}"/>
-    <input id="testCasesWithSource" type="hidden" th:if="${challenge.isCodeKata()}" th:value="${testCasesWithSource}"/>
+    <input id="testCasesWithSource" type="hidden" th:value="${testCasesWithSource}"/>
     <input id="javaScriptModules" type="hidden" value="CodeEditor Challenge"/>
 </body>
 </html>

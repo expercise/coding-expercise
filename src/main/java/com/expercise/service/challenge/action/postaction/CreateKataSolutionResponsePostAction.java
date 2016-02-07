@@ -67,7 +67,6 @@ public class CreateKataSolutionResponsePostAction implements PostEvaluationActio
         }
 
         result.getTestCasesWithSourceModel().setCurrentSourceCode(context.getSource());
-
         for (TestCaseWithResult testCaseWithResult : context.getTestCaseWithResults()) {
             result.addTestCaseModel(TestCaseModel.createFrom(testCaseWithResult));
         }

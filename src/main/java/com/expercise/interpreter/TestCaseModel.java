@@ -1,12 +1,15 @@
 package com.expercise.interpreter;
 
 import com.expercise.domain.challenge.TestCase;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestCaseModel implements Serializable {
+
+    private static final long serialVersionUID = -5656146862340963922L;
 
     private List<String> inputs = new ArrayList<>();
 
@@ -15,6 +18,8 @@ public class TestCaseModel implements Serializable {
     private String actualValue;
 
     private TestCaseResult testCaseResult;
+
+    private String resultMessage = StringUtils.EMPTY;
 
     public static TestCaseModel createFrom(TestCaseWithResult testCaseWithResult) {
         TestCaseModel testCaseModel = new TestCaseModel();
@@ -25,6 +30,7 @@ public class TestCaseModel implements Serializable {
         testCaseModel.setOutput(testCaseUnderTest.getOutput());
         testCaseModel.setActualValue(testCaseWithResult.getActualValue());
         testCaseModel.setTestCaseResult(testCaseWithResult.getTestCaseResult());
+        testCaseModel.setResultMessage(testCaseWithResult.getResultMessage());
         return testCaseModel;
     }
 
@@ -58,5 +64,13 @@ public class TestCaseModel implements Serializable {
 
     public void setTestCaseResult(TestCaseResult testCaseResult) {
         this.testCaseResult = testCaseResult;
+    }
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void setResultMessage(String resultMessage) {
+        this.resultMessage = resultMessage;
     }
 }

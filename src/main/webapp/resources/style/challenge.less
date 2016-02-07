@@ -70,9 +70,16 @@ div.challengeInfo {
   padding-bottom: 10px;
 }
 
+table#userTestCaseStatus .resultMessage {
+  font-size: 12px;
+  color: #444;
+  padding: 5px;
+}
+
 table {
   tr.testCaseRow {
     font-weight: bold;
+    cursor: pointer;
 
     &.success {
       color: green;
@@ -96,6 +103,7 @@ table {
 
     &.info {
       color: #666666;
+      cursor: default;
 
       .testCaseStatus {
         &:before {
