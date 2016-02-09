@@ -15,6 +15,8 @@ import java.util.*;
 @Entity
 public class Challenge extends AbstractEntity {
 
+    private static final long serialVersionUID = 2423523955585119140L;
+
     @Id
     @GeneratedValue
     private Long id;

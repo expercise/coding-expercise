@@ -10,12 +10,28 @@ public enum DataType {
         public Object convert(String rawValue) {
             return java.lang.Integer.parseInt(rawValue);
         }
+
+        @Override
+        public String toLiteral(String rawValue) {
+            return rawValue;
+        }
     },
 
     Text(String.class.getName()) {
         @Override
         public Object convert(String rawValue) {
+            if (rawValue == null) {
+                return "";
+            }
             return rawValue;
+        }
+
+        @Override
+        public String toLiteral(String rawValue) {
+            if (rawValue == null) {
+                return "";
+            }
+            return "\"" + rawValue + "\"";
         }
     };
 
@@ -28,6 +44,8 @@ public enum DataType {
     }
 
     public abstract Object convert(String rawValue);
+
+    public abstract String toLiteral(String rawValue);
 
     public String getClassName() {
         return className;

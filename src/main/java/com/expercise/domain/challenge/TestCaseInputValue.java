@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 public class TestCaseInputValue extends PrioritizedEntity {
 
+    private static final long serialVersionUID = 5844311948411636275L;
+
     @Id
     @GeneratedValue
     private Long id;
