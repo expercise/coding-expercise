@@ -13,7 +13,7 @@ public final class SocialUserDetailsHelper {
     public static String getImageUrl(ConnectionData connectionData) {
         String imageUrl = connectionData.getImageUrl();
         if (SocialSignInProvider.Twitter.getProviderId().equals(connectionData.getProviderId())) {
-            imageUrl = imageUrl.replace("_normal", "");
+            imageUrl = imageUrl.replace("_normal", "").replace("http://", "https://");
         }
         return imageUrl;
     }
