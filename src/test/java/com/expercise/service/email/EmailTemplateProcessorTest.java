@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -32,11 +32,22 @@ public class EmailTemplateProcessorTest {
 
         String renderedEmail = processor.createEmail(FORGOT_MY_PASSWORD_EMAIL, params);
 
-        assertThat(renderedEmail, equalTo(contentOf(FORGOT_MY_PASSWORD_EMAIL)));
+        assertEmail(renderedEmail, contentOf(FORGOT_MY_PASSWORD_EMAIL));
+    }
+
+    private void assertEmail(String actual, String expected) {
+        assertThat(strip(actual), equalTo(strip(expected)));
     }
 
     private String contentOf(String templateFile) {
-        return FileTestUtils.getFileContentFrom("/renderedEmails/" + templateFile + ".html");
+        return strip(FileTestUtils.getFileContentFrom("/renderedEmails/" + templateFile + ".html"));
+    }
+
+    private String strip(String str) {
+        return Arrays.stream(str.split(System.lineSeparator()))
+                .map(String::trim)
+                .filter(line -> !line.isEmpty())
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
 }

@@ -3,6 +3,7 @@ package com.expercise;
 import com.expercise.configuration.MessagesResourceBundleSource;
 import com.expercise.service.email.EmailService;
 import com.expercise.service.i18n.MessageService;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,7 @@ public class EmailTemplateTestsConfiguration {
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.addDialect(new LayoutDialect());
         templateEngine.addTemplateResolver(emailTemplateResolver());
         return templateEngine;
     }
