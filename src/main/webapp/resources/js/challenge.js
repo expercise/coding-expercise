@@ -39,7 +39,6 @@ expercise.Challenge = {
                     $resultsTextarea.val(response.consoleMessage);
                     expercise.assistant.speak({'message': response.result});
                     if (response.success) {
-                        $resultsTextarea.addClass('successResult');
                         expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
                     } else {
                         $resultsTextarea.addClass('failedResult');
@@ -211,7 +210,6 @@ expercise.Challenge = {
     resetConsole: function () {
         var $resultsTextarea = $('#resultsTextarea');
         $resultsTextarea.val('');
-        $resultsTextarea.removeClass('successResult');
         $resultsTextarea.removeClass('failedResult');
     },
 
@@ -228,7 +226,6 @@ expercise.Challenge = {
                 var $resultsTextarea = $('#resultsTextarea');
                 $resultsTextarea.val(response.result);
                 if (response.success) {
-                    $resultsTextarea.addClass('successResult');
                     expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
                 } else {
                     $resultsTextarea.addClass('failedResult');
