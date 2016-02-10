@@ -2,6 +2,7 @@ package com.expercise.service.user;
 
 import com.expercise.domain.user.User;
 import com.expercise.utils.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,10 +32,20 @@ public class AuthenticationService {
     private User getOrFindCurrentUser() {
         CurrentUserHolder currentUserHolder = getCurrentUserHolder();
         if (currentUserHolder.hasNotCurrentUser()) {
-            User currentUser = userService.findById(NumberUtils.parseLong(getAuthentication().getName()));
+            User currentUser = getAuthenticatedUserByAuthenticationName();
             currentUserHolder.setCurrentUser(currentUser);
         }
         return currentUserHolder.getCurrentUser();
+    }
+
+    private User getAuthenticatedUserByAuthenticationName() {
+        String authenticationName = getAuthentication().getName();
+        if (StringUtils.isNumeric(authenticationName)) {
+            return userService.findById(NumberUtils.parseLong(authenticationName));
+        } else {
+            // If auto-authenticated after registration, find by email
+            return userService.findByEmail(authenticationName);
+        }
     }
 
     public boolean isCurrentUserAuthenticated() {
