@@ -52,10 +52,12 @@
         <!--/* Programming Languages */-->
         <h3 th:text="#{mainPage.programmingLanguages}"></h3>
         <br/>
-        <div>
-            <img class="logo" th:src="@{/resources/img/javascript-logo.png}" alt="javascript"/>
-            <img class="logo" th:src="@{/resources/img/java8-logo.png}" alt="java8"/>
-            <img class="logo" th:src="@{/resources/img/python-logo.png}" alt="python"/>
+        <div id="supportedLanguages">
+            <a class="noTextDecoration" th:href="@{/themes}">
+                <img class="logo" th:src="@{/resources/img/javascript-logo.png}" alt="javascript"/>
+                <img class="logo" th:src="@{/resources/img/java8-logo.png}" alt="java8"/>
+                <img class="logo" th:src="@{/resources/img/python-logo.png}" alt="python"/>
+            </a>
 
             <p class="text-center">
                 <br/>
