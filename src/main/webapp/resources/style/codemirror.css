@@ -5,7 +5,6 @@
     font-family: monospace;
     height: 300px;
     color: black;
-    border: 1px solid #ccc;
 }
 
 /* PADDING */
@@ -51,8 +50,10 @@
 
 /* CURSOR */
 
-.CodeMirror div.CodeMirror-cursor {
+.CodeMirror-cursor {
     border-left: 1px solid black;
+    border-right: none;
+    width: 0;
 }
 
 /* Shown when moving in bi-directional text */
@@ -60,13 +61,13 @@
     border-left: 1px solid silver;
 }
 
-.CodeMirror.cm-fat-cursor div.CodeMirror-cursor {
+.cm-fat-cursor .CodeMirror-cursor {
     width: auto;
     border: 0;
     background: #7e7;
 }
 
-.CodeMirror.cm-fat-cursor div.CodeMirror-cursors {
+.cm-fat-cursor div.CodeMirror-cursors {
     z-index: 1;
 }
 
@@ -76,46 +77,41 @@
     -webkit-animation: blink 1.06s steps(1) infinite;
     -moz-animation: blink 1.06s steps(1) infinite;
     animation: blink 1.06s steps(1) infinite;
+    background-color: #7e7;
 }
 
 @-moz-keyframes blink {
     0% {
-        background: #7e7;
     }
     50% {
-        background: none;
+        background-color: transparent;
     }
     100% {
-        background: #7e7;
     }
 }
 
 @-webkit-keyframes blink {
     0% {
-        background: #7e7;
     }
     50% {
-        background: none;
+        background-color: transparent;
     }
     100% {
-        background: #7e7;
     }
 }
 
 @keyframes blink {
     0% {
-        background: #7e7;
     }
     50% {
-        background: none;
+        background-color: transparent;
     }
     100% {
-        background: #7e7;
     }
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
-div.CodeMirror-overwrite div.CodeMirror-cursor {
+.CodeMirror-overwrite .CodeMirror-cursor {
 }
 
 .cm-tab {
@@ -129,6 +125,38 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
 }
 
 /* DEFAULT THEME */
+
+.cm-s-default .cm-header {
+    color: blue;
+}
+
+.cm-s-default .cm-quote {
+    color: #090;
+}
+
+.cm-negative {
+    color: #d44;
+}
+
+.cm-positive {
+    color: #292;
+}
+
+.cm-header, .cm-strong {
+    font-weight: bold;
+}
+
+.cm-em {
+    font-style: italic;
+}
+
+.cm-link {
+    text-decoration: underline;
+}
+
+.cm-strikethrough {
+    text-decoration: line-through;
+}
 
 .cm-s-default .cm-keyword {
     color: #708;
@@ -196,44 +224,12 @@ div.CodeMirror-overwrite div.CodeMirror-cursor {
     color: #00c;
 }
 
-.cm-s-default .cm-header {
-    color: blue;
-}
-
-.cm-s-default .cm-quote {
-    color: #090;
-}
-
 .cm-s-default .cm-hr {
     color: #999;
 }
 
 .cm-s-default .cm-link {
     color: #00c;
-}
-
-.cm-negative {
-    color: #d44;
-}
-
-.cm-positive {
-    color: #292;
-}
-
-.cm-header, .cm-strong {
-    font-weight: bold;
-}
-
-.cm-em {
-    font-style: italic;
-}
-
-.cm-link {
-    text-decoration: underline;
-}
-
-.cm-strikethrough {
-    text-decoration: line-through;
 }
 
 .cm-s-default .cm-error {
@@ -295,7 +291,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 
 /* The fake, visible scrollbars. Used to force redraw during scrolling
-   before actuall scrolling happens, thus preventing shaking and
+   before actual scrolling happens, thus preventing shaking and
    flickering artifacts. */
 .CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
     position: absolute;
@@ -347,7 +343,15 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-gutter-wrapper {
     position: absolute;
     z-index: 4;
-    height: 100%;
+    background: none !important;
+    border: none !important;
+}
+
+.CodeMirror-gutter-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 4;
 }
 
 .CodeMirror-gutter-elt {
@@ -433,20 +437,22 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
     visibility: hidden;
 }
 
-.CodeMirror-measure pre {
-    position: static;
+.CodeMirror-cursor {
+    position: absolute;
 }
 
-.CodeMirror div.CodeMirror-cursor {
-    position: absolute;
-    border-right: none;
-    width: 0;
+.CodeMirror-measure pre {
+    position: static;
 }
 
 div.CodeMirror-cursors {
     visibility: hidden;
     position: relative;
     z-index: 3;
+}
+
+div.CodeMirror-dragcursors {
+    visibility: visible;
 }
 
 .CodeMirror-focused div.CodeMirror-cursors {
@@ -465,11 +471,11 @@ div.CodeMirror-cursors {
     cursor: crosshair;
 }
 
-.CodeMirror ::selection {
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection {
     background: #d7d4f0;
 }
 
-.CodeMirror ::-moz-selection {
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection {
     background: #d7d4f0;
 }
 

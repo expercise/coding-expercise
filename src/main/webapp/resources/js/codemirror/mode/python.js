@@ -35,7 +35,7 @@
     };
     var py3 = {
         builtins: ["ascii", "bytes", "exec", "print"],
-        keywords: ["nonlocal", "False", "True", "None"]
+        keywords: ["nonlocal", "False", "True", "None", "async", "await"]
     };
 
     CodeMirror.registerHelper("hintWords", "python", commonKeywords.concat(commonBuiltins));
@@ -47,18 +47,18 @@
     CodeMirror.defineMode("python", function (conf, parserConf) {
         var ERRORCLASS = "error";
 
-        var singleDelimiters = parserConf.singleDelimiters || new RegExp("^[\\(\\)\\[\\]\\{\\}@,:`=;\\.]");
-        var doubleOperators = parserConf.doubleOperators || new RegExp("^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(//)|(\\*\\*))");
-        var doubleDelimiters = parserConf.doubleDelimiters || new RegExp("^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&=)|(\\|=)|(\\^=))");
-        var tripleDelimiters = parserConf.tripleDelimiters || new RegExp("^((//=)|(>>=)|(<<=)|(\\*\\*=))");
+        var singleDelimiters = parserConf.singleDelimiters || /^[\(\)\[\]\{\}@,:`=;\.]/;
+        var doubleOperators = parserConf.doubleOperators || /^([!<>]==|<>|<<|>>|\/\/|\*\*)/;
+        var doubleDelimiters = parserConf.doubleDelimiters || /^(\+=|\-=|\*=|%=|\/=|&=|\|=|\^=)/;
+        var tripleDelimiters = parserConf.tripleDelimiters || /^(\/\/=|>>=|<<=|\*\*=)/;
 
         if (parserConf.version && parseInt(parserConf.version, 10) == 3) {
             // since http://legacy.python.org/dev/peps/pep-0465/ @ is also an operator
-            var singleOperators = parserConf.singleOperators || new RegExp("^[\\+\\-\\*/%&|\\^~<>!@]");
-            var identifiers = parserConf.identifiers || new RegExp("^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*");
+            var singleOperators = parserConf.singleOperators || /^[\+\-\*\/%&|\^~<>!@]/;
+            var identifiers = parserConf.identifiers || /^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*/;
         } else {
-            var singleOperators = parserConf.singleOperators || new RegExp("^[\\+\\-\\*/%&|\\^~<>!]");
-            var identifiers = parserConf.identifiers || new RegExp("^[_A-Za-z][_A-Za-z0-9]*");
+            var singleOperators = parserConf.singleOperators || /^[\+\-\*\/%&|\^~<>!]/;
+            var identifiers = parserConf.identifiers || /^[_A-Za-z][_A-Za-z0-9]*/;
         }
 
         var hangingIndent = parserConf.hangingIndent || conf.indentUnit;
@@ -165,13 +165,16 @@
 
             // Handle operators and Delimiters
             if (stream.match(tripleDelimiters) || stream.match(doubleDelimiters))
-                return null;
+                return "punctuation";
 
             if (stream.match(doubleOperators) || stream.match(singleOperators))
                 return "operator";
 
             if (stream.match(singleDelimiters))
-                return null;
+                return "punctuation";
+
+            if (state.lastToken == "." && stream.match(identifiers))
+                return "property";
 
             if (stream.match(keywords) || stream.match(wordOperators))
                 return "keyword";
@@ -252,17 +255,6 @@
             var style = state.tokenize(stream, state);
             var current = stream.current();
 
-            // Handle '.' connected identifiers
-            if (current == ".") {
-                style = stream.match(identifiers, false) ? null : ERRORCLASS;
-                if (style == null && state.lastStyle == "meta") {
-                    // Apply 'meta' style to '.' connected identifiers when
-                    // appropriate.
-                    style = "meta";
-                }
-                return style;
-            }
-
             // Handle decorators
             if (current == "@") {
                 if (parserConf.version && parseInt(parserConf.version, 10) == 3) {
@@ -273,7 +265,7 @@
             }
 
             if ((style == "variable" || style == "builtin")
-                && state.lastStyle == "meta")
+                && state.lastToken == "meta")
                 style = "meta";
 
             // Handle scope changes.
@@ -306,7 +298,6 @@
                 return {
                     tokenize: tokenBase,
                     scopes: [{offset: basecolumn || 0, type: "py", align: null}],
-                    lastStyle: null,
                     lastToken: null,
                     lambda: false,
                     dedent: 0
@@ -318,11 +309,9 @@
                 if (addErr) state.errorToken = false;
                 var style = tokenLexer(stream, state);
 
-                state.lastStyle = style;
-
-                var current = stream.current();
-                if (current && style)
-                    state.lastToken = current;
+                if (style && style != "comment")
+                    state.lastToken = (style == "keyword" || style == "punctuation") ? stream.current() : style;
+                if (style == "punctuation") style = null;
 
                 if (stream.eol() && state.lambda)
                     state.lambda = false;
@@ -359,8 +348,8 @@
     CodeMirror.defineMIME("text/x-cython", {
         name: "python",
         extra_keywords: words("by cdef cimport cpdef ctypedef enum except" +
-        "extern gil include nogil property public" +
-        "readonly struct union DEF IF ELIF ELSE")
+            "extern gil include nogil property public" +
+            "readonly struct union DEF IF ELIF ELSE")
     });
 
 });

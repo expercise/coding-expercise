@@ -1,6 +1,6 @@
 expercise.CodeEditor = {
 
-    KEYMAPS : {
+    KEYMAPS: {
         DEFAULT: 'default',
         VIM: 'vim'
     },
@@ -31,10 +31,12 @@ expercise.CodeEditor = {
 
     bindRunChallengeShortcut: function () {
         this.codeEditor.setOption("extraKeys", {
-            "Ctrl-Alt-R": function () {
-                expercise.Challenge.runChallenge();
+                "Ctrl-Alt-R": function () {
+                    expercise.Challenge.runChallenge();
+                },
+                "Ctrl-Space": "autocomplete"
             }
-        });
+        );
     },
 
     initCodeEditor: function () {

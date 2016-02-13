@@ -518,6 +518,7 @@
                                 <include>/hopscotch.min.css</include>
                                 <include>/codemirror.css</include>
                                 <include>/ambiance.css</include>
+                                <include>/show-hint.css</include>
                                 <include>/expercise.min.css</include>
                             </includes>
                             <output>
@@ -550,6 +551,9 @@
                                 <include>/codemirror/mode/javascript.js</include>
                                 <include>/codemirror/mode/python.js</include>
                                 <include>/codemirror/mode/clike.js</include>
+                                <include>/codemirror/show-hint.js</include>
+                                <include>/codemirror/javascript-hint.js</include>
+                                <include>/codemirror/anyword-hint.js</include>
                                 <include>/expercise.js</include>
                                 <include>/utils.js</include>
                                 <include>/header.js</include>
