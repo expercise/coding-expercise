@@ -5,6 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.service.cache.CacheService;
 import com.expercise.utils.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserPointService {
 
+    private final static String LEADERBOARD_QUEUE = "points:queue:leaderboard";
+
     @Autowired
     private UserPointDao userPointDao;
+
+    @Autowired
+    private CacheService cacheService;
 
     @Transactional
     public void givePoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
@@ -26,6 +32,7 @@ public class UserPointService {
         userPoint.setGivenDate(Clock.getTime());
 
         userPointDao.save(userPoint);
+        cacheService.rightPush(LEADERBOARD_QUEUE,user.getId());
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
