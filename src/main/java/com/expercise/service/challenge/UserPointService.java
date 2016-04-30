@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserPointService {
 
-    private final static String LEADERBOARD_QUEUE = "points:queue:leaderboard";
+    protected final static String LEADERBOARD_QUEUE = "points::leaderboard::queue";
 
     @Autowired
     private UserPointDao userPointDao;
@@ -32,7 +32,7 @@ public class UserPointService {
         userPoint.setGivenDate(Clock.getTime());
 
         userPointDao.save(userPoint);
-        cacheService.rightPush(LEADERBOARD_QUEUE,user.getId());
+        cacheService.rightPush(LEADERBOARD_QUEUE, user.getId());
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
@@ -40,10 +40,14 @@ public class UserPointService {
             return false;
         }
         return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
+
     }
 
-    public long getTotalPointsOf(User user) {
-        return userPointDao.getTotalPointsOf(user);
+    public Long getTotalPointsOf(User user) {
+        return getTotalPointsOf(user.getId());
     }
 
+    public Long getTotalPointsOf(Long userId) {
+        return userPointDao.getTotalPointsOf(userId);
+    }
 }

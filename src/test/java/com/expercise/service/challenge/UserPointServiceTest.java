@@ -44,7 +44,7 @@ public class UserPointServiceTest {
 
         ArgumentCaptor<UserPoint> pointCaptor = ArgumentCaptor.forClass(UserPoint.class);
 
-        verify(cacheService).rightPush("points:queue:leaderboard",2L);
+        verify(cacheService).rightPush("points::leaderboard::queue", 2L);
         verify(userPointDao).save(pointCaptor.capture());
         UserPoint savedUserPoint = pointCaptor.getValue();
 
