@@ -53,7 +53,7 @@ public class LeaderBoardServiceTest {
         set.add(new DefaultTypedTuple(20L, 2d));
         set.add(new DefaultTypedTuple(10L, 1d));
 
-        when(cacheService.findTopX("points::leaderboard", 10)).thenReturn(set);
+        when(cacheService.findScoresByKey("points::leaderboard", 0, 10)).thenReturn(set);
         when(userService.findById(10L)).thenReturn(new UserBuilder().id(10L).build());
         when(userService.findById(20L)).thenReturn(new UserBuilder().id(20L).build());
         when(userService.findById(30L)).thenReturn(new UserBuilder().id(30L).build());
@@ -74,4 +74,29 @@ public class LeaderBoardServiceTest {
         assertThat(rankFor, equalTo(1L));
     }
 
+    @Test
+    public void shouldReturnUsersAroundUser() {
+
+        Set<ZSetOperations.TypedTuple<Serializable>> set = new LinkedHashSet<>();
+        set.add(new DefaultTypedTuple(50L, 5d));
+        set.add(new DefaultTypedTuple(40L, 4d));
+        set.add(new DefaultTypedTuple(30L, 3d));
+        set.add(new DefaultTypedTuple(20L, 2d));
+        set.add(new DefaultTypedTuple(10L, 1d));
+
+
+        when(cacheService.zRevRankFor("points::leaderboard", 30L)).thenReturn(4L);
+        when(cacheService.findScoresByKey("points::leaderboard", 3, 8)).thenReturn(set);
+        when(userService.findById(10L)).thenReturn(new UserBuilder().id(10L).build());
+        when(userService.findById(20L)).thenReturn(new UserBuilder().id(20L).build());
+        when(userService.findById(30L)).thenReturn(new UserBuilder().id(30L).build());
+        when(userService.findById(40L)).thenReturn(new UserBuilder().id(40L).build());
+        when(userService.findById(50L)).thenReturn(new UserBuilder().id(50L).build());
+        List<LeaderBoardModel> leaderBoardModelAroundUser = leaderBoardService.getLeaderBoardAroundUser(new UserBuilder().id(30L).build());
+        assertThat(leaderBoardModelAroundUser.get(0).getUser().getId(), equalTo(50L));
+        assertThat(leaderBoardModelAroundUser.get(1).getUser().getId(), equalTo(40L));
+        assertThat(leaderBoardModelAroundUser.get(2).getUser().getId(), equalTo(30L));
+        assertThat(leaderBoardModelAroundUser.get(3).getUser().getId(), equalTo(20L));
+        assertThat(leaderBoardModelAroundUser.get(4).getUser().getId(), equalTo(10L));
+    }
 }

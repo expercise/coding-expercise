@@ -32,11 +32,12 @@ public class CacheService {
         redisTemplate.opsForZSet().add(key, userId, totalPointsOf);
     }
 
-    public Set<ZSetOperations.TypedTuple<Serializable>> findTopX(String key, int count) {
-        return redisTemplate.opsForZSet().reverseRangeWithScores(key, 0, count);
-    }
-
     public Long zRevRankFor(String key, Long id) {
         return redisTemplate.opsForZSet().reverseRank(key, id);
+    }
+
+    public Set<ZSetOperations.TypedTuple<Serializable>> findScoresByKey(String key, int start, int count) {
+        return redisTemplate.opsForZSet().reverseRangeWithScores(key, start, count);
+
     }
 }
