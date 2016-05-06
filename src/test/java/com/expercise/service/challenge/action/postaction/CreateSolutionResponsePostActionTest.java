@@ -6,6 +6,7 @@ import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.InterpreterFailureType;
 import com.expercise.interpreter.InterpreterResult;
+import com.expercise.service.challenge.LeaderBoardService;
 import com.expercise.service.challenge.UserPointService;
 import com.expercise.service.challenge.UserTestCaseStateService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
@@ -42,6 +43,9 @@ public class CreateSolutionResponsePostActionTest {
     @Mock
     private UserTestCaseStateService userTestCaseStateService;
 
+    @Mock
+    private LeaderBoardService leaderBoardService;
+
     private ChallengeEvaluationContext context;
 
     private User user;
@@ -75,13 +79,14 @@ public class CreateSolutionResponsePostActionTest {
     public void shouldCreateSuccessResponseWhenInterpreterResultIsSuccess() {
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
+        when(leaderBoardService.getRankFor(user)).thenReturn(2L);
         when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
-        when(messageService.getMessage("challenge.successWithPoint", 22)).thenReturn("success, 22 points");
+        when(messageService.getMessage("challenge.successWithPoint", 22, 2L)).thenReturn("success, 22 points, you are #2");
 
         action.execute(context);
 
         assertTrue(context.getSolutionValidationResult().isSuccess());
-        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success, 22 points"));
+        assertThat(context.getSolutionValidationResult().getResult(), equalTo("success, 22 points, you are #2"));
     }
 
     @Test
