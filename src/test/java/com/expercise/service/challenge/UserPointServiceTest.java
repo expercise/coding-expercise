@@ -5,7 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
-import com.expercise.service.cache.CacheService;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.UserBuilder;
 import com.expercise.utils.Clock;
@@ -31,7 +31,7 @@ public class UserPointServiceTest {
     private UserPointDao userPointDao;
 
     @Mock
-    private CacheService cacheService;
+    private RedisCacheService cacheService;
 
     @Test
     public void shouldGiveUserPointForTheChallenge() {

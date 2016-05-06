@@ -5,7 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
-import com.expercise.service.cache.CacheService;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.utils.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class UserPointService {
     private UserPointDao userPointDao;
 
     @Autowired
-    private CacheService cacheService;
+    private RedisCacheService cacheService;
 
     @Transactional
     public void givePoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
@@ -40,7 +40,6 @@ public class UserPointService {
             return false;
         }
         return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
-
     }
 
     public Long getTotalPointsOf(User user) {

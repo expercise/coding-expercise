@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.service.cache.CacheService;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.service.challenge.model.LeaderBoardModel;
 import com.expercise.service.user.UserService;
 import com.expercise.testutils.builder.UserBuilder;
@@ -29,7 +29,7 @@ public class LeaderBoardServiceTest {
     private UserPointService userPointService;
 
     @Mock
-    private CacheService cacheService;
+    private RedisCacheService cacheService;
 
     @Mock
     private UserService userService;

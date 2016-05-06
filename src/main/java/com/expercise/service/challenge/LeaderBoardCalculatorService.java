@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.service.cache.CacheService;
+import com.expercise.service.cache.RedisCacheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class LeaderBoardCalculatorService {
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     @Autowired
-    private CacheService cacheService;
+    private RedisCacheService cacheService;
 
     @Autowired
     private LeaderBoardService leaderBoardService;

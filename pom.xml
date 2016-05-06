@@ -20,7 +20,7 @@
         <spock.version>0.7-groovy-2.0</spock.version>
         <cglib.version>3.1</cglib.version>
         <objenesis.version>2.1</objenesis.version>
-        <jedis.version>2.7.2</jedis.version>
+        <jedis.version>2.8.1</jedis.version>
         <spring.data.version>1.7.1.RELEASE</spring.data.version>
 
         <spring.version>4.1.1.RELEASE</spring.version>

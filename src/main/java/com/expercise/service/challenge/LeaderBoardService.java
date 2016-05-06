@@ -1,7 +1,7 @@
 package com.expercise.service.challenge;
 
 import com.expercise.domain.user.User;
-import com.expercise.service.cache.CacheService;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.service.challenge.model.LeaderBoardModel;
 import com.expercise.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +22,11 @@ public class LeaderBoardService {
     private final static int LEADERBOARD_TOP_USERS_COUNT = 10;
     private final static int LEADERBOARD_AROUND_USER_COUNT = 4;
 
-
     @Autowired
     private UserPointService userPointService;
 
     @Autowired
-    private CacheService cacheService;
+    private RedisCacheService cacheService;
 
     @Autowired
     private UserService userService;

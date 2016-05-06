@@ -1,7 +1,6 @@
 package com.expercise.service.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -10,10 +9,9 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Service
-public class CacheService {
+public class RedisCacheService {
 
     @Autowired
-    @Qualifier("objectRedisTemplate")
     private RedisTemplate<String, Serializable> redisTemplate;
 
     public <T extends Serializable> void rightPush(String key, T value) {
