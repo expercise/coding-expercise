@@ -57,7 +57,9 @@
                             <span th:unless="${levelActive}" th:text="${challenge.getTitle()}"></span>
                             <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
                         </td>
-                        <td th:text="${challenge.user.getFullName()}"></td>
+                        <td>
+                            <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
+                        </td>
                         <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
                         <td th:text="${solutionCountMap.get(challenge)}"></td>
                     </tr>

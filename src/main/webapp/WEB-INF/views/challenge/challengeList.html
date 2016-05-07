@@ -34,7 +34,9 @@
                     </small>
                 </td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>
-                <td th:if="${mode == 'Admin'}" th:text="${challenge.user.getFullName()}"></td>
+                <td th:if="${mode == 'Admin'}">
+                    <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
+                </td>
                 <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
                 <td class="text-center">
                     <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>

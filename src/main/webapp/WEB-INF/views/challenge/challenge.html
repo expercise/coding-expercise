@@ -34,7 +34,7 @@
             <span th:if="${!challenge.getUser().hasAvatar() and challenge.getUser().hasSocialImageUrl()}">
                 <img class="img-circle socialImage small" th:src="${challenge.getUser().socialImageUrl}"/>
             </span>
-            <a th:href="@{${challenge.user.bookmarkableUrl}}" class="small" th:text="${challenge.getUser().getFullName()}">
+            <a th:href="@{${challenge.user.bookmarkableUrl}}" class="small" target="_blank" th:text="${challenge.getUser().getFullName()}">
                 Author Full Name
             </a>
             <span class="small" th:text="#{challenge.addedBy}">added.</span>
