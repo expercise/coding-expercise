@@ -44,7 +44,7 @@
                 </td>
                 <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
                 <td class="text-right operations">
-                    <a class="btn btn-sm btn-default" th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}">
+                    <a class="btn btn-sm btn-default" th:href="@{${@urlService.updateChallenge(challenge)}}">
                         <i class="fa fa-edit"></i>
                         <span th:text="#{button.edit}"></span>
                     </a>

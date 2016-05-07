@@ -1,5 +1,6 @@
 package com.expercise.service.util;
 
+import com.expercise.domain.challenge.Challenge;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class UrlService {
 
     private String getRootUrl() {
         return rootUrl.replaceFirst("://www.", "://");
+    }
+
+    public String updateChallenge(Challenge challenge) {
+        return "/challenges/updateChallenge/" + challenge.getId();
     }
 
 }

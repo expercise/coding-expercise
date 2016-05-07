@@ -84,6 +84,11 @@
             <a id="resetButton" class="editorButton btn btn-default btn-lg" role="button">
                 <i class="fa fa-eraser"></i>
             </a>
+            <a id="editButton" class="editorButton btn btn-default btn-lg"
+               th:href="@{${@urlService.updateChallenge(challenge)}}"
+               sec:authorize="hasRole('ROLE_ADMIN')">
+                <i class="fa fa-edit"></i>
+            </a>
         </div>
     </div>
 
