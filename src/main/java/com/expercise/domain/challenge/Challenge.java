@@ -26,19 +26,19 @@ public class Challenge extends AbstractEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Title", nullable = false)
     private Map<Lingo, String> titles = new HashMap<>();
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Description", nullable = false, length = 2048)
     private Map<Lingo, String> descriptions = new HashMap<>();
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Signature", nullable = false, length = 1024)
     private Map<Lingo, String> signatures = new HashMap<>();
 

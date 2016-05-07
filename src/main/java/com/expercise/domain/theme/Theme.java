@@ -26,7 +26,7 @@ public class Theme extends PrioritizedEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Name", nullable = false)
     private Map<Lingo, String> names = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class Theme extends PrioritizedEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Description", nullable = false)
     private Map<Lingo, String> descriptions = new HashMap<>();
 

@@ -16,7 +16,7 @@ public class Quote extends AbstractEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Text", nullable = false, length = 1024)
     private Map<Lingo, String> quoteInMultiLingo = new HashMap<>();
 

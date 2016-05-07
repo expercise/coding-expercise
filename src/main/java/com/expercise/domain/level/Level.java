@@ -21,7 +21,7 @@ public class Level extends PrioritizedEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo", nullable = false)
+    @MapKeyColumn(name = "Lingo")
     @Column(name = "Name", nullable = false)
     private Map<Lingo, String> names = new HashMap<>();
 
