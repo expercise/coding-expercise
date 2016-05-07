@@ -17,6 +17,7 @@
             <a th:href="@{${theme.bookmarkableUrl}}">
                 <div class="themeItemTitle">
                     <span th:text="${theme.getNameFor(#locale)}"></span>
+                    <span class="badge" th:text="${#messages.msg('theme.listing.challengeCount', challengeCountsMap.get(theme))}"></span>
                 </div>
                 <div class="themeItemDescription">
                     <span th:text="${theme.persisted} ? ${theme.getDescription()} : ${#messages.msg('theme.listing.header.notThemedChallenges')}"></span>

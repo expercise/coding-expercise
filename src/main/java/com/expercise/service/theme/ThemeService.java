@@ -1,5 +1,6 @@
 package com.expercise.service.theme;
 
+import com.expercise.dao.challenge.ChallengeDao;
 import com.expercise.dao.theme.ThemeDao;
 import com.expercise.domain.theme.Theme;
 import com.expercise.enums.Lingo;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -19,10 +22,27 @@ public class ThemeService {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private ChallengeDao challengeDao;
+
     public List<Theme> getAll() {
         List<Theme> themes = themeDao.findAllOrderedByPriority();
         themes.add(createDummyThemeForNotThemedChallenges());
         return themes;
+    }
+
+    public Map<Theme, Long> prepareChallengeCounts(List<Theme> themes) {
+        return themes.stream()
+                .collect(Collectors.toMap(
+                        t -> t,
+                        t -> {
+                            if (t.isPersisted()) {
+                                return challengeDao.countApprovedChallengesIn(t);
+                            } else {
+                                return challengeDao.countNotThemedApprovedChallenges();
+                            }
+                        })
+                );
     }
 
     private Theme createDummyThemeForNotThemedChallenges() {

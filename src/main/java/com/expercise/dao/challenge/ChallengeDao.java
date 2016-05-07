@@ -2,6 +2,7 @@ package com.expercise.dao.challenge;
 
 import com.expercise.dao.AbstractHibernateDao;
 import com.expercise.domain.challenge.Challenge;
+import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
 import com.expercise.utils.collection.MapBuilder;
 import org.hibernate.Criteria;
@@ -41,19 +42,35 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
         return findAllBy(new MapBuilder<String, Object>().put("approved", true).put("user", user).build());
     }
 
-    public List<Challenge> findNotThemedApprovedChallenges() {
+    public Long countApprovedChallengesIn(Theme theme) {
         Criteria criteria = getCriteria();
 
-        criteria.createAlias("level", "level", JoinType.LEFT_OUTER_JOIN);
-        criteria.add(Restrictions.disjunction(
-                Restrictions.isNull("level"),
-                Restrictions.isNull("level.theme")
-
-        ));
-
+        criteria.createAlias("level", "level");
+        criteria.add(Restrictions.eq("level.theme", theme));
         criteria.add(Restrictions.eq("approved", true));
 
+        return countBy(criteria);
+    }
+
+    public List<Challenge> findNotThemedApprovedChallenges() {
+        Criteria criteria = getNotThemedApprovedChallengesCriteria();
         return list(criteria);
+    }
+
+    public Long countNotThemedApprovedChallenges() {
+        Criteria criteria = getNotThemedApprovedChallengesCriteria();
+        return countBy(criteria);
+    }
+
+    private Criteria getNotThemedApprovedChallengesCriteria() {
+        return getCriteria()
+                .createAlias("level", "level", JoinType.LEFT_OUTER_JOIN)
+                .add(Restrictions.disjunction(
+                        Restrictions.isNull("level"),
+                        Restrictions.isNull("level.theme")
+
+                ))
+                .add(Restrictions.eq("approved", true));
     }
 
 }
