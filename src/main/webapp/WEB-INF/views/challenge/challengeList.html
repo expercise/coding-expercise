@@ -15,7 +15,7 @@
             <tr>
                 <th th:text="#{challengeList.table.header.challenge}"></th>
                 <th th:text="#{challengeManagement.challengeType}"></th>
-                <th th:text="#{challengeManagement.approved}"></th>
+                <th class="text-center" th:text="#{challengeManagement.approved}"></th>
                 <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
                 <th></th>
             </tr>
@@ -32,7 +32,10 @@
                     </small>
                 </td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>
-                <td th:text="#{${challenge.approved} ? 'label.yes' : 'label.no'}"></td>
+                <td class="text-center">
+                    <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>
+                    <i th:if="${not challenge.approved}" class="fa fa-hourglass-start text-warning"></i>
+                </td>
                 <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
                 <td class="text-right operations">
                     <a class="btn btn-sm btn-default" th:href="@{'/challenges/updateChallenge/'+ ${challenge.id}}">

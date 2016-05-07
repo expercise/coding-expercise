@@ -5,6 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.utils.collection.MapBuilder;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,17 @@ public class ChallengeDao extends AbstractHibernateDao<Challenge> {
     }
 
     public List<Challenge> findAllByUser(final User user) {
-        return findAllBy(new MapBuilder<String, Object>().put("user", user).build());
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("user", user));
+        criteria.addOrder(Order.desc("createDate"));
+        return list(criteria);
+    }
+
+    @Override
+    public List<Challenge> findAll() {
+        Criteria criteria = getCriteria();
+        criteria.addOrder(Order.desc("createDate"));
+        return list(criteria);
     }
 
     public List<Challenge> findAllApprovedByUser(final User user) {
