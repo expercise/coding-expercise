@@ -40,7 +40,7 @@
             <span class="small" th:text="#{challenge.addedBy}">added.</span>
         </div>
         <div class="col-xs-4 text-right">
-            <span class="small" th:text="${#messages.msg('challenge.addedOnDate', #dates.format(challenge.getCreateDate(),'dd MMMM yyyy'))}">Added on 01 Jan 2014.</span>
+            <span class="small" th:text="${#messages.msg('challenge.addedOnDate', #dates.format(challenge.getCreateDate(),'dd MMM yyyy'))}">Added on 01 Jan 2014.</span>
         </div>
     </div>
 
