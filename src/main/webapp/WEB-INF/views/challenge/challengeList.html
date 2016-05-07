@@ -15,6 +15,8 @@
             <tr>
                 <th th:text="#{challengeList.table.header.challenge}"></th>
                 <th th:text="#{challengeManagement.challengeType}"></th>
+                <th th:if="${mode == 'Admin'}" th:text="#{challengeList.table.header.user}"></th>
+                <th th:text="#{challengeList.table.header.createDate}"></th>
                 <th class="text-center" th:text="#{challengeManagement.approved}"></th>
                 <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
                 <th></th>
@@ -32,6 +34,8 @@
                     </small>
                 </td>
                 <td th:text="#{${challenge.getChallengeType()}}"></td>
+                <td th:if="${mode == 'Admin'}" th:text="${challenge.user.getFullName()}"></td>
+                <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
                 <td class="text-center">
                     <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>
                     <i th:if="${not challenge.approved}" class="fa fa-hourglass-start text-warning"></i>
