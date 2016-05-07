@@ -5,6 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.UserBuilder;
 import com.expercise.utils.Clock;
@@ -29,6 +30,9 @@ public class UserPointServiceTest {
     @Mock
     private UserPointDao userPointDao;
 
+    @Mock
+    private RedisCacheService cacheService;
+
     @Test
     public void shouldGiveUserPointForTheChallenge() {
         Clock.freeze(DateUtils.toDate("10/12/2012"));
@@ -40,6 +44,7 @@ public class UserPointServiceTest {
 
         ArgumentCaptor<UserPoint> pointCaptor = ArgumentCaptor.forClass(UserPoint.class);
 
+        verify(cacheService).rightPush("points::leaderboard::queue", 2L);
         verify(userPointDao).save(pointCaptor.capture());
         UserPoint savedUserPoint = pointCaptor.getValue();
 

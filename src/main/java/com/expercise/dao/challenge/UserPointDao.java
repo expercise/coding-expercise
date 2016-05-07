@@ -36,9 +36,9 @@ public class UserPointDao extends AbstractHibernateDao<UserPoint> {
         return countBy(criteriaParams);
     }
 
-    public long getTotalPointsOf(User user) {
+    public long getTotalPointsOf(Long userId) {
         Criteria criteria = getCriteria();
-        criteria.add(Restrictions.eq("user", user));
+        criteria.add(Restrictions.eq("user.id", userId));
         return sumBy("pointAmount", criteria);
     }
 

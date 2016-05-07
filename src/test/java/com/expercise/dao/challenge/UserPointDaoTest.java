@@ -88,7 +88,7 @@ public class UserPointDaoTest extends AbstractDaoTest {
         new UserPointBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).user(user).pointAmount(6).givenDate(Clock.getTime()).persist(getCurrentSession());
         new UserPointBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).user(user).pointAmount(7).givenDate(Clock.getTime()).persist(getCurrentSession());
 
-        long totalPoints = dao.getTotalPointsOf(user);
+        long totalPoints = dao.getTotalPointsOf(user.getId());
 
         assertThat(totalPoints, equalTo(13L));
     }
@@ -97,7 +97,7 @@ public class UserPointDaoTest extends AbstractDaoTest {
     public void shouldReturnZeroAsTotalExperiencePointsOfUserIfUserHasNotEarnedPointYet() {
         User user = new UserBuilder().email("user@expercise.com").persist(getCurrentSession());
 
-        long totalPoints = dao.getTotalPointsOf(user);
+        long totalPoints = dao.getTotalPointsOf(user.getId());
 
         assertThat(totalPoints, equalTo(0L));
     }

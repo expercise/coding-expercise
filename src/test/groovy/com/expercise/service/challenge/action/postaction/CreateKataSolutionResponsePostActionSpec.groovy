@@ -7,6 +7,7 @@ import com.expercise.enums.ProgrammingLanguage
 import com.expercise.interpreter.InterpreterResult
 import com.expercise.interpreter.TestCaseResult
 import com.expercise.interpreter.TestCaseWithResult
+import com.expercise.service.challenge.LeaderBoardService
 import com.expercise.service.challenge.UserPointService
 import com.expercise.service.challenge.UserTestCaseStateService
 import com.expercise.service.challenge.model.ChallengeEvaluationContext
@@ -25,12 +26,14 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
     AuthenticationService authenticationService = Mock()
     UserPointService userPointService = Mock()
     UserTestCaseStateService userTestCaseStateService = Mock()
+    LeaderBoardService leaderBoardService = Mock()
 
     def setup() {
         def dependencies = [messageService: messageService,
                             authenticationService: authenticationService,
                             userPointService: userPointService,
-                            userTestCaseStateService: userTestCaseStateService]
+                            userTestCaseStateService: userTestCaseStateService,
+                            leaderBoardService : leaderBoardService]
         action = new CreateKataSolutionResponsePostAction(dependencies)
     }
 
@@ -80,10 +83,12 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         context.setInterpreterResult(InterpreterResult.createSuccessResult())
 
         and: "prepare message stubbing"
-        1 * messageService.getMessage("challenge.successWithPoint", 10) >> "Congratulations! You won 10 points"
+
         User user = new UserBuilder().buildWithRandomId()
         1 * authenticationService.getCurrentUser() >> user
         1 * userPointService.canUserWinPoint(codeKataChallenge, user, ProgrammingLanguage.Python) >> true
+        1 * leaderBoardService.getRankFor(user) >> 1
+        1 * messageService.getMessage("challenge.successWithPoint", 10, 1) >> "Congratulations! You won 10 points, right now you are #1 in leaderboard"
 
         when:
         action.execute(context)
@@ -91,7 +96,7 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         def solutionResult = context.getSolutionValidationResult()
         then:
         solutionResult.getChallengeSolutionStatus() == ChallengeSolutionStatus.CHALLENGE_COMPLETED
-        solutionResult.getResult() == "Congratulations! You won 10 points"
+        solutionResult.getResult() == "Congratulations! You won 10 points, right now you are #1 in leaderboard"
 
         def testCasesWithSourceModel = solutionResult.getTestCasesWithSourceModel()
         testCasesWithSourceModel.getTestCaseModels().size() == 2

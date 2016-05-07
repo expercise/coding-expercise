@@ -6,6 +6,7 @@ import com.expercise.domain.user.User;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.interpreter.TestCaseModel;
 import com.expercise.interpreter.TestCaseWithResult;
+import com.expercise.service.challenge.LeaderBoardService;
 import com.expercise.service.challenge.UserPointService;
 import com.expercise.service.challenge.UserTestCaseStateService;
 import com.expercise.service.challenge.action.PostEvaluationAction;
@@ -33,6 +34,9 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
     @Autowired
     private UserTestCaseStateService userTestCaseStateService;
 
+    @Autowired
+    private LeaderBoardService leaderBoardService;
+
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
         return context.getChallenge().getChallengeType() == ChallengeType.ALGORITHM;
@@ -47,7 +51,8 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
             User user = authenticationService.getCurrentUser();
             Challenge challenge = context.getChallenge();
             if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
-                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint()));
+                Long rank = leaderBoardService.getRankFor(user);
+                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(),rank));
             } else {
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
             }

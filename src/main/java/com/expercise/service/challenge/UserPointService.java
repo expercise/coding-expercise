@@ -5,6 +5,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.service.cache.RedisCacheService;
 import com.expercise.utils.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserPointService {
 
+    protected final static String LEADERBOARD_QUEUE = "points::leaderboard::queue";
+
     @Autowired
     private UserPointDao userPointDao;
+
+    @Autowired
+    private RedisCacheService cacheService;
 
     @Transactional
     public void givePoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
@@ -26,6 +32,7 @@ public class UserPointService {
         userPoint.setGivenDate(Clock.getTime());
 
         userPointDao.save(userPoint);
+        cacheService.rightPush(LEADERBOARD_QUEUE, user.getId());
     }
 
     public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
@@ -35,8 +42,11 @@ public class UserPointService {
         return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
     }
 
-    public long getTotalPointsOf(User user) {
-        return userPointDao.getTotalPointsOf(user);
+    public Long getTotalPointsOf(User user) {
+        return getTotalPointsOf(user.getId());
     }
 
+    public Long getTotalPointsOf(Long userId) {
+        return userPointDao.getTotalPointsOf(userId);
+    }
 }
