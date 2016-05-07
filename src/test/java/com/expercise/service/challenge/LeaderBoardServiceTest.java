@@ -39,7 +39,6 @@ public class LeaderBoardServiceTest {
 
     @Test
     public void shouldUpdateLeaderBoardPointForUser() {
-
         when(userPointService.getTotalPointsOf(1L)).thenReturn(10L);
         leaderBoardService.updateLeaderBoardPoint(1L);
 
@@ -76,7 +75,6 @@ public class LeaderBoardServiceTest {
 
     @Test
     public void shouldReturnUsersAroundUser() {
-
         Set<ZSetOperations.TypedTuple<Serializable>> set = new LinkedHashSet<>();
         set.add(new DefaultTypedTuple(50L, 5d));
         set.add(new DefaultTypedTuple(40L, 4d));
@@ -99,4 +97,5 @@ public class LeaderBoardServiceTest {
         assertThat(leaderBoardModelAroundUser.get(3).getUser().getId(), equalTo(20L));
         assertThat(leaderBoardModelAroundUser.get(4).getUser().getId(), equalTo(10L));
     }
+
 }

@@ -15,7 +15,6 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import java.io.Serializable;
 
-
 @Configuration
 public class RedisConfiguration {
 
@@ -25,7 +24,6 @@ public class RedisConfiguration {
     @Bean
     public RedisConnectionFactory jedisConnectionFactory() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
-
         poolConfig.setMaxIdle(5);
         poolConfig.setMinIdle(1);
         poolConfig.setTestOnBorrow(true);
@@ -37,7 +35,6 @@ public class RedisConfiguration {
         jedisConnectionFactory.setHostName(hostname);
         return jedisConnectionFactory;
     }
-
 
     @Bean
     public DefaultStringRedisConnection defaultStringRedisConnection() {
@@ -70,6 +67,5 @@ public class RedisConfiguration {
         redisTemplate.setHashValueSerializer(redisTemplate.getValueSerializer());
         return redisTemplate;
     }
-
 
 }

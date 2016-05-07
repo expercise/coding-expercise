@@ -29,7 +29,7 @@ public class LeaderBoardCalculatorService {
     }
 
     public void listenQueue() {
-        executorService.submit((Runnable) () -> {
+        executorService.submit(() -> {
             while (true) {
                 try {
                     Long userId = cacheService.leftPop(UserPointService.LEADERBOARD_QUEUE);
@@ -38,11 +38,10 @@ public class LeaderBoardCalculatorService {
                     }
                     Thread.sleep(500);
                 } catch (Exception e) {
-                    LOGGER.error("An error occured while calculating points", e);
+                    LOGGER.error("An error occurred while calculating points", e);
                 }
             }
-
         });
-
     }
+
 }

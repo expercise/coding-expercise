@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 public class LeaderBoardModel implements Serializable {
 
-
     private User user;
 
     private Double point;
@@ -34,4 +33,5 @@ public class LeaderBoardModel implements Serializable {
     public void setPoint(Double point) {
         this.point = point;
     }
+
 }

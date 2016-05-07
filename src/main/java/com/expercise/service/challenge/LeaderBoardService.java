@@ -19,7 +19,9 @@ import java.util.stream.Collectors;
 public class LeaderBoardService {
 
     private final static String LEADERBOARD = "points::leaderboard";
+
     private final static int LEADERBOARD_TOP_USERS_COUNT = 10;
+
     private final static int LEADERBOARD_AROUND_USER_COUNT = 4;
 
     @Autowired
@@ -43,7 +45,6 @@ public class LeaderBoardService {
     }
 
     private List<LeaderBoardModel> convertToModel(Set<ZSetOperations.TypedTuple<Serializable>> tuples) {
-
         return tuples.stream()
                 .map(tuple -> new LeaderBoardModel(userService.findById((Long) tuple.getValue()), tuple.getScore()))
                 .collect(Collectors.toList());
@@ -55,14 +56,18 @@ public class LeaderBoardService {
 
     public List<LeaderBoardModel> getLeaderBoardAroundUser(User user) {
         Long rank = getRankFor(user);
-        if (rank != null) {
-            int start = rank.intValue() - (LEADERBOARD_AROUND_USER_COUNT / 2);
-            start = start < 0 ? 0 : start;
-            int end = start + LEADERBOARD_AROUND_USER_COUNT + 1;
 
-            Set<ZSetOperations.TypedTuple<Serializable>> tuples = cacheService.findScoresByKey(LEADERBOARD, start, end);
-            return convertToModel(tuples);
+        if (rank == null) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+
+        int start = rank.intValue() - (LEADERBOARD_AROUND_USER_COUNT / 2);
+        start = start < 0 ? 0 : start;
+        int end = start + LEADERBOARD_AROUND_USER_COUNT + 1;
+
+        Set<ZSetOperations.TypedTuple<Serializable>> tuples = cacheService.findScoresByKey(LEADERBOARD, start, end);
+
+        return convertToModel(tuples);
     }
+
 }

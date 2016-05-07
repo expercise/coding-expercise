@@ -395,7 +395,6 @@
         	<version>${spring.data.version}</version>
         </dependency>
 
-
         <!-- SendGrid Java API -->
         <dependency>
             <groupId>com.sendgrid</groupId>

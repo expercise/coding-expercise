@@ -54,7 +54,7 @@ public class CreateKataSolutionResponsePostAction implements PostEvaluationActio
                 User user = authenticationService.getCurrentUser();
                 if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
                     Long rank = leaderBoardService.getRankFor(user);
-                    result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(),rank));
+                    result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(), rank));
                 } else {
                     result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
                 }

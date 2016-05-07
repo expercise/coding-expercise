@@ -1,4 +1,5 @@
 package com.expercise.service.challenge.action.postaction
+
 import com.expercise.domain.challenge.Challenge
 import com.expercise.domain.challenge.ChallengeType
 import com.expercise.domain.challenge.TestCase
@@ -29,11 +30,11 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
     LeaderBoardService leaderBoardService = Mock()
 
     def setup() {
-        def dependencies = [messageService: messageService,
-                            authenticationService: authenticationService,
-                            userPointService: userPointService,
+        def dependencies = [messageService          : messageService,
+                            authenticationService   : authenticationService,
+                            userPointService        : userPointService,
                             userTestCaseStateService: userTestCaseStateService,
-                            leaderBoardService : leaderBoardService]
+                            leaderBoardService      : leaderBoardService]
         action = new CreateKataSolutionResponsePostAction(dependencies)
     }
 
@@ -59,8 +60,8 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
 
     def "should set result as successful if kata challenge completed properly"() {
         given: "create the challenge"
-        TestCase testCase0 = new TestCase(id:1L)
-        TestCase testCase1 = new TestCase(id:2L)
+        TestCase testCase0 = new TestCase(id: 1L)
+        TestCase testCase1 = new TestCase(id: 2L)
         Challenge codeKataChallenge = new ChallengeBuilder()
                 .challengeType(ChallengeType.CODE_KATA)
                 .testCases(testCase0, testCase1)
@@ -71,11 +72,11 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         context.setChallenge(codeKataChallenge)
         context.setLanguage(ProgrammingLanguage.Python)
         def testCaseWithResult0 = new TestCaseWithResult(testCase0)
-            testCaseWithResult0.setActualValue("0")
-            testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
+        testCaseWithResult0.setActualValue("0")
+        testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
         def testCaseWithResult1 = new TestCaseWithResult(testCase1)
-            testCaseWithResult1.setActualValue("1")
-            testCaseWithResult1.setTestCaseResult(TestCaseResult.PASSED)
+        testCaseWithResult1.setActualValue("1")
+        testCaseWithResult1.setTestCaseResult(TestCaseResult.PASSED)
         context.addTestCaseWithResult(testCaseWithResult0)
         context.addTestCaseWithResult(testCaseWithResult1)
 
@@ -106,8 +107,8 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
 
     def "should set result as successful if kata challenge completed but do not give point if user had already won"() {
         given: "create the challenge"
-        TestCase testCase0 = new TestCase(id:1L)
-        TestCase testCase1 = new TestCase(id:2L)
+        TestCase testCase0 = new TestCase(id: 1L)
+        TestCase testCase1 = new TestCase(id: 2L)
         Challenge codeKataChallenge = new ChallengeBuilder()
                 .challengeType(ChallengeType.CODE_KATA)
                 .testCases(testCase0, testCase1)
@@ -118,11 +119,11 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         context.setChallenge(codeKataChallenge)
         context.setLanguage(ProgrammingLanguage.Python)
         def testCaseWithResult0 = new TestCaseWithResult(testCase0)
-            testCaseWithResult0.setActualValue("0")
-            testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
+        testCaseWithResult0.setActualValue("0")
+        testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
         def testCaseWithResult1 = new TestCaseWithResult(testCase1)
-            testCaseWithResult1.setActualValue("1")
-            testCaseWithResult1.setTestCaseResult(TestCaseResult.PASSED)
+        testCaseWithResult1.setActualValue("1")
+        testCaseWithResult1.setTestCaseResult(TestCaseResult.PASSED)
         context.addTestCaseWithResult(testCaseWithResult0)
         context.addTestCaseWithResult(testCaseWithResult1)
 
@@ -151,8 +152,8 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
 
     def "should set result as failed if interpretation result is failed"() {
         given: "create the challenge"
-        TestCase testCase0 = new TestCase(id:1L)
-        TestCase testCase1 = new TestCase(id:2L)
+        TestCase testCase0 = new TestCase(id: 1L)
+        TestCase testCase1 = new TestCase(id: 2L)
         Challenge codeKataChallenge = new ChallengeBuilder()
                 .challengeType(ChallengeType.CODE_KATA)
                 .testCases(testCase0, testCase1)
@@ -163,11 +164,11 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         context.setChallenge(codeKataChallenge)
         context.setLanguage(ProgrammingLanguage.Python)
         def testCaseWithResult0 = new TestCaseWithResult(testCase0)
-            testCaseWithResult0.setActualValue("0")
-            testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
+        testCaseWithResult0.setActualValue("0")
+        testCaseWithResult0.setTestCaseResult(TestCaseResult.PASSED)
         def testCaseWithResult1 = new TestCaseWithResult(testCase1)
-            testCaseWithResult1.setActualValue("1")
-            testCaseWithResult1.setTestCaseResult(TestCaseResult.FAILED)
+        testCaseWithResult1.setActualValue("1")
+        testCaseWithResult1.setTestCaseResult(TestCaseResult.FAILED)
         context.addTestCaseWithResult(testCaseWithResult0)
         context.addTestCaseWithResult(testCaseWithResult1)
 

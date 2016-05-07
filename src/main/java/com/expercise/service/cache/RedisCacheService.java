@@ -36,6 +36,6 @@ public class RedisCacheService {
 
     public Set<ZSetOperations.TypedTuple<Serializable>> findScoresByKey(String key, int start, int count) {
         return redisTemplate.opsForZSet().reverseRangeWithScores(key, start, count);
-
     }
+
 }

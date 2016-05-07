@@ -52,7 +52,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
             Challenge challenge = context.getChallenge();
             if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
                 Long rank = leaderBoardService.getRankFor(user);
-                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(),rank));
+                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(), rank));
             } else {
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
             }
@@ -61,6 +61,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
             Optional.ofNullable(interpreterResult.getFailureType())
                     .ifPresent(ft -> result.addErrorDescriptionToResult(messageService.getMessage(ft.getMessageKey())));
         }
+
         userTestCaseStateService.saveUserState(context.getChallenge(), context.getSource(), context.getLanguage(), context.getTestCaseWithResults());
 
         result.getTestCasesWithSourceModel().setCurrentSourceCode(context.getSource());

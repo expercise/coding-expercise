@@ -49,4 +49,5 @@ public class UserPointService {
     public Long getTotalPointsOf(Long userId) {
         return userPointDao.getTotalPointsOf(userId);
     }
+
 }
