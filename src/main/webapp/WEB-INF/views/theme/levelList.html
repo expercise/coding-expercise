@@ -33,10 +33,10 @@
     </div>
 
     <div class="row levelContainer" th:each="level, levelIteration : ${levelList}" th:if="${not #lists.isEmpty(level.approvedChallenges)}">
-        <div th:with="levelActive=${currentLevelModel.isLevelActive(level)}" th:class="${levelActive} ? 'col-xs-12' : 'col-xs-12 notActiveLevel'">
+        <div class="col-xs-12">
             <h3>
                 <span th:text="${level.getNameFor(#locale)}"></span>
-                <span th:if="${currentLevelModel.isCurrentLevel(level)}" class="glyphicon glyphicon-flag"></span>
+                <i th:if="${currentLevelModel.isCurrentLevel(level)}" class="fa fa-flag-checkered text-success" aria-hidden="true"></i>
             </h3>
 
             <table class="table">
@@ -53,9 +53,8 @@
                     <tr th:each="challenge, challengeIteration : ${level.approvedChallenges}">
                         <td class="indexColumn" th:text="${levelIteration.count} + '.' + ${challengeIteration.count}"></td>
                         <td class="fixedWidthColumn">
-                            <a th:if="${levelActive}" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
-                            <span th:unless="${levelActive}" th:text="${challenge.getTitle()}"></span>
-                            <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok"></span>
+                            <i th:if="${currentLevelModel.isSolved(challenge)}" class="fa fa-check-circle text-success"></i>
+                            <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
                         </td>
                         <td>
                             <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
