@@ -34,7 +34,7 @@
 
     <div class="row levelContainer" th:each="level, levelIteration : ${levelList}" th:if="${not #lists.isEmpty(level.approvedChallenges)}">
         <div class="col-xs-12">
-            <h3>
+            <h3 th:if="${levelList.size() > 1}">
                 <span th:text="${level.getNameFor(#locale)}"></span>
                 <i th:if="${currentLevelModel.isCurrentLevel(level)}" class="fa fa-flag-checkered text-success" aria-hidden="true"></i>
             </h3>
