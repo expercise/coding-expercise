@@ -7,6 +7,7 @@ import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
+import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class ChallengeService {
 
     @Autowired
     private UserTestCaseStateService userTestCaseStateService;
+
+    @Autowired
+    private ConfigurationService configurationService;
 
     public List<Challenge> findAllChallengesOfUser() {
         return challengeDao.findAllByUser(authenticationService.getCurrentUser());
@@ -96,6 +100,12 @@ public class ChallengeService {
     public TestCasesWithSourceModel resetUserStateFor(Challenge challenge, ProgrammingLanguage programmingLanguage) {
         userTestCaseStateService.resetUserState(challenge, programmingLanguage);
         return getUserStateFor(challenge, programmingLanguage);
+    }
+
+    public Challenge getDefaultChallenge() {
+        return configurationService.getIdOfDefaultChallenge()
+                .map(this::findById)
+                .orElseGet(() -> null);
     }
 
 }

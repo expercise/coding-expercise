@@ -1,5 +1,6 @@
 package com.expercise.service.user;
 
+import com.expercise.dao.challenge.SolutionDao;
 import com.expercise.dao.user.UserConnectionDao;
 import com.expercise.dao.user.UserDao;
 import com.expercise.dao.user.UserRememberMeTokenDao;
@@ -36,6 +37,9 @@ public class UserService {
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private SolutionDao solutionDao;
 
     public void saveNewUser(User user) {
         String hashedUserPassword = hashPassword(user.getPassword());
@@ -157,6 +161,13 @@ public class UserService {
 
     private String hashPassword(String password) {
         return passwordEncoder.encode(password);
+    }
+
+    public boolean isNewbie() {
+        if (authenticationService.isCurrentUserAuthenticated()) {
+            return solutionDao.countByUser(authenticationService.getCurrentUser()) == 0;
+        }
+        return true;
     }
 
 }

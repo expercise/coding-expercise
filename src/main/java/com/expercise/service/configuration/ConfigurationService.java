@@ -5,6 +5,7 @@ import com.expercise.dao.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
 import com.expercise.enums.Lingo;
 import com.expercise.utils.EnvironmentUtils;
+import com.expercise.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +46,15 @@ public class ConfigurationService implements Caching {
 
     public String getUserReportApplicationKey() {
         return getValue("userReport.applicationKey." + Lingo.getCurrentLingo());
+    }
+
+    public Optional<Long> getIdOfDefaultChallenge() {
+        Long challengeId = getValueAsLong("defaultChallenge");
+        return Optional.ofNullable(challengeId);
+    }
+
+    public Long getValueAsLong(String key) {
+        return NumberUtils.parseLong(getValue(key));
     }
 
     public boolean isDevelopment() {
