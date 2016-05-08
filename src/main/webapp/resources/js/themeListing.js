@@ -7,7 +7,7 @@ expercise.ThemeListing = {
             setTimeout(function () {
                 bootbox.dialog({
                     title: expercise.utils.i18n('login.register.welcome'),
-                    message: expercise.utils.i18n('login.register.welcome.message'),
+                    message: expercise.utils.i18n('login.register.welcome.messageForThemeListingPage'),
                     closeButton: false,
                     buttons: {
                         ok: {

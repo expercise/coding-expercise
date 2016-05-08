@@ -11,6 +11,7 @@ expercise.Challenge = {
         this.adjustProgrammingLanguage();
         this.adjustEditorKeyMap();
         this.initializeKataChallenge();
+        this.showWelcomeIfNewMember();
     },
 
     bindEvents: function () {
@@ -245,6 +246,23 @@ expercise.Challenge = {
 
     toggleRunningState: function () {
         expercise.Challenge.running = !expercise.Challenge.running;
+    },
+
+    showWelcomeIfNewMember: function () {
+        if ($('#newMember').val() == "true") {
+            setTimeout(function () {
+                bootbox.dialog({
+                    title: expercise.utils.i18n('login.register.welcome'),
+                    message: expercise.utils.i18n('login.register.welcome.messageForDefaultChallenge'),
+                    closeButton: false,
+                    buttons: {
+                        ok: {
+                            label: expercise.utils.i18n('button.continue')
+                        }
+                    }
+                });
+            }, 500);
+        }
     }
 
 };

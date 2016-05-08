@@ -29,7 +29,7 @@ public class ThemesController {
         if (userService.isNewbie()) {
             Challenge defaultChallenge = challengeService.getDefaultChallenge();
             if (defaultChallenge != null) {
-                return new ModelAndView("redirect:/challenges/" + defaultChallenge.getId());
+                return new ModelAndView("redirect:/challenges/" + defaultChallenge.getId() + "?newMember");
             }
         }
 

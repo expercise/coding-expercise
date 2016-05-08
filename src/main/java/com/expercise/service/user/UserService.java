@@ -167,7 +167,7 @@ public class UserService {
         if (authenticationService.isCurrentUserAuthenticated()) {
             return solutionDao.countByUser(authenticationService.getCurrentUser()) == 0;
         }
-        return true;
+        return false;
     }
 
 }
