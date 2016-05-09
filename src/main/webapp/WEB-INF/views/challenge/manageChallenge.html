@@ -27,7 +27,8 @@
                         (<span th:text="#{label.optional}"></span>)
                     </small>
                 </h4>
-                <input type="text" class="form-control" name="title"/>
+                <input type="text" class="form-control" name="title"
+                       th:maxlength="${T(com.expercise.utils.Constants).MAX_CHALLENGE_TITLE_LENGTH}" />
             </div>
         </div>
 

@@ -7,6 +7,7 @@ import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
 import com.expercise.utils.Clock;
+import com.expercise.utils.Constants;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Challenge extends AbstractEntity {
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "Lingo")
-    @Column(name = "Title", nullable = false)
+    @Column(name = "Title", nullable = false, length = Constants.MAX_CHALLENGE_TITLE_LENGTH)
     private Map<Lingo, String> titles = new HashMap<>();
 
     @ElementCollection

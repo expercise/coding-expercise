@@ -9,6 +9,9 @@
         <div class="col-xs-8 left">
             <legend>
                 <span th:text="${title}"></span>
+                <sup sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{${@urlService.updateChallenge(challenge)}}" th:text="#{button.edit}">Edit</a>
+                </sup>
                 <small>
                     <span class="noTranslationTooltip showOnLoad glyphicon glyphicon-exclamation-sign"
                           th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
@@ -83,11 +86,6 @@
             </a>
             <a id="resetButton" class="editorButton btn btn-default btn-lg" role="button">
                 <i class="fa fa-eraser"></i>
-            </a>
-            <a id="editButton" class="editorButton btn btn-default btn-lg"
-               th:href="@{${@urlService.updateChallenge(challenge)}}"
-               sec:authorize="hasRole('ROLE_ADMIN')">
-                <i class="fa fa-edit"></i>
             </a>
         </div>
     </div>
