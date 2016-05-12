@@ -87,7 +87,7 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
 
         User user = new UserBuilder().buildWithRandomId()
         1 * authenticationService.getCurrentUser() >> user
-        1 * userPointService.canUserWinPoint(codeKataChallenge, user, ProgrammingLanguage.Python) >> true
+        1 * userPointService.canUserWinPoint(codeKataChallenge, ProgrammingLanguage.Python) >> true
         1 * leaderBoardService.getRankFor(user) >> 1
         1 * messageService.getMessage("challenge.successWithPoint", 10, 1) >> "Congratulations! You won 10 points, right now you are #1 in leaderboard"
 
@@ -133,8 +133,7 @@ class CreateKataSolutionResponsePostActionSpec extends Specification {
         and: "prepare message stubbing"
         1 * messageService.getMessage("challenge.success") >> "Congratulations! But you cannot win point"
         User user = new UserBuilder().buildWithRandomId()
-        1 * authenticationService.getCurrentUser() >> user
-        1 * userPointService.canUserWinPoint(codeKataChallenge, user, ProgrammingLanguage.Python) >> false
+        1 * userPointService.canUserWinPoint(codeKataChallenge, ProgrammingLanguage.Python) >> false
 
         when:
         action.execute(context)

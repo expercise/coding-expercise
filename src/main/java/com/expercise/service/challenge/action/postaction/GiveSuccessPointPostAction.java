@@ -1,6 +1,5 @@
 package com.expercise.service.challenge.action.postaction;
 
-import com.expercise.domain.user.User;
 import com.expercise.service.challenge.UserPointService;
 import com.expercise.service.challenge.action.PostEvaluationAction;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
@@ -19,8 +18,11 @@ public class GiveSuccessPointPostAction implements PostEvaluationAction {
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
-        User currentUser = authenticationService.getCurrentUser();
-        return context.isChallengeCompleted() && userPointService.canUserWinPoint(context.getChallenge(), currentUser, context.getLanguage());
+        if (!authenticationService.isCurrentUserAuthenticated()) {
+            return false;
+        }
+
+        return context.isChallengeCompleted() && userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage());
     }
 
     @Override

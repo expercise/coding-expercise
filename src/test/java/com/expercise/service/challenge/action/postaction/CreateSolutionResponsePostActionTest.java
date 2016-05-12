@@ -80,7 +80,7 @@ public class CreateSolutionResponsePostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         when(leaderBoardService.getRankFor(user)).thenReturn(2L);
-        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
+        when(userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage())).thenReturn(true);
         when(messageService.getMessage("challenge.successWithPoint", 22, 2L)).thenReturn("success, 22 points, you are #2");
 
         action.execute(context);
@@ -106,7 +106,7 @@ public class CreateSolutionResponsePostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
 
         when(messageService.getMessage("challenge.success")).thenReturn("success");
-        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(false);
+        when(userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage())).thenReturn(false);
 
         action.execute(context);
 

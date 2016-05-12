@@ -10,6 +10,7 @@ import com.expercise.interpreter.TestCaseWithResult;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.service.challenge.model.SolutionValidationResult;
+import com.expercise.service.user.AuthenticationService;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.SolutionBuilder;
 import com.expercise.utils.DateUtils;
@@ -36,13 +37,16 @@ public class PrepareChallengeUserSolutionsPostActionTest {
     @Mock
     private SolutionService solutionService;
 
+    @Mock
+    private AuthenticationService authenticationService;
+
     @Before
     public void before() {
         Locale.setDefault(Locale.ENGLISH);
     }
 
     @Test
-    public void shouldExecuteWhenInterpretationIsSuccessful() {
+    public void shouldExecuteWhenInterpretationIsSuccessfulAndUserIsAuthenticated() {
         TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         InterpreterResult successResult = InterpreterResult.createSuccessResult();
@@ -50,17 +54,35 @@ public class PrepareChallengeUserSolutionsPostActionTest {
         context.setChallenge(new ChallengeBuilder().id(1L).testCases(testCase).build());
         context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+
         assertTrue(action.canExecute(context));
     }
 
     @Test
-    public void shouldNotExecuteWhenInterpretationIsFailed() {
+    public void shouldNotExecuteWhenInterpretationIsFailedEvenIfUserIsAuthenticated() {
         TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(new ChallengeBuilder().id(2L).testCases(testCase).build());
         InterpreterResult failedResult = InterpreterResult.createFailedResult();
         context.setInterpreterResult(failedResult);
         context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+
+        assertFalse(action.canExecute(context));
+    }
+
+    @Test
+    public void shouldNotExecuteWhenInterpretationIfUserIsAuthenticatedEvenIfInterpretationIsSuccessful() {
+        TestCase testCase = new TestCase();
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        InterpreterResult successResult = InterpreterResult.createSuccessResult();
+        context.setInterpreterResult(successResult);
+        context.setChallenge(new ChallengeBuilder().id(1L).testCases(testCase).build());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(false);
 
         assertFalse(action.canExecute(context));
     }

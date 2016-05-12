@@ -6,6 +6,7 @@ import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.service.cache.RedisCacheService;
+import com.expercise.service.user.AuthenticationService;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.UserBuilder;
 import com.expercise.utils.Clock;
@@ -33,18 +34,21 @@ public class UserPointServiceTest {
     @Mock
     private RedisCacheService cacheService;
 
+    @Mock
+    private AuthenticationService authenticationService;
+
     @Test
     public void shouldGiveUserPointForTheChallenge() {
         Clock.freeze(DateUtils.toDate("10/12/2012"));
 
-        User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).point(12).build();
+        User user = new UserBuilder().buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().point(12).buildWithRandomId();
 
         service.givePoint(challenge, user, ProgrammingLanguage.Python);
 
         ArgumentCaptor<UserPoint> pointCaptor = ArgumentCaptor.forClass(UserPoint.class);
 
-        verify(cacheService).rightPush("points::leaderboard::queue", 2L);
+        verify(cacheService).rightPush("points::leaderboard::queue", user.getId());
         verify(userPointDao).save(pointCaptor.capture());
         UserPoint savedUserPoint = pointCaptor.getValue();
 
@@ -59,40 +63,61 @@ public class UserPointServiceTest {
 
     @Test
     public void shouldBeAbleToWinPointIfUserHadNotWonPointFromTheChallengeBeforeAndChallengeIsApproved() {
-        User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(true).build();
+        User user = new UserBuilder().buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().user(new UserBuilder().build()).approved(true).buildWithRandomId();
 
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(authenticationService.getCurrentUser()).thenReturn(user);
         when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
 
-        assertTrue(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
+        assertTrue(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+    }
+
+    @Test
+    public void shouldNotBeAbleToWinPointIfUserNotAuthenticated() {
+        Challenge challenge = new ChallengeBuilder().user(new UserBuilder().buildWithRandomId()).approved(true).buildWithRandomId();
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(false);
+
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+
+        verifyZeroInteractions(userPointDao);
     }
 
     @Test
     public void shouldNotBeAbleToWinPointIfUserHadWonPointFromTheChallengeBefore() {
-        User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(true).build();
+        User user = new UserBuilder().buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().user(new UserBuilder().buildWithRandomId()).approved(true).buildWithRandomId();
 
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(authenticationService.getCurrentUser()).thenReturn(user);
         when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
 
-        assertFalse(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
     }
 
     @Test
     public void shouldNotBeAbleToWinPointIfChallengeIsNotApproved() {
-        User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).user(new UserBuilder().build()).approved(false).build();
+        User user = new UserBuilder().buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().user(user).approved(false).buildWithRandomId();
 
-        assertFalse(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(authenticationService.getCurrentUser()).thenReturn(user);
+
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
 
         verifyZeroInteractions(userPointDao);
     }
 
     @Test
     public void shouldNotBeAbleToWinPointIfChallengeAuthorIsSamePersonAsUser() {
-        User user = new UserBuilder().id(2L).build();
-        Challenge challenge = new ChallengeBuilder().id(3L).user(user).approved(true).build();
+        User user = new UserBuilder().buildWithRandomId();
+        Challenge challenge = new ChallengeBuilder().user(user).approved(true).buildWithRandomId();
 
-        assertFalse(service.canUserWinPoint(challenge, user, ProgrammingLanguage.Python));
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(authenticationService.getCurrentUser()).thenReturn(user);
+
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
 
         verifyZeroInteractions(userPointDao);
     }

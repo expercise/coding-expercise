@@ -25,6 +25,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Permit all
         http.authorizeRequests()
                 .antMatchers(
                         "/",
@@ -36,14 +37,20 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/signup/**",
                         "/signin/**",
                         "/forgotMyPassword/**",
-                        "/themes/**"
+                        "/themes/**",
+                        "/challenges/eval",
+                        "/challenges/reset"
                 )
                 .permitAll();
 
         http.authorizeRequests()
-                .regexMatchers("/user/.*/.*")
+                .regexMatchers(
+                        "/user/.*/.*",
+                        "/challenges/\\d+.*"
+                )
                 .permitAll();
 
+        // Authenticated
         http.authorizeRequests()
                 .antMatchers(
                         "/challenges/**",
@@ -66,6 +73,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/signin?signout")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
+
         http.rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(DateUtils.ONE_WEEK);

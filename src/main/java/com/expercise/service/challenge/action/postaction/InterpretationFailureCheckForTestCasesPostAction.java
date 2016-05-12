@@ -23,13 +23,13 @@ public class InterpretationFailureCheckForTestCasesPostAction implements PostEva
         }
     }
 
+    private boolean failedByLanguageSpecificError(InterpreterResult interpreterResult) {
+        return interpreterResult.getFailureType() != null;
+    }
+
     @Override
     public int getPriority() {
         return PostEvaluationActionOrder.INTERPRETATION_FAILURE_CHECK_FOR_TEST_CASES.ordinal();
-    }
-
-    private boolean failedByLanguageSpecificError(InterpreterResult interpreterResult) {
-        return interpreterResult.getFailureType() != null;
     }
 
 }

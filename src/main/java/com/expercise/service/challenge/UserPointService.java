@@ -6,6 +6,7 @@ import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.service.cache.RedisCacheService;
+import com.expercise.service.user.AuthenticationService;
 import com.expercise.utils.Clock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class UserPointService {
     @Autowired
     private RedisCacheService cacheService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @Transactional
     public void givePoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         UserPoint userPoint = new UserPoint();
@@ -35,7 +39,12 @@ public class UserPointService {
         cacheService.rightPush(LEADERBOARD_QUEUE, user.getId());
     }
 
-    public boolean canUserWinPoint(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
+    public boolean canUserWinPoint(Challenge challenge, ProgrammingLanguage programmingLanguage) {
+        if (!authenticationService.isCurrentUserAuthenticated()) {
+            return false;
+        }
+
+        User user = authenticationService.getCurrentUser();
         if (challenge.getUser().equals(user)) {
             return false;
         }

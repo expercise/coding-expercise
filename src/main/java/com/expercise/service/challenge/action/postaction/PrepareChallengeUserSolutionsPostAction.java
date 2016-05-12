@@ -4,6 +4,7 @@ import com.expercise.controller.challenge.model.UserSolutionModel;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.action.PostEvaluationAction;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
+import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,12 @@ public class PrepareChallengeUserSolutionsPostAction implements PostEvaluationAc
     @Autowired
     private SolutionService solutionService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
-        return context.isChallengeCompleted();
+        return authenticationService.isCurrentUserAuthenticated() && context.isChallengeCompleted();
     }
 
     @Override

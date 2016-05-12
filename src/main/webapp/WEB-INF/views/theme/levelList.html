@@ -36,7 +36,7 @@
         <div class="col-xs-12">
             <h3 th:if="${levelList.size() > 1}">
                 <span th:text="${level.getNameFor(#locale)}"></span>
-                <i th:if="${currentLevelModel.isCurrentLevel(level)}" class="fa fa-flag-checkered text-success" aria-hidden="true"></i>
+                <i th:if="${#authorization.expression('isAuthenticated()') and currentLevelModel.isCurrentLevel(level)}" class="fa fa-flag-checkered text-success" aria-hidden="true"></i>
             </h3>
 
             <table class="table">

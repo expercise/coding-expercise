@@ -19,8 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GiveSuccessPointPostActionTest {
@@ -35,16 +34,15 @@ public class GiveSuccessPointPostActionTest {
     private AuthenticationService authenticationService;
 
     @Test
-    public void shouldBeAbleToGiveUserPointWhenAllTestCasesEvaluationIsSucceed() {
+    public void shouldBeAbleToGiveUserPointWhenAllTestCasesEvaluationIsSucceedAndUserIsAuthenticated() {
         TestCase testCase = new TestCase();
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
         context.setChallenge(new ChallengeBuilder().id(1L).approved(true).testCases(testCase).build());
         context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
-        User user = new UserBuilder().id(1L).build();
-        when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(true);
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage())).thenReturn(true);
 
         assertTrue(action.canExecute(context));
     }
@@ -58,11 +56,25 @@ public class GiveSuccessPointPostActionTest {
         context.setChallenge(new ChallengeBuilder().id(1L).build());
         context.setLanguage(ProgrammingLanguage.Python);
 
-        User user = new UserBuilder().id(1L).build();
-        when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointService.canUserWinPoint(context.getChallenge(), user, context.getLanguage())).thenReturn(false);
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+        when(userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage())).thenReturn(false);
 
         assertFalse(action.canExecute(context));
+    }
+
+    @Test
+    public void shouldNotBeAbleToGiveUserPointWhenUserIsNotAuthenticatedEvenIfAllTestCasesEvaluationIsSucceed() {
+        TestCase testCase = new TestCase();
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
+        context.setChallenge(new ChallengeBuilder().id(1L).approved(true).testCases(testCase).build());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(false);
+
+        assertFalse(action.canExecute(context));
+
+        verifyZeroInteractions(userPointService);
     }
 
     @Test

@@ -153,6 +153,7 @@
     <input id="userSolutions" type="hidden" th:value="${userSolutions}"/>
     <input id="testCasesWithSource" type="hidden" th:value="${testCasesWithSource}"/>
     <input id="newMember" type="hidden" th:value="${param.newMember != null}"/>
+    <input id="notAuthenticated" type="hidden" th:value="${not #authorization.expression('isAuthenticated()')}"/>
     <input id="javaScriptModules" type="hidden" value="CodeEditor Challenge"/>
 </body>
 </html>

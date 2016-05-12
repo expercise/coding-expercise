@@ -12,6 +12,7 @@ expercise.Challenge = {
         this.adjustEditorKeyMap();
         this.initializeKataChallenge();
         this.showWelcomeIfNewMember();
+        this.showWelcomeIfNotAuthenticated();
     },
 
     bindEvents: function () {
@@ -262,6 +263,22 @@ expercise.Challenge = {
                     }
                 });
             }, 500);
+        }
+    },
+
+    showWelcomeIfNotAuthenticated: function () {
+        if ($('#notAuthenticated').val() == "true") {
+            expercise.assistant.speak(
+                {
+                    title: expercise.utils.i18n('notAuthenticated.challengePage.title'),
+                    message: expercise.utils.i18n('notAuthenticated.challengePage.content'),
+                    buttonText: expercise.utils.i18n('button.login'),
+                    onButtonClick: function () {
+                        expercise.utils.go('/signin');
+                    }
+                }
+            );
+            expercise.assistant.hide(10);
         }
     }
 

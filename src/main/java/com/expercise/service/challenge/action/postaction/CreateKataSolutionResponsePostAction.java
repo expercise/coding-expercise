@@ -2,7 +2,6 @@ package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.ChallengeType;
-import com.expercise.domain.user.User;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.interpreter.TestCaseModel;
 import com.expercise.interpreter.TestCaseWithResult;
@@ -51,16 +50,15 @@ public class CreateKataSolutionResponsePostAction implements PostEvaluationActio
         if (interpreterResult.isSuccess()) {
             Challenge challenge = context.getChallenge();
             if (context.isChallengeCompleted()) {
-                User user = authenticationService.getCurrentUser();
-                if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
-                    Long rank = leaderBoardService.getRankFor(user);
+                if (userPointService.canUserWinPoint(challenge, context.getLanguage())) {
+                    Long rank = leaderBoardService.getRankFor(authenticationService.getCurrentUser());
                     result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(), rank));
                 } else {
                     result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));
                 }
                 result.setChallengeSolutionStatus(ChallengeSolutionStatus.CHALLENGE_COMPLETED);
             } else {
-                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success.notcompleted"));
+                result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success.notCompleted"));
                 result.setChallengeSolutionStatus(ChallengeSolutionStatus.TESTS_PASSED_BUT_NOT_COMPLETED_YET);
                 userTestCaseStateService.saveNextTestCase(context.getChallenge(), context.getSource(), context.getLanguage());
             }

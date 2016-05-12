@@ -27,7 +27,7 @@ public class SaveUserSolutionPostAction implements PostEvaluationAction {
 
     @Override
     public boolean canExecute(ChallengeEvaluationContext context) {
-        return context.isChallengeCompleted();
+        return authenticationService.isCurrentUserAuthenticated() && context.isChallengeCompleted();
     }
 
     @Override

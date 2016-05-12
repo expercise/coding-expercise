@@ -52,6 +52,8 @@ public class SaveUserSolutionPostActionTest {
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
         context.addTestCaseWithResult(new TestCaseWithResult(testCase));
 
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+
         assertTrue(action.canExecute(context));
     }
 
@@ -62,6 +64,21 @@ public class SaveUserSolutionPostActionTest {
         context.setChallenge(new ChallengeBuilder().testCases(testCase).buildWithRandomId());
         context.setInterpreterResult(InterpreterResult.createFailedResult());
         context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
+
+        assertFalse(action.canExecute(context));
+    }
+
+    @Test
+    public void shouldNotBeAbleToExecuteIfUserNotAuthenticatedEvenIfEvaluationIsSucceed() {
+        TestCase testCase = new TestCase();
+        ChallengeEvaluationContext context = new ChallengeEvaluationContext();
+        context.setChallenge(new ChallengeBuilder().testCases(testCase).buildWithRandomId());
+        context.setInterpreterResult(InterpreterResult.createSuccessResult());
+        context.addTestCaseWithResult(new TestCaseWithResult(testCase));
+
+        when(authenticationService.isCurrentUserAuthenticated()).thenReturn(false);
 
         assertFalse(action.canExecute(context));
     }

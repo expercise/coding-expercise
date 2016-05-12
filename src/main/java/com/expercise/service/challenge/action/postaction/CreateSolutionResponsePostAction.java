@@ -2,7 +2,6 @@ package com.expercise.service.challenge.action.postaction;
 
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.ChallengeType;
-import com.expercise.domain.user.User;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.interpreter.TestCaseModel;
 import com.expercise.interpreter.TestCaseWithResult;
@@ -48,10 +47,9 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
         InterpreterResult interpreterResult = context.getInterpreterResult();
         if (interpreterResult.isSuccess()) {
-            User user = authenticationService.getCurrentUser();
             Challenge challenge = context.getChallenge();
-            if (userPointService.canUserWinPoint(challenge, user, context.getLanguage())) {
-                Long rank = leaderBoardService.getRankFor(user);
+            if (userPointService.canUserWinPoint(challenge, context.getLanguage())) {
+                Long rank = leaderBoardService.getRankFor(authenticationService.getCurrentUser());
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.successWithPoint", challenge.getPoint(), rank));
             } else {
                 result = SolutionValidationResult.createSuccessResult(messageService.getMessage("challenge.success"));

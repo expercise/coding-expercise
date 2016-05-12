@@ -13,6 +13,10 @@ public class ChallengeDisplayRule {
     private AuthenticationService authenticationService;
 
     public boolean isNotDisplayable(Challenge challenge) {
+        if (!authenticationService.isCurrentUserAuthenticated() && challenge.isApproved()) {
+            return false;
+        }
+
         User currentUser = authenticationService.getCurrentUser();
 
         if (currentUser.isAdmin()) {
