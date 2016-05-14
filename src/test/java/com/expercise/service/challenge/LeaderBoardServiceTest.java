@@ -52,18 +52,18 @@ public class LeaderBoardServiceTest {
         set.add(new DefaultTypedTuple(20L, 2d));
         set.add(new DefaultTypedTuple(10L, 1d));
 
-        when(cacheService.findScoresByKey("points::leaderboard", 0, 10)).thenReturn(set);
+        when(cacheService.findScoresByKey("points::leaderboard", 0, 9)).thenReturn(set);
         when(userService.findById(10L)).thenReturn(new UserBuilder().id(10L).build());
         when(userService.findById(20L)).thenReturn(new UserBuilder().id(20L).build());
         when(userService.findById(30L)).thenReturn(new UserBuilder().id(30L).build());
 
         List<LeaderBoardModel> top10Users = leaderBoardService.getTop10UsersInLeaderBoard();
         assertThat(top10Users.get(0).getUser().getId(), equalTo(30L));
-        assertThat(top10Users.get(0).getPoint(), equalTo(3d));
+        assertThat(top10Users.get(0).getPoint(), equalTo(3));
         assertThat(top10Users.get(1).getUser().getId(), equalTo(20L));
-        assertThat(top10Users.get(1).getPoint(), equalTo(2d));
+        assertThat(top10Users.get(1).getPoint(), equalTo(2));
         assertThat(top10Users.get(2).getUser().getId(), equalTo(10L));
-        assertThat(top10Users.get(2).getPoint(), equalTo(1d));
+        assertThat(top10Users.get(2).getPoint(), equalTo(1));
     }
 
     @Test
