@@ -1,7 +1,6 @@
 package com.expercise.service.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,7 @@ import java.util.Set;
 public class RedisCacheService {
 
     @Autowired
-    private RedisTemplate<String, Serializable> redisTemplate;
+    private ObjectRedisTemplate redisTemplate;
 
     public <T extends Serializable> void rightPush(String key, T value) {
         redisTemplate.opsForList().rightPush(key, value);
@@ -26,7 +25,7 @@ public class RedisCacheService {
         return (T) redisTemplate.opsForList().leftPop(key);
     }
 
-    public void zadd(String key, Long totalPointsOf, Long userId) {
+    public void zAdd(String key, Long totalPointsOf, Long userId) {
         redisTemplate.opsForZSet().add(key, userId, totalPointsOf);
     }
 

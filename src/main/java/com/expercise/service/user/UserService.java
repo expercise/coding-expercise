@@ -132,6 +132,10 @@ public class UserService {
         return userDao.findAll();
     }
 
+    public List<Long> findAllIds() {
+        return userDao.findAllIds();
+    }
+
     @Transactional
     public void saveRememberMeToken(String email, String tokenValue, String series, Date lastUsedTime) {
         RememberMeToken token = new RememberMeToken();

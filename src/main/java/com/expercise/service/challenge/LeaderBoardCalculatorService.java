@@ -18,7 +18,7 @@ public class LeaderBoardCalculatorService {
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     @Autowired
-    private RedisCacheService cacheService;
+    private RedisCacheService redisCacheService;
 
     @Autowired
     private LeaderBoardService leaderBoardService;
@@ -32,7 +32,7 @@ public class LeaderBoardCalculatorService {
         executorService.submit(() -> {
             while (true) {
                 try {
-                    Long userId = cacheService.leftPop(UserPointService.LEADERBOARD_QUEUE);
+                    Long userId = redisCacheService.leftPop(UserPointService.LEADERBOARD_QUEUE);
                     if (userId != null) {
                         leaderBoardService.updateLeaderBoardPoint(userId);
                     }

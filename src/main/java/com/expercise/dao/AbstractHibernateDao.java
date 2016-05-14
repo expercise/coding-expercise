@@ -16,6 +16,7 @@ import java.util.Map;
 public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
     private final Class clazz;
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -64,6 +65,13 @@ public abstract class AbstractHibernateDao<T extends AbstractEntity> {
 
     public List<T> findAll() {
         return list(getCriteria());
+    }
+
+    public List<Long> findAllIds() {
+        return getCriteria()
+                .setReadOnly(true)
+                .setProjection(Projections.id())
+                .list();
     }
 
     public List<T> findAllOrderedByPriority() {

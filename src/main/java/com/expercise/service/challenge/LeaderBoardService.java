@@ -28,7 +28,7 @@ public class LeaderBoardService {
     private UserPointService userPointService;
 
     @Autowired
-    private RedisCacheService cacheService;
+    private RedisCacheService redisCacheService;
 
     @Autowired
     private UserService userService;
@@ -36,11 +36,11 @@ public class LeaderBoardService {
     @Transactional
     public void updateLeaderBoardPoint(Long userId) {
         Long totalPointsOf = userPointService.getTotalPointsOf(userId);
-        cacheService.zadd(LEADERBOARD, totalPointsOf, userId);
+        redisCacheService.zAdd(LEADERBOARD, totalPointsOf, userId);
     }
 
     public List<LeaderBoardModel> getTop10UsersInLeaderBoard() {
-        Set<ZSetOperations.TypedTuple<Serializable>> tuples = cacheService.findScoresByKey(LEADERBOARD, 0, LEADERBOARD_TOP_USERS_COUNT);
+        Set<ZSetOperations.TypedTuple<Serializable>> tuples = redisCacheService.findScoresByKey(LEADERBOARD, 0, LEADERBOARD_TOP_USERS_COUNT);
         return convertToModel(tuples);
     }
 
@@ -51,7 +51,7 @@ public class LeaderBoardService {
     }
 
     public Long getRankFor(User user) {
-        return cacheService.zRevRankFor(LEADERBOARD, user.getId()) + 1;
+        return redisCacheService.zRevRankFor(LEADERBOARD, user.getId()) + 1;
     }
 
     public List<LeaderBoardModel> getLeaderBoardAroundUser(User user) {
@@ -65,7 +65,7 @@ public class LeaderBoardService {
         start = start < 0 ? 0 : start;
         int end = start + LEADERBOARD_AROUND_USER_COUNT + 1;
 
-        Set<ZSetOperations.TypedTuple<Serializable>> tuples = cacheService.findScoresByKey(LEADERBOARD, start, end);
+        Set<ZSetOperations.TypedTuple<Serializable>> tuples = redisCacheService.findScoresByKey(LEADERBOARD, start, end);
 
         return convertToModel(tuples);
     }

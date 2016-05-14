@@ -1,19 +1,18 @@
 package com.expercise.configuration;
 
+import com.expercise.service.cache.JsonRedisTemplate;
+import com.expercise.service.cache.ObjectRedisTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.DefaultStringRedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
-
-import java.io.Serializable;
 
 @Configuration
 public class RedisConfiguration {
@@ -22,7 +21,7 @@ public class RedisConfiguration {
     private String hostname;
 
     @Bean
-    public RedisConnectionFactory jedisConnectionFactory() {
+    RedisConnectionFactory redisConnectionFactory() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(5);
         poolConfig.setMinIdle(1);
@@ -38,18 +37,18 @@ public class RedisConfiguration {
 
     @Bean
     public DefaultStringRedisConnection defaultStringRedisConnection() {
-        return new DefaultStringRedisConnection(jedisConnectionFactory().getConnection());
+        return new DefaultStringRedisConnection(redisConnectionFactory().getConnection());
     }
 
     @Bean
     public StringRedisTemplate stringRedisTemplate() {
-        return new StringRedisTemplate(jedisConnectionFactory());
+        return new StringRedisTemplate(redisConnectionFactory());
     }
 
     @Bean
-    public RedisTemplate<String, Serializable> objectRedisTemplate() {
-        RedisTemplate<String, Serializable> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory());
+    public ObjectRedisTemplate objectRedisTemplate() {
+        ObjectRedisTemplate redisTemplate = new ObjectRedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setHashKeySerializer(redisTemplate.getKeySerializer());
@@ -58,9 +57,9 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public RedisTemplate<String, Object> jsonRedisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory());
+    public JsonRedisTemplate jsonRedisTemplate() {
+        JsonRedisTemplate redisTemplate = new JsonRedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
         redisTemplate.setHashKeySerializer(redisTemplate.getKeySerializer());
