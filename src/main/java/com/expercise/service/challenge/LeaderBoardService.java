@@ -40,13 +40,13 @@ public class LeaderBoardService {
     }
 
     public List<LeaderBoardModel> getTop10UsersInLeaderBoard() {
-        Set<ZSetOperations.TypedTuple<Serializable>> tuples = redisCacheService.findScoresByKey(LEADERBOARD, 0, LEADERBOARD_TOP_USERS_COUNT);
+        Set<ZSetOperations.TypedTuple<Serializable>> tuples = redisCacheService.findScoresByKey(LEADERBOARD, 0, LEADERBOARD_TOP_USERS_COUNT - 1);
         return convertToModel(tuples);
     }
 
     private List<LeaderBoardModel> convertToModel(Set<ZSetOperations.TypedTuple<Serializable>> tuples) {
         return tuples.stream()
-                .map(tuple -> new LeaderBoardModel(userService.findById((Long) tuple.getValue()), tuple.getScore()))
+                .map(tuple -> new LeaderBoardModel(userService.findById((Long) tuple.getValue()), tuple.getScore().intValue()))
                 .collect(Collectors.toList());
     }
 

@@ -8,12 +8,12 @@ public class LeaderBoardModel implements Serializable {
 
     private User user;
 
-    private Double point;
+    private Integer point;
 
     public LeaderBoardModel() {
     }
 
-    public LeaderBoardModel(User user, Double point) {
+    public LeaderBoardModel(User user, Integer point) {
         this.user = user;
         this.point = point;
     }
@@ -26,11 +26,11 @@ public class LeaderBoardModel implements Serializable {
         this.user = user;
     }
 
-    public Double getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(Double point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 

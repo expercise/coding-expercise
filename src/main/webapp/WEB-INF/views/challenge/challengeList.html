@@ -7,7 +7,6 @@
     <legend th:text="${title}"></legend>
 
     <p th:if="${challenges.isEmpty()}" th:text="#{challengeList.hasNoChallenge}">
-        bos
     </p>
 
     <table class="table table-striped" th:unless="${challenges.isEmpty()}">

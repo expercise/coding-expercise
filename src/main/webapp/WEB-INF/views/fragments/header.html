@@ -22,12 +22,24 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li class="startCodingItem">
+                                <a th:href="@{/themes}" th:text="#{button.startCoding}"></a>
+                            </li>
+
+                            <li class="divider"></li>
+
                             <li>
-                                <a th:href="@{/themes}" th:text="#{button.start}"></a>
+                                <a th:href="@{/user}">
+                                    <i class="fa fa-user"></i>
+                                    <span th:text="#{label.menu.profile}"></span>
+                                </a>
                             </li>
 
                             <li>
-                                <a th:href="@{/user}" th:text="#{label.menu.profile}"></a>
+                                <a th:href="@{/leaderBoard}">
+                                    <i class="fa fa-users"></i>
+                                    <span th:text="#{leaderBoard.title}"></span>
+                                </a>
                             </li>
 
                             <li class="divider"></li>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout" th:with="title = #{leaderBoard.title}">
+<head>
+    <title th:text="${title}"></title>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+<legend th:text="${title}"></legend>
+
+<p th:if="${top10Users.isEmpty()}" th:text="#{leaderBoard.noTopUser}">
+</p>
+
+<table class="table table-striped" th:unless="${top10Users.isEmpty()}">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="userAvatarColumn"></th>
+        <th></th>
+        <th class="text-right" th:text="#{leaderBoard.table.experiencePoint}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="leaderBoardItem, iteration : ${top10Users}" th:class="${3 >= iteration.count ? 'boldText' : ''}">
+        <td class="indexColumn" th:text="${iteration.count + '.'}"></td>
+        <td class="userAvatarColumn">
+            <span th:if="${leaderBoardItem.user.hasAvatar()}" th:class="${'img-circle avatar small ' + leaderBoardItem.user.avatar}"></span>
+
+            <span th:if="${!leaderBoardItem.user.hasAvatar() and leaderBoardItem.user.hasSocialImageUrl()}">
+                <img class="img-circle socialImage small" th:src="${leaderBoardItem.user.socialImageUrl}"/>
+            </span>
+        </td>
+        <td>
+            <a th:href="@{${leaderBoardItem.user.bookmarkableUrl}}" th:text="${leaderBoardItem.user.fullName}" target="_blank">
+                John Doe
+            </a>
+        </td>
+        <td class="text-right" th:text="${leaderBoardItem.point}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/challenges}" class="btn btn-primary">
+    <span th:text="#{button.startCoding}"></span>
+</a>
+</body>
+</html>
