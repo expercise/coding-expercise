@@ -131,7 +131,10 @@
 
             <div class="row profileContainer">
                 <div class="col-xs-12">
-                    <legend class="subHeader" th:text="${#messages.msg('user.profile.addedChallenges', user.fullName)}"></legend>
+                    <legend class="subHeader"
+                            th:text="${isCurrentUser} ? #{user.profile.addedChallengesByUser} : ${#messages.msg('user.profile.addedChallenges', user.fullName)}">
+                        Challenges Added by You
+                    </legend>
 
                     <ul class="list-group" th:unless="${#lists.isEmpty(addedChallenges)}">
                         <li class="list-group-item" th:each="addedChallenge : ${addedChallenges}">
