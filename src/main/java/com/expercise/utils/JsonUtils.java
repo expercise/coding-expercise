@@ -1,5 +1,6 @@
 package com.expercise.utils;
 
+import com.expercise.exception.ExperciseGenericException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -15,14 +16,21 @@ public final class JsonUtils {
     }
 
     public static String toJsonString(Object object) {
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.writeValueAsString(object);
+            return new ObjectMapper().writeValueAsString(object);
         } catch (JsonProcessingException e) {
             LOGGER.error("Exception while writing the object as JSON string", e);
         }
 
         return object instanceof Collection ? "[]" : "{}";
+    }
+
+    public static <T> T fromJson(String jsonString, Class<T> clazz) {
+        try {
+            return new ObjectMapper().readValue(jsonString, clazz);
+        } catch (Exception e) {
+            throw new ExperciseGenericException("JSON deserialization exception occurred.", e);
+        }
     }
 
 }

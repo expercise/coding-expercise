@@ -245,10 +245,6 @@ public class Challenge extends AbstractEntity {
         return inputs;
     }
 
-    public Object getOutputValueFor(TestCase testCase) {
-        return outputType.convert(testCase.getOutput());
-    }
-
     public boolean isCodeKata() {
         return getChallengeType() == ChallengeType.CODE_KATA;
     }

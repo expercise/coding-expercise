@@ -20,6 +20,7 @@ public class JavaSignatureGenerator implements SignatureGenerator {
     static {
         TYPE_MAP.put(DataType.Integer, Integer.class);
         TYPE_MAP.put(DataType.Text, String.class);
+        TYPE_MAP.put(DataType.Array, List.class);
     }
 
     @Override

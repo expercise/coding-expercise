@@ -1,7 +1,10 @@
 package com.expercise.enums;
 
+import com.expercise.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public enum DataType {
 
@@ -20,10 +23,11 @@ public enum DataType {
     Text(String.class.getName()) {
         @Override
         public Object convert(String rawValue) {
-            if (rawValue == null) {
-                return "";
-            }
-            return rawValue;
+            return JsonUtils.fromJson(rawValue, String.class);
+//            if (rawValue == null) {
+//                return "";
+//            }
+//            return rawValue;
         }
 
         @Override
@@ -32,6 +36,18 @@ public enum DataType {
                 return "";
             }
             return "\"" + rawValue + "\"";
+        }
+    },
+
+    Array(List.class.getName()) {
+        @Override
+        public Object convert(String rawValue) {
+            return JsonUtils.fromJson(rawValue, List.class);
+        }
+
+        @Override
+        public String toLiteral(String rawValue) {
+            return rawValue;
         }
     };
 
