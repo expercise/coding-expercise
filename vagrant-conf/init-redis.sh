@@ -21,8 +21,8 @@ mkdir /var/redis
 chmod -R 777 /var/redis
 useradd redis
 
-cp -u /vagrant/conf/redis.conf /etc/redis/6379.conf
-cp -u /vagrant/conf/redis.init.d /etc/init.d/redis_6379
+cp -u /vagrant/vagrant-conf/redis.conf /etc/redis/6379.conf
+cp -u /vagrant/vagrant-conf/redis.init.d /etc/init.d/redis_6379
 
 update-rc.d redis_6379 defaults
 
