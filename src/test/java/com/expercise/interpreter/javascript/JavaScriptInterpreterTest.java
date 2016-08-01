@@ -307,7 +307,7 @@ public class JavaScriptInterpreterTest {
         TestCase testCase = new TestCase();
 
         List<String> inputValues = new ArrayList<>();
-        inputValues.add("abc");
+        inputValues.add("\"abc\"");
         testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
         testCase.setOutput("3");
 
@@ -330,7 +330,57 @@ public class JavaScriptInterpreterTest {
         challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
-        testCase.setOutput("Hello World");
+        testCase.setOutput("\"Hello World\"");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
+    public void shouldWorkWithArrayParameters() {
+        String sumSolution = "function solution(a) { return a.length; }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Array);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Integer);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("[1,2,3,4]");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("4");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, sumSolution);
+
+        interpreter.interpret(context);
+
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
+    public void shouldReturnArrayValue() {
+        String solution = "function solution() { return [1,2,3] }";
+
+        Challenge challenge = new Challenge();
+
+        challenge.setOutputType(DataType.Array);
+
+        TestCase testCase = new TestCase();
+        testCase.setOutput("[1,2,3]");
 
         challenge.addTestCase(testCase);
 

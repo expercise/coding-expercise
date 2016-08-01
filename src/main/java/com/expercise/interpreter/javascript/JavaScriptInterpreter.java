@@ -8,6 +8,7 @@ import com.expercise.interpreter.typechecker.TypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import javax.script.Invocable;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.util.Collection;
 
 @Component
 public class JavaScriptInterpreter extends Interpreter {
@@ -98,16 +100,26 @@ public class JavaScriptInterpreter extends Interpreter {
         TestCaseResult testCaseResult = TestCaseResult.FAILED;
 
         DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
+        Object expectedObject = outputType.convert(testCaseWithResult.getTestCaseUnderTest().getOutput());
         if (outputType == DataType.Integer) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
-            int expectedValue = (int) Double.parseDouble(testCaseWithResult.getTestCaseUnderTest().getOutput());
-            testCaseResult = evaluationResultAsInteger == expectedValue ? TestCaseResult.PASSED : TestCaseResult.FAILED;
+            int expectedValue = (int) Double.parseDouble(expectedObject.toString());
+            testCaseResult = evaluationResultAsInteger == expectedValue
+                    ? TestCaseResult.PASSED
+                    : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (outputType == DataType.Text) {
             String evaluationResultAsString = resultValue.toString().trim();
-            String expectedValue = testCaseWithResult.getTestCaseUnderTest().getOutput();
-            testCaseResult = evaluationResultAsString.equals(expectedValue) ? TestCaseResult.PASSED : TestCaseResult.FAILED;
+            testCaseResult = evaluationResultAsString.equals(expectedObject)
+                    ? TestCaseResult.PASSED
+                    : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(evaluationResultAsString);
+        } else if (outputType == DataType.Array) {
+            Collection<Object> resultCollection = ((ScriptObjectMirror) resultValue).values();
+            testCaseResult = resultCollection.equals(expectedObject)
+                    ? TestCaseResult.PASSED
+                    : TestCaseResult.FAILED;
+            testCaseWithResult.setActualValue(resultCollection.toString());
         }
 
         testCaseWithResult.setTestCaseResult(testCaseResult);

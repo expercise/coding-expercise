@@ -69,8 +69,8 @@ public class ChallengeServiceTest {
         new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
 
         TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().inputValue("10").buildWithRandomId();
-        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("i2").buildWithRandomId();
-        TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("o1").build();
+        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("\"i2\"").buildWithRandomId();
+        TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("\"o1\"").build();
 
         challenge.addTestCase(testCase);
 
@@ -95,9 +95,9 @@ public class ChallengeServiceTest {
         new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
         new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Text).buildWithRandomId();
 
-        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().inputValue("i1").buildWithRandomId();
-        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("i2").buildWithRandomId();
-        TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("o1").build();
+        TestCaseInputValue inputValue1 = new TestCaseInputValueBuilder().inputValue("\"i1\"").buildWithRandomId();
+        TestCaseInputValue inputValue2 = new TestCaseInputValueBuilder().inputValue("\"i2\"").buildWithRandomId();
+        TestCase testCase = new TestCaseBuilder().id(1L).challenge(challenge).inputs(inputValue1, inputValue2).output("\"o1\"").build();
 
         challenge.addTestCase(testCase);
 

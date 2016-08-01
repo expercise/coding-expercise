@@ -2,7 +2,6 @@ package com.expercise.interpreter;
 
 import com.expercise.domain.challenge.ChallengeInputType;
 import com.expercise.domain.challenge.TestCase;
-import com.expercise.enums.DataType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -28,14 +27,12 @@ public class TestCaseModel implements Serializable {
         TestCase testCaseUnderTest = testCaseWithResult.getTestCaseUnderTest();
         List<ChallengeInputType> inputTypes = testCaseUnderTest.getChallenge().getInputTypes();
         for (int i = 0; i < inputTypes.size(); i++) {
-            ChallengeInputType inputType = inputTypes.get(i);
             String inputValue = testCaseUnderTest.getInputs().get(i).getInputValue();
-            testCaseModel.getInputs().add(inputType.getInputType().toLiteral(inputValue));
+            testCaseModel.getInputs().add(inputValue);
         }
 
-        DataType outputType = testCaseUnderTest.getChallenge().getOutputType();
-        testCaseModel.setOutput(outputType.toLiteral(testCaseUnderTest.getOutput()));
-        testCaseModel.setActualValue(outputType.toLiteral(testCaseWithResult.getActualValue()));
+        testCaseModel.setOutput(testCaseUnderTest.getOutput());
+        testCaseModel.setActualValue(testCaseWithResult.getActualValue());
         testCaseModel.setTestCaseResult(testCaseWithResult.getTestCaseResult());
         testCaseModel.setResultMessage(testCaseWithResult.getResultMessage());
         return testCaseModel;

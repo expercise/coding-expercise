@@ -8,64 +8,30 @@ import java.util.List;
 
 public enum DataType {
 
-    Integer(java.lang.Integer.class.getName()) {
+    Integer {
         @Override
         public Object convert(String rawValue) {
-            return java.lang.Integer.parseInt(rawValue);
-        }
-
-        @Override
-        public String toLiteral(String rawValue) {
-            return rawValue;
+            return JsonUtils.fromJson(rawValue, Integer.class);
         }
     },
 
-    Text(String.class.getName()) {
+    Text {
         @Override
         public Object convert(String rawValue) {
             return JsonUtils.fromJson(rawValue, String.class);
-//            if (rawValue == null) {
-//                return "";
-//            }
-//            return rawValue;
-        }
-
-        @Override
-        public String toLiteral(String rawValue) {
-            if (rawValue == null) {
-                return "";
-            }
-            return "\"" + rawValue + "\"";
         }
     },
 
-    Array(List.class.getName()) {
+    Array {
         @Override
         public Object convert(String rawValue) {
             return JsonUtils.fromJson(rawValue, List.class);
-        }
-
-        @Override
-        public String toLiteral(String rawValue) {
-            return rawValue;
         }
     };
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataType.class);
 
-    private String className;
-
-    DataType(String className) {
-        this.className = className;
-    }
-
     public abstract Object convert(String rawValue);
-
-    public abstract String toLiteral(String rawValue);
-
-    public String getClassName() {
-        return className;
-    }
 
     public boolean isProperTypeFor(String rawValue) {
         try {

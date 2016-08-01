@@ -22,14 +22,14 @@ public class TestCaseModelTest {
         new ChallengeInputTypeBuilder().challenge(challenge).inputType(DataType.Integer).buildWithRandomId();
 
         TestCase testCase = new TestCaseBuilder().challenge(challenge)
-                .inputs(new TestCaseInputValueBuilder().inputValue("40").buildWithRandomId(),
+                .inputs(new TestCaseInputValueBuilder().inputValue("\"40\"").buildWithRandomId(),
                         new TestCaseInputValueBuilder().inputValue("50").buildWithRandomId())
-                .output("20")
+                .output("\"20\"")
                 .challenge(challenge)
                 .buildWithRandomId();
 
         TestCaseWithResult testCaseWithResult = new TestCaseWithResult(testCase);
-        testCaseWithResult.setActualValue("10");
+        testCaseWithResult.setActualValue("\"10\"");
         testCaseWithResult.setTestCaseResult(TestCaseResult.FAILED);
         testCaseWithResult.setResultMessage("result message");
 
