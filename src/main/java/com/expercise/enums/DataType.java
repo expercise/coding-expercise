@@ -1,6 +1,7 @@
 package com.expercise.enums;
 
 import com.expercise.utils.JsonUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,4 +48,11 @@ public enum DataType {
         return !isProperTypeFor(rawValue);
     }
 
+    public static String toLiteral(Object object) {
+        if (object instanceof String) {
+            return "\"" + StringEscapeUtils.escapeJava(object.toString()) + "\"";
+        } else {
+            return object.toString();
+        }
+    }
 }

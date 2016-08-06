@@ -134,10 +134,6 @@ public class Challenge extends AbstractEntity {
         return level != null;
     }
 
-    public boolean hasNotLevel() {
-        return !hasLevel();
-    }
-
     public String getThemeBookmarkableUrl() {
         if (hasLevel() && level.hasTheme()) {
             return level.getTheme().getBookmarkableUrl();

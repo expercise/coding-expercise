@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @Entity
 public class Theme extends PrioritizedEntity {
 
+    private static final long serialVersionUID = -4180956875499453423L;
+
     public static final String URL_FOR_NOT_THEMED_CHALLENGES = "/themes/other-challenges";
 
     @Id

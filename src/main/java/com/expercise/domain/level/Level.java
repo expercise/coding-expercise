@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @Entity
 public class Level extends PrioritizedEntity {
 
+    private static final long serialVersionUID = -1863753168513276995L;
+
     @Id
     @GeneratedValue
     private Long id;

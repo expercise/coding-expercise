@@ -4,7 +4,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.enums.DataType;
 import com.expercise.interpreter.*;
-import com.expercise.interpreter.typechecker.TypeChecker;
+import com.expercise.interpreter.typechecker.javascript.JavaScriptTypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -19,6 +19,7 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Component
 public class JavaScriptInterpreter extends Interpreter {
@@ -26,7 +27,7 @@ public class JavaScriptInterpreter extends Interpreter {
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaScriptInterpreter.class);
 
     @Autowired
-    private TypeChecker typeChecker;
+    private JavaScriptTypeChecker javaScriptTypeChecker;
 
     @Autowired
     private JavaScriptOutputWriter javaScriptOutputWriter;
@@ -49,7 +50,7 @@ public class JavaScriptInterpreter extends Interpreter {
     }
 
     private void typeCheck(Object resultValue, DataType outputType) throws InterpreterException {
-        if (!typeChecker.typeCheck(resultValue, outputType)) {
+        if (!javaScriptTypeChecker.typeCheck(resultValue, outputType)) {
             throw new InterpreterException(InterpreterResult.typeErrorFailedResult());
         }
     }
@@ -100,30 +101,51 @@ public class JavaScriptInterpreter extends Interpreter {
         TestCaseResult testCaseResult = TestCaseResult.FAILED;
 
         DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
-        Object expectedObject = outputType.convert(testCaseWithResult.getTestCaseUnderTest().getOutput());
+        Object expectedJavaObject = outputType.convert(testCaseWithResult.getTestCaseUnderTest().getOutput());
         if (outputType == DataType.Integer) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
-            int expectedValue = (int) Double.parseDouble(expectedObject.toString());
+            int expectedValue = (int) Double.parseDouble(expectedJavaObject.toString());
             testCaseResult = evaluationResultAsInteger == expectedValue
                     ? TestCaseResult.PASSED
                     : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(String.valueOf(evaluationResultAsInteger));
         } else if (outputType == DataType.Text) {
             String evaluationResultAsString = resultValue.toString().trim();
-            testCaseResult = evaluationResultAsString.equals(expectedObject)
+            testCaseResult = evaluationResultAsString.equals(expectedJavaObject)
                     ? TestCaseResult.PASSED
                     : TestCaseResult.FAILED;
-            testCaseWithResult.setActualValue(evaluationResultAsString);
+            testCaseWithResult.setActualValue(DataType.toLiteral(evaluationResultAsString));
         } else if (outputType == DataType.Array) {
-            Collection<Object> resultCollection = ((ScriptObjectMirror) resultValue).values();
-            testCaseResult = resultCollection.equals(expectedObject)
+            Collection<Object> resultCollection = unwrapScriptObjectMirrorType(((ScriptObjectMirror) resultValue).values());
+            testCaseResult = resultCollection.equals(expectedJavaObject)
                     ? TestCaseResult.PASSED
                     : TestCaseResult.FAILED;
-            testCaseWithResult.setActualValue(resultCollection.toString());
+            testCaseWithResult.setActualValue(convertCollectionToLiteral(resultCollection).toString());
         }
 
         testCaseWithResult.setTestCaseResult(testCaseResult);
         testCaseWithResult.setResultMessage(OutputMessageAggregator.getOutputMessage());
+
+    }
+
+    private Collection<Object> unwrapScriptObjectMirrorType(Collection<Object> source) {
+        return source.stream().map(obj -> {
+            if (obj instanceof ScriptObjectMirror) {
+                return unwrapScriptObjectMirrorType(((ScriptObjectMirror) obj).values());
+            } else {
+                return obj;
+            }
+        }).collect(Collectors.toList());
+    }
+
+    private Collection<Object> convertCollectionToLiteral(Collection<Object> source) {
+        return source.stream().map(obj -> {
+            if (obj instanceof Collection) {
+                return convertCollectionToLiteral((Collection<Object>) obj);
+            } else {
+                return DataType.toLiteral(obj);
+            }
+        }).collect(Collectors.toList());
     }
 
 }

@@ -9,7 +9,7 @@ import com.expercise.interpreter.InterpreterFailureType;
 import com.expercise.interpreter.InterpreterResult;
 import com.expercise.interpreter.TestCaseResult;
 import com.expercise.interpreter.TestCaseWithResult;
-import com.expercise.interpreter.typechecker.TypeChecker;
+import com.expercise.interpreter.typechecker.javascript.JavaScriptTypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +35,11 @@ public class JavaScriptInterpreterTest {
     private JavaScriptInterpreter interpreter;
 
     @Mock
-    private TypeChecker typeChecker;
+    private JavaScriptTypeChecker javaScriptTypeChecker;
 
     @Before
     public void init() {
-        when(typeChecker.typeCheck(any(), any(DataType.class))).thenReturn(true);
+        when(javaScriptTypeChecker.typeCheck(any(), any(DataType.class))).thenReturn(true);
     }
 
     @Test
@@ -284,7 +284,7 @@ public class JavaScriptInterpreterTest {
 
         ChallengeEvaluationContext context = createContext(challenge, "function solution(a, b) { return \"49\" }");
 
-        when(typeChecker.typeCheck(any(), eq(DataType.Integer))).thenReturn(false);
+        when(javaScriptTypeChecker.typeCheck(any(), eq(DataType.Integer))).thenReturn(false);
 
         interpreter.interpret(context);
 
@@ -352,14 +352,14 @@ public class JavaScriptInterpreterTest {
         inputTypes.add(DataType.Array);
 
         challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
-        challenge.setOutputType(DataType.Integer);
+        challenge.setOutputType(DataType.Text);
 
         TestCase testCase = new TestCase();
 
         List<String> inputValues = new ArrayList<>();
         inputValues.add("[1,2,3,4]");
         testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
-        testCase.setOutput("4");
+        testCase.setOutput("\"4\"");
 
         challenge.addTestCase(testCase);
 
@@ -369,6 +369,7 @@ public class JavaScriptInterpreterTest {
 
         assertTrue(context.getInterpreterResult().isSuccess());
         assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("\"4\""));
     }
 
     @Test
@@ -380,7 +381,7 @@ public class JavaScriptInterpreterTest {
         challenge.setOutputType(DataType.Array);
 
         TestCase testCase = new TestCase();
-        testCase.setOutput("[1,2,3]");
+        testCase.setOutput("[1, 2, 3]");
 
         challenge.addTestCase(testCase);
 
@@ -388,6 +389,29 @@ public class JavaScriptInterpreterTest {
 
         interpreter.interpret(context);
 
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1, 2, 3]"));
+    }
+
+    @Test
+    public void shouldReturnMixTypedArrayValue() {
+        String solution = "function solution() { return [1,2,3,\"test\",[4,\"hey\",5]] }";
+
+        Challenge challenge = new Challenge();
+
+        challenge.setOutputType(DataType.Array);
+
+        TestCase testCase = new TestCase();
+        testCase.setOutput("[1,2,3,\"test\",[4,\"hey\",5]]");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        interpreter.interpret(context);
+
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1, 2, 3, \"test\", [4, \"hey\", 5]]"));
         assertTrue(context.getInterpreterResult().isSuccess());
         assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }

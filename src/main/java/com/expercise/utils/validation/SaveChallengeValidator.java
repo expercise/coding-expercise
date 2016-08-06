@@ -5,8 +5,10 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
+import com.expercise.exception.ExperciseGenericException;
 import com.expercise.service.challenge.ChallengeService;
 import com.expercise.service.user.AuthenticationService;
+import com.expercise.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
@@ -75,8 +77,9 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
         boolean valid = validateField(challenge.hasOutputType(), bindingResult, "challenge", "outputType", outputType, new String[]{"NotEmpty.challenge.outputType"});
         if (valid) {
             for (ChallengeModel.TestCase testCase : challenge.getTestCases()) {
-                String outputValue = testCase.getOutputValue();
-                if (outputValue == null || outputType.isNotProperTypeFor(outputValue)) {
+                try {
+                    testCase.setOutputValue(JsonUtils.format(testCase.getOutputValue()));
+                } catch (ExperciseGenericException e) {
                     addError(bindingResult, "outputValues", new String[]{"NotValid.challenge.outputValues"});
                     break;
                 }

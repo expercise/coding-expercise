@@ -1,14 +1,15 @@
 package com.expercise.interpreter.typechecker
 
 import com.expercise.enums.DataType
+import com.expercise.interpreter.typechecker.javascript.JavaScriptTypeChecker
 import spock.lang.Specification
 
-class TypeCheckerSpec extends Specification {
+class JavaScriptTypeCheckerSpec extends Specification {
 
-    TypeChecker typeChecker
+    JavaScriptTypeChecker typeChecker
 
     def setup() {
-        typeChecker = new TypeChecker()
+        typeChecker = new JavaScriptTypeChecker()
         typeChecker.init()
     }
 

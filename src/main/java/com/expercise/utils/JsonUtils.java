@@ -2,6 +2,7 @@ package com.expercise.utils;
 
 import com.expercise.exception.ExperciseGenericException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,19 @@ public final class JsonUtils {
             return new ObjectMapper().readValue(jsonString, clazz);
         } catch (Exception e) {
             throw new ExperciseGenericException("JSON deserialization exception occurred.", e);
+        }
+    }
+
+    public static String format(String jsonString) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            DefaultPrettyPrinter defaultPrettyPrinter = new DefaultPrettyPrinter();
+            defaultPrettyPrinter.indentArraysWith(new DefaultPrettyPrinter.NopIndenter());
+            return objectMapper.writer(defaultPrettyPrinter).writeValueAsString(
+                    objectMapper.readValue(jsonString, Object.class)
+            );
+        } catch (Exception e) {
+            throw new ExperciseGenericException("JSON format exception occurred.", e);
         }
     }
 
