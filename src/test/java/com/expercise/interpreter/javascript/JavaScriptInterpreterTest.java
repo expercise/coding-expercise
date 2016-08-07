@@ -391,7 +391,7 @@ public class JavaScriptInterpreterTest {
 
         assertTrue(context.getInterpreterResult().isSuccess());
         assertThat(context.getInterpreterResult().getFailureType(), nullValue());
-        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1, 2, 3]"));
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1,2,3]"));
     }
 
     @Test
@@ -411,7 +411,7 @@ public class JavaScriptInterpreterTest {
 
         interpreter.interpret(context);
 
-        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1, 2, 3, \"test\", [4, \"hey\", 5]]"));
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[1,2,3,\"test\",[4,\"hey\",5]]"));
         assertTrue(context.getInterpreterResult().isSuccess());
         assertThat(context.getInterpreterResult().getFailureType(), nullValue());
     }
