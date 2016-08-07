@@ -1,9 +1,10 @@
 package com.expercise.utils;
 
-import com.expercise.exception.ExperciseGenericException;
+import com.expercise.exception.ExperciseJsonException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -13,9 +14,9 @@ public class JsonUtilsTest {
 
     @Test
     public void shouldFormatJsonStringProperlyAccordingToItsType() throws IOException {
-        assertThat(JsonUtils.format("  1 "), equalTo("1"));
-        assertThat(JsonUtils.format("  \"1\"  "), equalTo("\"1\""));
-        assertThat(JsonUtils.format("  [ \"1\", 2   ,3,  [ 2,  \"19\" ]  ]"), equalTo("[\"1\",2,3,[2,\"19\"]]"));
+        assertThat(JsonUtils.formatSafely("  1 ", Integer.class), equalTo("1"));
+        assertThat(JsonUtils.formatSafely("  \"1\"  ", String.class), equalTo("\"1\""));
+        assertThat(JsonUtils.formatSafely("  [ \"1\", 2   ,3,  [ 2,  \"19\" ]  ]", List.class), equalTo("[\"1\",2,3,[2,\"19\"]]"));
     }
 
     @Test
@@ -29,9 +30,9 @@ public class JsonUtilsTest {
 
     private void assertInvalidJsonFormat(String input) {
         try {
-            JsonUtils.format(input);
+            JsonUtils.formatSafely(input, Object.class);
             fail();
-        } catch (ExperciseGenericException ignored) {
+        } catch (ExperciseJsonException ignored) {
         } catch (Exception e) {
             fail();
         }

@@ -5,10 +5,9 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
-import com.expercise.exception.ExperciseGenericException;
+import com.expercise.exception.ExperciseJsonException;
 import com.expercise.service.challenge.ChallengeService;
 import com.expercise.service.user.AuthenticationService;
-import com.expercise.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
@@ -78,10 +77,9 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
         if (valid) {
             for (ChallengeModel.TestCase testCase : challenge.getTestCases()) {
                 try {
-                    testCase.setOutputValue(JsonUtils.format(testCase.getOutputValue()));
-                } catch (ExperciseGenericException e) {
+                    outputType.validateJson(testCase.getOutputValue());
+                } catch (ExperciseJsonException e) {
                     addError(bindingResult, "outputValues", new String[]{"NotValid.challenge.outputValues"});
-                    break;
                 }
             }
         }
@@ -92,9 +90,10 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
         boolean testCasesExist = validateField(!testCases.isEmpty(), bindingResult, "challenge", "testCases", testCases, new String[]{"NotEmpty.challenge.testCases"});
         if (testCasesExist) {
             for (ChallengeModel.TestCase testCase : testCases) {
-                if (testCase.getInputValues().size() != challenge.getInputTypes().size() || isInputValuesNotProperFoInputTypes(challenge.getInputTypes(), testCase.getInputValues())) {
+                try {
+                    validateInputTypes(challenge.getInputTypes(), testCase.getInputValues());
+                } catch (ExperciseJsonException e) {
                     addError(bindingResult, "inputValues", new String[]{"NotValid.challenge.inputValues"});
-                    break;
                 }
             }
         }
@@ -112,15 +111,12 @@ public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
         return challengeModel.getLevel() != null && challenge.getLevelId() != challengeModel.getLevel();
     }
 
-    private boolean isInputValuesNotProperFoInputTypes(List<DataType> inputTypes, List<String> inputValues) {
+    private void validateInputTypes(List<DataType> inputTypes, List<String> inputValues) throws ExperciseJsonException {
         if (inputTypes.size() == inputValues.size()) {
             for (int index = 0; index < inputTypes.size(); index++) {
-                if (inputTypes.get(index).isNotProperTypeFor(inputValues.get(index))) {
-                    return true;
-                }
+                inputTypes.get(index).validateJson(inputValues.get(index));
             }
         }
-        return false;
     }
 
 }

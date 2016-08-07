@@ -1,6 +1,7 @@
 package com.expercise.utils;
 
 import com.expercise.exception.ExperciseGenericException;
+import com.expercise.exception.ExperciseJsonException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,15 +35,23 @@ public final class JsonUtils {
         }
     }
 
-    public static String format(String jsonString) {
+    public static String formatSafely(String jsonString, Class<?> clazz) throws ExperciseJsonException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             DefaultPrettyPrinter defaultPrettyPrinter = new DefaultPrettyPrinter();
             defaultPrettyPrinter.indentArraysWith(new DefaultPrettyPrinter.NopIndenter());
             return objectMapper.writer(defaultPrettyPrinter).writeValueAsString(
-                    objectMapper.readValue(jsonString, Object.class)
+                    objectMapper.readValue(jsonString, clazz)
             );
         } catch (Exception e) {
+            throw new ExperciseJsonException("JSON format exception occurred.", e);
+        }
+    }
+
+    public static String format(String jsonString) {
+        try {
+            return formatSafely(jsonString, Object.class);
+        } catch (ExperciseJsonException e) {
             throw new ExperciseGenericException("JSON format exception occurred.", e);
         }
     }

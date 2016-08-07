@@ -8,10 +8,12 @@ import com.expercise.domain.challenge.TestCaseInputValue;
 import com.expercise.enums.Lingo;
 import com.expercise.service.level.LevelService;
 import com.expercise.service.user.AuthenticationService;
+import com.expercise.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ChallengeModelHelper {
@@ -53,7 +55,10 @@ public class ChallengeModelHelper {
 
         challenge.getTestCases().clear();
         for (ChallengeModel.TestCase testCase : challengeModel.getTestCases()) {
-            challenge.addTestCase(testCase.getInputValues(), testCase.getOutputValue());
+            challenge.addTestCase(
+                    testCase.getInputValues().stream().map(JsonUtils::format).collect(Collectors.toList()),
+                    JsonUtils.format(testCase.getOutputValue())
+            );
         }
         TestCase.prioritize(challenge.getTestCases());
 

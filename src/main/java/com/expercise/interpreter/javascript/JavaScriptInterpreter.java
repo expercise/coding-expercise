@@ -6,6 +6,7 @@ import com.expercise.enums.DataType;
 import com.expercise.interpreter.*;
 import com.expercise.interpreter.typechecker.javascript.JavaScriptTypeChecker;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
+import com.expercise.utils.JsonUtils;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
@@ -101,7 +102,7 @@ public class JavaScriptInterpreter extends Interpreter {
         TestCaseResult testCaseResult = TestCaseResult.FAILED;
 
         DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
-        Object expectedJavaObject = outputType.convert(testCaseWithResult.getTestCaseUnderTest().getOutput());
+        Object expectedJavaObject = outputType.toJavaObject(testCaseWithResult.getTestCaseUnderTest().getOutput());
         if (outputType == DataType.Integer) {
             int evaluationResultAsInteger = ((Number) resultValue).intValue();
             int expectedValue = (int) Double.parseDouble(expectedJavaObject.toString());
@@ -120,7 +121,7 @@ public class JavaScriptInterpreter extends Interpreter {
             testCaseResult = resultCollection.equals(expectedJavaObject)
                     ? TestCaseResult.PASSED
                     : TestCaseResult.FAILED;
-            testCaseWithResult.setActualValue(convertCollectionToLiteral(resultCollection).toString());
+            testCaseWithResult.setActualValue(JsonUtils.format(convertCollectionToLiteral(resultCollection).toString()));
         }
 
         testCaseWithResult.setTestCaseResult(testCaseResult);

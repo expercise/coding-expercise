@@ -66,12 +66,12 @@ public class UserTestCaseStateService {
     }
 
     public void resetUserState(Challenge challenge, ProgrammingLanguage programmingLanguage) {
-        TestCasesWithSourceCacheModel userTestCasesOf = getUserTestCasesOf(challenge, programmingLanguage);
+        TestCasesWithSourceCacheModel userTestCases = getUserTestCasesOf(challenge, programmingLanguage);
         if (challenge.isCodeKata()) {
-            userTestCasesOf.clear();
+            userTestCases.clear();
             saveNextTestCase(challenge, StringUtils.EMPTY, programmingLanguage);
         } else {
-            userTestCasesOf.reset();
+            userTestCases.reset();
         }
     }
 

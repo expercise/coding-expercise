@@ -236,13 +236,17 @@ public class Challenge extends AbstractEntity {
     public List<Object> getConvertedInputValues(List<TestCaseInputValue> inputValues) {
         List<Object> inputs = new ArrayList<>();
         for (int index = 0; index < inputTypes.size(); index++) {
-            inputs.add(inputTypes.get(index).getInputType().convert(inputValues.get(index).getInputValue()));
+            inputs.add(inputTypes.get(index).getInputType().toJavaObject(inputValues.get(index).getInputValue()));
         }
         return inputs;
     }
 
     public boolean isCodeKata() {
         return getChallengeType() == ChallengeType.CODE_KATA;
+    }
+
+    public boolean hasOneInput() {
+        return inputTypes.size() == 1;
     }
 
 }

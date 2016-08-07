@@ -115,6 +115,7 @@ expercise.ChallengeManagement = {
             + '       <select name="inputType" class="form-control">'
             + '           <option value="Integer">' + expercise.utils.i18n('Integer') + '</option>'
             + '           <option value="Text">' + expercise.utils.i18n('Text') + '</option>'
+            + '           <option value="Array">' + expercise.utils.i18n('Array') + '</option>'
             + '       </select>'
             + '   </td>'
             + '   <td>'
