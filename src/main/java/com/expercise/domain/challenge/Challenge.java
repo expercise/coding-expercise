@@ -245,7 +245,7 @@ public class Challenge extends AbstractEntity {
         return getChallengeType() == ChallengeType.CODE_KATA;
     }
 
-    public boolean hasOneInput() {
+    public boolean hasOnlyOneInput() {
         return inputTypes.size() == 1;
     }
 

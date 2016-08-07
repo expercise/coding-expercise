@@ -66,8 +66,8 @@
         <div class="col-xs-12">
             <table id="userTestCaseStatus" class="table table-condensed" style="border-collapse:collapse;">
                 <thead>
-                    <th th:if="${challenge.hasOneInput()}" th:text="#{challenge.testCase.table.header.input}">Input</th>
-                    <th th:unless="${challenge.hasOneInput()}" th:text="#{challenge.testCase.table.header.inputs}">Inputs</th>
+                    <th th:if="${challenge.hasOnlyOneInput()}" th:text="#{challenge.testCase.table.header.input}">Input</th>
+                    <th th:unless="${challenge.hasOnlyOneInput()}" th:text="#{challenge.testCase.table.header.inputs}">Inputs</th>
                     <th th:text="#{challenge.testCase.table.header.expectedOutput}">Expected Output</th>
                     <th th:text="#{challenge.testCase.table.header.actualOutput}">Actual Output</th>
                     <th th:text="#{challenge.testCase.table.header.resultStatus}">Result</th>
