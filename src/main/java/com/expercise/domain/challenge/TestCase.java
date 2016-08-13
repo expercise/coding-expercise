@@ -2,6 +2,7 @@ package com.expercise.domain.challenge;
 
 import com.expercise.domain.PrioritizedEntity;
 import com.expercise.enums.DataType;
+import com.expercise.utils.Constants;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class TestCase extends PrioritizedEntity {
     @OrderBy("priority")
     private List<TestCaseInputValue> inputs = new ArrayList<>();
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = Constants.MAX_TESTCASE_VALUE_LENGTH)
     private String output;
 
     public Long getId() {

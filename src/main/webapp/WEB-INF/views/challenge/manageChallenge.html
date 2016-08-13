@@ -158,8 +158,10 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input class="form-control" type="text" name="inputValue"/>
-                            <input class="form-control" type="text" name="inputValue"/>
+                            <input class="form-control" type="text" name="inputValue"
+                                   th:maxlength="${T(com.expercise.utils.Constants).MAX_TESTCASE_VALUE_LENGTH}" />
+                            <input class="form-control" type="text" name="inputValue"
+                                   th:maxlength="${T(com.expercise.utils.Constants).MAX_TESTCASE_VALUE_LENGTH}" />
                         </td>
                         <td>
                             <input class="form-control" type="text" name="outputValue"/>

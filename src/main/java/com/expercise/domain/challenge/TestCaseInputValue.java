@@ -1,6 +1,7 @@
 package com.expercise.domain.challenge;
 
 import com.expercise.domain.PrioritizedEntity;
+import com.expercise.utils.Constants;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class TestCaseInputValue extends PrioritizedEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = Constants.MAX_TESTCASE_VALUE_LENGTH)
     private String inputValue;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
