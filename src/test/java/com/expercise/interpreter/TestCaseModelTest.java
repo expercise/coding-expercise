@@ -33,7 +33,7 @@ public class TestCaseModelTest {
         testCaseWithResult.setTestCaseResult(TestCaseResult.FAILED);
         testCaseWithResult.setResultMessage("result message");
 
-        TestCaseModel createdModel = TestCaseModel.createFrom(testCaseWithResult);
+        TestCaseModel createdModel = new TestCaseModel(testCaseWithResult);
 
         assertThat(createdModel.getInputs(), hasItems("\"40\"", "50"));
         assertThat(createdModel.getActualValue(), equalTo("\"10\""));

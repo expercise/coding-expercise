@@ -64,7 +64,7 @@ public class CreateSolutionResponsePostAction implements PostEvaluationAction {
 
         result.getTestCasesWithSourceModel().setCurrentSourceCode(context.getSource());
         for (TestCaseWithResult testCaseWithResult : context.getTestCaseWithResults()) {
-            result.addTestCaseModel(TestCaseModel.createFrom(testCaseWithResult));
+            result.addTestCaseModel(new TestCaseModel(testCaseWithResult));
         }
 
         context.setSolutionValidationResult(result);

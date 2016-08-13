@@ -94,7 +94,7 @@ public class ChallengeService {
 
     public TestCasesWithSourceModel getUserStateFor(Challenge challenge, ProgrammingLanguage programmingLanguage) {
         TestCasesWithSourceCacheModel cacheStateOfUser = userTestCaseStateService.getUserTestCasesOf(challenge, programmingLanguage);
-        return TestCasesWithSourceModel.createFrom(cacheStateOfUser);
+        return new TestCasesWithSourceModel(cacheStateOfUser);
     }
 
     public TestCasesWithSourceModel resetUserStateFor(Challenge challenge, ProgrammingLanguage programmingLanguage) {

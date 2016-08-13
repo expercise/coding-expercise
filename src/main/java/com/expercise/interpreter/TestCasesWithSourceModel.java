@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestCasesWithSourceModel implements Serializable {
 
@@ -14,13 +15,15 @@ public class TestCasesWithSourceModel implements Serializable {
 
     private List<TestCaseModel> testCaseModels = new ArrayList<>();
 
-    public static TestCasesWithSourceModel createFrom(TestCasesWithSourceCacheModel testCasesWithSourceCacheModel) {
-        TestCasesWithSourceModel testCasesWithSourceModel = new TestCasesWithSourceModel();
-        testCasesWithSourceModel.setCurrentSourceCode(testCasesWithSourceCacheModel.getCurrentSourceCode());
-        for (TestCaseWithResult eachTestCaseWithResult : testCasesWithSourceCacheModel.getTestCaseResults()) {
-            testCasesWithSourceModel.getTestCaseModels().add(TestCaseModel.createFrom(eachTestCaseWithResult));
-        }
-        return testCasesWithSourceModel;
+    public TestCasesWithSourceModel() {
+    }
+
+    public TestCasesWithSourceModel(TestCasesWithSourceCacheModel testCasesWithSourceCacheModel) {
+        currentSourceCode = testCasesWithSourceCacheModel.getCurrentSourceCode();
+        testCaseModels = testCasesWithSourceCacheModel.getTestCaseResults()
+                .stream()
+                .map(TestCaseModel::new)
+                .collect(Collectors.toList());
     }
 
     public String getCurrentSourceCode() {
@@ -33,10 +36,6 @@ public class TestCasesWithSourceModel implements Serializable {
 
     public List<TestCaseModel> getTestCaseModels() {
         return testCaseModels;
-    }
-
-    public void setTestCaseModels(List<TestCaseModel> testCaseModels) {
-        this.testCaseModels = testCaseModels;
     }
 
 }
