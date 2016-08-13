@@ -184,7 +184,7 @@ expercise.Challenge = {
                 val = val.join(", ");
             }
             if (val && val.length >= 25) {
-                $testCaseValueContainer.data('toggle', 'tooltip');
+                $testCaseValueContainer.attr('data-toggle', 'tooltip');
                 $testCaseValueContainer.attr('title', val);
             }
             return $testCaseValueContainer.html(val);
