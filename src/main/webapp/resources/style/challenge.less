@@ -82,6 +82,13 @@ table#userTestCaseStatus {
 }
 
 table {
+  tr td > div.testCaseValue {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    white-space: nowrap;
+  }
+
   tr.testCaseRow {
     cursor: pointer;
 

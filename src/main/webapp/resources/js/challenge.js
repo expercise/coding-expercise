@@ -177,10 +177,23 @@ expercise.Challenge = {
         $userTestCaseTable.find('tbody').remove();
         var $tbody = $('<tbody>');
 
+        var prepareTestCaseValueContainer = function(value, valueField) {
+            var $testCaseValueContainer = $('<div class="testCaseValue"></div>');
+            var val = value[valueField];
+            if ($.isArray(val)) {
+                val = val.join(", ");
+            }
+            if (val && val.length >= 25) {
+                $testCaseValueContainer.data('toggle', 'tooltip');
+                $testCaseValueContainer.attr('title', val);
+            }
+            return $testCaseValueContainer.html(val);
+        };
+
         $.each(testCaseModels, function (index, value) {
-            var testInputsCell = $('<td></td>').html(value['inputs'].join(", "));
-            var testExpectedOutputCell = $('<td></td>').html(value['output']);
-            var testActualValueCell = $('<td></td>').html(value['actualValue']);
+            var testInputsCell = $('<td></td>').append(prepareTestCaseValueContainer(value, 'inputs'));
+            var testExpectedOutputCell = $('<td></td>').append(prepareTestCaseValueContainer(value, 'output'));
+            var testActualValueCell = $('<td></td>').append(prepareTestCaseValueContainer(value, 'actualValue'));
             var testCaseResult = value['testCaseResult'];
             var testCaseStatus = $('<span class="glyphicon testCaseStatus"></span>');
             var testResultStatusCell = $('<td></td>').html(testCaseStatus);
@@ -196,6 +209,7 @@ expercise.Challenge = {
         });
 
         $userTestCaseTable.append($tbody);
+        $(".testCaseValue").tooltip();
     },
 
     initializeKataChallenge: function () {
