@@ -139,7 +139,7 @@ expercise.ChallengeManagement = {
             if (currentInputsCount < inputValuesCount) {
                 inputValues.last().remove();
             } else if (currentInputsCount > inputValuesCount) {
-                var inputValueRow = '<input class="form-control" type="text" name="inputValue"/>';
+                var inputValueRow = '<input class="form-control" type="text" name="inputValue" maxlength="1024"/>';
                 $($tr.find('td')[0]).append(inputValueRow);
             }
         });
@@ -157,13 +157,13 @@ expercise.ChallengeManagement = {
             + '     <td>';
 
         for (var i = 1; i <= currentInputsCount; i++) {
-            testCaseRow += '<input class="form-control" type="text" name="inputValue"/>'
+            testCaseRow += '<input class="form-control" type="text" name="inputValue" maxlength="1024"/>'
         }
 
         testCaseRow += ''
             + '     </td>'
             + '     <td>'
-            + '         <input class="form-control" type="text" name="outputValue"/>'
+            + '         <input class="form-control" type="text" name="outputValue" maxlength="1024"/>'
             + '     </td>'
             + '     <td>'
             + '         <a class="removeTestCase btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>'
