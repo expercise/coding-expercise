@@ -20,6 +20,9 @@ public class RedisConfiguration {
     @Value("${redis.hostname}")
     private String hostname;
 
+    @Value("${redis.port}")
+    private String port;
+
     @Bean
     RedisConnectionFactory redisConnectionFactory() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
@@ -32,6 +35,7 @@ public class RedisConfiguration {
         poolConfig.setTimeBetweenEvictionRunsMillis(60000);
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(poolConfig);
         jedisConnectionFactory.setHostName(hostname);
+        jedisConnectionFactory.setPort(Integer.valueOf(port));
         return jedisConnectionFactory;
     }
 
