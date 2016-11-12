@@ -23,6 +23,9 @@ public class RedisConfiguration {
     @Value("${redis.port}")
     private String port;
 
+    @Value("${redis.password}")
+    private String password;
+
     @Bean
     RedisConnectionFactory redisConnectionFactory() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
@@ -36,6 +39,7 @@ public class RedisConfiguration {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(poolConfig);
         jedisConnectionFactory.setHostName(hostname);
         jedisConnectionFactory.setPort(Integer.valueOf(port));
+        jedisConnectionFactory.setPassword(password);
         return jedisConnectionFactory;
     }
 
