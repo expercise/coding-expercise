@@ -11,6 +11,7 @@ import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -37,6 +38,9 @@ public class ChallengeService {
 
     @Autowired
     private ConfigurationService configurationService;
+
+    @Value("${coding-expercise.challenge-approval-strategy}")
+    private String challengeApprovalStrategy;
 
     public List<Challenge> findAllChallengesOfUser() {
         return challengeDao.findAllByUser(authenticationService.getCurrentUser());
@@ -74,6 +78,9 @@ public class ChallengeService {
         if (challenge.isPersisted()) {
             challengeDao.update(challenge);
         } else {
+            if ("auto".equalsIgnoreCase(challengeApprovalStrategy)) {
+                challenge.setApproved(true);
+            }
             challenge.setUser(authenticationService.getCurrentUser());
             challengeDao.save(challenge);
         }
