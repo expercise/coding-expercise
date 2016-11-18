@@ -65,20 +65,5 @@
     <input th:replace="fragments/inputHiddens"/>
 
     <script th:replace="fragments/scripts"></script>
-
-    <!--/* UserReport integration script */-->
-    <script type="text/javascript" th:unless="${#strings.isEmpty(userReportApplicationKey)}" th:inline="javascript">
-        var _urq = _urq || [];
-        _urq.push(['initSite', [[${userReportApplicationKey}]]]);
-
-        (function () {
-            var ur = document.createElement('script');
-            ur.type = 'text/javascript';
-            ur.async = true;
-            ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ur, s);
-        })();
-    </script>
 </body>
 </html>

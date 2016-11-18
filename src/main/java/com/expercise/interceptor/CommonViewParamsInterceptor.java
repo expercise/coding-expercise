@@ -36,7 +36,6 @@ public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
         modelAndView.addObject("buildId", buildId);
         modelAndView.addObject("developmentEnvironment", configurationService.isDevelopment());
         modelAndView.addObject("googleAnalyticsApplicationKey", configurationService.getGoogleAnalyticsApplicationKey());
-        modelAndView.addObject("userReportApplicationKey", configurationService.getUserReportApplicationKey());
         modelAndView.addObject("currentUser", authenticationService.getCurrentUser());
         modelAndView.addObject("mobileClient", DeviceUtils.getCurrentDevice(request).isMobile() || DeviceUtils.getCurrentDevice(request).isTablet());
         modelAndView.addObject("canonical", urlService.getCanonical(request));

@@ -3,7 +3,6 @@ package com.expercise.service.configuration;
 import com.expercise.caching.Caching;
 import com.expercise.dao.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
-import com.expercise.enums.Lingo;
 import com.expercise.utils.EnvironmentUtils;
 import com.expercise.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +41,6 @@ public class ConfigurationService implements Caching {
 
     public String getGoogleAnalyticsApplicationKey() {
         return getValue("googleAnalytics.applicationKey");
-    }
-
-    public String getUserReportApplicationKey() {
-        return getValue("userReport.applicationKey." + Lingo.getCurrentLingo());
     }
 
     public Optional<Long> getIdOfDefaultChallenge() {

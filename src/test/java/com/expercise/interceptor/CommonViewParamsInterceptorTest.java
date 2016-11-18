@@ -66,17 +66,6 @@ public class CommonViewParamsInterceptorTest {
     }
 
     @Test
-    public void shouldAddUserReportApplicationKey() {
-        String userReportApplicationKey = RandomStringUtils.randomAlphabetic(11);
-
-        when(configurationService.getUserReportApplicationKey()).thenReturn(userReportApplicationKey);
-
-        interceptor.postHandle(request, response, null, modelAndView);
-
-        assertThat(modelAndView.getModel(), hasEntry("userReportApplicationKey", (Object) userReportApplicationKey));
-    }
-
-    @Test
     public void shouldAddBuildId() {
         String buildId = String.valueOf(System.currentTimeMillis());
 
