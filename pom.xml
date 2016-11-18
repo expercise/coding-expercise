@@ -3,11 +3,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.expercise</groupId>
-    <artifactId>expercise</artifactId>
+    <groupId>com.expercise.coding</groupId>
+    <artifactId>coding-expercise</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>expercise</name>
+    <name>coding-expercise</name>
 
     <properties>
         <!-- Dependencies -->
@@ -404,7 +404,7 @@
     </dependencies>
 
     <build>
-        <finalName>expercise</finalName>
+        <finalName>coding-expercise</finalName>
         <plugins>
             <!-- Surefire plugin with configuration for spock -->
             <plugin>
