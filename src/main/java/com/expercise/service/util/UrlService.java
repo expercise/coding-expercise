@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class UrlService {
 
-    @Value("${rootUrl}")
+    @Value("${coding-expercise.root-url}")
     private String rootUrl;
 
     public String createUrlFor(String path) {

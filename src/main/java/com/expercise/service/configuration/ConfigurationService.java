@@ -28,7 +28,7 @@ public class ConfigurationService implements Caching {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    @Value("${environment}")
+    @Value("${coding-expercise.environment}")
     private String environment;
 
     @PostConstruct

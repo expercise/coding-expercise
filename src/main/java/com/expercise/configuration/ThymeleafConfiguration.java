@@ -18,7 +18,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @Configuration
 public class ThymeleafConfiguration {
 
-    @Value("${environment}")
+    @Value("${coding-expercise.environment}")
     private String environment;
 
     @Bean

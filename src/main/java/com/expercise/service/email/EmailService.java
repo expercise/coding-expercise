@@ -20,7 +20,7 @@ public class EmailService {
     @Autowired
     private EmailSenderService emailSenderService;
 
-    @Value("${email.status}")
+    @Value("${coding-expercise.email-status}")
     private String emailStatus;
 
     public void send(Email email, Map<String, Object> params) {

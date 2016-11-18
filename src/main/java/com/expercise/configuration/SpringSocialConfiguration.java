@@ -27,13 +27,13 @@ public class SpringSocialConfiguration implements SocialConfigurer {
     @Autowired
     private DataSource dataSource;
 
-    @Value("${rootUrl}")
+    @Value("${coding-expercise.root-url}")
     private String rootUrl;
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
         connectionFactoryConfigurer.addConnectionFactory(
-                new TwitterConnectionFactory(environment.getProperty("twitter.consumerKey"), environment.getProperty("twitter.consumerSecret"))
+                new TwitterConnectionFactory(environment.getProperty("coding-expercise.twitter.consumer-key"), environment.getProperty("coding-expercise.twitter.consumer-secret"))
         );
     }
 

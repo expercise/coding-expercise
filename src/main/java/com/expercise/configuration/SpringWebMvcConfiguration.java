@@ -35,7 +35,7 @@ import java.util.Properties;
 @ComponentScan("com.expercise")
 public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
-    @Value("${environment}")
+    @Value("${coding-expercise.environment}")
     private String environment;
 
     @Override

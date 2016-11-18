@@ -15,10 +15,10 @@ public class SendGridEmailSenderService implements EmailSenderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SendGridEmailSenderService.class);
 
-    @Value("${sendGrid.username}")
+    @Value("${coding-expercise.send-grid.username}")
     private String username;
 
-    @Value("${sendGrid.password}")
+    @Value("${coding-expercise.send-grid.password}")
     private String password;
 
     private SendGrid sendGridClient;
