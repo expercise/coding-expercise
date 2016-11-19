@@ -9,7 +9,10 @@ import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
 import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.language.SignatureGeneratorService;
+import com.expercise.service.notification.SlackMessage;
+import com.expercise.service.notification.SlackNotificationService;
 import com.expercise.service.user.AuthenticationService;
+import com.expercise.service.util.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,12 @@ public class ChallengeService {
 
     @Autowired
     private ConfigurationService configurationService;
+
+    @Autowired
+    private SlackNotificationService slackNotificationService;
+
+    @Autowired
+    private UrlService urlService;
 
     @Value("${coding-expercise.challenge-approval-strategy}")
     private String challengeApprovalStrategy;
@@ -78,14 +87,36 @@ public class ChallengeService {
         if (challenge.isPersisted()) {
             challengeDao.update(challenge);
         } else {
-            if ("auto".equalsIgnoreCase(challengeApprovalStrategy)) {
-                challenge.setApproved(true);
-            }
+            checkAndAutoApprove(challenge);
+
             challenge.setUser(authenticationService.getCurrentUser());
             challengeDao.save(challenge);
+
+            sendNewChallengeNotification(challenge);
         }
 
         return challenge.getId();
+    }
+
+    private void checkAndAutoApprove(Challenge challenge) {
+        if ("auto".equalsIgnoreCase(challengeApprovalStrategy)) {
+            challenge.setApproved(true);
+        }
+    }
+
+    private void sendNewChallengeNotification(Challenge challenge) {
+        User currentUser = authenticationService.getCurrentUser();
+        SlackMessage slackMessage = new SlackMessage();
+        slackMessage.setChannel("#general");
+        slackMessage.setText(
+                String.format(
+                        "New challenge <%s|%s> by <%s|%s>.",
+                        urlService.challengeUrl(challenge),
+                        challenge.getTitle(),
+                        urlService.createUrlFor(currentUser.getBookmarkableUrl()),
+                        currentUser.getFullName()
+                ));
+        slackNotificationService.sendMessage(slackMessage);
     }
 
     private Challenge prepareChallengeForSaving(ChallengeModel challengeModel) {

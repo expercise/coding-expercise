@@ -43,6 +43,10 @@ public class ConfigurationService implements Caching {
         return getValue("googleAnalytics.applicationKey");
     }
 
+    public String getSlackIncomingWebhookUrl() {
+        return getValue("slack.incomingWebhookUrl");
+    }
+
     public Optional<Long> getIdOfDefaultChallenge() {
         Long challengeId = getValueAsLong("defaultChallenge");
         return Optional.ofNullable(challengeId);

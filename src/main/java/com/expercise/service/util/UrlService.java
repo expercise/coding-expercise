@@ -29,4 +29,8 @@ public class UrlService {
         return "/challenges/updateChallenge/" + challenge.getId();
     }
 
+    public String challengeUrl(Challenge challenge) {
+        return createUrlFor("/challenges/" + challenge.getId());
+    }
+
 }
