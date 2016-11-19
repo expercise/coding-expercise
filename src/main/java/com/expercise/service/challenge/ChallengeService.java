@@ -110,7 +110,7 @@ public class ChallengeService {
         slackMessage.setChannel("#general");
         slackMessage.setText(
                 String.format(
-                        "New challenge <%s|%s> by <%s|%s>.",
+                        "A new challenge <%s|%s> added by <%s|%s>.",
                         urlService.challengeUrl(challenge),
                         challenge.getTitle(),
                         urlService.createUrlFor(currentUser.getBookmarkableUrl()),

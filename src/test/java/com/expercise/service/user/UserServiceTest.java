@@ -4,6 +4,8 @@ import com.expercise.dao.user.UserDao;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.service.notification.SlackNotificationService;
+import com.expercise.service.util.UrlService;
 import com.expercise.testutils.builder.UserBuilder;
 import com.expercise.utils.PasswordEncoder;
 import org.junit.Test;
@@ -30,11 +32,17 @@ public class UserServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private UrlService urlService;
+
+    @Mock
+    private SlackNotificationService slackNotificationService;
+
     @Test
     public void shouldSaveNewUserWithHashedPassword() {
         User user = new UserBuilder().firstName("mahmut").lastName("kemal")
                 .email("mail@expercise.com").lingo(Lingo.Turkish).password("password")
-                .programmingLanguage(ProgrammingLanguage.Python).build();
+                .programmingLanguage(ProgrammingLanguage.Python).buildWithRandomId();
 
         when(passwordEncoder.encode("password")).thenReturn("hashedPassword");
 

@@ -7,6 +7,9 @@ import com.expercise.dao.user.UserRememberMeTokenDao;
 import com.expercise.domain.user.RememberMeToken;
 import com.expercise.domain.user.User;
 import com.expercise.domain.user.UserConnection;
+import com.expercise.service.notification.SlackMessage;
+import com.expercise.service.notification.SlackNotificationService;
+import com.expercise.service.util.UrlService;
 import com.expercise.utils.NumberUtils;
 import com.expercise.utils.PasswordEncoder;
 import org.apache.commons.lang3.StringUtils;
@@ -41,10 +44,18 @@ public class UserService {
     @Autowired
     private SolutionDao solutionDao;
 
+    @Autowired
+    private UrlService urlService;
+
+    @Autowired
+    private SlackNotificationService slackNotificationService;
+
     public void saveNewUser(User user) {
         String hashedUserPassword = hashPassword(user.getPassword());
         user.setPassword(hashedUserPassword);
         userDao.save(user);
+
+        sendNewUserNotification(user);
     }
 
     @Transactional
@@ -60,6 +71,8 @@ public class UserService {
             user.setPassword(UUID.randomUUID().toString());
             user.setSocialImageUrl(imageUrl);
             userDao.save(user);
+
+            sendNewUserNotification(user);
         } else {
             user.setAvatar(null);
             user.setSocialImageUrl(imageUrl);
@@ -84,6 +97,18 @@ public class UserService {
         user = userDao.saveOrUpdate(user);
 
         return user;
+    }
+
+    private void sendNewUserNotification(User user) {
+        SlackMessage slackMessage = new SlackMessage();
+        slackMessage.setChannel("#general");
+        slackMessage.setText(
+                String.format(
+                        "A new user signed up: <%s|%s>.",
+                        urlService.createUrlFor(user.getBookmarkableUrl()),
+                        user.getFullName()
+                ));
+        slackNotificationService.sendMessage(slackMessage);
     }
 
     private User initializeSocialUser(String email) {
