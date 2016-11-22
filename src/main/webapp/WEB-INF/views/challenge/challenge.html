@@ -102,11 +102,9 @@
                             th:text="${each}">
                     </option>
                     */-->
-                    <option value="js">JavaScript</option>
-                    <option disabled="disabled">Python</option>
-                    <option disabled="disabled">Java</option>
+                    <option value="js">JavaScript (ECMAScript 5.1)</option>
                 </select>
-                <div class="keyMapSelectionPanel checkbox">
+                <div class="keyMapSelectionPanel checkbox hidden">
                     <input id="useVimKeyMapCheckBox" type="checkbox" name="useVimKeyMap" />
                     <label for="useVimKeyMapCheckBox" th:text="#{codeEditor.useVimKeyMap}">Use Vim Keymap</label>
                 </div>
