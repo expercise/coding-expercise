@@ -417,6 +417,36 @@ public class JavaScriptInterpreterTest {
     }
 
     @Test
+    public void shouldReturnArrayValueListForFunctionThatTakesArrayParam() {
+        String solution = "function solution(a) { return a; }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Array);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Array);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("[0,1,2,3,15]");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("[0,1,2,3,15]");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        interpreter.interpret(context);
+
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[0,1,2,3,15]"));
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
     public void shouldNotAllowJavaUsageInJavaScript() {
         String solution = "function solution(a) { return Java.type(\"java.lang.Math\").pow(a, 2); }";
 

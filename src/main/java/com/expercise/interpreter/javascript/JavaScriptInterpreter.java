@@ -117,7 +117,7 @@ public class JavaScriptInterpreter extends Interpreter {
                     : TestCaseResult.FAILED;
             testCaseWithResult.setActualValue(DataType.toLiteral(evaluationResultAsString));
         } else if (outputType == DataType.Array) {
-            Collection<Object> resultCollection = unwrapScriptObjectMirrorType(((ScriptObjectMirror) resultValue).values());
+            Collection<Object> resultCollection = convertJSResultObjectToCollection(resultValue);
             testCaseResult = resultCollection.equals(expectedJavaObject)
                     ? TestCaseResult.PASSED
                     : TestCaseResult.FAILED;
@@ -127,6 +127,13 @@ public class JavaScriptInterpreter extends Interpreter {
         testCaseWithResult.setTestCaseResult(testCaseResult);
         testCaseWithResult.setResultMessage(OutputMessageAggregator.getOutputMessage());
 
+    }
+
+    private Collection<Object> convertJSResultObjectToCollection(Object source) {
+        if (source instanceof ScriptObjectMirror) {
+            return unwrapScriptObjectMirrorType(((ScriptObjectMirror) source).values());
+        }
+        return (Collection<Object>) source;
     }
 
     private Collection<Object> unwrapScriptObjectMirrorType(Collection<Object> source) {
