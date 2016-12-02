@@ -173,8 +173,8 @@ public class JavaScriptInterpreterTest {
     public void shouldReturnFailedResultIfSolutionHasSyntaxError() {
         String syntaxErrorMessage =
                 "solution.js:1:10 Missing space after numeric literal\n" +
-                "function 5solution(a) {}\n" +
-                "          ^ in solution.js at line number 1 at column number 10";
+                        "function 5solution(a) {}\n" +
+                        "          ^ in solution.js at line number 1 at column number 10";
 
         Challenge challenge = new Challenge();
 
@@ -434,6 +434,66 @@ public class JavaScriptInterpreterTest {
         inputValues.add("[0,1,2,3,15]");
         testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
         testCase.setOutput("[0,1,2,3,15]");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        interpreter.interpret(context);
+
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[0,1,2,3,15]"));
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
+    public void shouldReturnSortDirectlyWithComparatorAndReturnArrayValueListForFunctionThatTakesArrayParam() {
+        String solution = "function solution(a) { return a.sort(function(elem1, elem2) {return elem1 - elem2}); }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Array);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Array);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("[3, 1, 2, 15, 0]");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("[0, 1, 2, 3, 15]");
+
+        challenge.addTestCase(testCase);
+
+        ChallengeEvaluationContext context = createContext(challenge, solution);
+
+        interpreter.interpret(context);
+
+        assertThat(context.getTestCaseWithResults().get(0).getActualValue(), equalTo("[0,1,2,3,15]"));
+        assertTrue(context.getInterpreterResult().isSuccess());
+        assertThat(context.getInterpreterResult().getFailureType(), nullValue());
+    }
+
+    @Test
+    public void shouldReturnSortDirectlyWithoutComparatorAndReturnArrayValueListForFunctionThatTakesArrayParam() {
+        String solution = "function solution(a) { return a.sort(); }";
+
+        Challenge challenge = new Challenge();
+
+        List<DataType> inputTypes = new ArrayList<>();
+        inputTypes.add(DataType.Array);
+
+        challenge.setInputTypes(ChallengeInputType.createFrom(inputTypes));
+        challenge.setOutputType(DataType.Array);
+
+        TestCase testCase = new TestCase();
+
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add("[2, 3, 0, 1]");
+        testCase.setInputs(TestCaseInputValue.createFrom(inputValues));
+        testCase.setOutput("[0, 1, 2, 3]");
 
         challenge.addTestCase(testCase);
 
