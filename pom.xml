@@ -1,64 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.expercise.coding</groupId>
     <artifactId>coding-expercise</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0</version>
     <name>coding-expercise</name>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.7.RELEASE</version>
+    </parent>
+
     <properties>
-        <!-- Dependencies -->
-        <junit.version>4.11</junit.version>
-        <hsqldb.version>2.3.2</hsqldb.version>
-        <mockito.version>1.9.5</mockito.version>
-        <powermock.version>1.6.0</powermock.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <groovy.version>2.3.7</groovy.version>
-        <spock.version>0.7-groovy-2.0</spock.version>
-        <cglib.version>3.1</cglib.version>
-        <objenesis.version>2.1</objenesis.version>
-        <jedis.version>2.8.1</jedis.version>
-        <spring.data.version>1.7.1.RELEASE</spring.data.version>
-
-        <spring.version>4.1.1.RELEASE</spring.version>
-        <spring.mobile.version>1.1.3.RELEASE</spring.mobile.version>
-        <spring.security.version>3.2.5.RELEASE</spring.security.version>
-        <spring.social.version>1.1.4.RELEASE</spring.social.version>
-        <spring.social.twitter.version>1.1.2.RELEASE</spring.social.twitter.version>
-        <spring.social.facebook.version>2.0.3.RELEASE</spring.social.facebook.version>
-        <spring.social.google.version>1.0.0.RELEASE</spring.social.google.version>
-        <spring.social.linkedin.version>1.0.2.RELEASE</spring.social.linkedin.version>
-        <servlet.api.version>3.1.0</servlet.api.version>
-        <thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
-        <thymeleaf.extras.springsecurity.version>2.1.1.RELEASE</thymeleaf.extras.springsecurity.version>
-        <thymeleaf.dialects.layout.version>1.2.5</thymeleaf.dialects.layout.version>
-        <myth.version>1.0.0-SNAPSHOT</myth.version>
-        <jsoup.version>1.8.1</jsoup.version>
-
-        <hibernate.orm.version>4.3.8.Final</hibernate.orm.version>
-        <javassist.version>3.19.0-GA</javassist.version>
-        <mysql.connector.version>5.1.34</mysql.connector.version>
-        <apache.commons.dbcp>2.0.1</apache.commons.dbcp>
-
-        <jython.version>2.5.3</jython.version>
-        <jackson.mapper.version>2.4.1</jackson.mapper.version>
-        <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
-        <apache.commons.io.version>2.4</apache.commons.io.version>
-        <apache.commons.lang.version>3.3.2</apache.commons.lang.version>
-        <apache.commons.collections.version>4.0</apache.commons.collections.version>
-        <slf4j.version>1.7.7</slf4j.version>
-        <sendgrid.javaapi.version>2.0.0</sendgrid.javaapi.version>
-
-        <!-- Plugins -->
         <jdk.version>1.8</jdk.version>
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
         <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
         <property.helper.plugin.version>2.0</property.helper.plugin.version>
         <properties.plugin.version>1.0-alpha-2</properties.plugin.version>
         <gmavenplus.plugin.version>1.2</gmavenplus.plugin.version>
+
+        <powermock.version>1.6.6</powermock.version>
+        <groovy.version>2.4.12</groovy.version>
+        <spock.version>1.1-groovy-2.4</spock.version>
+        <cglib.version>3.2.5</cglib.version>
+        <objenesis.version>2.6</objenesis.version>
+        <h2.version>1.4.196</h2.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <thymeleaf-extras-springsecurity4.version>2.1.3.RELEASE</thymeleaf-extras-springsecurity4.version>
+        <sendgrid.javaapi.version>2.2.2</sendgrid.javaapi.version>
+        <apache.commons.io.version>2.5</apache.commons.io.version>
+        <apache.commons.lang.version>3.6</apache.commons.lang.version>
+        <apache.commons.collections.version>4.0</apache.commons.collections.version>
+        <postgresql.version>42.1.4</postgresql.version>
     </properties>
 
     <repositories>
@@ -73,19 +51,10 @@
     </repositories>
 
     <dependencies>
-        <!-- Test -->
+        <!-- Test dependencies -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
         <dependency>
@@ -102,28 +71,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>${hsqldb.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- For spock testing -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
@@ -152,176 +99,63 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
+
+        <!-- Other dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.mobile</groupId>
-            <artifactId>spring-mobile-device</artifactId>
-            <version>${spring.mobile.version}</version>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>${thymeleaf-extras-springsecurity4.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <!-- Spring Social -->
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-core</artifactId>
-            <version>${spring.social.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-config</artifactId>
-            <version>${spring.social.version}</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mobile</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-social-twitter</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-security</artifactId>
-            <version>${spring.social.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-web</artifactId>
-            <version>${spring.social.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-twitter</artifactId>
-            <version>${spring.social.twitter.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-facebook</artifactId>
-            <version>${spring.social.facebook.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-linkedin</artifactId>
-            <version>${spring.social.linkedin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-google</artifactId>
-            <version>${spring.social.google.version}</version>
-        </dependency>
-
-        <!-- Jackson Mapper -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.mapper.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.mapper.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.mapper.version}</version>
-        </dependency>
-
-        <!-- Servlet Api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.api.version}</version>
-        </dependency>
-
-        <!-- Thymeleaf -->
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>${thymeleaf.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring4</artifactId>
-            <version>${thymeleaf.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-            <version>${thymeleaf.dialects.layout.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
-            <version>${thymeleaf.extras.springsecurity.version}</version>
-        </dependency>
-
-        <!-- Myth -->
-        <dependency>
-            <groupId>com.ufukuzun</groupId>
-            <artifactId>myth-dialect</artifactId>
-            <version>${myth.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ufukuzun</groupId>
-            <artifactId>myth-resources</artifactId>
-            <version>${myth.version}</version>
-            <type>war</type>
-        </dependency>
-
-        <!-- jsoup for Myth -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>${jsoup.version}</version>
-        </dependency>
-
-        <!-- Python Interpreter -->
-        <dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython</artifactId>
-            <version>${jython.version}</version>
-        </dependency>
-
-        <!-- Hibernate Validator -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator.version}</version>
         </dependency>
 
         <!-- Apache Commons -->
@@ -343,56 +177,11 @@
             <version>${apache.commons.collections.version}</version>
         </dependency>
 
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.orm.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-dbcp2</artifactId>
-            <version>${apache.commons.dbcp}</version>
-        </dependency>
-
-        <!-- Logging (TODO ufuk: configure logging) -->
+        <!-- Logging (TODO: configure logging) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- Redis - Jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
-            <type>jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-            <version>${spring.data.version}</version>
         </dependency>
 
         <!-- SendGrid Java API -->
@@ -406,7 +195,23 @@
     <build>
         <finalName>coding-expercise</finalName>
         <plugins>
-            <!-- Surefire plugin with configuration for spock -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Surefire plugin with configuration for Spock -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -499,9 +304,9 @@
                 </executions>
 
                 <configuration>
-                    <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
+                    <sourceDirectory>src/main/resources/public/style</sourceDirectory>
                     <outputDirectory>
-                        ${project.basedir}/src/main/webapp/resources/style
+                        src/main/resources/public/style
                     </outputDirectory>
                     <compress>true</compress>
                     <force>true</force>
@@ -526,7 +331,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <sourceDirectory>${project.basedir}/src/main/webapp/resources/style</sourceDirectory>
+                            <sourceDirectory>src/main/resources/public/style</sourceDirectory>
                             <includes>
                                 <include>/bootstrap.min.css</include>
                                 <include>/bootstrap-virtual-assistant.css</include>
@@ -550,7 +355,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <sourceDirectory>${project.basedir}/src/main/webapp/resources/js</sourceDirectory>
+                            <sourceDirectory>src/main/resources/public/js</sourceDirectory>
                             <includes>
                                 <include>/lib/jquery.min.js</include>
                                 <include>/lib/jquery-ui.min.js</include>
@@ -590,27 +395,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- Compiler & WAR Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
             </plugin>
         </plugins>
     </build>

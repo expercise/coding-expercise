@@ -1,8 +1,8 @@
 package com.expercise.service.quote;
 
 import com.expercise.caching.Caching;
-import com.expercise.dao.quote.QuoteDao;
 import com.expercise.domain.quote.Quote;
+import com.expercise.repository.quote.QuoteDao;
 import com.expercise.utils.collection.RandomElement;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;

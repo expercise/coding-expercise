@@ -1,8 +1,8 @@
 package com.expercise.service.configuration;
 
 import com.expercise.caching.Caching;
-import com.expercise.dao.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
+import com.expercise.repository.configuration.ConfigurationDao;
 import com.expercise.utils.EnvironmentUtils;
 import com.expercise.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,11 @@ public class ConfigurationService implements Caching {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    @Value("${coding-expercise.environment}")
+    @Value("${spring.profiles.active}")
     private String environment;
+
+    @Value("${coding-expercise.googleAnalytics.applicationKey}")
+    private String googleAnalyticsApplicationKey;
 
     @PostConstruct
     public void init() {
@@ -40,7 +43,7 @@ public class ConfigurationService implements Caching {
     }
 
     public String getGoogleAnalyticsApplicationKey() {
-        return getValue("googleAnalytics.applicationKey");
+        return googleAnalyticsApplicationKey;
     }
 
     public String getSlackIncomingWebhookUrl() {
@@ -48,7 +51,7 @@ public class ConfigurationService implements Caching {
     }
 
     public Optional<Long> getIdOfDefaultChallenge() {
-        Long challengeId = getValueAsLong("defaultChallenge");
+        Long challengeId = getValueAsLong("default.challengeId");
         return Optional.ofNullable(challengeId);
     }
 

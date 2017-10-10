@@ -33,7 +33,7 @@ public class LingoTest {
 
         List<Lingo> resultList = Lingo.sortedLingosByCurrentLocale();
 
-        assertOrderedItems(resultList, Lingo.English, Lingo.Turkish);
+        assertOrderedItems(resultList, Lingo.English, Lingo.Turkish, Lingo.Portuguese);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class LingoTest {
 
         List<Lingo> resultList = Lingo.sortedLingosByCurrentLocale();
 
-        assertOrderedItems(resultList, Lingo.Turkish, Lingo.English);
+        assertOrderedItems(resultList, Lingo.Turkish, Lingo.English, Lingo.Portuguese);
     }
 
     @Test

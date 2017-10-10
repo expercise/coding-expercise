@@ -57,10 +57,9 @@ public class AuthenticationService {
     }
 
     private boolean hasRole(String role) {
-        return getAuthentication().getAuthorities().stream()
-                .filter(a -> a.getAuthority().equals(role))
-                .findFirst()
-                .isPresent();
+        return getAuthentication().getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals(role));
     }
 
     private Authentication getAuthentication() {

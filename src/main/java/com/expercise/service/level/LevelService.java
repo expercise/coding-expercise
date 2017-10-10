@@ -1,9 +1,9 @@
 package com.expercise.service.level;
 
-import com.expercise.dao.level.LevelDao;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
+import com.expercise.repository.level.LevelDao;
 import com.expercise.service.challenge.model.CurrentLevelModel;
 import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.expercise.service.theme;
 
-import com.expercise.dao.challenge.ChallengeDao;
-import com.expercise.dao.theme.ThemeDao;
+import com.expercise.repository.challenge.ChallengeDao;
+import com.expercise.repository.theme.ThemeDao;
 import com.expercise.domain.theme.Theme;
 import com.expercise.enums.Lingo;
 import com.expercise.service.i18n.MessageService;

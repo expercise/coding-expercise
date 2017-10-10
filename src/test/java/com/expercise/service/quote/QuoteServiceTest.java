@@ -1,6 +1,6 @@
 package com.expercise.service.quote;
 
-import com.expercise.dao.quote.QuoteDao;
+import com.expercise.repository.quote.QuoteDao;
 import com.expercise.domain.quote.Quote;
 import com.expercise.testutils.builder.QuoteBuilder;
 import org.apache.commons.lang3.RandomUtils;

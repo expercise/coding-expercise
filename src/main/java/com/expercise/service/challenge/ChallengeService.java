@@ -1,7 +1,7 @@
 package com.expercise.service.challenge;
 
 import com.expercise.controller.challenge.model.ChallengeModel;
-import com.expercise.dao.challenge.ChallengeDao;
+import com.expercise.repository.challenge.ChallengeDao;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;

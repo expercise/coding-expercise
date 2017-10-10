@@ -6,11 +6,11 @@ public final class EnvironmentUtils {
     }
 
     public static boolean isProduction(String environment) {
-        return "production".equals(environment);
+        return "prod".equals(environment);
     }
 
     public static boolean isDevelopment(String environment) {
-        return "development".equals(environment);
+        return "dev".equals(environment);
     }
 
     public static boolean isNotDevelopment(String environment) {

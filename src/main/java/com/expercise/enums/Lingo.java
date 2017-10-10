@@ -10,7 +10,8 @@ import java.util.stream.Stream;
 public enum Lingo {
 
     Turkish("tr", Locale.forLanguageTag("tr")),
-    English("en", Locale.ENGLISH);
+    English("en", Locale.ENGLISH),
+    Portuguese("pt", Locale.forLanguageTag("pt"));
 
     private String shortName;
 

@@ -1,6 +1,6 @@
 package com.expercise.service.configuration;
 
-import com.expercise.dao.configuration.ConfigurationDao;
+import com.expercise.repository.configuration.ConfigurationDao;
 import com.expercise.domain.configuration.Configuration;
 import com.expercise.testutils.builder.ConfigurationBuilder;
 import org.junit.Test;

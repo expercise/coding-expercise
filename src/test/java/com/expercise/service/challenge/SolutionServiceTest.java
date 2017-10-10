@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.dao.challenge.SolutionDao;
+import com.expercise.repository.challenge.SolutionDao;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;

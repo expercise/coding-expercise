@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.dao.challenge.UserPointDao;
+import com.expercise.repository.challenge.UserPointDao;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;

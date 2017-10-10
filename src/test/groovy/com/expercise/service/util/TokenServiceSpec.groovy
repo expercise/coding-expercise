@@ -1,6 +1,6 @@
 package com.expercise.service.util
 
-import com.expercise.dao.user.TokenDao
+import com.expercise.repository.user.TokenDao
 import com.expercise.domain.token.Token
 import com.expercise.domain.token.TokenType
 import com.expercise.domain.user.User

@@ -1,9 +1,9 @@
 package com.expercise.service.user;
 
-import com.expercise.dao.challenge.SolutionDao;
-import com.expercise.dao.user.UserConnectionDao;
-import com.expercise.dao.user.UserDao;
-import com.expercise.dao.user.UserRememberMeTokenDao;
+import com.expercise.repository.challenge.SolutionDao;
+import com.expercise.repository.user.UserConnectionDao;
+import com.expercise.repository.user.UserDao;
+import com.expercise.repository.user.UserRememberMeTokenDao;
 import com.expercise.domain.user.RememberMeToken;
 import com.expercise.domain.user.User;
 import com.expercise.domain.user.UserConnection;
