@@ -1,6 +1,6 @@
 package com.expercise.domain.challenge;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 
@@ -8,11 +8,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Solution extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_SOLUTION")
+public class Solution extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
@@ -31,14 +28,6 @@ public class Solution extends AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public User getUser() {
         return user;

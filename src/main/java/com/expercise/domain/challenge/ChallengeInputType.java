@@ -8,27 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_CHALLENGE_INPUT_TYPE")
 public class ChallengeInputType extends PrioritizedEntity {
-
-    private static final long serialVersionUID = -3913959424017363332L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     @Enumerated(EnumType.STRING)
     private DataType inputType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge challenge;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public DataType getInputType() {
         return inputType;

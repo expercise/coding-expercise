@@ -7,7 +7,7 @@ import com.expercise.enums.ProgrammingLanguage;
 
 import java.util.Date;
 
-public class UserPointBuilder extends AbstractEntityBuilder<UserPoint, UserPointBuilder> {
+public class UserPointBuilder extends BaseEntityBuilder<UserPoint, UserPointBuilder> {
 
     private User user;
 

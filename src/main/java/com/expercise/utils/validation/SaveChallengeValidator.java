@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Component
-public class SaveChallengeValidator extends AbstractValidator<ChallengeModel> {
+public class SaveChallengeValidator extends BaseValidator<ChallengeModel> {
 
     @Autowired
     private AuthenticationService authenticationService;

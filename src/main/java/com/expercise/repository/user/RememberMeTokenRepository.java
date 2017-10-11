@@ -1,14 +1,14 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.RememberMeToken;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRememberMeTokenDao extends AbstractHibernateDao<RememberMeToken> {
+public class RememberMeTokenRepository extends BaseRepository<RememberMeToken> {
 
-    protected UserRememberMeTokenDao() {
+    protected RememberMeTokenRepository() {
         super(RememberMeToken.class);
     }
 

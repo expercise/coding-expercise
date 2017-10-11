@@ -3,7 +3,7 @@ package com.expercise.testutils.builder;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.challenge.TestCaseInputValue;
 
-public class TestCaseInputValueBuilder extends AbstractPrioritizedEntityBuilder<TestCaseInputValue, TestCaseInputValueBuilder> {
+public class TestCaseInputValueBuilder extends BasePrioritizedEntityBuilder<TestCaseInputValue, TestCaseInputValueBuilder> {
 
     private String inputValue;
 

@@ -4,7 +4,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.ChallengeInputType;
 import com.expercise.enums.DataType;
 
-public class ChallengeInputTypeBuilder extends AbstractPrioritizedEntityBuilder<ChallengeInputType, ChallengeInputTypeBuilder> {
+public class ChallengeInputTypeBuilder extends BasePrioritizedEntityBuilder<ChallengeInputType, ChallengeInputTypeBuilder> {
 
     private DataType inputType;
 

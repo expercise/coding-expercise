@@ -3,7 +3,7 @@ package com.expercise.service.level;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
-import com.expercise.repository.level.LevelDao;
+import com.expercise.repository.level.LevelRepository;
 import com.expercise.service.challenge.model.CurrentLevelModel;
 import com.expercise.service.user.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 public class LevelService {
 
     @Autowired
-    private LevelDao levelDao;
+    private LevelRepository levelRepository;
 
     @Autowired
     private CurrentLevelHelper currentLevelHelper;
@@ -24,11 +24,11 @@ public class LevelService {
     private AuthenticationService authenticationService;
 
     public List<Level> getAllLevelsInOrder() {
-        return levelDao.findAllOrderedByPriority();
+        return levelRepository.findAllOrderedByPriority();
     }
 
     public Level findById(Long id) {
-        return levelDao.findOne(id);
+        return levelRepository.findOne(id);
     }
 
     public CurrentLevelModel getCurrentLevelModelOfCurrentUserFor(Theme theme) {
@@ -42,9 +42,9 @@ public class LevelService {
     public void saveNewLevelOrUpdate(Level candidateLevel) {
         if (candidateLevel.isPersisted()) {
             Level originalLevel = mergeWithOriginalLevel(candidateLevel);
-            levelDao.save(originalLevel);
+            levelRepository.save(originalLevel);
         } else {
-            levelDao.save(candidateLevel);
+            levelRepository.save(candidateLevel);
         }
     }
 
@@ -56,7 +56,7 @@ public class LevelService {
     }
 
     public void delete(Level level) {
-        levelDao.delete(level);
+        levelRepository.delete(level);
     }
 
     public boolean isValidToSave(Integer priority, Long levelId) {
@@ -68,7 +68,7 @@ public class LevelService {
     }
 
     public Level getByPriority(Integer priority) {
-        return levelDao.findOneBy(priority);
+        return levelRepository.findOneBy(priority);
     }
 
 }

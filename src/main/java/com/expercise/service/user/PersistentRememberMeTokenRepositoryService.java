@@ -7,7 +7,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import java.util.Date;
 
-public class UserRememberMeTokenRepository implements PersistentTokenRepository {
+public class PersistentRememberMeTokenRepositoryService implements PersistentTokenRepository {
 
     @Autowired
     private UserService userService;

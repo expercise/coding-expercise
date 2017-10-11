@@ -2,13 +2,25 @@ package com.expercise.domain;
 
 import org.hibernate.Hibernate;
 
-import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-public abstract class AbstractEntity implements Serializable {
+@MappedSuperclass
+public abstract class BaseEntity {
 
-    public abstract Long getId();
+    @Id
+    @GeneratedValue(generator = "ID_GENERATOR", strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    public abstract void setId(Long id);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public boolean isPersisted() {
         return getId() != null;
@@ -32,7 +44,7 @@ public abstract class AbstractEntity implements Serializable {
             return false;
         }
 
-        AbstractEntity otherEntity = (AbstractEntity) toCompare;
+        BaseEntity otherEntity = (BaseEntity) toCompare;
         if (getId() == null) {
             if (otherEntity.getId() != null) {
                 return false;

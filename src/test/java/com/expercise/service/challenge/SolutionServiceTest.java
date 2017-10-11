@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.SolutionDao;
+import com.expercise.repository.challenge.SolutionRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;
@@ -33,7 +33,7 @@ public class SolutionServiceTest {
     private SolutionService service;
 
     @Mock
-    private SolutionDao solutionDao;
+    private SolutionRepository solutionRepository;
 
     @Test
     public void shouldSaveSolution() {
@@ -41,7 +41,7 @@ public class SolutionServiceTest {
 
         service.saveSolution(solution);
 
-        verify(solutionDao).save(solution);
+        verify(solutionRepository).save(solution);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class SolutionServiceTest {
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();
         Solution solution = new SolutionBuilder().challenge(challenge).user(user).buildWithRandomId();
 
-        when(solutionDao.findBy(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
+        when(solutionRepository.findBy(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
 
         Solution foundSolution = service.getSolutionBy(challenge, user, ProgrammingLanguage.Python);
 
@@ -64,7 +64,7 @@ public class SolutionServiceTest {
 
         Solution solution = new SolutionBuilder().buildWithRandomId();
 
-        when(solutionDao.findAllSolutionsInLevelsOf(user, Arrays.asList(level))).thenReturn(Arrays.asList(solution));
+        when(solutionRepository.findAllSolutionsInLevelsOf(user, Arrays.asList(level))).thenReturn(Arrays.asList(solution));
 
         List<Solution> resultList = service.getAllSolutionsInLevelsOf(user, Arrays.asList(level));
 
@@ -79,7 +79,7 @@ public class SolutionServiceTest {
 
         assertTrue(resultList.isEmpty());
 
-        verifyZeroInteractions(solutionDao);
+        verifyZeroInteractions(solutionRepository);
     }
 
 }

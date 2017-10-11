@@ -1,29 +1,20 @@
 package com.expercise.domain.configuration;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Configuration extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_CONFIGURATION")
+public class Configuration extends BaseEntity {
 
     @Column(unique = true, nullable = false)
     private String name;
 
     @Column(nullable = false, length = 512)
     private String value;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

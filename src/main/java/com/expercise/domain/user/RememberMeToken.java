@@ -1,16 +1,13 @@
 package com.expercise.domain.user;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class RememberMeToken extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_REMEMBER_ME_TOKEN")
+public class RememberMeToken extends BaseEntity {
 
     @Column(nullable = false)
     private String email;
@@ -24,16 +21,6 @@ public class RememberMeToken extends AbstractEntity {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUsedTime;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;

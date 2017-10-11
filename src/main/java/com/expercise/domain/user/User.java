@@ -1,6 +1,6 @@
 package com.expercise.domain.user;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.enums.SocialSignInProvider;
@@ -13,11 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_USER")
+public class User extends BaseEntity {
 
     private String firstName;
 
@@ -46,14 +43,6 @@ public class User extends AbstractEntity {
 
     public String getBookmarkableUrl() {
         return String.format("/user/%s/%s", getId().toString(), UrlUtils.makeBookmarkable(getFullName()));
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

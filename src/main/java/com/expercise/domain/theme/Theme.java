@@ -16,20 +16,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Entity
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_THEME")
 public class Theme extends PrioritizedEntity {
-
-    private static final long serialVersionUID = -4180956875499453423L;
 
     public static final String URL_FOR_NOT_THEMED_CHALLENGES = "/themes/other-challenges";
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Name", nullable = false)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "NAME", nullable = false)
     private Map<Lingo, String> names = new HashMap<>();
 
     @OneToMany(mappedBy = "theme")
@@ -37,28 +32,18 @@ public class Theme extends PrioritizedEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Description", nullable = false)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "DESCRIPTION", nullable = false)
     private Map<Lingo, String> descriptions = new HashMap<>();
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public long getTitleColor() {
         int mod = 4;
-        return isPersisted() ? id % mod : mod;
+        return isPersisted() ? getId() % mod : mod;
     }
 
     public String getBookmarkableUrl() {
-        if (id != null) {
-            return "/themes/" + id + "/" + getBookmarkableName();
+        if (getId() != null) {
+            return "/themes/" + getId() + "/" + getBookmarkableName();
         }
         return URL_FOR_NOT_THEMED_CHALLENGES;
     }

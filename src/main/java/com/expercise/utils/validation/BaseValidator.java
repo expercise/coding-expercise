@@ -4,7 +4,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
-public abstract class AbstractValidator<T> {
+public abstract class BaseValidator<T> {
 
     public abstract void validate(T object, BindingResult bindingResult);
 

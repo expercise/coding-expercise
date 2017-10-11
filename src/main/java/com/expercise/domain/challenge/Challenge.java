@@ -1,6 +1,6 @@
 package com.expercise.domain.challenge;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
@@ -14,33 +14,28 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Challenge extends AbstractEntity {
-
-    private static final long serialVersionUID = 2423523955585119140L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_CHALLENGE")
+public class Challenge extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ChallengeType challengeType = ChallengeType.ALGORITHM;
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Title", nullable = false, length = Constants.MAX_CHALLENGE_TITLE_LENGTH)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "TITLE", nullable = false, length = Constants.MAX_CHALLENGE_TITLE_LENGTH)
     private Map<Lingo, String> titles = new HashMap<>();
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Description", nullable = false, length = 2048)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "DESCRIPTION", nullable = false, length = 2048)
     private Map<Lingo, String> descriptions = new HashMap<>();
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Signature", nullable = false, length = 1024)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "SIGNATURE", nullable = false, length = 1024)
     private Map<Lingo, String> signatures = new HashMap<>();
 
     @OneToMany(mappedBy = "challenge", orphanRemoval = true, cascade = CascadeType.ALL)
@@ -70,14 +65,6 @@ public class Challenge extends AbstractEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createDate = Clock.getTime();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Map<Lingo, String> getTitles() {
         return titles;

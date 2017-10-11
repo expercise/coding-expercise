@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.UserPointDao;
+import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
@@ -18,7 +18,7 @@ public class UserPointService {
     protected final static String LEADERBOARD_QUEUE = "points::leaderboard::queue";
 
     @Autowired
-    private UserPointDao userPointDao;
+    private UserPointRepository userPointRepository;
 
     @Autowired
     private RedisCacheService cacheService;
@@ -35,7 +35,7 @@ public class UserPointService {
         userPoint.setPointAmount(challenge.getPoint());
         userPoint.setGivenDate(Clock.getTime());
 
-        userPointDao.save(userPoint);
+        userPointRepository.save(userPoint);
         cacheService.rightPush(LEADERBOARD_QUEUE, user.getId());
     }
 
@@ -48,7 +48,7 @@ public class UserPointService {
         if (challenge.getUser().equals(user)) {
             return false;
         }
-        return challenge.isApproved() && userPointDao.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
+        return challenge.isApproved() && userPointRepository.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
     }
 
     public Long getTotalPointsOf(User user) {
@@ -56,7 +56,7 @@ public class UserPointService {
     }
 
     public Long getTotalPointsOf(Long userId) {
-        return userPointDao.getTotalPointsOf(userId);
+        return userPointRepository.getTotalPointsOf(userId);
     }
 
 }

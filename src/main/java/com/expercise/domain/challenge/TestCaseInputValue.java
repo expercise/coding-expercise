@@ -8,27 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_TEST_CASE_INPUT_VALUE")
 public class TestCaseInputValue extends PrioritizedEntity {
-
-    private static final long serialVersionUID = 5844311948411636275L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     @Column(nullable = false, length = Constants.MAX_TESTCASE_VALUE_LENGTH)
     private String inputValue;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TestCase testCase;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getInputValue() {
         return inputValue;
@@ -56,6 +43,5 @@ public class TestCaseInputValue extends PrioritizedEntity {
         prioritize(testCaseInputValues);
         return testCaseInputValues;
     }
-
 
 }

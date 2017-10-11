@@ -1,6 +1,6 @@
 package com.expercise.repository;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,17 +10,22 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractHibernateDao<T extends AbstractEntity> {
+public abstract class BaseRepository<T extends BaseEntity> {
 
     private final Class clazz;
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    protected AbstractHibernateDao(Class clazz) {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    protected BaseRepository(Class clazz) {
         this.clazz = clazz;
     }
 

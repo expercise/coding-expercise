@@ -1,18 +1,14 @@
 package com.expercise.domain.user;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
-public class UserConnection extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_USER_CONNECTION")
+public class UserConnection extends BaseEntity {
 
     @Column(nullable = false)
     private String userId;
@@ -43,16 +39,6 @@ public class UserConnection extends AbstractEntity {
     private String refreshToken;
 
     private Long expireTime;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;

@@ -1,7 +1,7 @@
 package com.expercise.service.challenge;
 
 import com.expercise.controller.challenge.model.UserSolutionModel;
-import com.expercise.repository.challenge.SolutionDao;
+import com.expercise.repository.challenge.SolutionRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;
@@ -22,33 +22,33 @@ import java.util.stream.Collectors;
 public class SolutionService {
 
     @Autowired
-    private SolutionDao solutionDao;
+    private SolutionRepository solutionRepository;
 
     @Autowired
     private AuthenticationService authenticationService;
 
     @Transactional
     public void saveSolution(Solution solution) {
-        solutionDao.save(solution);
+        solutionRepository.save(solution);
     }
 
     public Solution getSolutionBy(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
-        return solutionDao.findBy(challenge, user, programmingLanguage);
+        return solutionRepository.findBy(challenge, user, programmingLanguage);
     }
 
     public List<Solution> getAllSolutionsInLevelsOf(User user, List<Level> levels) {
         if (levels.isEmpty()) {
             return Collections.emptyList();
         }
-        return solutionDao.findAllSolutionsInLevelsOf(user, levels);
+        return solutionRepository.findAllSolutionsInLevelsOf(user, levels);
     }
 
     public void updateSolution(Solution solution) {
-        solutionDao.update(solution);
+        solutionRepository.update(solution);
     }
 
     public long getSolutionCountOf(Challenge challenge) {
-        return solutionDao.countByChallenge(challenge);
+        return solutionRepository.countByChallenge(challenge);
     }
 
     public List<UserSolutionModel> getUserSolutionModels(Challenge challenge) {
@@ -60,7 +60,7 @@ public class SolutionService {
     }
 
     public Set<Challenge> getSolvedChallengesOf(User user) {
-        return solutionDao.findApprovedChallengeSolutionsByUser(user).stream()
+        return solutionRepository.findApprovedChallengeSolutionsByUser(user).stream()
                 .map(Solution::getChallenge)
                 .collect(Collectors.toSet());
     }
@@ -71,7 +71,7 @@ public class SolutionService {
 
     private List<Solution> getSolutionsOfUser(Challenge challenge) {
         User currentUser = authenticationService.getCurrentUser();
-        return solutionDao.findSolutionsBy(challenge, currentUser);
+        return solutionRepository.findSolutionsBy(challenge, currentUser);
     }
 
 }

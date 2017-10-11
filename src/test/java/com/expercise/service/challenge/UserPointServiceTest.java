@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.UserPointDao;
+import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
@@ -29,7 +29,7 @@ public class UserPointServiceTest {
     private UserPointService service;
 
     @Mock
-    private UserPointDao userPointDao;
+    private UserPointRepository userPointRepository;
 
     @Mock
     private RedisCacheService cacheService;
@@ -49,7 +49,7 @@ public class UserPointServiceTest {
         ArgumentCaptor<UserPoint> pointCaptor = ArgumentCaptor.forClass(UserPoint.class);
 
         verify(cacheService).rightPush("points::leaderboard::queue", user.getId());
-        verify(userPointDao).save(pointCaptor.capture());
+        verify(userPointRepository).save(pointCaptor.capture());
         UserPoint savedUserPoint = pointCaptor.getValue();
 
         assertThat(savedUserPoint.getChallenge(), equalTo(challenge));
@@ -68,7 +68,7 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
+        when(userPointRepository.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
 
         assertTrue(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
     }
@@ -81,7 +81,7 @@ public class UserPointServiceTest {
 
         assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
 
-        verifyZeroInteractions(userPointDao);
+        verifyZeroInteractions(userPointRepository);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointDao.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
+        when(userPointRepository.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
 
         assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
     }
@@ -106,7 +106,7 @@ public class UserPointServiceTest {
 
         assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
 
-        verifyZeroInteractions(userPointDao);
+        verifyZeroInteractions(userPointRepository);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class UserPointServiceTest {
 
         assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
 
-        verifyZeroInteractions(userPointDao);
+        verifyZeroInteractions(userPointRepository);
     }
 
 }

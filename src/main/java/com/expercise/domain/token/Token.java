@@ -1,16 +1,13 @@
 package com.expercise.domain.token;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import com.expercise.domain.user.User;
 
 import javax.persistence.*;
 
 @Entity
-public class Token extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_TOKEN")
+public class Token extends BaseEntity {
 
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
@@ -21,16 +18,6 @@ public class Token extends AbstractEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public User getUser() {
         return user;

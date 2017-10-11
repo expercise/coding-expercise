@@ -1,6 +1,6 @@
 package com.expercise.service.configuration;
 
-import com.expercise.repository.configuration.ConfigurationDao;
+import com.expercise.repository.configuration.ConfigurationRepository;
 import com.expercise.domain.configuration.Configuration;
 import com.expercise.testutils.builder.ConfigurationBuilder;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class ConfigurationServiceTest {
     private ConfigurationService service;
 
     @Mock
-    private ConfigurationDao configurationDao;
+    private ConfigurationRepository configurationRepository;
 
     @Mock
     private PlatformTransactionManager transactionManager;
@@ -43,7 +43,7 @@ public class ConfigurationServiceTest {
     }
 
     private void initConfigurationsWith(Configuration... configurations) {
-        when(configurationDao.findAll()).thenReturn(Arrays.asList(configurations));
+        when(configurationRepository.findAll()).thenReturn(Arrays.asList(configurations));
         service.init();
     }
 

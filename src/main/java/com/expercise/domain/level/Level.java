@@ -13,18 +13,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Entity
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_LEVEL")
 public class Level extends PrioritizedEntity {
-
-    private static final long serialVersionUID = -1863753168513276995L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Name", nullable = false)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "NAME", nullable = false)
     private Map<Lingo, String> names = new HashMap<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,14 +27,6 @@ public class Level extends PrioritizedEntity {
 
     @OneToMany(mappedBy = "level")
     private List<Challenge> challenges = new ArrayList<>();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Map<Lingo, String> getNames() {
         return names;

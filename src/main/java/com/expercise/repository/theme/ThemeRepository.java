@@ -1,13 +1,13 @@
 package com.expercise.repository.theme;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.theme.Theme;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ThemeDao extends AbstractHibernateDao<Theme> {
+public class ThemeRepository extends BaseRepository<Theme> {
 
-    protected ThemeDao() {
+    protected ThemeRepository() {
         super(Theme.class);
     }
 

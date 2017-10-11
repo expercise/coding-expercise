@@ -1,11 +1,11 @@
 package com.expercise.testutils.builder;
 
-import com.expercise.domain.AbstractEntity;
-import org.hibernate.Session;
+import com.expercise.domain.BaseEntity;
 
+import javax.persistence.EntityManager;
 import java.util.Random;
 
-public abstract class AbstractEntityBuilder<T extends AbstractEntity, B extends AbstractEntityBuilder> {
+public abstract class BaseEntityBuilder<T extends BaseEntity, B extends BaseEntityBuilder> {
 
     private Long id;
 
@@ -28,9 +28,9 @@ public abstract class AbstractEntityBuilder<T extends AbstractEntity, B extends 
         return (B) this;
     }
 
-    public T persist(Session session) {
+    public T persist(EntityManager entityManager) {
         T entity = build();
-        session.persist(entity);
+        entityManager.persist(entity);
         return entity;
     }
 

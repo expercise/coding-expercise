@@ -1,6 +1,6 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.UserConnection;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class UserConnectionDao extends AbstractHibernateDao<UserConnection> {
+public class UserConnectionRepository extends BaseRepository<UserConnection> {
 
-    protected UserConnectionDao() {
+    protected UserConnectionRepository() {
         super(UserConnection.class);
     }
 

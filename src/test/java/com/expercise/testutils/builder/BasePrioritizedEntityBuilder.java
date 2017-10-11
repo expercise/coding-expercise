@@ -2,7 +2,7 @@ package com.expercise.testutils.builder;
 
 import com.expercise.domain.PrioritizedEntity;
 
-public abstract class AbstractPrioritizedEntityBuilder<T extends PrioritizedEntity, B extends AbstractPrioritizedEntityBuilder> extends AbstractEntityBuilder<T, B> {
+public abstract class BasePrioritizedEntityBuilder<T extends PrioritizedEntity, B extends BasePrioritizedEntityBuilder> extends BaseEntityBuilder<T, B> {
 
     private int priority;
 

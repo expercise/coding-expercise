@@ -2,7 +2,7 @@ package com.expercise.service.quote;
 
 import com.expercise.caching.Caching;
 import com.expercise.domain.quote.Quote;
-import com.expercise.repository.quote.QuoteDao;
+import com.expercise.repository.quote.QuoteRepository;
 import com.expercise.utils.collection.RandomElement;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class QuoteService implements Caching {
     private PlatformTransactionManager transactionManager;
 
     @Autowired
-    private QuoteDao quoteDao;
+    private QuoteRepository quoteRepository;
 
     @PostConstruct
     public void init() {
@@ -36,7 +36,7 @@ public class QuoteService implements Caching {
 
     private void populateQuoteList() {
         new TransactionTemplate(transactionManager).execute(status -> {
-            List<Quote> freshQuotes = quoteDao.findAll();
+            List<Quote> freshQuotes = quoteRepository.findAll();
             freshQuotes.forEach(q -> Hibernate.initialize(q.getQuoteInMultiLingo()));
             QUOTES = freshQuotes;
             return null;

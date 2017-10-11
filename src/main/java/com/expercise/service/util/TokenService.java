@@ -1,6 +1,6 @@
 package com.expercise.service.util;
 
-import com.expercise.repository.user.TokenDao;
+import com.expercise.repository.user.TokenRepository;
 import com.expercise.domain.token.Token;
 import com.expercise.domain.token.TokenType;
 import com.expercise.domain.user.User;
@@ -14,7 +14,7 @@ public class TokenService {
     public static final int TOKEN_LENGTH = 32;
 
     @Autowired
-    private TokenDao tokenDao;
+    private TokenRepository tokenRepository;
 
     public String createTokenFor(User user, TokenType tokenType) {
         deletedOldTokenOf(user);
@@ -22,14 +22,14 @@ public class TokenService {
         token.setUser(user);
         token.setTokenType(tokenType);
         token.setToken(generateUniqueTokenFor(tokenType));
-        tokenDao.save(token);
+        tokenRepository.save(token);
         return token.getToken();
     }
 
     private void deletedOldTokenOf(User user) {
-        Token unusedToken = tokenDao.findOneBy("user", user);
+        Token unusedToken = tokenRepository.findOneBy("user", user);
         if (unusedToken != null) {
-            tokenDao.delete(unusedToken);
+            tokenRepository.delete(unusedToken);
         }
     }
 
@@ -45,13 +45,13 @@ public class TokenService {
     }
 
     public Token findBy(String token, TokenType tokenType) {
-        return tokenDao.findToken(token, tokenType);
+        return tokenRepository.findToken(token, tokenType);
     }
 
     public void deleteToken(String token, TokenType tokenType) {
         Token foundToken = findBy(token, tokenType);
         if (foundToken != null) {
-            tokenDao.delete(foundToken);
+            tokenRepository.delete(foundToken);
         }
     }
 }

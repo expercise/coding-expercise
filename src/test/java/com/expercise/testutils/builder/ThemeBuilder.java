@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ThemeBuilder extends AbstractPrioritizedEntityBuilder<Theme, ThemeBuilder> {
+public class ThemeBuilder extends BasePrioritizedEntityBuilder<Theme, ThemeBuilder> {
 
     private Map<Lingo, String> names = new HashMap<>();
 

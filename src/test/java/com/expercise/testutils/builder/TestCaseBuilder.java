@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TestCaseBuilder extends AbstractPrioritizedEntityBuilder<TestCase, TestCaseBuilder> {
+public class TestCaseBuilder extends BasePrioritizedEntityBuilder<TestCase, TestCaseBuilder> {
 
     private Challenge challenge;
 

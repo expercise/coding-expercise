@@ -1,13 +1,13 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDao extends AbstractHibernateDao<User> {
+public class UserRepository extends BaseRepository<User> {
 
-    protected UserDao() {
+    protected UserRepository() {
         super(User.class);
     }
 

@@ -1,7 +1,7 @@
 package com.expercise.service.challenge;
 
 import com.expercise.controller.challenge.model.ChallengeModel;
-import com.expercise.repository.challenge.ChallengeDao;
+import com.expercise.repository.challenge.ChallengeRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class ChallengeService {
 
     @Autowired
-    private ChallengeDao challengeDao;
+    private ChallengeRepository challengeRepository;
 
     @Autowired
     private SignatureGeneratorService signatureGeneratorService;
@@ -52,23 +52,23 @@ public class ChallengeService {
     private String challengeApprovalStrategy;
 
     public List<Challenge> findAllChallengesOfUser() {
-        return challengeDao.findAllByUser(authenticationService.getCurrentUser());
+        return challengeRepository.findAllByUser(authenticationService.getCurrentUser());
     }
 
     public List<Challenge> findAllApprovedChallengesOfUser(User user) {
-        return challengeDao.findAllApprovedByUser(user);
+        return challengeRepository.findAllApprovedByUser(user);
     }
 
     public List<Challenge> findAll() {
-        return challengeDao.findAll();
+        return challengeRepository.findAll();
     }
 
     public Challenge findById(Long id) {
-        return challengeDao.findOne(id);
+        return challengeRepository.findOne(id);
     }
 
     public List<Challenge> findNotThemedApprovedChallenges() {
-        return challengeDao.findNotThemedApprovedChallenges();
+        return challengeRepository.findNotThemedApprovedChallenges();
     }
 
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
@@ -85,12 +85,12 @@ public class ChallengeService {
         Challenge challenge = prepareChallengeForSaving(challengeModel);
 
         if (challenge.isPersisted()) {
-            challengeDao.update(challenge);
+            challengeRepository.update(challenge);
         } else {
             checkAndAutoApprove(challenge);
 
             challenge.setUser(authenticationService.getCurrentUser());
-            challengeDao.save(challenge);
+            challengeRepository.save(challenge);
 
             sendNewChallengeNotification(challenge);
         }
@@ -122,7 +122,7 @@ public class ChallengeService {
     private Challenge prepareChallengeForSaving(ChallengeModel challengeModel) {
         Challenge challenge;
         if (challengeModel.getChallengeId() != null) {
-            challenge = challengeDao.findOne(challengeModel.getChallengeId());
+            challenge = challengeRepository.findOne(challengeModel.getChallengeId());
             challengeModelHelper.mergeChallengeWithModel(challengeModel, challenge);
         } else {
             challenge = challengeModelHelper.createChallengeFrom(challengeModel);

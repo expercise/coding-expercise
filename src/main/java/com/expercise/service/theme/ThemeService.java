@@ -1,7 +1,7 @@
 package com.expercise.service.theme;
 
-import com.expercise.repository.challenge.ChallengeDao;
-import com.expercise.repository.theme.ThemeDao;
+import com.expercise.repository.challenge.ChallengeRepository;
+import com.expercise.repository.theme.ThemeRepository;
 import com.expercise.domain.theme.Theme;
 import com.expercise.enums.Lingo;
 import com.expercise.service.i18n.MessageService;
@@ -17,16 +17,16 @@ import java.util.stream.Stream;
 public class ThemeService {
 
     @Autowired
-    private ThemeDao themeDao;
+    private ThemeRepository themeRepository;
 
     @Autowired
     private MessageService messageService;
 
     @Autowired
-    private ChallengeDao challengeDao;
+    private ChallengeRepository challengeRepository;
 
     public List<Theme> getAll() {
-        List<Theme> themes = themeDao.findAllOrderedByPriority();
+        List<Theme> themes = themeRepository.findAllOrderedByPriority();
         themes.add(createDummyThemeForNotThemedChallenges());
         return themes;
     }
@@ -37,9 +37,9 @@ public class ThemeService {
                         t -> t,
                         t -> {
                             if (t.isPersisted()) {
-                                return challengeDao.countApprovedChallengesIn(t);
+                                return challengeRepository.countApprovedChallengesIn(t);
                             } else {
-                                return challengeDao.countNotThemedApprovedChallenges();
+                                return challengeRepository.countNotThemedApprovedChallenges();
                             }
                         })
                 );
@@ -53,7 +53,7 @@ public class ThemeService {
     }
 
     public Theme findById(Long id) {
-        return themeDao.findOne(id);
+        return themeRepository.findOne(id);
     }
 
 }

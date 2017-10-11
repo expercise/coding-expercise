@@ -2,7 +2,7 @@ package com.expercise.testutils.builder;
 
 import com.expercise.domain.configuration.Configuration;
 
-public class ConfigurationBuilder extends AbstractEntityBuilder<Configuration, ConfigurationBuilder> {
+public class ConfigurationBuilder extends BaseEntityBuilder<Configuration, ConfigurationBuilder> {
 
     private String key;
 

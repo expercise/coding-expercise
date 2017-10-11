@@ -1,6 +1,6 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.token.Token;
 import com.expercise.domain.token.TokenType;
 import org.springframework.stereotype.Repository;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class TokenDao extends AbstractHibernateDao<Token> {
+public class TokenRepository extends BaseRepository<Token> {
 
-    protected TokenDao() {
+    protected TokenRepository() {
         super(Token.class);
     }
 

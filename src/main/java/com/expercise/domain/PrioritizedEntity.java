@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.List;
 
 @MappedSuperclass
-public abstract class PrioritizedEntity extends AbstractEntity implements Prioritized {
+public abstract class PrioritizedEntity extends BaseEntity implements Prioritized {
 
     private int priority;
 

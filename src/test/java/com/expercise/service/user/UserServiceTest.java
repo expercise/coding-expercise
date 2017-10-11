@@ -1,6 +1,6 @@
 package com.expercise.service.user;
 
-import com.expercise.repository.user.UserDao;
+import com.expercise.repository.user.UserRepository;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
@@ -27,7 +27,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Mock
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -49,7 +49,7 @@ public class UserServiceTest {
         userService.saveNewUser(user);
 
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-        verify(userDao).save(userCaptor.capture());
+        verify(userRepository).save(userCaptor.capture());
 
         assertThat(user.getPassword(), equalTo("hashedPassword"));
     }

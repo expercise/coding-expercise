@@ -9,13 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_TEST_CASE")
 public class TestCase extends PrioritizedEntity {
-
-    private static final long serialVersionUID = -1234335977261435184L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge challenge;
@@ -26,14 +21,6 @@ public class TestCase extends PrioritizedEntity {
 
     @Column(nullable = false, length = Constants.MAX_TESTCASE_VALUE_LENGTH)
     private String output;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Challenge getChallenge() {
         return challenge;

@@ -1,9 +1,9 @@
 package com.expercise.service.user;
 
-import com.expercise.repository.challenge.SolutionDao;
-import com.expercise.repository.user.UserConnectionDao;
-import com.expercise.repository.user.UserDao;
-import com.expercise.repository.user.UserRememberMeTokenDao;
+import com.expercise.repository.challenge.SolutionRepository;
+import com.expercise.repository.user.UserConnectionRepository;
+import com.expercise.repository.user.UserRepository;
+import com.expercise.repository.user.RememberMeTokenRepository;
 import com.expercise.domain.user.RememberMeToken;
 import com.expercise.domain.user.User;
 import com.expercise.domain.user.UserConnection;
@@ -27,22 +27,22 @@ import java.util.UUID;
 public class UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserConnectionDao userConnectionDao;
+    private UserConnectionRepository userConnectionRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRememberMeTokenDao userRememberMeTokenDao;
+    private RememberMeTokenRepository rememberMeTokenRepository;
 
     @Autowired
     private AuthenticationService authenticationService;
 
     @Autowired
-    private SolutionDao solutionDao;
+    private SolutionRepository solutionRepository;
 
     @Autowired
     private UrlService urlService;
@@ -53,7 +53,7 @@ public class UserService {
     public void saveNewUser(User user) {
         String hashedUserPassword = hashPassword(user.getPassword());
         user.setPassword(hashedUserPassword);
-        userDao.save(user);
+        userRepository.save(user);
 
         sendNewUserNotification(user);
     }
@@ -70,7 +70,7 @@ public class UserService {
             user.setLastName(userProfile.getLastName());
             user.setPassword(UUID.randomUUID().toString());
             user.setSocialImageUrl(imageUrl);
-            userDao.save(user);
+            userRepository.save(user);
 
             sendNewUserNotification(user);
         } else {
@@ -90,11 +90,11 @@ public class UserService {
         userConnection.setRefreshToken(connectionData.getRefreshToken());
         userConnection.setSecret(connectionData.getSecret());
         userConnection.setRank(0);
-        userConnection = userConnectionDao.saveOrUpdate(userConnection);
+        userConnection = userConnectionRepository.saveOrUpdate(userConnection);
 
         user.addUserConnection(userConnection);
 
-        user = userDao.saveOrUpdate(user);
+        user = userRepository.saveOrUpdate(user);
 
         return user;
     }
@@ -127,26 +127,26 @@ public class UserService {
     }
 
     private UserConnection initializeUserConnection(ConnectionData connectionData) {
-        UserConnection existingUserConnection = userConnectionDao.findBy(connectionData.getProviderId(), connectionData.getProviderUserId());
+        UserConnection existingUserConnection = userConnectionRepository.findBy(connectionData.getProviderId(), connectionData.getProviderUserId());
         if (existingUserConnection != null) {
             User oldSocialUser = findById(NumberUtils.parseLong(existingUserConnection.getUserId()));
             oldSocialUser.getUserConnections().clear();
-            userDao.update(oldSocialUser);
+            userRepository.update(oldSocialUser);
         }
 
         return new UserConnection();
     }
 
     public void updateUser(User user) {
-        userDao.update(user);
+        userRepository.update(user);
     }
 
     public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     public User findById(long id) {
-        return userDao.findOne(id);
+        return userRepository.findOne(id);
     }
 
     public boolean emailNotRegisteredYet(String email) {
@@ -154,11 +154,11 @@ public class UserService {
     }
 
     public List<User> findAll() {
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 
     public List<Long> findAllIds() {
-        return userDao.findAllIds();
+        return userRepository.findAllIds();
     }
 
     @Transactional
@@ -168,24 +168,24 @@ public class UserService {
         token.setSeries(series);
         token.setToken(tokenValue);
         token.setLastUsedTime(lastUsedTime);
-        userRememberMeTokenDao.update(token);
+        rememberMeTokenRepository.update(token);
     }
 
     @Transactional
     public void updateRememberMeToken(String tokenValue, String series, Date lastUsedTime) {
-        RememberMeToken token = userRememberMeTokenDao.findToken(series);
+        RememberMeToken token = rememberMeTokenRepository.findToken(series);
         token.setToken(tokenValue);
         token.setSeries(series);
         token.setLastUsedTime(lastUsedTime);
-        userRememberMeTokenDao.update(token);
+        rememberMeTokenRepository.update(token);
     }
 
     public RememberMeToken findRememberMeToken(String series) {
-        return userRememberMeTokenDao.findToken(series);
+        return rememberMeTokenRepository.findToken(series);
     }
 
     public void removeRememberMeToken(String userId) {
-        userRememberMeTokenDao.deleteToken(userId);
+        rememberMeTokenRepository.deleteToken(userId);
     }
 
     private String hashPassword(String password) {
@@ -194,7 +194,7 @@ public class UserService {
 
     public boolean isNewbie() {
         if (authenticationService.isCurrentUserAuthenticated()) {
-            return solutionDao.countByUser(authenticationService.getCurrentUser()) == 0;
+            return solutionRepository.countByUser(authenticationService.getCurrentUser()) == 0;
         }
         return false;
     }

@@ -6,7 +6,7 @@ import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.enums.UserRole;
 import org.apache.commons.lang3.RandomStringUtils;
 
-public class UserBuilder extends AbstractEntityBuilder<User, UserBuilder> {
+public class UserBuilder extends BaseEntityBuilder<User, UserBuilder> {
 
     private String firstName = RandomStringUtils.random(5);
 

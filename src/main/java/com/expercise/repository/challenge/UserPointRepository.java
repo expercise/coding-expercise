@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class UserPointDao extends AbstractHibernateDao<UserPoint> {
+public class UserPointRepository extends BaseRepository<UserPoint> {
 
-    protected UserPointDao() {
+    protected UserPointRepository() {
         super(UserPoint.class);
     }
 

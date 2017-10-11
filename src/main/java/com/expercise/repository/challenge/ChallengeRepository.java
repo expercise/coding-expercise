@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ChallengeDao extends AbstractHibernateDao<Challenge> {
+public class ChallengeRepository extends BaseRepository<Challenge> {
 
-    public ChallengeDao() {
+    public ChallengeRepository() {
         super(Challenge.class);
     }
 

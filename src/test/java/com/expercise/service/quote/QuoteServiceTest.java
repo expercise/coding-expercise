@@ -1,6 +1,6 @@
 package com.expercise.service.quote;
 
-import com.expercise.repository.quote.QuoteDao;
+import com.expercise.repository.quote.QuoteRepository;
 import com.expercise.domain.quote.Quote;
 import com.expercise.testutils.builder.QuoteBuilder;
 import org.apache.commons.lang3.RandomUtils;
@@ -28,7 +28,7 @@ public class QuoteServiceTest {
     private QuoteService service;
 
     @Mock
-    private QuoteDao quoteDao;
+    private QuoteRepository quoteRepository;
 
     @Mock
     private PlatformTransactionManager transactionManager;
@@ -38,7 +38,7 @@ public class QuoteServiceTest {
         Quote quote1 = new QuoteBuilder().id(1L).build();
         Quote quote2 = new QuoteBuilder().id(2L).build();
 
-        when(quoteDao.findAll()).thenReturn(Arrays.asList(quote1, quote2));
+        when(quoteRepository.findAll()).thenReturn(Arrays.asList(quote1, quote2));
 
         service.init();
 
@@ -58,7 +58,7 @@ public class QuoteServiceTest {
 
     @Test
     public void shouldReturnNullIfQuoteListIsEmpty() {
-        when(quoteDao.findAll()).thenReturn(new ArrayList<>());
+        when(quoteRepository.findAll()).thenReturn(new ArrayList<>());
 
         service.init();
 

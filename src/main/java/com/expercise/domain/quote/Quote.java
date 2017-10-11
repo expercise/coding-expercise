@@ -1,6 +1,6 @@
 package com.expercise.domain.quote;
 
-import com.expercise.domain.AbstractEntity;
+import com.expercise.domain.BaseEntity;
 import com.expercise.enums.Lingo;
 
 import javax.persistence.*;
@@ -8,29 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-public class Quote extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_QUOTE")
+public class Quote extends BaseEntity {
 
     @ElementCollection
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "Lingo")
-    @Column(name = "Text", nullable = false, length = 1024)
+    @MapKeyColumn(name = "LINGO")
+    @Column(name = "TEXT", nullable = false, length = 1024)
     private Map<Lingo, String> quoteInMultiLingo = new HashMap<>();
 
     private String author;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Map<Lingo, String> getQuoteInMultiLingo() {
         return quoteInMultiLingo;

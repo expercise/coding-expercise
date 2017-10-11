@@ -2,7 +2,7 @@ package com.expercise.service.configuration;
 
 import com.expercise.caching.Caching;
 import com.expercise.domain.configuration.Configuration;
-import com.expercise.repository.configuration.ConfigurationDao;
+import com.expercise.repository.configuration.ConfigurationRepository;
 import com.expercise.utils.EnvironmentUtils;
 import com.expercise.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ConfigurationService implements Caching {
     private static Map<String, String> CONFIGURATIONS;
 
     @Autowired
-    private ConfigurationDao configurationDao;
+    private ConfigurationRepository configurationRepository;
 
     @Autowired
     private PlatformTransactionManager transactionManager;
@@ -65,7 +65,7 @@ public class ConfigurationService implements Caching {
 
     private void populateConfigurationsMap() {
         new TransactionTemplate(transactionManager).execute(status -> {
-            CONFIGURATIONS = configurationDao.findAll().stream().collect(Collectors.toMap(Configuration::getName, Configuration::getValue));
+            CONFIGURATIONS = configurationRepository.findAll().stream().collect(Collectors.toMap(Configuration::getName, Configuration::getValue));
             return null;
         });
     }

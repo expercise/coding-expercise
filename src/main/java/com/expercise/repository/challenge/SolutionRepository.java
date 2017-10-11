@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class SolutionDao extends AbstractHibernateDao<Solution> {
+public class SolutionRepository extends BaseRepository<Solution> {
 
-    protected SolutionDao() {
+    protected SolutionRepository() {
         super(Solution.class);
     }
 

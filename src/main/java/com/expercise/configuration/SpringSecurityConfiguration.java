@@ -1,6 +1,6 @@
 package com.expercise.configuration;
 
-import com.expercise.service.user.UserRememberMeTokenRepository;
+import com.expercise.service.user.PersistentRememberMeTokenRepositoryService;
 import com.expercise.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -88,8 +88,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserRememberMeTokenRepository persistentTokenRepository() {
-        return new UserRememberMeTokenRepository();
+    public PersistentRememberMeTokenRepositoryService persistentTokenRepository() {
+        return new PersistentRememberMeTokenRepositoryService();
     }
 
     @Autowired

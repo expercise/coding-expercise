@@ -1,14 +1,14 @@
 package com.expercise.repository.level;
 
-import com.expercise.repository.AbstractHibernateDao;
+import com.expercise.repository.BaseRepository;
 import com.expercise.domain.level.Level;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LevelDao extends AbstractHibernateDao<Level> {
+public class LevelRepository extends BaseRepository<Level> {
 
-    protected LevelDao() {
+    protected LevelRepository() {
         super(Level.class);
     }
 

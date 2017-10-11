@@ -3,7 +3,7 @@ package com.expercise.testutils.builder;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
 
-public class LevelBuilder extends AbstractPrioritizedEntityBuilder<Level, LevelBuilder> {
+public class LevelBuilder extends BasePrioritizedEntityBuilder<Level, LevelBuilder> {
 
     private Theme theme;
 

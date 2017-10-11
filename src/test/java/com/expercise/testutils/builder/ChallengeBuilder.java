@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ChallengeBuilder extends AbstractEntityBuilder<Challenge, ChallengeBuilder> {
+public class ChallengeBuilder extends BaseEntityBuilder<Challenge, ChallengeBuilder> {
 
     private boolean approved = true;
 
