@@ -9,18 +9,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.Locale;
 import java.util.Properties;
 
 @Configuration
-@EnableWebMvc
 public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Value("${spring.profiles.active}")
@@ -46,16 +44,12 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
         return sessionLocaleResolver;
     }
 
-    @Bean
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
-        handlerMapping.setInterceptors(
-                setLocaleInterceptor(),
-                deviceResolverHandlerInterceptor(),
-                commonViewParamsInterceptor(),
-                generatedResourcesCachingInterceptor()
-        );
-        return handlerMapping;
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(setLocaleInterceptor());
+        registry.addInterceptor(deviceResolverHandlerInterceptor());
+        registry.addInterceptor(commonViewParamsInterceptor());
+        registry.addInterceptor(generatedResourcesCachingInterceptor());
     }
 
     @Bean

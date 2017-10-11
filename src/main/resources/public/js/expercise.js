@@ -4,7 +4,7 @@ expercise = {
 
     constructor: function () {
         this.assistant.init({
-            image: expercise.utils.urlFor('resources/img/assistant-robot.svg'),
+            image: expercise.utils.urlFor('img/assistant-robot.svg'),
             width: '100px',
             height: '166px'
         });

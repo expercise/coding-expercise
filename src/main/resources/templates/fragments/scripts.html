@@ -2,46 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <script type="text/javascript" th:src="@{'/generatedResources/js/messages_' + __${#locale}__ + '-' + ${buildId} + '.js'}" defer="defer"></script>
 
-    <script type="text/javascript" th:src="@{/resources/js/myth-1.0.0-SNAPSHOT.js}"></script>
-
     <!--/* If only environment is 'development' */-->
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/less.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/less.min.js}"></script>
 
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery-ui.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.scrolltofixed.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.cookie.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.fullscreen.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/jquery.hotkeys.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/lib/hopscotch.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery.scrolltofixed.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery.cookie.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery.fullscreen.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/jquery.hotkeys.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/lib/hopscotch.min.js}"></script>
 
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootstrap.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootbox.min.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrap/bootstrap-virtual-assistant.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/bootstrap/bootbox.min.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/bootstrap/bootstrap-virtual-assistant.js}"></script>
 
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/codemirror.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/vim.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/javascript.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/python.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/mode/clike.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/show-hint.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/javascript-hint.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codemirror/anyword-hint.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/codemirror.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/vim.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/mode/javascript.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/mode/python.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/mode/clike.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/show-hint.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/javascript-hint.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codemirror/anyword-hint.js}"></script>
 
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/expercise.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/utils.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/header.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/profile.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challenge.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/themeListing.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/locale.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/codeEditor.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/challengeManagement.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/levelManagement.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/forgottenPassword.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/home.js}"></script>
-    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/resources/js/bootstrapper.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/expercise.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/utils.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/header.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/profile.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/challenge.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/themeListing.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/locale.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/codeEditor.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/challengeManagement.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/levelManagement.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/forgottenPassword.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/home.js}"></script>
+    <script th:if="${developmentEnvironment}" type="text/javascript" th:src="@{/js/bootstrapper.js}"></script>
 
     <!--/* If only environment is not 'development' */-->
-    <script th:unless="${developmentEnvironment}" type="text/javascript" th:src="@{'/resources/js/compressed-' + __${buildId}__ + '.js'}" defer="defer"></script>
+    <script th:unless="${developmentEnvironment}" type="text/javascript" th:src="@{'/js/compressed-' + __${buildId}__ + '.js'}" defer="defer"></script>
 </html>

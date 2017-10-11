@@ -13,23 +13,23 @@
 
     <link rel="canonical" th:href="${canonical}"/>
 
-    <link rel="shortcut icon" th:href="@{/resources/img/expercise-logo-rounded.png}"/>
+    <link rel="shortcut icon" th:href="@{/img/expercise-logo-rounded.png}"/>
 
     <!--/* If only environment is 'development' */-->
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/bootstrap-virtual-assistant.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/hopscotch.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/bootstrap-virtual-assistant.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/hopscotch.min.css}" rel="stylesheet"/>
 
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/font-awesome.min.css}" rel="stylesheet"/>
 
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/codemirror.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/ambiance.css}" rel="stylesheet"/>
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/show-hint.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/codemirror.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/ambiance.css}" rel="stylesheet"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/show-hint.css}" rel="stylesheet"/>
 
-    <link th:if="${developmentEnvironment}" th:href="@{/resources/style/expercise.less}" rel="stylesheet/less"/>
+    <link th:if="${developmentEnvironment}" th:href="@{/style/expercise.less}" rel="stylesheet/less"/>
 
     <!--/* If only environment is not 'development' */-->
-    <link th:if="${not developmentEnvironment}" th:href="@{'/resources/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
+    <link th:if="${not developmentEnvironment}" th:href="@{'/style/compressed-' + __${buildId}__ + '.css'}" rel="stylesheet"/>
 
     <!--/* Google Analytics */-->
     <script th:unless="${#strings.isEmpty(googleAnalyticsApplicationKey)}" th:inline="javascript">
