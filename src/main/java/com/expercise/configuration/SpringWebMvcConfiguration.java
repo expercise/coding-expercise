@@ -14,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -79,6 +81,18 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
         webContentInterceptor.setAlwaysMustRevalidate(true);
         webContentInterceptor.setUseExpiresHeader(true);
         return webContentInterceptor;
+    }
+
+    @Bean
+    public TemplateResolver emailTemplateResolver() {
+        ClassLoaderTemplateResolver classLoaderTemplateResolver = new ClassLoaderTemplateResolver();
+        classLoaderTemplateResolver.setPrefix("emails/");
+        classLoaderTemplateResolver.setSuffix(".html");
+        classLoaderTemplateResolver.setCharacterEncoding("UTF-8");
+        classLoaderTemplateResolver.setTemplateMode("HTML5");
+        classLoaderTemplateResolver.setOrder(1);
+        classLoaderTemplateResolver.setCacheable(EnvironmentUtils.isNotDevelopment(environment));
+        return classLoaderTemplateResolver;
     }
 
 }

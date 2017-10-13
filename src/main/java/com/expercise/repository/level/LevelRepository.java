@@ -1,19 +1,14 @@
 package com.expercise.repository.level;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.level.Level;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
 
-@Repository
-public class LevelRepository extends BaseRepository<Level> {
+import java.util.List;
 
-    protected LevelRepository() {
-        super(Level.class);
-    }
+public interface LevelRepository extends BaseRepository<Level> {
 
-    public Level findOneBy(Integer priority) {
-        return (Level) getCriteria().add(Restrictions.eq("priority", priority)).uniqueResult();
-    }
+    Level findByPriority(Integer priority);
+
+    List<Level> findAllByOrderByPriority();
 
 }

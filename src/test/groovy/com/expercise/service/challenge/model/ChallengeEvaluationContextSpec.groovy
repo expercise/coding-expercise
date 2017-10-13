@@ -1,4 +1,5 @@
 package com.expercise.service.challenge.model
+
 import com.expercise.domain.challenge.Challenge
 import com.expercise.domain.challenge.TestCase
 import com.expercise.interpreter.InterpreterResult

@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.BaseRepositoryTest;
+import com.expercise.BaseSpringIntegrationTest;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.theme.Theme;
@@ -19,7 +19,7 @@ import static com.expercise.testutils.asserts.Asserts.assertNotExpectedItems;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class ChallengeRepositoryTest extends BaseRepositoryTest {
+public class ChallengeRepositoryTest extends BaseSpringIntegrationTest {
 
     @Autowired
     private ChallengeRepository repository;
@@ -31,9 +31,7 @@ public class ChallengeRepositoryTest extends BaseRepositoryTest {
         Challenge challenge2 = new ChallengeBuilder().user(user).approved(false).persist(getEntityManager());
         Challenge challenge3 = new ChallengeBuilder().user(user).approved(true).persist(getEntityManager());
 
-        flushAndClear();
-
-        List<Challenge> resultList = repository.findAllApproved();
+        List<Challenge> resultList = repository.findByApprovedIsTrue();
 
         assertExpectedItems(resultList, challenge1, challenge3);
         assertNotExpectedItems(resultList, challenge2);
@@ -47,9 +45,7 @@ public class ChallengeRepositoryTest extends BaseRepositoryTest {
         Challenge challenge2 = new ChallengeBuilder().user(user1).persist(getEntityManager());
         Challenge challenge3 = new ChallengeBuilder().user(user1).persist(getEntityManager());
 
-        flushAndClear();
-
-        List<Challenge> resultList = repository.findAllByUser(user1);
+        List<Challenge> resultList = repository.findByApprovedIsTrueAndUser(user1);
 
         assertExpectedItems(resultList, challenge2, challenge3);
         assertNotExpectedItems(resultList, challenge1);
@@ -68,8 +64,6 @@ public class ChallengeRepositoryTest extends BaseRepositoryTest {
         Challenge challenge2 = new ChallengeBuilder().user(user).level(themedLevel).approved(true).persist(getEntityManager());
         Challenge challenge3 = new ChallengeBuilder().user(user).approved(true).persist(getEntityManager());
         Challenge challenge4 = new ChallengeBuilder().user(user).level(notThemedLevel).approved(true).persist(getEntityManager());
-
-        flushAndClear();
 
         List<Challenge> resultList = repository.findNotThemedApprovedChallenges();
 
@@ -91,8 +85,6 @@ public class ChallengeRepositoryTest extends BaseRepositoryTest {
         new ChallengeBuilder().user(user).approved(true).persist(getEntityManager());
         new ChallengeBuilder().user(user).level(notThemedLevel).approved(true).persist(getEntityManager());
         new ChallengeBuilder().user(user).level(notThemedLevel).approved(true).persist(getEntityManager());
-
-        flushAndClear();
 
         Long count = repository.countNotThemedApprovedChallenges();
 
@@ -134,10 +126,8 @@ public class ChallengeRepositoryTest extends BaseRepositoryTest {
         new ChallengeBuilder().user(user).level(level3).approved(true).persist(getEntityManager());
         new ChallengeBuilder().user(user).level(level3).approved(true).persist(getEntityManager());
 
-        flushAndClear();
-
-        assertThat(repository.countApprovedChallengesIn(theme1), equalTo(4L));
-        assertThat(repository.countApprovedChallengesIn(theme2), equalTo(2L));
+        assertThat(repository.countByApprovedIsTrueAndLevelTheme(theme1), equalTo(4L));
+        assertThat(repository.countByApprovedIsTrueAndLevelTheme(theme2), equalTo(2L));
     }
 
 }

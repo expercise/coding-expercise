@@ -25,14 +25,14 @@ class JavaScriptTypeCheckerSpec extends Specification {
 
     def "should check type as valid if value is array and specified data type is array also"() {
         expect:
-        typeChecker.typeCheck([1,2,3], DataType.Array)
+        typeChecker.typeCheck([1, 2, 3], DataType.Array)
     }
 
     def "should check type as invalid if value type and specified type does not matched"() {
         expect:
         !typeChecker.typeCheck("49", DataType.Integer)
         !typeChecker.typeCheck(49, DataType.Text)
-        !typeChecker.typeCheck([1,2,3,4], DataType.Text)
+        !typeChecker.typeCheck([1, 2, 3, 4], DataType.Text)
     }
 
 }

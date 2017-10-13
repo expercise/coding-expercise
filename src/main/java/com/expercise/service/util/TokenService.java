@@ -1,9 +1,9 @@
 package com.expercise.service.util;
 
-import com.expercise.repository.user.TokenRepository;
 import com.expercise.domain.token.Token;
 import com.expercise.domain.token.TokenType;
 import com.expercise.domain.user.User;
+import com.expercise.repository.user.TokenRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +27,7 @@ public class TokenService {
     }
 
     private void deletedOldTokenOf(User user) {
-        Token unusedToken = tokenRepository.findOneBy("user", user);
-        if (unusedToken != null) {
-            tokenRepository.delete(unusedToken);
-        }
+        tokenRepository.deleteByUser(user);
     }
 
     private String generateUniqueTokenFor(TokenType tokenType) {
@@ -45,7 +42,7 @@ public class TokenService {
     }
 
     public Token findBy(String token, TokenType tokenType) {
-        return tokenRepository.findToken(token, tokenType);
+        return tokenRepository.findByTokenAndTokenType(token, tokenType);
     }
 
     public void deleteToken(String token, TokenType tokenType) {

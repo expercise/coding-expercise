@@ -1,12 +1,12 @@
 package com.expercise.service.challenge;
 
 import com.expercise.controller.challenge.model.ChallengeModel;
-import com.expercise.repository.challenge.ChallengeRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
+import com.expercise.repository.challenge.ChallengeRepository;
 import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.notification.SlackMessage;
@@ -52,15 +52,15 @@ public class ChallengeService {
     private String challengeApprovalStrategy;
 
     public List<Challenge> findAllChallengesOfUser() {
-        return challengeRepository.findAllByUser(authenticationService.getCurrentUser());
+        return challengeRepository.findByUserOrderByCreateDateDesc(authenticationService.getCurrentUser());
     }
 
     public List<Challenge> findAllApprovedChallengesOfUser(User user) {
-        return challengeRepository.findAllApprovedByUser(user);
+        return challengeRepository.findByApprovedIsTrueAndUser(user);
     }
 
     public List<Challenge> findAll() {
-        return challengeRepository.findAll();
+        return challengeRepository.findAllByOrderByCreateDateDesc();
     }
 
     public Challenge findById(Long id) {
@@ -85,7 +85,7 @@ public class ChallengeService {
         Challenge challenge = prepareChallengeForSaving(challengeModel);
 
         if (challenge.isPersisted()) {
-            challengeRepository.update(challenge);
+            challengeRepository.save(challenge);
         } else {
             checkAndAutoApprove(challenge);
 
@@ -143,7 +143,7 @@ public class ChallengeService {
     public Challenge getDefaultChallenge() {
         return configurationService.getIdOfDefaultChallenge()
                 .map(this::findById)
-                .orElseGet(() -> null);
+                .orElse(null);
     }
 
 }

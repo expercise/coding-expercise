@@ -1,23 +1,20 @@
 package com.expercise.service.email;
 
-import com.expercise.EmailTemplateTestsConfiguration;
+import com.expercise.BaseSpringIntegrationTest;
 import com.expercise.testutils.FileTestUtils;
 import com.expercise.testutils.builder.UserBuilder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {EmailTemplateTestsConfiguration.class})
-public class EmailTemplateProcessorTest {
+public class EmailTemplateProcessorTest extends BaseSpringIntegrationTest {
 
     private static final String FORGOT_MY_PASSWORD_EMAIL = "forgotMyPasswordEmail";
 

@@ -1,24 +1,10 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.UserConnection;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
 
-import java.util.HashMap;
-import java.util.Map;
+public interface UserConnectionRepository extends BaseRepository<UserConnection> {
 
-@Repository
-public class UserConnectionRepository extends BaseRepository<UserConnection> {
-
-    protected UserConnectionRepository() {
-        super(UserConnection.class);
-    }
-
-    public UserConnection findBy(String providerId, String providerUserId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("providerId", providerId);
-        params.put("providerUserId", providerUserId);
-        return findOneBy(params);
-    }
+    UserConnection findByProviderIdAndProviderUserId(String providerId, String providerUserId);
 
 }

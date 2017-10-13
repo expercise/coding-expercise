@@ -17,6 +17,17 @@ public class TestCaseInputValue extends PrioritizedEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TestCase testCase;
 
+    public static List<TestCaseInputValue> createFrom(List<String> inputValues) {
+        List<TestCaseInputValue> testCaseInputValues = new ArrayList<>();
+        for (String inputValue : inputValues) {
+            TestCaseInputValue testCaseInputValue = new TestCaseInputValue();
+            testCaseInputValue.setInputValue(inputValue);
+            testCaseInputValues.add(testCaseInputValue);
+        }
+        prioritize(testCaseInputValues);
+        return testCaseInputValues;
+    }
+
     public String getInputValue() {
         return inputValue;
     }
@@ -31,17 +42,6 @@ public class TestCaseInputValue extends PrioritizedEntity {
 
     public void setTestCase(TestCase testCase) {
         this.testCase = testCase;
-    }
-
-    public static List<TestCaseInputValue> createFrom(List<String> inputValues) {
-        List<TestCaseInputValue> testCaseInputValues = new ArrayList<>();
-        for (String inputValue : inputValues) {
-            TestCaseInputValue testCaseInputValue = new TestCaseInputValue();
-            testCaseInputValue.setInputValue(inputValue);
-            testCaseInputValues.add(testCaseInputValue);
-        }
-        prioritize(testCaseInputValues);
-        return testCaseInputValues;
     }
 
 }

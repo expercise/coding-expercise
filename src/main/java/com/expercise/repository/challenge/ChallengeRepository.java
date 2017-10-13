@@ -1,76 +1,29 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
-import com.expercise.utils.collection.MapBuilder;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-@Repository
-public class ChallengeRepository extends BaseRepository<Challenge> {
+public interface ChallengeRepository extends BaseRepository<Challenge> {
 
-    public ChallengeRepository() {
-        super(Challenge.class);
-    }
+    List<Challenge> findByApprovedIsTrue();
 
-    public List<Challenge> findAllApproved() {
-        return findAllBy(new MapBuilder<String, Object>().put("approved", true).build());
-    }
+    List<Challenge> findByUserOrderByCreateDateDesc(User user);
 
-    public List<Challenge> findAllByUser(final User user) {
-        Criteria criteria = getCriteria();
-        criteria.add(Restrictions.eq("user", user));
-        criteria.addOrder(Order.desc("createDate"));
-        return list(criteria);
-    }
+    List<Challenge> findAllByOrderByCreateDateDesc();
 
-    @Override
-    public List<Challenge> findAll() {
-        Criteria criteria = getCriteria();
-        criteria.addOrder(Order.desc("createDate"));
-        return list(criteria);
-    }
+    List<Challenge> findByApprovedIsTrueAndUser(User user);
 
-    public List<Challenge> findAllApprovedByUser(final User user) {
-        return findAllBy(new MapBuilder<String, Object>().put("approved", true).put("user", user).build());
-    }
+    Long countByApprovedIsTrueAndLevelTheme(Theme theme);
 
-    public Long countApprovedChallengesIn(Theme theme) {
-        Criteria criteria = getCriteria();
+    @Query("select c from Challenge c left join c.level l where c.approved = true and (l is null or l.theme is null)")
+    List<Challenge> findNotThemedApprovedChallenges();
 
-        criteria.createAlias("level", "level");
-        criteria.add(Restrictions.eq("level.theme", theme));
-        criteria.add(Restrictions.eq("approved", true));
-
-        return countBy(criteria);
-    }
-
-    public List<Challenge> findNotThemedApprovedChallenges() {
-        Criteria criteria = getNotThemedApprovedChallengesCriteria();
-        return list(criteria);
-    }
-
-    public Long countNotThemedApprovedChallenges() {
-        Criteria criteria = getNotThemedApprovedChallengesCriteria();
-        return countBy(criteria);
-    }
-
-    private Criteria getNotThemedApprovedChallengesCriteria() {
-        return getCriteria()
-                .createAlias("level", "level", JoinType.LEFT_OUTER_JOIN)
-                .add(Restrictions.disjunction(
-                        Restrictions.isNull("level"),
-                        Restrictions.isNull("level.theme")
-
-                ))
-                .add(Restrictions.eq("approved", true));
-    }
+    @Query("select count(c) from Challenge c left join c.level l where c.approved = true and (l is null or l.theme is null)")
+    Long countNotThemedApprovedChallenges();
 
 }

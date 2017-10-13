@@ -6,6 +6,20 @@ public class ForgotMyPasswordResponse {
 
     private String messageKey;
 
+    public static ForgotMyPasswordResponse failedResponse() {
+        ForgotMyPasswordResponse failedResponse = new ForgotMyPasswordResponse();
+        failedResponse.setSuccess(false);
+        failedResponse.setMessageKey("forgotMyPassword.request.failed");
+        return failedResponse;
+    }
+
+    public static ForgotMyPasswordResponse successResponse() {
+        ForgotMyPasswordResponse successResponse = new ForgotMyPasswordResponse();
+        successResponse.setSuccess(true);
+        successResponse.setMessageKey("forgotMyPassword.request.success");
+        return successResponse;
+    }
+
     public boolean isSuccess() {
         return success;
     }
@@ -20,20 +34,6 @@ public class ForgotMyPasswordResponse {
 
     public void setMessageKey(String messageKey) {
         this.messageKey = messageKey;
-    }
-
-    public static ForgotMyPasswordResponse failedResponse() {
-        ForgotMyPasswordResponse failedResponse = new ForgotMyPasswordResponse();
-        failedResponse.setSuccess(false);
-        failedResponse.setMessageKey("forgotMyPassword.request.failed");
-        return failedResponse;
-    }
-
-    public static ForgotMyPasswordResponse successResponse() {
-        ForgotMyPasswordResponse successResponse = new ForgotMyPasswordResponse();
-        successResponse.setSuccess(true);
-        successResponse.setMessageKey("forgotMyPassword.request.success");
-        return successResponse;
     }
 
 }

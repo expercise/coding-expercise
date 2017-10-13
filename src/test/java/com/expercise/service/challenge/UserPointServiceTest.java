@@ -1,10 +1,10 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.service.cache.RedisCacheService;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.testutils.builder.ChallengeBuilder;
@@ -68,7 +68,7 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointRepository.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
+        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
 
         assertTrue(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
     }
@@ -91,7 +91,7 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointRepository.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
+        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
 
         assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
     }

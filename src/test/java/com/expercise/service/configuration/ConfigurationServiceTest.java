@@ -1,7 +1,7 @@
 package com.expercise.service.configuration;
 
-import com.expercise.repository.configuration.ConfigurationRepository;
 import com.expercise.domain.configuration.Configuration;
+import com.expercise.repository.configuration.ConfigurationRepository;
 import com.expercise.testutils.builder.ConfigurationBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

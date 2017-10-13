@@ -1,6 +1,6 @@
 package com.expercise.repository.level;
 
-import com.expercise.BaseRepositoryTest;
+import com.expercise.BaseSpringIntegrationTest;
 import com.expercise.domain.level.Level;
 import com.expercise.testutils.builder.LevelBuilder;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import static com.expercise.testutils.asserts.Asserts.assertOrderedItems;
 
-public class LevelRepositoryTest extends BaseRepositoryTest {
+public class LevelRepositoryTest extends BaseSpringIntegrationTest {
 
     @Autowired
     private LevelRepository levelRepository;
@@ -23,7 +23,7 @@ public class LevelRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        List<Level> orderedLevels = levelRepository.findAllOrderedByPriority();
+        List<Level> orderedLevels = levelRepository.findAllByOrderByPriority();
 
         assertOrderedItems(orderedLevels, level2, level3, level1);
     }

@@ -11,12 +11,12 @@ class RedirectUtilsSpec extends Specification {
         RedirectUtils.redirectTo(path).getViewName() == redirectedPath
 
         where:
-        path               | redirectedPath
-        "/"                | "redirect:/"
-        "/signin"          | "redirect:/signin"
+        path                | redirectedPath
+        "/"                 | "redirect:/"
+        "/signin"           | "redirect:/signin"
         "/signin?newmember" | "redirect:/signin?newmember"
-        "/404"             | "redirect:/404"
-        "/403"             | "redirect:/403"
+        "/404"              | "redirect:/404"
+        "/403"              | "redirect:/403"
     }
 
 }

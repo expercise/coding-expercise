@@ -1,12 +1,12 @@
 package com.expercise.service.user;
 
-import com.expercise.repository.challenge.SolutionRepository;
-import com.expercise.repository.user.UserConnectionRepository;
-import com.expercise.repository.user.UserRepository;
-import com.expercise.repository.user.RememberMeTokenRepository;
 import com.expercise.domain.user.RememberMeToken;
 import com.expercise.domain.user.User;
 import com.expercise.domain.user.UserConnection;
+import com.expercise.repository.challenge.SolutionRepository;
+import com.expercise.repository.user.RememberMeTokenRepository;
+import com.expercise.repository.user.UserConnectionRepository;
+import com.expercise.repository.user.UserRepository;
 import com.expercise.service.notification.SlackMessage;
 import com.expercise.service.notification.SlackNotificationService;
 import com.expercise.service.util.UrlService;
@@ -90,11 +90,11 @@ public class UserService {
         userConnection.setRefreshToken(connectionData.getRefreshToken());
         userConnection.setSecret(connectionData.getSecret());
         userConnection.setRank(0);
-        userConnection = userConnectionRepository.saveOrUpdate(userConnection);
+        userConnection = userConnectionRepository.save(userConnection);
 
         user.addUserConnection(userConnection);
 
-        user = userRepository.saveOrUpdate(user);
+        user = userRepository.save(user);
 
         return user;
     }
@@ -127,18 +127,18 @@ public class UserService {
     }
 
     private UserConnection initializeUserConnection(ConnectionData connectionData) {
-        UserConnection existingUserConnection = userConnectionRepository.findBy(connectionData.getProviderId(), connectionData.getProviderUserId());
+        UserConnection existingUserConnection = userConnectionRepository.findByProviderIdAndProviderUserId(connectionData.getProviderId(), connectionData.getProviderUserId());
         if (existingUserConnection != null) {
             User oldSocialUser = findById(NumberUtils.parseLong(existingUserConnection.getUserId()));
             oldSocialUser.getUserConnections().clear();
-            userRepository.update(oldSocialUser);
+            userRepository.save(oldSocialUser);
         }
 
         return new UserConnection();
     }
 
     public void updateUser(User user) {
-        userRepository.update(user);
+        userRepository.save(user);
     }
 
     public User findByEmail(String email) {
@@ -168,24 +168,24 @@ public class UserService {
         token.setSeries(series);
         token.setToken(tokenValue);
         token.setLastUsedTime(lastUsedTime);
-        rememberMeTokenRepository.update(token);
+        rememberMeTokenRepository.save(token);
     }
 
     @Transactional
     public void updateRememberMeToken(String tokenValue, String series, Date lastUsedTime) {
-        RememberMeToken token = rememberMeTokenRepository.findToken(series);
+        RememberMeToken token = rememberMeTokenRepository.findBySeries(series);
         token.setToken(tokenValue);
         token.setSeries(series);
         token.setLastUsedTime(lastUsedTime);
-        rememberMeTokenRepository.update(token);
+        rememberMeTokenRepository.save(token);
     }
 
     public RememberMeToken findRememberMeToken(String series) {
-        return rememberMeTokenRepository.findToken(series);
+        return rememberMeTokenRepository.findBySeries(series);
     }
 
     public void removeRememberMeToken(String userId) {
-        rememberMeTokenRepository.deleteToken(userId);
+        rememberMeTokenRepository.deleteByEmail(userId);
     }
 
     private String hashPassword(String password) {

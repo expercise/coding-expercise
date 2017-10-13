@@ -50,7 +50,7 @@ public class SocialSignInAdapter implements SignInAdapter {
             }
         }
 
-        return SpringSecurityConfiguration.DEFAULT_SUCCESS_SIGNIN_URL;
+        return SpringSecurityConfiguration.DEFAULT_SUCCESS_SIGN_IN_URL;
     }
 
 }

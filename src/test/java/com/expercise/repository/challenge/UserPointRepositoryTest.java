@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.BaseRepositoryTest;
+import com.expercise.BaseSpringIntegrationTest;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public class UserPointRepositoryTest extends BaseRepositoryTest {
+public class UserPointRepositoryTest extends BaseSpringIntegrationTest {
 
     @Autowired
     private UserPointRepository repository;
@@ -66,7 +66,7 @@ public class UserPointRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        long count = repository.countForPointGivingCriteria(challenge, user, ProgrammingLanguage.Python);
+        long count = repository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python);
 
         assertThat(count, equalTo(2L));
     }
@@ -82,7 +82,7 @@ public class UserPointRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        long count = repository.countForPointGivingCriteria(challenge, author, ProgrammingLanguage.Python);
+        long count = repository.countByChallengeAndUserAndProgrammingLanguage(challenge, author, ProgrammingLanguage.Python);
 
         assertThat(count, equalTo(0L));
     }
@@ -98,7 +98,7 @@ public class UserPointRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        long totalPoints = repository.getTotalPointsOf(user.getId());
+        Long totalPoints = repository.getTotalPointsOf(user.getId());
 
         assertThat(totalPoints, equalTo(13L));
     }
@@ -109,9 +109,9 @@ public class UserPointRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        long totalPoints = repository.getTotalPointsOf(user.getId());
+        Long totalPoints = repository.getTotalPointsOf(user.getId());
 
-        assertThat(totalPoints, equalTo(0L));
+        assertThat(totalPoints, nullValue());
     }
 
 }

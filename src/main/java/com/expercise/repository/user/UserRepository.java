@@ -1,18 +1,16 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.User;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
+import org.springframework.data.jpa.repository.Query;
 
-@Repository
-public class UserRepository extends BaseRepository<User> {
+import java.util.List;
 
-    protected UserRepository() {
-        super(User.class);
-    }
+public interface UserRepository extends BaseRepository<User> {
 
-    public User findByEmail(String email) {
-        return findOneBy("email", email);
-    }
+    User findByEmail(String email);
+
+    @Query("select u.id from User u")
+    List<Long> findAllIds();
 
 }

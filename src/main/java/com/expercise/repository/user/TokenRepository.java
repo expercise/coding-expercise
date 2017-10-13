@@ -1,25 +1,16 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.token.Token;
 import com.expercise.domain.token.TokenType;
-import org.springframework.stereotype.Repository;
+import com.expercise.domain.user.User;
+import com.expercise.repository.BaseRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
-import java.util.HashMap;
-import java.util.Map;
+public interface TokenRepository extends BaseRepository<Token> {
 
-@Repository
-public class TokenRepository extends BaseRepository<Token> {
+    Token findByTokenAndTokenType(String token, TokenType tokenType);
 
-    protected TokenRepository() {
-        super(Token.class);
-    }
-
-    public Token findToken(String token, TokenType tokenType) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("token", token);
-        params.put("tokenType", tokenType);
-        return findOneBy(params);
-    }
+    @Modifying
+    void deleteByUser(User user);
 
 }

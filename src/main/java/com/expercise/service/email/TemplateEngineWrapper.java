@@ -11,7 +11,7 @@ public class TemplateEngineWrapper {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public String process(String templateName, Context context){
+    public String process(String templateName, Context context) {
         return templateEngine.process(templateName, context);
     }
 

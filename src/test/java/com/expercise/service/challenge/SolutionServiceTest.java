@@ -1,11 +1,11 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.SolutionRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.repository.challenge.SolutionRepository;
 import com.expercise.testutils.builder.ChallengeBuilder;
 import com.expercise.testutils.builder.LevelBuilder;
 import com.expercise.testutils.builder.SolutionBuilder;
@@ -50,7 +50,7 @@ public class SolutionServiceTest {
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();
         Solution solution = new SolutionBuilder().challenge(challenge).user(user).buildWithRandomId();
 
-        when(solutionRepository.findBy(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
+        when(solutionRepository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
 
         Solution foundSolution = service.getSolutionBy(challenge, user, ProgrammingLanguage.Python);
 
@@ -64,7 +64,7 @@ public class SolutionServiceTest {
 
         Solution solution = new SolutionBuilder().buildWithRandomId();
 
-        when(solutionRepository.findAllSolutionsInLevelsOf(user, Arrays.asList(level))).thenReturn(Arrays.asList(solution));
+        when(solutionRepository.findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(user, Arrays.asList(level))).thenReturn(Arrays.asList(solution));
 
         List<Solution> resultList = service.getAllSolutionsInLevelsOf(user, Arrays.asList(level));
 

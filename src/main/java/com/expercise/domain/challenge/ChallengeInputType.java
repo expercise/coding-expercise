@@ -17,6 +17,17 @@ public class ChallengeInputType extends PrioritizedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge challenge;
 
+    public static List<ChallengeInputType> createFrom(List<DataType> inputTypes) {
+        List<ChallengeInputType> challengeInputTypes = new ArrayList<>();
+        for (DataType inputType : inputTypes) {
+            ChallengeInputType challengeInputType = new ChallengeInputType();
+            challengeInputType.setInputType(inputType);
+            challengeInputTypes.add(challengeInputType);
+        }
+        prioritize(challengeInputTypes);
+        return challengeInputTypes;
+    }
+
     public DataType getInputType() {
         return inputType;
     }
@@ -31,17 +42,6 @@ public class ChallengeInputType extends PrioritizedEntity {
 
     public void setChallenge(Challenge challenge) {
         this.challenge = challenge;
-    }
-
-    public static List<ChallengeInputType> createFrom(List<DataType> inputTypes) {
-        List<ChallengeInputType> challengeInputTypes = new ArrayList<>();
-        for (DataType inputType : inputTypes) {
-            ChallengeInputType challengeInputType = new ChallengeInputType();
-            challengeInputType.setInputType(inputType);
-            challengeInputTypes.add(challengeInputType);
-        }
-        prioritize(challengeInputTypes);
-        return challengeInputTypes;
     }
 
 }

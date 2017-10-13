@@ -1,8 +1,8 @@
 package com.expercise.service.level;
 
 import com.expercise.domain.challenge.Challenge;
-import com.expercise.domain.level.Level;
 import com.expercise.domain.challenge.Solution;
+import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.service.challenge.SolutionService;
 import com.expercise.service.challenge.model.CurrentLevelModel;

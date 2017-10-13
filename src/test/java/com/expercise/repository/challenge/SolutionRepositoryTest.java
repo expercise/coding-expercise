@@ -1,6 +1,6 @@
 package com.expercise.repository.challenge;
 
-import com.expercise.BaseRepositoryTest;
+import com.expercise.BaseSpringIntegrationTest;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.level.Level;
@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
-public class SolutionRepositoryTest extends BaseRepositoryTest {
+public class SolutionRepositoryTest extends BaseSpringIntegrationTest {
 
     @Autowired
     private SolutionRepository repository;
@@ -36,7 +36,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        Solution foundSolution = repository.findBy(challenge, user, ProgrammingLanguage.Python);
+        Solution foundSolution = repository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python);
 
         assertThat(foundSolution, equalTo(solution));
     }
@@ -51,7 +51,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        Solution foundSolution = repository.findBy(differentChallenge, user, ProgrammingLanguage.JavaScript);
+        Solution foundSolution = repository.findByChallengeAndUserAndProgrammingLanguage(differentChallenge, user, ProgrammingLanguage.JavaScript);
 
         assertThat(foundSolution, nullValue());
     }
@@ -65,7 +65,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        Solution foundSolution = repository.findBy(challenge, user, ProgrammingLanguage.JavaScript);
+        Solution foundSolution = repository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.JavaScript);
 
         assertThat(foundSolution, nullValue());
     }
@@ -82,7 +82,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        List<Solution> foundSolutions = repository.findSolutionsBy(challenge, user1);
+        List<Solution> foundSolutions = repository.findByChallengeAndUser(challenge, user1);
 
         assertExpectedItems(foundSolutions, solutionPython, solutionJs);
     }
@@ -109,7 +109,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        List<Solution> resultList = repository.findAllSolutionsInLevelsOf(user, Arrays.asList(level2, level3));
+        List<Solution> resultList = repository.findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(user, Arrays.asList(level2, level3));
 
         assertExpectedItems(resultList, solution2, solution3, solution4);
         assertNotExpectedItems(resultList, solution1);
@@ -134,7 +134,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        List<Solution> resultList = repository.findAllSolutionsInLevelsOf(user, Arrays.asList(level1, level2));
+        List<Solution> resultList = repository.findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(user, Arrays.asList(level1, level2));
 
         assertExpectedItems(resultList, solution1, solution2);
         assertNotExpectedItems(resultList, solution3);
@@ -160,7 +160,7 @@ public class SolutionRepositoryTest extends BaseRepositoryTest {
 
         flushAndClear();
 
-        List<Solution> resultList = repository.findAllSolutionsInLevelsOf(user1, Arrays.asList(level1, level2));
+        List<Solution> resultList = repository.findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(user1, Arrays.asList(level1, level2));
 
         assertExpectedItems(resultList, solution1, solution2);
         assertNotExpectedItems(resultList, solution3);

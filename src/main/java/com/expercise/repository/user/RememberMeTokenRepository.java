@@ -1,25 +1,14 @@
 package com.expercise.repository.user;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.user.RememberMeToken;
-import org.hibernate.Query;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
-@Repository
-public class RememberMeTokenRepository extends BaseRepository<RememberMeToken> {
+public interface RememberMeTokenRepository extends BaseRepository<RememberMeToken> {
 
-    protected RememberMeTokenRepository() {
-        super(RememberMeToken.class);
-    }
+    RememberMeToken findBySeries(String series);
 
-    public RememberMeToken findToken(String series) {
-        return findOneBy("series", series);
-    }
-
-    public void deleteToken(String email) {
-        Query query = getCurrentSession().createQuery("delete from RememberMeToken where email = :email");
-        query.setParameter("email", email);
-        query.executeUpdate();
-    }
+    @Modifying
+    void deleteByEmail(String email);
 
 }

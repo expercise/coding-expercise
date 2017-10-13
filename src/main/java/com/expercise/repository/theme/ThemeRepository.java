@@ -1,14 +1,12 @@
 package com.expercise.repository.theme;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.theme.Theme;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
 
-@Repository
-public class ThemeRepository extends BaseRepository<Theme> {
+import java.util.List;
 
-    protected ThemeRepository() {
-        super(Theme.class);
-    }
+public interface ThemeRepository extends BaseRepository<Theme> {
+
+    List<Theme> findAllByOrderByPriority();
 
 }

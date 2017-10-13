@@ -53,11 +53,11 @@ class InterpretationFailureCheckForTestCasesPostActionSpec extends Specification
         context.setInterpreterResult(InterpreterResult.syntaxErrorFailedResult("message"))
 
         def passedTestCases = new TestCaseWithResult(new TestCase())
-            passedTestCases.setTestCaseResult(TestCaseResult.PASSED)
+        passedTestCases.setTestCaseResult(TestCaseResult.PASSED)
         def failedTestCase = new TestCaseWithResult(new TestCase())
-            failedTestCase.setTestCaseResult(TestCaseResult.FAILED)
+        failedTestCase.setTestCaseResult(TestCaseResult.FAILED)
         def newTestCase = new TestCaseWithResult(new TestCase())
-            failedTestCase.setTestCaseResult(TestCaseResult.NEW)
+        failedTestCase.setTestCaseResult(TestCaseResult.NEW)
 
         context.addTestCaseWithResult(passedTestCases)
         context.addTestCaseWithResult(newTestCase)

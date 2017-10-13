@@ -44,10 +44,6 @@ public enum DataType {
         }
     };
 
-    public abstract Object toJavaObject(String rawValue);
-
-    public abstract void validateJson(String jsonString) throws ExperciseJsonException;
-
     public static String toLiteral(Object object) {
         if (object instanceof String) {
             return "\"" + StringEscapeUtils.escapeJava(object.toString()) + "\"";
@@ -55,4 +51,8 @@ public enum DataType {
             return object.toString();
         }
     }
+
+    public abstract Object toJavaObject(String rawValue);
+
+    public abstract void validateJson(String jsonString) throws ExperciseJsonException;
 }

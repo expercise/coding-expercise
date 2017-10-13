@@ -1,4 +1,5 @@
 package com.expercise.domain.theme
+
 import com.expercise.enums.Lingo
 import com.expercise.testutils.builder.ThemeBuilder
 import spock.lang.Specification

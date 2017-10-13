@@ -17,14 +17,14 @@ public enum SocialSignInProvider {
         this.providerId = providerId;
     }
 
-    public String getProviderId() {
-        return providerId;
-    }
-
     public static Optional<SocialSignInProvider> getForProviderId(String providerId) {
         return Stream.of(values())
                 .filter(it -> it.providerId.equals(providerId))
                 .findFirst();
+    }
+
+    public String getProviderId() {
+        return providerId;
     }
 
 }

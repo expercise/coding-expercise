@@ -24,7 +24,7 @@ public class LevelService {
     private AuthenticationService authenticationService;
 
     public List<Level> getAllLevelsInOrder() {
-        return levelRepository.findAllOrderedByPriority();
+        return levelRepository.findAllByOrderByPriority();
     }
 
     public Level findById(Long id) {
@@ -68,7 +68,7 @@ public class LevelService {
     }
 
     public Level getByPriority(Integer priority) {
-        return levelRepository.findOneBy(priority);
+        return levelRepository.findByPriority(priority);
     }
 
 }

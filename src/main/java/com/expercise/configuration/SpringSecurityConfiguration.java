@@ -17,8 +17,9 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    public static final String DEFAULT_SUCCESS_SIGN_IN_URL = "/themes";
+
     private static final int PASSWORD_ENCODING_STRENGTH = 256;
-    public static final String DEFAULT_SUCCESS_SIGNIN_URL = "/themes";
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -69,7 +70,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/signin")
                 .failureUrl("/signin?error")
-                .defaultSuccessUrl(DEFAULT_SUCCESS_SIGNIN_URL)
+                .defaultSuccessUrl(DEFAULT_SUCCESS_SIGN_IN_URL)
                 .permitAll();
 
         http.logout()

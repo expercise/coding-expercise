@@ -1,10 +1,10 @@
 package com.expercise.service.challenge;
 
-import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.UserPoint;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.repository.challenge.UserPointRepository;
 import com.expercise.service.cache.RedisCacheService;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.utils.Clock;
@@ -48,7 +48,7 @@ public class UserPointService {
         if (challenge.getUser().equals(user)) {
             return false;
         }
-        return challenge.isApproved() && userPointRepository.countForPointGivingCriteria(challenge, user, programmingLanguage) == 0L;
+        return challenge.isApproved() && userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, programmingLanguage) == 0L;
     }
 
     public Long getTotalPointsOf(User user) {
@@ -56,7 +56,8 @@ public class UserPointService {
     }
 
     public Long getTotalPointsOf(Long userId) {
-        return userPointRepository.getTotalPointsOf(userId);
+        Long totalPointsOfUser = userPointRepository.getTotalPointsOf(userId);
+        return totalPointsOfUser != null ? totalPointsOfUser : 0L;
     }
 
 }

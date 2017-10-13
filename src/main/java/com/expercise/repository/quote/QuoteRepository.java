@@ -1,14 +1,7 @@
 package com.expercise.repository.quote;
 
-import com.expercise.repository.BaseRepository;
 import com.expercise.domain.quote.Quote;
-import org.springframework.stereotype.Repository;
+import com.expercise.repository.BaseRepository;
 
-@Repository
-public class QuoteRepository extends BaseRepository<Quote> {
-
-    protected QuoteRepository() {
-        super(Quote.class);
-    }
-
+public interface QuoteRepository extends BaseRepository<Quote> {
 }

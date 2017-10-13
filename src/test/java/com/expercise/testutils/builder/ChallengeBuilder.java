@@ -73,7 +73,7 @@ public class ChallengeBuilder extends BaseEntityBuilder<Challenge, ChallengeBuil
         return this;
     }
 
-    public ChallengeBuilder testCases(TestCase... testCases){
+    public ChallengeBuilder testCases(TestCase... testCases) {
         Collections.addAll(this.testCases, testCases);
         return this;
     }

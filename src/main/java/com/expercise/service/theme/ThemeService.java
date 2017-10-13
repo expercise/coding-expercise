@@ -1,9 +1,9 @@
 package com.expercise.service.theme;
 
-import com.expercise.repository.challenge.ChallengeRepository;
-import com.expercise.repository.theme.ThemeRepository;
 import com.expercise.domain.theme.Theme;
 import com.expercise.enums.Lingo;
+import com.expercise.repository.challenge.ChallengeRepository;
+import com.expercise.repository.theme.ThemeRepository;
 import com.expercise.service.i18n.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class ThemeService {
     private ChallengeRepository challengeRepository;
 
     public List<Theme> getAll() {
-        List<Theme> themes = themeRepository.findAllOrderedByPriority();
+        List<Theme> themes = themeRepository.findAllByOrderByPriority();
         themes.add(createDummyThemeForNotThemedChallenges());
         return themes;
     }
@@ -37,7 +37,7 @@ public class ThemeService {
                         t -> t,
                         t -> {
                             if (t.isPersisted()) {
-                                return challengeRepository.countApprovedChallengesIn(t);
+                                return challengeRepository.countByApprovedIsTrueAndLevelTheme(t);
                             } else {
                                 return challengeRepository.countNotThemedApprovedChallenges();
                             }

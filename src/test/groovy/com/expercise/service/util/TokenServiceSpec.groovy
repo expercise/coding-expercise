@@ -1,9 +1,9 @@
 package com.expercise.service.util
 
-import com.expercise.repository.user.TokenRepository
 import com.expercise.domain.token.Token
 import com.expercise.domain.token.TokenType
 import com.expercise.domain.user.User
+import com.expercise.repository.user.TokenRepository
 import spock.lang.Specification
 
 class TokenServiceSpec extends Specification {
@@ -56,14 +56,13 @@ class TokenServiceSpec extends Specification {
         given:
         User user = new User(id: 1L, email: "user@expercise.com", firstName: "Ahmet", lastName: "Mehmet")
         Token token = new Token(id: 2L, user: user, token: "123456")
-        tokenRepository.findOneBy("user", user) >> token
-        tokenRepository.findOneBy("token", _ as String) >> null
+        tokenRepository.findByTokenAndTokenType("token", _ as String) >> null
 
         when:
         String tokenValue = service.createTokenFor(user, TokenType.FORGOT_MY_PASSWORD)
 
         then: "delete before new token creation"
-        1 * tokenRepository.delete(token)
+        1 * tokenRepository.deleteByUser(user)
 
         then: "create new token"
         tokenValue.size() == 32
@@ -76,7 +75,7 @@ class TokenServiceSpec extends Specification {
     def "should get token by token and token type"() {
         given:
         def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
-        1 * tokenRepository.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+        1 * tokenRepository.findByTokenAndTokenType("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
 
         when:
         def foundToken = service.findBy("token_123", TokenType.FORGOT_MY_PASSWORD);
@@ -88,7 +87,7 @@ class TokenServiceSpec extends Specification {
     def "should delete token if available"() {
         given:
         def tokenFromDB = new Token(id: 1L, token: "token_123", tokenType: TokenType.FORGOT_MY_PASSWORD)
-        1 * tokenRepository.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
+        1 * tokenRepository.findByTokenAndTokenType("token_123", TokenType.FORGOT_MY_PASSWORD) >> tokenFromDB
 
         when:
         service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);
@@ -99,7 +98,7 @@ class TokenServiceSpec extends Specification {
 
     def "should not delete token if not available"() {
         given:
-        1 * tokenRepository.findToken("token_123", TokenType.FORGOT_MY_PASSWORD) >> null
+        1 * tokenRepository.findByTokenAndTokenType("token_123", TokenType.FORGOT_MY_PASSWORD) >> null
 
         when:
         service.deleteToken("token_123", TokenType.FORGOT_MY_PASSWORD);

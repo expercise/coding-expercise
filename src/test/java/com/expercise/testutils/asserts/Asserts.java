@@ -3,9 +3,7 @@ package com.expercise.testutils.asserts;
 import java.util.List;
 
 import static com.expercise.testutils.matchers.Matchers.notHasItem;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 public final class Asserts {

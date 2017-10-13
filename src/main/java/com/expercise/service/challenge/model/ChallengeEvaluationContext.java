@@ -46,12 +46,12 @@ public class ChallengeEvaluationContext {
         this.interpreterResult = interpreterResult;
     }
 
-    public void setLanguage(ProgrammingLanguage language) {
-        this.language = language;
-    }
-
     public ProgrammingLanguage getLanguage() {
         return language;
+    }
+
+    public void setLanguage(ProgrammingLanguage language) {
+        this.language = language;
     }
 
     public SolutionValidationResult getSolutionValidationResult() {

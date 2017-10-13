@@ -1,7 +1,7 @@
 package com.expercise.service.quote;
 
-import com.expercise.repository.quote.QuoteRepository;
 import com.expercise.domain.quote.Quote;
+import com.expercise.repository.quote.QuoteRepository;
 import com.expercise.testutils.builder.QuoteBuilder;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;

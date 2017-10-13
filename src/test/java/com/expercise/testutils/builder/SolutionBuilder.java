@@ -8,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Date;
 
-public class SolutionBuilder  extends BaseEntityBuilder<Solution, SolutionBuilder> {
+public class SolutionBuilder extends BaseEntityBuilder<Solution, SolutionBuilder> {
 
     private Challenge challenge;
 

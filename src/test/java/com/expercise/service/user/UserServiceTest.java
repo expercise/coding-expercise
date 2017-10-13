@@ -1,9 +1,9 @@
 package com.expercise.service.user;
 
-import com.expercise.repository.user.UserRepository;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.ProgrammingLanguage;
+import com.expercise.repository.user.UserRepository;
 import com.expercise.service.notification.SlackNotificationService;
 import com.expercise.service.util.UrlService;
 import com.expercise.testutils.builder.UserBuilder;
