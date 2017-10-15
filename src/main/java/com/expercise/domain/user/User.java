@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS")
-@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_USERS")
+@SequenceGenerator(name = "ID_GENERATOR", sequenceName = "SEQ_USER")
 public class User extends BaseEntity {
 
     private String firstName;
