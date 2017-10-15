@@ -21,8 +21,7 @@ public class Solution extends BaseEntity {
     @Column(nullable = false)
     private ProgrammingLanguage programmingLanguage;
 
-    @Column(nullable = false)
-    @Lob
+    @Column(nullable = false, length = 4096)
     private String solution;
 
     @Temporal(TemporalType.TIMESTAMP)
