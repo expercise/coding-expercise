@@ -98,17 +98,10 @@
                         </a>
 
                         <ul id="lingoSelection" class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li>
-                                <a th:href="@{?lingopref=tr}">
-                                    <span class="img-circle lingoImage tr"></span>
-                                    Türkçe
-                                </a>
-                            </li>
-
-                            <li>
-                                <a th:href="@{?lingopref=en}">
-                                    <span class="img-circle lingoImage en"></span>
-                                    English
+                            <li th:each="eachLingo : ${T(com.expercise.enums.Lingo).getAllWithoutCurrent()}">
+                                <a th:href="@{'?lingopref=' + ${eachLingo.shortName}}">
+                                    <span th:class="'img-circle lingoImage ' + ${eachLingo.shortName}"></span>
+                                    <span th:text="${#messages.msg(eachLingo.name())}"></span>
                                 </a>
                             </li>
                         </ul>

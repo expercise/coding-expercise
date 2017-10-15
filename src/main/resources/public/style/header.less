@@ -81,14 +81,18 @@ div#header {
     transform: translateY(-3px);
     width: 21px;
     height: 21px;
-    background: url(../img/sprites/flags-sprite.svg) no-repeat;
+    background-size: 150% !important;
 
     &.tr {
-      background-position: -7px -5px;
+      background: url(../img/flags/tr.svg) no-repeat -5px -1px;
     }
 
     &.en {
-      background-position: -57px -4px;
+      background: url(../img/flags/us.svg) no-repeat -5px -1px;
+    }
+
+    &.pt {
+      background: url(../img/flags/br.svg) no-repeat -5px -1px;
     }
   }
 }

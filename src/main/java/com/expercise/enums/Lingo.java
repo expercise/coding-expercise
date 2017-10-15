@@ -40,6 +40,14 @@ public enum Lingo {
                 }).collect(Collectors.toList());
     }
 
+    public static List<Lingo> getAllWithoutCurrent() {
+        return Stream.of(values())
+                .filter(l -> {
+                    String currentLocale = LocaleContextHolder.getLocale().toString();
+                    return !currentLocale.startsWith(l.shortName);
+                }).collect(Collectors.toList());
+    }
+
     public static String getValueFrom(Map<Lingo, String> source) {
         return source.get(getCurrentLingo());
     }
