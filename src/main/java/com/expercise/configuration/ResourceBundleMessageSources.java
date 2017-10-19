@@ -5,13 +5,13 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 
 import java.util.ResourceBundle;
 
-public class MessagesResourceBundleSource extends ResourceBundleMessageSource {
+public class ResourceBundleMessageSources extends ResourceBundleMessageSource {
 
-    public ResourceBundle getMessagesResourceBundle() {
+    public ResourceBundle getApplicationMessages() {
         return getResourceBundle("messages", LocaleContextHolder.getLocale());
     }
 
-    public ResourceBundle getEmailMessagesResourceBundle() {
+    public ResourceBundle getEmailMessages() {
         return getResourceBundle("messagesForEmails", LocaleContextHolder.getLocale());
     }
 

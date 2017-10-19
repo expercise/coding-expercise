@@ -1,6 +1,6 @@
 package com.expercise.service.i18n;
 
-import com.expercise.configuration.MessagesResourceBundleSource;
+import com.expercise.configuration.ResourceBundleMessageSources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MessageService {
 
     @Autowired
-    private MessagesResourceBundleSource messagesBundleSource;
+    private ResourceBundleMessageSources messagesBundleSource;
 
     public String getMessage(String code) {
         return getMessage(code, new Object[]{});
@@ -36,7 +36,7 @@ public class MessageService {
 
     public Map<String, String> getAllMessages() {
         Map<String, String> messages = new ConcurrentHashMap<>();
-        ResourceBundle messagesResourceBundle = messagesBundleSource.getMessagesResourceBundle();
+        ResourceBundle messagesResourceBundle = messagesBundleSource.getApplicationMessages();
         messagesResourceBundle.keySet().forEach(
                 k -> messages.put(k, messagesResourceBundle.getString(k))
         );
@@ -44,7 +44,7 @@ public class MessageService {
     }
 
     public String getMessageForEmail(String key, Object... args) {
-        ResourceBundle resourceBundle = messagesBundleSource.getEmailMessagesResourceBundle();
+        ResourceBundle resourceBundle = messagesBundleSource.getEmailMessages();
         try {
             String foundRawMessage = resourceBundle.getString(key);
             MessageFormat messageFormat = new MessageFormat(foundRawMessage, LocaleContextHolder.getLocale());
