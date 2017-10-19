@@ -7,7 +7,7 @@
     <legend th:text="${user.fullName}"></legend>
 
     <div class="row" th:with="isCurrentUser = ${currentUser != null and currentUser.equals(user)}">
-        <div class="col-xs-4">
+        <div class="col-xs-12 col-md-4">
             <div class="userPicture">
                 <div class="avatarSelectionContainer" th:if="${isCurrentUser}">
                     <div>
@@ -58,7 +58,7 @@
             </ul>
         </div>
 
-        <div class="col-xs-8">
+        <div class="col-xs-12 col-md-8">
             <div class="row userInfos profileContainer">
                 <div class="col-xs-12">
                     <legend class="subHeader" th:text="#{user.profile.personal}"></legend>

@@ -9,48 +9,50 @@
     <p th:if="${challenges.isEmpty()}" th:text="#{challengeList.hasNoChallenge}">
     </p>
 
-    <table class="table table-striped" th:unless="${challenges.isEmpty()}">
-        <thead>
-            <tr>
-                <th th:text="#{challengeList.table.header.challenge}"></th>
-                <th th:text="#{challengeManagement.challengeType}"></th>
-                <th th:if="${mode == 'Admin'}" th:text="#{challengeList.table.header.user}"></th>
-                <th th:text="#{challengeList.table.header.createDate}"></th>
-                <th class="text-center" th:text="#{challengeManagement.approved}"></th>
-                <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="challenge : ${challenges}">
-                <td>
-                    <a target="_blank" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
-                    <small>
-                        <span class="noTranslationTooltip glyphicon glyphicon-exclamation-sign"
-                              th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
-                              data-toggle="tooltip" data-placement="bottom">
-                        </span>
-                    </small>
-                </td>
-                <td th:text="#{${challenge.getChallengeType()}}"></td>
-                <td th:if="${mode == 'Admin'}">
-                    <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
-                </td>
-                <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
-                <td class="text-center">
-                    <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>
-                    <i th:if="${not challenge.approved}" class="fa fa-hourglass-start text-warning"></i>
-                </td>
-                <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
-                <td class="text-right operations">
-                    <a class="btn btn-sm btn-default" th:href="@{${@urlService.updateChallenge(challenge)}}">
-                        <i class="fa fa-edit"></i>
-                        <span th:text="#{button.edit}"></span>
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped" th:unless="${challenges.isEmpty()}">
+            <thead>
+                <tr>
+                    <th th:text="#{challengeList.table.header.challenge}"></th>
+                    <th th:text="#{challengeManagement.challengeType}"></th>
+                    <th th:if="${mode == 'Admin'}" th:text="#{challengeList.table.header.user}"></th>
+                    <th th:text="#{challengeList.table.header.createDate}"></th>
+                    <th class="text-center" th:text="#{challengeManagement.approved}"></th>
+                    <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="challenge : ${challenges}">
+                    <td>
+                        <a target="_blank" th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
+                        <small>
+                            <span class="noTranslationTooltip glyphicon glyphicon-exclamation-sign"
+                                  th:unless="${challenge.hasTitleForCurrentLocale()}" th:title="#{label.noTranslation}"
+                                  data-toggle="tooltip" data-placement="bottom">
+                            </span>
+                        </small>
+                    </td>
+                    <td th:text="#{${challenge.getChallengeType()}}"></td>
+                    <td th:if="${mode == 'Admin'}">
+                        <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
+                    </td>
+                    <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
+                    <td class="text-center">
+                        <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>
+                        <i th:if="${not challenge.approved}" class="fa fa-hourglass-start text-warning"></i>
+                    </td>
+                    <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
+                    <td class="text-right operations">
+                        <a class="btn btn-sm btn-default" th:href="@{${@urlService.updateChallenge(challenge)}}">
+                            <i class="fa fa-edit"></i>
+                            <span th:text="#{button.edit}"></span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <a th:href="@{/challenges/addChallenge}" class="btn btn-primary">
         <span class="glyphicon glyphicon-plus"></span>
         <span th:text="#{challengeManagement.addNewChallenge}"></span>

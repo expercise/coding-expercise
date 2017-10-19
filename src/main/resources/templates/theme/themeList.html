@@ -13,7 +13,7 @@
     </div>
 
     <div class="row themeList" th:unless="${#lists.isEmpty(themeList)}">
-        <div th:class="${'themeItem col-xs-6 themeTitleColor' + theme.titleColor}" th:each="theme : ${themeList}">
+        <div th:class="${'themeItem col-xs-11 col-md-5 themeTitleColor' + theme.titleColor}" th:each="theme : ${themeList}">
             <a th:href="@{${theme.bookmarkableUrl}}">
                 <div class="themeItemTitle">
                     <span th:text="${theme.getNameFor(#locale)}"></span>

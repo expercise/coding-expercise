@@ -7,6 +7,8 @@
     <meta name="content-type" content="text/html"/>
     <meta name="content-language" th:content="${#locale}"/>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <meta name="description" content="expercise.com; programming challenges for champion developers!"/>
     <meta name="author" content="Ufuk Uzun, Batuhan Bayrakci"/>
     <meta name="keywords" content="expercise, exercise, challenge, programming, game, java, javascript, python, development"/>
@@ -53,9 +55,11 @@
     <div th:replace="fragments/header">Header</div>
 
     <div class="container">
-        <div class="subContainer">
-            <div layout:fragment="content">
-                Page Content
+        <div class="row containerRow">
+            <div class="subContainer col-xs-12 col-md-offset-1 col-md-10">
+                <div layout:fragment="content">
+                    Page Content
+                </div>
             </div>
         </div>
 

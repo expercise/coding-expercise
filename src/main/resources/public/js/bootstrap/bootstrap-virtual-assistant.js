@@ -32,6 +32,7 @@ Assistant.prototype.init = function (options) {
 
     this.$container.addClass('virtual-assistant');
     this.$container.addClass('bottom-left');
+    this.$container.addClass('hidden-xs');
 
     this.$container.css('width', options.width);
     this.$container.css('height', options.height);

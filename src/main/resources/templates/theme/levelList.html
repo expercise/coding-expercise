@@ -39,31 +39,33 @@
                 <i th:if="${#authorization.expression('isAuthenticated()') and currentLevelModel.isCurrentLevel(level)}" class="fa fa-flag-checkered text-success" aria-hidden="true"></i>
             </h3>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="indexColumn"></th>
-                        <th class="fixedWidthColumn" th:text="#{challengeList.table.header.challenge}"></th>
-                        <th th:text="#{challengeList.table.header.user}"></th>
-                        <th th:text="#{challengeList.table.header.createDate}"></th>
-                        <th th:text="#{challengeList.table.header.solutionCount}"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="challenge, challengeIteration : ${level.approvedChallenges}">
-                        <td class="indexColumn" th:text="${levelIteration.count} + '.' + ${challengeIteration.count}"></td>
-                        <td class="fixedWidthColumn">
-                            <i th:if="${currentLevelModel.isSolved(challenge)}" class="fa fa-check-circle text-success"></i>
-                            <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
-                        </td>
-                        <td>
-                            <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
-                        </td>
-                        <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
-                        <td th:text="${solutionCountMap.get(challenge)}"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="indexColumn"></th>
+                            <th class="fixedWidthColumn" th:text="#{challengeList.table.header.challenge}"></th>
+                            <th th:text="#{challengeList.table.header.user}"></th>
+                            <th th:text="#{challengeList.table.header.createDate}"></th>
+                            <th th:text="#{challengeList.table.header.solutionCount}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="challenge, challengeIteration : ${level.approvedChallenges}">
+                            <td class="indexColumn" th:text="${levelIteration.count} + '.' + ${challengeIteration.count}"></td>
+                            <td class="fixedWidthColumn">
+                                <i th:if="${currentLevelModel.isSolved(challenge)}" class="fa fa-check-circle text-success"></i>
+                                <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
+                            </td>
+                            <td>
+                                <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
+                            </td>
+                            <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
+                            <td th:text="${solutionCountMap.get(challenge)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
