@@ -17,7 +17,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.title}"></h3>
 
             <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
@@ -31,16 +31,10 @@
                        th:maxlength="${T(com.expercise.utils.Constants).MAX_CHALLENGE_TITLE_LENGTH}" />
             </div>
         </div>
-
-        <div id="manageChallengeButtons" class="col-xs-2">
-            <a id="saveButton" class="saveButton btn btn-primary btn-lg" role="button">
-                <i class="fa fa-save"></i>
-            </a>
-        </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.descriptions}"></h3>
 
             <div th:each="lingo : ${lingos}" class="descriptionContainer" th:attr="data-lingo=${lingo}">
@@ -56,7 +50,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.signatures}"></h3>
 
             <div th:each="lingo : ${lingos}" class="signatureContainer" th:attr="data-lingo=${lingo}">
@@ -70,7 +64,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.challengeType}"></h3>
 
             <select name="challengeType" class="form-control">
@@ -80,7 +74,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.inputsAndOutput}"></h3>
 
             <table id="inputsTable" class="table">
@@ -144,7 +138,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.testCases}"></h3>
 
             <table id="testCasesTable" class="table">
@@ -187,7 +181,7 @@
     </div>
 
     <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.level}"></h3>
 
             <select name="level" class="form-control">
@@ -198,7 +192,7 @@
     </div>
 
     <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.approvingTitle}"></h3>
 
             <div class="checkbox">
@@ -206,6 +200,15 @@
                     <input id="approved" name="approved" type="checkbox"/><label th:text="#{challengeManagement.approved}" for="approved"/>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-xs-12">
+            <a id="saveButton" class="btn btn-primary">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+                <span th:text="#{button.save}"></span>
+            </a>
         </div>
     </div>
 
