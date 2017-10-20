@@ -29,7 +29,7 @@
     </div>
 
     <div class="row challengeInfo">
-        <div class="col-xs-6">
+        <div class="col-xs-5">
             <span th:if="${challenge.getUser().hasAvatar()}" th:class="${'img-circle avatar small ' + challenge.getUser().getAvatar()}"></span>
             <span th:if="${!challenge.getUser().hasAvatar() and challenge.getUser().hasSocialImageUrl()}">
                 <img class="img-circle socialImage small" th:src="${challenge.getUser().socialImageUrl}"/>
@@ -39,7 +39,7 @@
             </a>
             <span class="small" th:text="#{challenge.addedBy}">added.</span>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-xs-7 text-right">
             <span class="small" th:text="${#messages.msg('challenge.addedOnDate', #dates.format(challenge.getCreateDate(),'dd MMM yyyy'))}">Added on 01 Jan 2014.</span>
         </div>
     </div>
