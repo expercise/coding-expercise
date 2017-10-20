@@ -366,7 +366,6 @@
                             <includes>
                                 <include>/lib/jquery.min.js</include>
                                 <include>/lib/jquery-ui.min.js</include>
-                                <include>/lib/jquery.scrolltofixed.min.js</include>
                                 <include>/lib/jquery.cookie.js</include>
                                 <include>/lib/jquery.fullscreen.min.js</include>
                                 <include>/lib/jquery.hotkeys.js</include>

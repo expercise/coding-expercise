@@ -49,9 +49,9 @@
 
                 <div class="form-group" th:if="${#strings.isEmpty(param.signout) and #strings.isEmpty(param.newMember)}">
                     <div class="col-xs-offset-4 col-xs-6 col-md-offset-2 col-md-6">
-                        <a id="notRegisteredYetLink" th:href="@{/signup}" th:text="#{login.notRegisteredYet}"></a>
+                        <a th:href="@{/signup}" th:text="#{login.notRegisteredYet}"></a>
                         <span>|</span>
-                        <a id="forgotMyPassword" th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
+                        <a th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
                     </div>
                 </div>
             </form>

@@ -50,14 +50,6 @@ expercise.utils = {
         return $('#mobileClient').val() == "true";
     },
 
-    scrollToFixed: function ($element, config) {
-        if (expercise.utils.isMobileClient()) {
-            return;
-        }
-
-        $element.scrollToFixed(config);
-    },
-
     scrollTop: function () {
         $(window).scrollTop(0);
     }

@@ -21,10 +21,6 @@ expercise.ChallengeManagement = {
         var $saveButton = $('#saveButton');
         $saveButton.click(this.saveChallenge);
 
-        expercise.utils.scrollToFixed($('#manageChallengeButtons'), {
-            marginTop: expercise.Header.marginTopForScrollFixedElement($saveButton)
-        });
-
         $('#testCasesTable').find('tbody').sortable({
             helper: function(e, tr) {
                 var $originals = tr.children();

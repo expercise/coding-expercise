@@ -16,11 +16,6 @@ expercise.Challenge = {
     },
 
     bindEvents: function () {
-        var $challengeButtons = $('#challengeButtons');
-        expercise.utils.scrollToFixed($challengeButtons, {
-            marginTop: expercise.Header.marginTopForScrollFixedElement($challengeButtons)
-        });
-
         $('#runButton').click(function () {
             var $runButton = $(this);
 
@@ -153,14 +148,14 @@ expercise.Challenge = {
             }
         };
 
-        var decideTestCaseStyle = function (testCaseResult) {
-            var rowStyleClass = "info";
+        var decideTestCaseResultIcon = function (testCaseResult) {
+            var iconClass = "glyphicon-question-sign";
             if (testCaseResult === 'PASSED') {
-                rowStyleClass = "success";
+                iconClass = "glyphicon-ok-circle";
             } else if (testCaseResult === 'FAILED') {
-                rowStyleClass = "danger";
+                iconClass = "glyphicon-remove-circle";
             }
-            return "testCaseRow " + rowStyleClass;
+            return iconClass;
         };
 
         showSignatureIfSourceCodeIsEmpty();
@@ -177,7 +172,7 @@ expercise.Challenge = {
         $userTestCaseTable.find('tbody').remove();
         var $tbody = $('<tbody>');
 
-        var prepareTestCaseValueContainer = function(value, valueField) {
+        var prepareTestCaseValueContainer = function (value, valueField) {
             var $testCaseValueContainer = $('<div class="testCaseValue"></div>');
             var val = value[valueField];
             if ($.isArray(val)) {
@@ -195,13 +190,11 @@ expercise.Challenge = {
             var testExpectedOutputCell = $('<td></td>').append(prepareTestCaseValueContainer(value, 'output'));
             var testActualValueCell = $('<td></td>').append(prepareTestCaseValueContainer(value, 'actualValue'));
             var testCaseResult = value['testCaseResult'];
-            var testCaseStatus = $('<span class="glyphicon testCaseStatus"></span>');
+            var testCaseStatus = $('<span class="glyphicon '+ decideTestCaseResultIcon(testCaseResult) +'"></span>');
             var testResultStatusCell = $('<td></td>').html(testCaseStatus);
             var testCaseOutputCell = $('<td class="text-right"><a>' + expercise.utils.i18n('challenge.testCase.table.showOutput') + ' <i class="fa fa-chevron-down"></i> </a></td>');
-            var contentRow = $('<tr data-toggle="collapse" data-target=".consoleOutput' + index + '"' +
-                'class="' + decideTestCaseStyle(testCaseResult) + ' accordion-toggle">' +
-                '</tr>')
-                .append(testInputsCell, testExpectedOutputCell, testActualValueCell, testResultStatusCell, testCaseOutputCell);
+            var contentRow = $('<tr data-toggle="collapse" data-target=".consoleOutput' + index + '" class="testCaseRow accordion-toggle"></tr>')
+                .append(testResultStatusCell, testInputsCell, testExpectedOutputCell, testActualValueCell, testCaseOutputCell);
             var outputConsoleRow = $('<tr></tr>').append(
                 '<td colspan="5" class="hiddenRow">' + getOutputConsoleContentFrom(value['resultMessage'], index) + '</td>'
             );
