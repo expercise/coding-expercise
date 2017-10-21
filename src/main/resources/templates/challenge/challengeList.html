@@ -39,7 +39,7 @@
                     </td>
                     <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
                     <td class="text-center">
-                        <i th:if="${challenge.approved}" class="fa fa-check-circle text-success"></i>
+                        <span th:if="${challenge.approved}" class="glyphicon glyphicon-ok-circle text-success"></span>
                         <i th:if="${not challenge.approved}" class="fa fa-hourglass-start text-warning"></i>
                     </td>
                     <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>

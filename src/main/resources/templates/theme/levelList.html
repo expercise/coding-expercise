@@ -44,24 +44,24 @@
                     <thead>
                         <tr>
                             <th class="indexColumn"></th>
-                            <th class="fixedWidthColumn" th:text="#{challengeList.table.header.challenge}"></th>
+                            <th th:text="#{challengeList.table.header.challenge}"></th>
                             <th th:text="#{challengeList.table.header.user}"></th>
                             <th th:text="#{challengeList.table.header.createDate}"></th>
-                            <th th:text="#{challengeList.table.header.solutionCount}"></th>
+                            <th class="text-right" th:text="#{challengeList.table.header.solutionCount}"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="challenge, challengeIteration : ${level.approvedChallenges}">
                             <td class="indexColumn" th:text="${levelIteration.count} + '.' + ${challengeIteration.count}"></td>
-                            <td class="fixedWidthColumn">
-                                <i th:if="${currentLevelModel.isSolved(challenge)}" class="fa fa-check-circle text-success"></i>
+                            <td>
+                                <span th:if="${currentLevelModel.isSolved(challenge)}" class="glyphicon glyphicon-ok-circle text-success"></span>
                                 <a th:href="@{'/challenges/' + ${challenge.id}}" th:text="${challenge.getTitle()}"></a>
                             </td>
                             <td>
                                 <a th:href="@{${challenge.user.bookmarkableUrl}}" target="_blank" th:text="${challenge.user.getFullName()}"></a>
                             </td>
                             <td th:text="${#dates.format(challenge.getCreateDate(),'dd MMM yyyy')}"></td>
-                            <td th:text="${solutionCountMap.get(challenge)}"></td>
+                            <td class="text-right" th:text="${solutionCountMap.get(challenge)}"></td>
                         </tr>
                     </tbody>
                 </table>

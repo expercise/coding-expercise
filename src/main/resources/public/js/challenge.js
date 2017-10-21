@@ -151,9 +151,9 @@ expercise.Challenge = {
         var decideTestCaseResultIcon = function (testCaseResult) {
             var iconClass = "glyphicon-question-sign";
             if (testCaseResult === 'PASSED') {
-                iconClass = "glyphicon-ok-circle";
+                iconClass = "glyphicon-ok-circle text-success";
             } else if (testCaseResult === 'FAILED') {
-                iconClass = "glyphicon-remove-circle";
+                iconClass = "glyphicon-remove-circle text-danger";
             }
             return iconClass;
         };
