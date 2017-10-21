@@ -2,7 +2,6 @@ package com.expercise.service.user;
 
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
-import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.repository.user.UserRepository;
 import com.expercise.service.notification.SlackNotificationService;
 import com.expercise.service.util.UrlService;
@@ -42,7 +41,7 @@ public class UserServiceTest {
     public void shouldSaveNewUserWithHashedPassword() {
         User user = new UserBuilder().firstName("mahmut").lastName("kemal")
                 .email("mail@expercise.com").lingo(Lingo.Turkish).password("password")
-                .programmingLanguage(ProgrammingLanguage.Python).buildWithRandomId();
+                .buildWithRandomId();
 
         when(passwordEncoder.encode("password")).thenReturn("hashedPassword");
 

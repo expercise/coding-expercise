@@ -2,25 +2,22 @@ package com.expercise.testutils.builder;
 
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
-import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.enums.UserRole;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.expercise.utils.RandomTextUtils;
 
 public class UserBuilder extends BaseEntityBuilder<User, UserBuilder> {
 
-    private String firstName = RandomStringUtils.random(5);
+    private String firstName = RandomTextUtils.alphabetic(5);
 
-    private String lastName = RandomStringUtils.random(5);
+    private String lastName = RandomTextUtils.alphabetic(5);
 
-    private String email = RandomStringUtils.random(5);
+    private String email = RandomTextUtils.alphabetic(5);
 
-    private String password = RandomStringUtils.random(5);
+    private String password = RandomTextUtils.alphabetic(5);
 
     private UserRole userRole = UserRole.User;
 
     private Lingo lingo = Lingo.English;
-
-    private ProgrammingLanguage programmingLanguage;
 
     @Override
     protected User doBuild() {
@@ -32,7 +29,6 @@ public class UserBuilder extends BaseEntityBuilder<User, UserBuilder> {
         user.setUserRole(userRole);
         user.setLingo(lingo);
         user.setEmail(email);
-        user.setProgrammingLanguage(programmingLanguage);
         return user;
     }
 
@@ -63,11 +59,6 @@ public class UserBuilder extends BaseEntityBuilder<User, UserBuilder> {
 
     public UserBuilder lingo(Lingo lingo) {
         this.lingo = lingo;
-        return this;
-    }
-
-    public UserBuilder programmingLanguage(ProgrammingLanguage programmingLanguage) {
-        this.programmingLanguage = programmingLanguage;
         return this;
     }
 

@@ -2,7 +2,6 @@ package com.expercise.domain.user;
 
 import com.expercise.domain.BaseEntity;
 import com.expercise.enums.Lingo;
-import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.enums.SocialSignInProvider;
 import com.expercise.enums.UserRole;
 import com.expercise.utils.UrlUtils;
@@ -31,9 +30,6 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Lingo lingo = Lingo.English;
-
-    @Enumerated(EnumType.STRING)
-    private ProgrammingLanguage programmingLanguage;
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserConnection> userConnections = new ArrayList<>();
@@ -112,14 +108,6 @@ public class User extends BaseEntity {
 
     public void setLingo(Lingo lingo) {
         this.lingo = lingo;
-    }
-
-    public ProgrammingLanguage getProgrammingLanguage() {
-        return programmingLanguage;
-    }
-
-    public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
-        this.programmingLanguage = programmingLanguage;
     }
 
     public String getAvatar() {

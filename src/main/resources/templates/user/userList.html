@@ -18,7 +18,6 @@
                     <th th:text="#{label.lastName}"></th>
                     <th th:text="#{label.email}"></th>
                     <th th:text="#{userList.table.header.userType}"></th>
-                    <th th:text="#{userList.table.header.favoriteLanguage}"></th>
                     <th th:text="#{label.lingo}"></th>
                     <th></th>
                 </tr>
@@ -37,7 +36,6 @@
                     <td th:text="${user.lastName}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${#messages.msg(user.userRole.name())}"></td>
-                    <td th:text="${user.programmingLanguage}"></td>
                     <td th:text="${#messages.msg(user.lingo.name())}"></td>
                     <td>
                         <a class="btn btn-sm btn-default" th:href="@{${user.bookmarkableUrl}}">

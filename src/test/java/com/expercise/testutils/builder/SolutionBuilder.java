@@ -4,7 +4,7 @@ import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.expercise.utils.RandomTextUtils;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class SolutionBuilder extends BaseEntityBuilder<Solution, SolutionBuilder
 
     private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
 
-    private String solution = RandomStringUtils.random(10);
+    private String solution = RandomTextUtils.alphabetic(10);
 
     private Date createDate = new Date();
 

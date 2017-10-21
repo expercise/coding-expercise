@@ -84,13 +84,6 @@
                         </div>
                     </div>
 
-                    <div class="row" th:unless="${user.programmingLanguage == null}">
-                        <label class="col-xs-5" th:text="#{label.favoriteProgrammingLanguage}"></label>
-                        <div class="col-xs-7">
-                            <span th:text="${user.programmingLanguage}"></span>
-                        </div>
-                    </div>
-
                     <div class="row" th:unless="${user.lingo == null}">
                         <label class="col-xs-5" th:text="#{label.lingo}"></label>
                         <div class="col-xs-7">

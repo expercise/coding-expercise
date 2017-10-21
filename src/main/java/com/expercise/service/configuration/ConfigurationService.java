@@ -51,7 +51,7 @@ public class ConfigurationService implements Caching {
     }
 
     public Optional<Long> getIdOfDefaultChallenge() {
-        Long challengeId = getValueAsLong("default.challengeId");
+        Long challengeId = getValueAsLong("defaults.challengeId");
         return Optional.ofNullable(challengeId);
     }
 

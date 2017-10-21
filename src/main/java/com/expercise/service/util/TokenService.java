@@ -4,7 +4,7 @@ import com.expercise.domain.token.Token;
 import com.expercise.domain.token.TokenType;
 import com.expercise.domain.user.User;
 import com.expercise.repository.user.TokenRepository;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.expercise.utils.RandomTextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class TokenService {
         String generatedToken;
         Token foundToken;
         do {
-            generatedToken = RandomStringUtils.randomAlphabetic(TOKEN_LENGTH);
+            generatedToken = RandomTextUtils.alphabetic(TOKEN_LENGTH);
             foundToken = findBy(generatedToken, tokenType);
         }
         while (foundToken != null);
