@@ -12,8 +12,9 @@ expercise.LevelManagement = {
 
         var levelContentColumns = $that.closest('tr').find('td');
         $('form input[name="priority"]').val($(levelContentColumns[0]).text());
-        $('form input[name="turkishName"]').val($(levelContentColumns[1]).text());
-        $('form input[name="englishName"]').val($(levelContentColumns[2]).text());
+        $('form input[name="englishName"]').val($(levelContentColumns[1]).text());
+        $('form input[name="turkishName"]').val($(levelContentColumns[2]).text());
+        $('form input[name="portugueseName"]').val($(levelContentColumns[3]).text());
     },
 
     resetForm: function () {

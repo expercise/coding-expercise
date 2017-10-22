@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @UniqueLevelPriority
-public class SaveLevelRequest {
+public class LevelModel {
 
     private Long levelId;
 
@@ -20,6 +20,9 @@ public class SaveLevelRequest {
 
     @NotEmpty
     private String englishName;
+
+    @NotEmpty
+    private String portugueseName;
 
     @Range(min = 1, max = 100)
     @NotNull
@@ -33,6 +36,7 @@ public class SaveLevelRequest {
         Map<Lingo, String> names = new HashMap<>();
         names.put(Lingo.Turkish, turkishName);
         names.put(Lingo.English, englishName);
+        names.put(Lingo.Portuguese, portugueseName);
         level.setNames(names);
 
         level.setPriority(priority);
@@ -62,6 +66,14 @@ public class SaveLevelRequest {
 
     public void setEnglishName(String englishName) {
         this.englishName = englishName;
+    }
+
+    public String getPortugueseName() {
+        return portugueseName;
+    }
+
+    public void setPortugueseName(String portugueseName) {
+        this.portugueseName = portugueseName;
     }
 
     public Integer getPriority() {

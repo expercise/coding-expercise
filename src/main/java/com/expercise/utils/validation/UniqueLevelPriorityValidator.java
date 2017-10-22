@@ -1,6 +1,6 @@
 package com.expercise.utils.validation;
 
-import com.expercise.controller.level.model.SaveLevelRequest;
+import com.expercise.controller.level.model.LevelModel;
 import com.expercise.service.level.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @Component
-public class UniqueLevelPriorityValidator implements ConstraintValidator<UniqueLevelPriority, SaveLevelRequest> {
+public class UniqueLevelPriorityValidator implements ConstraintValidator<UniqueLevelPriority, LevelModel> {
 
     @Autowired
     private LevelService levelService;
@@ -19,8 +19,8 @@ public class UniqueLevelPriorityValidator implements ConstraintValidator<UniqueL
     }
 
     @Override
-    public boolean isValid(SaveLevelRequest saveLevelRequest, ConstraintValidatorContext context) {
-        return saveLevelRequest == null || levelService.isValidToSave(saveLevelRequest.getPriority(), saveLevelRequest.getLevelId());
+    public boolean isValid(LevelModel levelModel, ConstraintValidatorContext context) {
+        return levelModel == null || levelService.isValidToSave(levelModel.getPriority(), levelModel.getLevelId());
     }
 
 }

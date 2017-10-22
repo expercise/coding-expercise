@@ -44,6 +44,10 @@ public class Level extends PrioritizedEntity {
         return getNameFor(Lingo.English);
     }
 
+    public String getPortugueseName() {
+        return getNameFor(Lingo.Portuguese);
+    }
+
     public String getNameFor(String lingoShortName) {
         Lingo lingo = Lingo.getLingo(lingoShortName).get();
         return getNameFor(lingo);

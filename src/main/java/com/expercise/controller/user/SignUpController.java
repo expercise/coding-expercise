@@ -27,9 +27,9 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/signup")
-public class RegistrationController {
+public class SignUpController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SignUpController.class);
 
     @Autowired
     private UserService userService;
@@ -41,14 +41,14 @@ public class RegistrationController {
     private ConnectionFactoryLocator connectionFactoryLocator;
 
     @RequestMapping
-    public ModelAndView registrationPage(ModelAndView modelAndView) {
+    public ModelAndView signUpPage(ModelAndView modelAndView) {
         initializeModelAndView(modelAndView);
         modelAndView.addObject("userModel", new UserModel());
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView signUp(@ModelAttribute @Valid UserModel userModel, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             initializeModelAndView(modelAndView);
             return modelAndView;
