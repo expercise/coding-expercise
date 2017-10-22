@@ -5,78 +5,95 @@
 </head>
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="#{register.legend}"></legend>
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <legend th:text="#{register.legend}"></legend>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <form th:action="@{/signup}" th:object="${userModel}" method="POST" class="form-horizontal">
-                <div th:class="'form-group' + (${#fields.hasErrors('firstName')} ? ' has-error' : '')">
-                    <label for="firstName" class="col-xs-4 col-md-2 control-label" th:text="#{label.firstName}"></label>
+        <div class="row">
+            <div class="col-xs-12">
+                <form th:action="@{/signup}" th:object="${userModel}" method="POST" class="form-horizontal">
+                    <div th:class="'form-group' + (${#fields.hasErrors('firstName')} ? ' has-error' : '')">
+                        <label for="firstName" class="col-xs-4 control-label"
+                               th:text="#{label.firstName}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="text" id="firstName" name="firstName" class="form-control" th:field="*{firstName}"/>
-                        <span class="help-block" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                        <div class="col-xs-8">
+                            <input type="text" id="firstName" name="firstName" class="form-control"
+                                   th:field="*{firstName}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('firstName')}"
+                                  th:errors="*{firstName}"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('lastName')} ? ' has-error' : '')">
-                    <label for="lastName" class="col-xs-4 col-md-2 control-label" th:text="#{label.lastName}"></label>
+                    <div th:class="'form-group' + (${#fields.hasErrors('lastName')} ? ' has-error' : '')">
+                        <label for="lastName" class="col-xs-4 control-label"
+                               th:text="#{label.lastName}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}"/>
-                        <span class="help-block" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                        <div class="col-xs-8">
+                            <input type="text" id="lastName" name="lastName" class="form-control"
+                                   th:field="*{lastName}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('lastName')}"
+                                  th:errors="*{lastName}"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('email')} ? ' has-error' : '')">
-                    <label for="email" class="col-xs-4 col-md-2 control-label" th:text="#{label.email}"></label>
+                    <div th:class="'form-group' + (${#fields.hasErrors('email')} ? ' has-error' : '')">
+                        <label for="email" class="col-xs-4 control-label" th:text="#{label.email}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="text" id="email" name="email" class="form-control" th:field="*{email}"/>
-                        <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        <div class="col-xs-8">
+                            <input type="text" id="email" name="email" class="form-control" th:field="*{email}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div th:class="'form-group' + (${#fields.hasErrors('password')} ? ' has-error' : '')">
-                    <label for="password" class="col-xs-4 col-md-2 control-label" th:text="#{label.password}"></label>
+                    <div th:class="'form-group' + (${#fields.hasErrors('password')} ? ' has-error' : '')">
+                        <label for="password" class="col-xs-4 control-label"
+                               th:text="#{label.password}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="password" id="password" name="password" class="form-control" th:field="*{password}"/>
-                        <span class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        <div class="col-xs-8">
+                            <input type="password" id="password" name="password" class="form-control"
+                                   th:field="*{password}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('password')}"
+                                  th:errors="*{password}"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-xs-offset-4 col-xs-4 col-md-offset-2 col-md-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-user-plus"></i>
-                            <span th:text="#{button.register}"></span>
-                        </button>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-user-plus"></i>
+                                <span th:text="#{button.register}"></span>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-xs-offset-4 col-xs-6 col-md-offset-2 col-md-6">
-                        <a th:href="@{/signin}" th:text="#{login.alreadyRegistered}"></a>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-6">
+                            <a th:href="@{/signin}" th:text="#{login.alreadyRegistered}"></a>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <legend th:text="#{login.social.header}"></legend>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="col-xs-offset-4 col-md-offset-2">
-                <form th:action="@{/signin/twitter}" method="POST">
-                    <button type="submit" class="btn btn-social btn-twitter">
-                        <i class="fa fa-twitter"></i>
-                        <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
-                    </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="col-xs-12 col-md-6">
+        <legend th:text="#{login.social.header}"></legend>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <form th:action="@{/signin/twitter}" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-4 col-md-offset-0">
+                            <button type="submit" class="btn btn-social btn-twitter">
+                                <i class="fa fa-twitter"></i>
+                                <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

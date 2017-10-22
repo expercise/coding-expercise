@@ -64,36 +64,36 @@
                     <legend class="subHeader" th:text="#{user.profile.personal}"></legend>
 
                     <div class="row" th:unless="${user.firstName == null}">
-                        <label class="col-xs-5" th:text="#{label.firstName}"></label>
-                        <div class="col-xs-7">
+                        <label class="col-xs-4" th:text="#{label.firstName}"></label>
+                        <div class="col-xs-8">
                             <span th:text="${user.firstName}"></span>
                         </div>
                     </div>
 
                     <div class="row" th:unless="${user.lastName == null}">
-                        <label class="col-xs-5" th:text="#{label.lastName}"></label>
-                        <div class="col-xs-7">
+                        <label class="col-xs-4" th:text="#{label.lastName}"></label>
+                        <div class="col-xs-8">
                             <span th:text="${user.lastName}"></span>
                         </div>
                     </div>
 
                     <div class="row" th:if="${isCurrentUser and user.email != null}">
-                        <label class="col-xs-5" th:text="#{label.email}"></label>
-                        <div class="col-xs-7">
+                        <label class="col-xs-4" th:text="#{label.email}"></label>
+                        <div class="col-xs-8">
                             <a th:href="${'mailto:' + user.email}" th:text="${user.email}" target="_blank"></a>
                         </div>
                     </div>
 
                     <div class="row" th:unless="${user.lingo == null}">
-                        <label class="col-xs-5" th:text="#{label.lingo}"></label>
-                        <div class="col-xs-7">
+                        <label class="col-xs-4" th:text="#{label.lingo}"></label>
+                        <div class="col-xs-8">
                             <span th:text="${#messages.msg(user.lingo.name())}"></span>
                         </div>
                     </div>
 
                     <div class="row" th:unless="${!isCurrentUser and !user.hasTwitterConnection()}">
-                        <label class="col-xs-5"><i class="fa fa-twitter"></i></label>
-                        <div class="col-xs-7">
+                        <label class="col-xs-4"><i class="fa fa-twitter"></i></label>
+                        <div class="col-xs-8">
                             <form th:action="@{/signin/twitter}" method="POST" th:if="${isCurrentUser and !user.hasTwitterConnection()}">
                                 <a id="connectTwitterAccount" href="#">
                                     <span th:text="#{user.profile.connectTwitter}"></span>

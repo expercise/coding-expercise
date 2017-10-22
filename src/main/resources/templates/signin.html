@@ -1,78 +1,95 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="mainLayout">
 <head>
     <title th:text="#{login.legend}"></title>
 </head>
 <body layout:fragment="content" th:remove="tag">
 
-    <legend th:text="#{login.loginWithExperciseAccount.header}" th:unless="${#authorization.expression('isAuthenticated()')}"></legend>
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        <legend th:text="#{login.loginWithExperciseAccount.header}"
+                th:unless="${#authorization.expression('isAuthenticated()')}"></legend>
 
-    <div class="row" th:unless="${#authorization.expression('isAuthenticated()')}">
-        <div class="col-xs-12">
-            <p class="alert alert-danger" th:if="${!#strings.isEmpty(param.error) and !#strings.equals(param.error + '', 'provider')}" th:text="#{login.failedMessage}"></p>
-            <p class="alert alert-info" th:if="${param.signout}" th:text="#{login.logoutMessage}"></p>
-            <p class="alert alert-success" th:if="${param.resetPasswordSuccess}" th:text="#{login.passwordResetSuccess}"></p>
+        <div class="row" th:unless="${#authorization.expression('isAuthenticated()')}">
+            <div class="col-xs-12">
+                <p class="alert alert-danger"
+                   th:if="${!#strings.isEmpty(param.error) and !#strings.equals(param.error + '', 'provider')}"
+                   th:text="#{login.failedMessage}"></p>
+                <p class="alert alert-info" th:if="${param.signout}" th:text="#{login.logoutMessage}"></p>
+                <p class="alert alert-success" th:if="${param.resetPasswordSuccess}"
+                   th:text="#{login.passwordResetSuccess}"></p>
 
-            <form th:action="@{/signin}" method="POST" class="form-horizontal">
-                <div class="form-group">
-                    <label for="email" class="col-xs-4 col-md-2 control-label" th:text="#{label.email}"></label>
+                <form th:action="@{/signin}" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="email" class="col-xs-4 control-label" th:text="#{label.email}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="text" id="email" name="username" class="form-control"/>
+                        <div class="col-xs-8">
+                            <input type="text" id="email" name="username" class="form-control"/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="password" class="col-xs-4 col-md-2 control-label" th:text="#{label.password}"></label>
+                    <div class="form-group">
+                        <label for="password" class="col-xs-4 control-label" th:text="#{label.password}"></label>
 
-                    <div class="col-xs-8 col-md-4">
-                        <input type="password" id="password" name="password" class="form-control"/>
+                        <div class="col-xs-8">
+                            <input type="password" id="password" name="password" class="form-control"/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-xs-offset-4 col-xs-4 col-md-offset-2 col-md-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-sign-in"></i>
-                            <span th:text="#{button.login}"></span>
-                        </button>
-                    </div>
-                    <div class="rememberMeContainer col-xs-4 col-md-2">
-                        <div class="checkbox">
-                            <div>
-                                <input id="rememberMeCheckBox" type="checkbox" name="remember-me" checked="checked"/>
-                                <label for="rememberMeCheckBox" th:text="#{login.rememberMe}">Remember me</label>
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-sign-in"></i>
+                                <span th:text="#{button.login}"></span>
+                            </button>
+                        </div>
+                        <div class="rememberMeContainer col-xs-5">
+                            <div class="checkbox">
+                                <div>
+                                    <input id="rememberMeCheckBox" type="checkbox" name="remember-me"
+                                           checked="checked"/>
+                                    <label for="rememberMeCheckBox" th:text="#{login.rememberMe}">Remember me</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group" th:if="${#strings.isEmpty(param.signout) and #strings.isEmpty(param.newMember)}">
-                    <div class="col-xs-offset-4 col-xs-6 col-md-offset-2 col-md-6">
-                        <a th:href="@{/signup}" th:text="#{login.notRegisteredYet}"></a>
-                        <span>|</span>
-                        <a th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
+                    <div class="form-group"
+                         th:if="${#strings.isEmpty(param.signout) and #strings.isEmpty(param.newMember)}">
+                        <div class="col-xs-offset-4 col-xs-8">
+                            <a th:href="@{/signup}" th:text="#{login.notRegisteredYet}"></a>
+                            <span>|</span>
+                            <a th:href="@{/forgotMyPassword}" th:text="#{login.forgotMyPassword}">Forgot My Password</a>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <legend th:text="#{login.social.header}"></legend>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <p class="alert alert-danger" th:if="${!#strings.isEmpty(param.error) and #strings.equals(param.error + '', 'provider')}" th:text="#{login.social.failedMessage}"></p>
-
-            <div class="col-xs-offset-4 col-md-offset-2">
-                <form th:action="@{/signin/twitter}" method="POST">
-                    <button type="submit" class="btn btn-social btn-twitter">
-                        <i class="fa fa-twitter"></i>
-                        <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
-                    </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="col-xs-12 col-md-6">
+        <legend th:text="#{login.social.header}"></legend>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="alert alert-danger"
+                   th:if="${!#strings.isEmpty(param.error) and #strings.equals(param.error + '', 'provider')}"
+                   th:text="#{login.social.failedMessage}"></p>
+
+                <form th:action="@{/signin/twitter}" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-offset-4 col-xs-4 col-md-offset-0">
+                            <button type="submit" class="btn btn-social btn-twitter">
+                                <i class="fa fa-twitter"></i>
+                                <span th:text="#{button.loginWithTwitter}">Sign In with Twitter</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
