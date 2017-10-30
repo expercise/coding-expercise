@@ -11,7 +11,6 @@ import com.expercise.enums.Lingo;
 import com.expercise.enums.ManagementMode;
 import com.expercise.service.challenge.ChallengeModelHelper;
 import com.expercise.service.challenge.ChallengeService;
-import com.expercise.service.level.LevelService;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.utils.JsonUtils;
 import com.expercise.utils.validation.SaveChallengeValidator;
@@ -34,9 +33,6 @@ public class ChallengeManagementController {
 
     @Autowired
     private AuthenticationService authenticationService;
-
-    @Autowired
-    private LevelService levelService;
 
     @Autowired
     private ChallengeModelHelper challengeModelHelper;
@@ -81,7 +77,6 @@ public class ChallengeManagementController {
         modelAndView.addObject("lingos", Lingo.sortedLingosByCurrentLocale());
         modelAndView.addObject("dataTypes", DataType.values());
         modelAndView.addObject("challengeTypes", ChallengeType.values());
-        modelAndView.addObject("levels", levelService.getAllLevelsInOrder());
         return modelAndView;
     }
 

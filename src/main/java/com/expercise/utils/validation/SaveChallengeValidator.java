@@ -48,11 +48,6 @@ public class SaveChallengeValidator extends BaseValidator<ChallengeModel> {
                 addAuthorityError(bindingResult, "NotAuthorized.challenge.changeApproveStatus");
                 return false;
             }
-
-            if (currentUser.isNotAdmin() && isLevelChanged(challengeModel, challenge)) {
-                addAuthorityError(bindingResult, "NotAuthorized.challenge.changeLevel");
-                return false;
-            }
         }
         return true;
     }
@@ -105,10 +100,6 @@ public class SaveChallengeValidator extends BaseValidator<ChallengeModel> {
 
     private boolean isApproveStatusChanged(ChallengeModel challengeModel, Challenge challenge) {
         return challengeModel.getApproved() != null && challenge.isApproved() != challengeModel.getApproved();
-    }
-
-    private boolean isLevelChanged(ChallengeModel challengeModel, Challenge challenge) {
-        return challengeModel.getLevel() != null && challenge.getLevelId() != challengeModel.getLevel();
     }
 
     private void validateInputTypes(List<DataType> inputTypes, List<String> inputValues) throws ExperciseJsonException {

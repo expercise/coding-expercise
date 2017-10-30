@@ -11,8 +11,8 @@ public final class RedirectUtils {
         return redirectTo("/");
     }
 
-    public static ModelAndView redirectThemesForNewMember() {
-        return redirectTo("/themes?" + "newMember");
+    public static ModelAndView redirectTagsForNewMember() {
+        return redirectTo("/start-coding?" + "newMember");
     }
 
     public static ModelAndView redirectLoginFor(String purpose) {

@@ -67,10 +67,6 @@ public class ChallengeService {
         return challengeRepository.findOne(id);
     }
 
-    public List<Challenge> findNotThemedApprovedChallenges() {
-        return challengeRepository.findNotThemedApprovedChallenges();
-    }
-
     public Map<String, String> prepareSignaturesMapFor(Challenge challenge) {
         Map<String, String> signaturesMap = new HashMap<>();
         for (ProgrammingLanguage language : ProgrammingLanguage.values()) {

@@ -1,12 +1,10 @@
 package com.expercise.service.challenge;
 
 import com.expercise.domain.challenge.Challenge;
-import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.enums.UserRole;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.testutils.builder.ChallengeBuilder;
-import com.expercise.testutils.builder.LevelBuilder;
 import com.expercise.testutils.builder.UserBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,22 +59,10 @@ public class ChallengeDisplayRuleTest {
     }
 
     @Test
-    public void shouldReturnFalseIfChallengeIsApprovedAndHasNotLevel() {
+    public void shouldReturnFalseIfChallengeIsApproved() {
         User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
 
         Challenge challenge = new ChallengeBuilder().approved(true).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
-
-        when(authenticationService.getCurrentUser()).thenReturn(currentUser);
-
-        assertFalse(rule.isNotDisplayable(challenge));
-    }
-
-    @Test
-    public void shouldReturnFalseIfChallengeIsApprovedAndHasLevelButLevelHasNotTheme() {
-        User currentUser = new UserBuilder().userRole(UserRole.User).buildWithRandomId();
-
-        Level level = new LevelBuilder().priority(1).buildWithRandomId();
-        Challenge challenge = new ChallengeBuilder().approved(true).level(level).user(new UserBuilder().buildWithRandomId()).buildWithRandomId();
 
         when(authenticationService.getCurrentUser()).thenReturn(currentUser);
 

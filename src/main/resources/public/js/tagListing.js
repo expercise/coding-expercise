@@ -1,4 +1,4 @@
-expercise.ThemeListing = {
+expercise.TagListing = {
 
     constructor: function () {
         var that = this;

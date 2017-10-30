@@ -17,7 +17,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    public static final String DEFAULT_SUCCESS_SIGN_IN_URL = "/themes";
+    public static final String DEFAULT_SUCCESS_SIGN_IN_URL = "/start-coding";
 
     private static final int PASSWORD_ENCODING_STRENGTH = 256;
 
@@ -41,7 +41,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/signup/**",
                         "/signin/**",
                         "/forgotMyPassword/**",
-                        "/themes/**",
+                        "/start-coding/**",
                         "/challenges/eval",
                         "/challenges/reset",
                         "/leaderBoard/**"

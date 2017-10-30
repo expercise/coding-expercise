@@ -6,10 +6,7 @@ import com.expercise.domain.challenge.ChallengeInputType;
 import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.challenge.TestCaseInputValue;
 import com.expercise.enums.Lingo;
-import com.expercise.service.level.LevelService;
-import com.expercise.service.user.AuthenticationService;
 import com.expercise.utils.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -17,12 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ChallengeModelHelper {
-
-    @Autowired
-    private LevelService levelService;
-
-    @Autowired
-    private AuthenticationService authenticationService;
 
     public Challenge createChallengeFrom(ChallengeModel challengeModel) {
         Challenge challenge = new Challenge();
@@ -65,13 +56,6 @@ public class ChallengeModelHelper {
         if (challengeModel.getApproved() != null) {
             challenge.setApproved(challengeModel.getApproved());
         }
-
-        Long levelId = challengeModel.getLevel();
-        if (levelId != null) {
-            challenge.setLevel(levelService.findById(levelId));
-        } else if (authenticationService.isCurrentUserAdmin()) {
-            challenge.setLevel(null);
-        }
     }
 
     public ChallengeModel createModelFrom(Challenge challenge) {
@@ -109,10 +93,6 @@ public class ChallengeModelHelper {
         challengeModel.setOutputType(challenge.getOutputType());
 
         challengeModel.setApproved(challenge.isApproved());
-
-        if (challenge.hasLevel()) {
-            challengeModel.setLevel(challenge.getLevelId());
-        }
 
         return challengeModel;
     }

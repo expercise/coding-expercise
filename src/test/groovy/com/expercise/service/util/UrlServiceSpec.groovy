@@ -21,10 +21,10 @@ class UrlServiceSpec extends Specification {
 
     def "should create canonical url with request uri and root url, without www"() {
         given:
-        mockHttpServletRequest.setRequestURI("/themes")
+        mockHttpServletRequest.setRequestURI("/tags")
 
         expect:
-        "http://expercise.com/themes" == service.getCanonical(mockHttpServletRequest)
+        "http://expercise.com/tags" == service.getCanonical(mockHttpServletRequest)
     }
 
 }

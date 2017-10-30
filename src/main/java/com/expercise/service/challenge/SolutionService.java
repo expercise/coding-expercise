@@ -3,7 +3,6 @@ package com.expercise.service.challenge;
 import com.expercise.controller.challenge.model.UserSolutionModel;
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
-import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.repository.challenge.SolutionRepository;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,13 +32,6 @@ public class SolutionService {
 
     public Solution getSolutionBy(Challenge challenge, User user, ProgrammingLanguage programmingLanguage) {
         return solutionRepository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, programmingLanguage);
-    }
-
-    public List<Solution> getAllSolutionsInLevelsOf(User user, List<Level> levels) {
-        if (levels.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return solutionRepository.findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(user, levels);
     }
 
     public void updateSolution(Solution solution) {

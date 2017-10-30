@@ -59,7 +59,7 @@ public class SignUpController {
 
         authenticationService.authenticate(userModel.getEmail(), userModel.getPassword());
 
-        return RedirectUtils.redirectThemesForNewMember();
+        return RedirectUtils.redirectTagsForNewMember();
     }
 
     @RequestMapping("/social")
@@ -77,7 +77,7 @@ public class SignUpController {
                 return RedirectUtils.redirectProfile();
             } else {
                 authenticationService.authenticate(connection, user);
-                return RedirectUtils.redirectThemesForNewMember();
+                return RedirectUtils.redirectTagsForNewMember();
             }
         } catch (Exception e) {
             LOGGER.error("Exception while social sign up: ", e);

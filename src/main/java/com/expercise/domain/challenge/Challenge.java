@@ -1,8 +1,6 @@
 package com.expercise.domain.challenge;
 
 import com.expercise.domain.BaseEntity;
-import com.expercise.domain.level.Level;
-import com.expercise.domain.theme.Theme;
 import com.expercise.domain.user.User;
 import com.expercise.enums.DataType;
 import com.expercise.enums.Lingo;
@@ -50,9 +48,6 @@ public class Challenge extends BaseEntity {
     @OrderBy("priority")
     private List<TestCase> testCases = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Level level;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
@@ -65,6 +60,9 @@ public class Challenge extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createDate = Clock.getTime();
+
+    @Column(length = 1024)
+    private String tags;
 
     public Map<Lingo, String> getTitles() {
         return titles;
@@ -107,29 +105,6 @@ public class Challenge extends BaseEntity {
 
     public void setOutputType(DataType outputType) {
         this.outputType = outputType;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
-    public boolean hasLevel() {
-        return level != null;
-    }
-
-    public String getThemeBookmarkableUrl() {
-        if (hasLevel() && level.hasTheme()) {
-            return level.getTheme().getBookmarkableUrl();
-        }
-        return Theme.URL_FOR_NOT_THEMED_CHALLENGES;
-    }
-
-    public Long getLevelId() {
-        return level != null ? level.getId() : null;
     }
 
     public User getUser() {
@@ -236,4 +211,11 @@ public class Challenge extends BaseEntity {
         return inputTypes.size() == 1;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 }

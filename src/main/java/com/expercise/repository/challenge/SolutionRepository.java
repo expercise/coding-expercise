@@ -2,7 +2,6 @@ package com.expercise.repository.challenge;
 
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.domain.challenge.Solution;
-import com.expercise.domain.level.Level;
 import com.expercise.domain.user.User;
 import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.repository.BaseRepository;
@@ -14,8 +13,6 @@ public interface SolutionRepository extends BaseRepository<Solution> {
     Solution findByChallengeAndUserAndProgrammingLanguage(Challenge challenge, User user, ProgrammingLanguage programmingLanguage);
 
     List<Solution> findByChallengeApprovedIsTrueAndUser(User user);
-
-    List<Solution> findByUserAndChallengeLevelInAndChallengeApprovedIsTrue(User user, List<Level> levels);
 
     List<Solution> findByChallengeAndUser(Challenge challenge, User user);
 
