@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" layout:decorator="mainLayout">
 <head>
-    <title th:text="#{theme.listing.header}"></title>
+    <title th:text="#{tag.listing.header}"></title>
 </head>
 <body layout:fragment="content" th:remove="tag">
-    <legend th:text="#{theme.listing.header}"></legend>
+    <legend th:text="#{tag.listing.header}"></legend>
 
-    <div class="row" th:if="${#lists.isEmpty(themeList)}">
+    <div class="row" th:if="${#lists.isEmpty(tagList)}">
         <div class="col-xs-12">
             <p th:text="#{label.nope}"></p>
         </div>
     </div>
 
-    <div class="row themeList" th:unless="${#lists.isEmpty(themeList)}">
-        <div th:class="${'themeItem col-xs-11 col-md-5 themeTitleColor' + theme.titleColor}" th:each="theme : ${themeList}">
-            <a th:href="@{${theme.bookmarkableUrl}}">
-                <div class="themeItemTitle">
-                    <span th:text="${theme.getNameFor(#locale)}"></span>
-                    <span class="badge" th:text="${#messages.msg('theme.listing.challengeCount', challengeCountsMap.get(theme))}"></span>
-                </div>
-                <div class="themeItemDescription">
-                    <span th:text="${theme.persisted} ? ${theme.getDescription()} : ${#messages.msg('theme.listing.header.notThemedChallenges')}"></span>
-                </div>
-            </a>
-        </div>
+    <div class="row" th:unless="${#lists.isEmpty(tagList)}">
+        <a th:href="@{${tag.bookmarkableUrl}}" th:text="${'#' + tag.name}" th:each="tag : ${tagList}"></a>
     </div>
 
     <input id="newMember" type="hidden" th:value="${param.newMember != null}"/>
-    <input id="javaScriptModules" type="hidden" value="ThemeListing"/>
+    <input id="javaScriptModules" type="hidden" value="TagListing"/>
 </body>
 </html>

@@ -182,17 +182,6 @@
 
     <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
         <div class="col-xs-12">
-            <h3 th:text="#{challengeManagement.level}"></h3>
-
-            <select name="level" class="form-control">
-                <option value="" th:text="#{label.select}"></option>
-                <option th:each="level : ${levels}" th:value="${level.id}" th:text="${level.getNameForChallengeManagement(#locale)}"></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
-        <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.approvingTitle}"></h3>
 
             <div class="checkbox">

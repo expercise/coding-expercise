@@ -1,4 +1,4 @@
-package com.expercise.controller.theme;
+package com.expercise.controller;
 
 import com.expercise.domain.challenge.Challenge;
 import com.expercise.service.challenge.ChallengeService;
@@ -18,7 +18,7 @@ public class StartCodingController {
     private UserService userService;
 
     @RequestMapping("/start-coding")
-    public ModelAndView listThemes() {
+    public ModelAndView listTagsWithChallengeCounts() {
         if (userService.isNewbie()) {
             Challenge defaultChallenge = challengeService.getDefaultChallenge();
             if (defaultChallenge != null) {

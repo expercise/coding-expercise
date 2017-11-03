@@ -28,8 +28,6 @@ public class ChallengeModel {
 
     private Boolean approved;
 
-    private Long level;
-
     public Long getChallengeId() {
         return challengeId;
     }
@@ -96,14 +94,6 @@ public class ChallengeModel {
 
     public void setApproved(Boolean approved) {
         this.approved = approved;
-    }
-
-    public Long getLevel() {
-        return level;
-    }
-
-    public void setLevel(Long level) {
-        this.level = level;
     }
 
     public String getTitleFor(Lingo lingo) {

@@ -64,8 +64,6 @@ public class ProfileController {
         modelAndView.addObject("experiencePoint", userPointService.getTotalPointsOf(user));
         modelAndView.addObject("addedChallenges", challengeService.findAllApprovedChallengesOfUser(user));
         modelAndView.addObject("solvedChallenges", solutionService.getSolvedChallengesOf(user));
-        // TODO ufuk: fix, show current level in different way
-        // modelAndView.addObject("currentLevelModel", levelService.getCurrentLevelModelOf(user, null));
         return modelAndView;
     }
 
