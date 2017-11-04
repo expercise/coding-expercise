@@ -180,7 +180,15 @@
         </div>
     </div>
 
-    <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 th:text="#{challengeManagement.tags}"></h3>
+
+            <input name="tags"/>
+        </div>
+    </div>
+
+    <div class="row" sec:authorize="hasRole('ROLE_ADMIN')" style="margin-top: 15px;">
         <div class="col-xs-12">
             <h3 th:text="#{challengeManagement.approvingTitle}"></h3>
 

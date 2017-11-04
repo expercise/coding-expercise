@@ -3,6 +3,14 @@ expercise.ChallengeManagement = {
     challengeModel: {},
 
     constructor: function () {
+        $('input[name="tags"]').tagsinput({
+            maxTags: 3,
+            maxChars: 12,
+            trimValue: true,
+            allowDuplicates: false,
+            confirmKeys: [13, 32]
+        });
+
         this.challengeModel = JSON.parse($('#challengeModel').val());
         if (!jQuery.isEmptyObject(this.challengeModel)) {
             this.prepareForUpdate(this.challengeModel);
@@ -22,13 +30,24 @@ expercise.ChallengeManagement = {
         $saveButton.click(this.saveChallenge);
 
         $('#testCasesTable').find('tbody').sortable({
-            helper: function(e, tr) {
+            helper: function (e, tr) {
                 var $originals = tr.children();
                 var $rowClone = tr.clone();
-                $rowClone.children().each(function(index) {
+                $rowClone.children().each(function (index) {
                     $(this).width($originals.eq(index).width())
                 });
                 return $rowClone;
+            }
+        });
+
+        // Allow only lowercase chars, numbers and hyphen for tags
+        $('.bootstrap-tagsinput input').bind('keypress', function (event) {
+            var regex = new RegExp("^[a-z0-9\-]+$");
+            var keyCharCode = !event.charCode ? event.which : event.charCode;
+            var key = String.fromCharCode(keyCharCode);
+            if (keyCharCode != 13 && keyCharCode != 32 && !regex.test(key)) {
+                event.preventDefault();
+                return false;
             }
         });
     },
@@ -87,6 +106,12 @@ expercise.ChallengeManagement = {
             });
             $($testCaseRows[testCaseIndex]).find('input[name="outputValue"]').val(challengeModel.testCases[testCaseIndex].outputValue);
         }
+
+        var $tagsInput = $('input[name="tags"]');
+        challengeModel.tags.forEach(function (each) {
+            $tagsInput.tagsinput('add', each);
+        });
+        $tagsInput.tagsinput('refresh');
 
         if (challengeModel.approved) {
             $('input[name="approved"]').attr('checked', 'checked');
@@ -223,6 +248,8 @@ expercise.ChallengeManagement = {
             });
         });
 
+        var tags = $('input[name="tags"]').tagsinput('items');
+
         var requestData = {
             challengeId: expercise.ChallengeManagement.challengeModel.challengeId,
             challengeType: challengeType,
@@ -231,7 +258,8 @@ expercise.ChallengeManagement = {
             signatures: signatures,
             inputTypes: inputTypes,
             outputType: outputType,
-            testCases: testCases
+            testCases: testCases,
+            tags: tags
         };
 
         var $approveCheckbox = $('input[name="approved"]');

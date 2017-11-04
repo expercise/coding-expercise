@@ -26,6 +26,8 @@ public class ChallengeModel {
 
     private List<TestCase> testCases = new ArrayList<>();
 
+    private List<String> tags = new ArrayList<>();
+
     private Boolean approved;
 
     public Long getChallengeId() {
@@ -86,6 +88,14 @@ public class ChallengeModel {
 
     public void setTestCases(List<TestCase> testCases) {
         this.testCases = testCases;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public Boolean getApproved() {

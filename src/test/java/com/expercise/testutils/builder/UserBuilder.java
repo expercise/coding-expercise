@@ -3,17 +3,17 @@ package com.expercise.testutils.builder;
 import com.expercise.domain.user.User;
 import com.expercise.enums.Lingo;
 import com.expercise.enums.UserRole;
-import com.expercise.utils.RandomTextUtils;
+import com.expercise.utils.TextUtils;
 
 public class UserBuilder extends BaseEntityBuilder<User, UserBuilder> {
 
-    private String firstName = RandomTextUtils.alphabetic(5);
+    private String firstName = TextUtils.randomAlphabetic(5);
 
-    private String lastName = RandomTextUtils.alphabetic(5);
+    private String lastName = TextUtils.randomAlphabetic(5);
 
-    private String email = RandomTextUtils.alphabetic(5);
+    private String email = TextUtils.randomAlphabetic(5);
 
-    private String password = RandomTextUtils.alphabetic(5);
+    private String password = TextUtils.randomAlphabetic(5);
 
     private UserRole userRole = UserRole.User;
 

@@ -338,6 +338,7 @@
                             <includes>
                                 <include>/bootstrap.min.css</include>
                                 <include>/bootstrap-virtual-assistant.css</include>
+                                <include>/bootstrap-tagsinput.css</include>
                                 <include>/font-awesome.min.css</include>
                                 <include>/hopscotch.min.css</include>
                                 <include>/codemirror.css</include>
@@ -369,6 +370,7 @@
                                 <include>/bootstrap/bootstrap.min.js</include>
                                 <include>/bootstrap/bootbox.min.js</include>
                                 <include>/bootstrap/bootstrap-virtual-assistant.js</include>
+                                <include>/bootstrap/bootstrap-tagsinput.min.js</include>
                                 <include>/codemirror/codemirror.js</include>
                                 <include>/codemirror/vim.js</include>
                                 <include>/codemirror/mode/javascript.js</include>

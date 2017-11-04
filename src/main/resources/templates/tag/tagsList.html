@@ -12,8 +12,12 @@
         </div>
     </div>
 
-    <div class="row" th:unless="${#lists.isEmpty(tagList)}">
-        <a th:href="@{${tag.bookmarkableUrl}}" th:text="${'#' + tag.name}" th:each="tag : ${tagList}"></a>
+    <div class="row tagList" th:unless="${#lists.isEmpty(tagList)}">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <a th:class="${'tagLink x' + tag.rank}" th:href="@{${'/challenges/tags/' + tag.name}}" th:each="tag : ${tagList}"
+               th:text="${tag.name}">
+            </a>
+        </div>
     </div>
 
     <input id="newMember" type="hidden" th:value="${param.newMember != null}"/>

@@ -5,7 +5,7 @@ import com.expercise.service.configuration.ConfigurationService;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.service.util.UrlService;
 import com.expercise.testutils.builder.UserBuilder;
-import com.expercise.utils.RandomTextUtils;
+import com.expercise.utils.TextUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
@@ -56,7 +56,7 @@ public class CommonViewParamsInterceptorTest {
 
     @Test
     public void shouldAddGoogleAnalyticsApplicationKey() {
-        String googleAnalyticsApplicationKey = RandomTextUtils.alphabetic(11);
+        String googleAnalyticsApplicationKey = TextUtils.randomAlphabetic(11);
 
         when(configurationService.getGoogleAnalyticsApplicationKey()).thenReturn(googleAnalyticsApplicationKey);
 

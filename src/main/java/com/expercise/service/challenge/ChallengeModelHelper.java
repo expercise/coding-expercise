@@ -7,6 +7,7 @@ import com.expercise.domain.challenge.TestCase;
 import com.expercise.domain.challenge.TestCaseInputValue;
 import com.expercise.enums.Lingo;
 import com.expercise.utils.JsonUtils;
+import com.expercise.utils.TextUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -53,6 +54,8 @@ public class ChallengeModelHelper {
         }
         TestCase.prioritize(challenge.getTestCases());
 
+        challenge.setTags(challengeModel.getTags().stream().collect(Collectors.joining(";")));
+
         if (challengeModel.getApproved() != null) {
             challenge.setApproved(challengeModel.getApproved());
         }
@@ -89,6 +92,8 @@ public class ChallengeModelHelper {
             testCase.setOutputValue(eachTestCase.getOutput());
             challengeModel.getTestCases().add(testCase);
         }
+
+        challengeModel.setTags(TextUtils.splitSemicolonSeperated(challenge.getTags()));
 
         challengeModel.setOutputType(challenge.getOutputType());
 

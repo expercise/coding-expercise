@@ -32,6 +32,7 @@ public class SaveChallengeValidator extends BaseValidator<ChallengeModel> {
         validateTitlesAndDescriptions(challenge, bindingResult);
         validateOutputTypeWithOutputValues(challenge, bindingResult);
         validateInputTypesWithInputValuesFromTestCases(challenge, bindingResult);
+        validateTags(challenge, bindingResult);
     }
 
     private boolean validateIfUserCanModifyThisChallenge(ChallengeModel challengeModel, BindingResult bindingResult) {
@@ -63,6 +64,12 @@ public class SaveChallengeValidator extends BaseValidator<ChallengeModel> {
 
         if (lingoCountWithTitleAndDescription == 0) {
             addError(bindingResult, "titlesAndDescriptions", new String[]{"NotEmpty.challenge.titlesAndDescriptions"});
+        }
+    }
+
+    private void validateTags(ChallengeModel challenge, BindingResult bindingResult) {
+        if (challenge.getTags().isEmpty()) {
+            addError(bindingResult, "tags", new String[]{"NotEmpty.challenge.tags"});
         }
     }
 

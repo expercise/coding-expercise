@@ -26,4 +26,15 @@ public final class NumberUtils {
         }
     }
 
+    /**
+     * Scales and translates a value (x) into a new range [a, b].
+     * Formula: f(x) = a + (b - a)(x - min)/(max - min)
+     */
+    public static BigDecimal scaleAndTranslateIntoRange(BigDecimal value, BigDecimal actualMin, BigDecimal actualMax, BigDecimal desiredMin, BigDecimal desiredMax) {
+        return desiredMax.subtract(desiredMin).multiply(value.subtract(actualMin))
+                .divide(actualMax.subtract(actualMin), RoundingMode.HALF_UP)
+                .add(desiredMin)
+                .setScale(2, RoundingMode.HALF_UP);
+    }
+
 }
