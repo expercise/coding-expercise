@@ -42,7 +42,7 @@ public class LeaderBoardServiceTest {
         when(userPointService.getTotalPointsOf(1L)).thenReturn(10L);
         leaderBoardService.updateLeaderBoardPoint(1L);
 
-        verify(cacheService).zAdd("points::leaderboard", 10L, 1L);
+        verify(cacheService).zAdd("points::leaderboard", 1L, 10L);
     }
 
     @Test

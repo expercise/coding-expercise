@@ -36,7 +36,7 @@ public class LeaderBoardService {
     @Transactional
     public void updateLeaderBoardPoint(Long userId) {
         Long totalPointsOf = userPointService.getTotalPointsOf(userId);
-        redisCacheService.zAdd(LEADERBOARD, totalPointsOf, userId);
+        redisCacheService.zAdd(LEADERBOARD, userId, totalPointsOf);
     }
 
     public List<LeaderBoardModel> getTop10UsersInLeaderBoard() {
