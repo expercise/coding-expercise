@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class PythonSignatureGenerator implements SignatureGenerator {
+public class Python3SignatureGenerator implements SignatureGenerator {
 
     private static final String SIGNATURE_PATTERN = "def solution({params}):\n\t";
 
     @Override
     public boolean canGenerateFor(ProgrammingLanguage language) {
-        return ProgrammingLanguage.Python == language;
+        return ProgrammingLanguage.Python3 == language;
     }
 
     @Override

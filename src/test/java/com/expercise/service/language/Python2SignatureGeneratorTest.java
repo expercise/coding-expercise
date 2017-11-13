@@ -15,10 +15,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PythonSignatureGeneratorTest {
+public class Python2SignatureGeneratorTest {
 
     @InjectMocks
-    private PythonSignatureGenerator signatureGenerator;
+    private Python2SignatureGenerator signatureGenerator;
 
     @Test
     public void shouldGeneratePatternWithoutParameters() {

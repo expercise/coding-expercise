@@ -93,7 +93,7 @@ public class SaveUserSolutionPostActionTest {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult());
         context.setChallenge(challenge);
-        context.setLanguage(ProgrammingLanguage.Python);
+        context.setLanguage(ProgrammingLanguage.Python2);
         context.setSource("this is a solution of the user");
 
         when(authenticationService.getCurrentUser()).thenReturn(user);
@@ -108,7 +108,7 @@ public class SaveUserSolutionPostActionTest {
         assertThat(capturedSolution.getUser(), equalTo(user));
         assertThat(capturedSolution.getCreateDate(), equalTo(Clock.getTime()));
         assertThat(capturedSolution.getSolution(), equalTo("this is a solution of the user"));
-        assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python));
+        assertThat(capturedSolution.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python2));
 
         verify(solutionCountService).clearCacheFor(challenge.getId());
 
@@ -121,7 +121,7 @@ public class SaveUserSolutionPostActionTest {
 
         User user = new UserBuilder().email("user@expercise.com").buildWithRandomId();
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();
-        Solution solution = new SolutionBuilder().id(1L).createDate(DateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python).build();
+        Solution solution = new SolutionBuilder().id(1L).createDate(DateUtils.toDate("09/10/2012")).challenge(challenge).user(user).programmingLanguage(ProgrammingLanguage.Python2).build();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(InterpreterResult.createSuccessResult());

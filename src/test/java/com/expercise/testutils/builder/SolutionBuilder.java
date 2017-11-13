@@ -14,7 +14,7 @@ public class SolutionBuilder extends BaseEntityBuilder<Solution, SolutionBuilder
 
     private User user;
 
-    private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python;
+    private ProgrammingLanguage programmingLanguage = ProgrammingLanguage.Python2;
 
     private String solution = TextUtils.randomAlphabetic(10);
 

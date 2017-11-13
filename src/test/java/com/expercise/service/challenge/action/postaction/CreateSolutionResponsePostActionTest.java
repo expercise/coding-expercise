@@ -55,7 +55,7 @@ public class CreateSolutionResponsePostActionTest {
         context = new ChallengeEvaluationContext();
         Challenge challenge = new ChallengeBuilder().id(1L).point(22).user(new UserBuilder().id(2L).build()).build();
         context.setChallenge(challenge);
-        context.setLanguage(ProgrammingLanguage.Python);
+        context.setLanguage(ProgrammingLanguage.Python2);
 
         user = new UserBuilder().id(3L).build();
         when(authenticationService.getCurrentUser()).thenReturn(user);

@@ -44,7 +44,7 @@ public class UserPointServiceTest {
         User user = new UserBuilder().buildWithRandomId();
         Challenge challenge = new ChallengeBuilder().point(12).buildWithRandomId();
 
-        service.givePoint(challenge, user, ProgrammingLanguage.Python);
+        service.givePoint(challenge, user, ProgrammingLanguage.Python2);
 
         ArgumentCaptor<UserPoint> pointCaptor = ArgumentCaptor.forClass(UserPoint.class);
 
@@ -54,7 +54,7 @@ public class UserPointServiceTest {
 
         assertThat(savedUserPoint.getChallenge(), equalTo(challenge));
         assertThat(savedUserPoint.getUser(), equalTo(user));
-        assertThat(savedUserPoint.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python));
+        assertThat(savedUserPoint.getProgrammingLanguage(), equalTo(ProgrammingLanguage.Python2));
         assertThat(savedUserPoint.getPointAmount(), equalTo(12));
         assertThat(savedUserPoint.getGivenDate(), equalTo(Clock.getTime()));
 
@@ -68,9 +68,9 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(0L);
+        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python2)).thenReturn(0L);
 
-        assertTrue(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+        assertTrue(service.canUserWinPoint(challenge, ProgrammingLanguage.Python2));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(false);
 
-        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python2));
 
         verifyZeroInteractions(userPointRepository);
     }
@@ -91,9 +91,9 @@ public class UserPointServiceTest {
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
-        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(1L);
+        when(userPointRepository.countByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python2)).thenReturn(1L);
 
-        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python2));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class UserPointServiceTest {
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
 
-        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python2));
 
         verifyZeroInteractions(userPointRepository);
     }
@@ -117,7 +117,7 @@ public class UserPointServiceTest {
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(authenticationService.getCurrentUser()).thenReturn(user);
 
-        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python));
+        assertFalse(service.canUserWinPoint(challenge, ProgrammingLanguage.Python2));
 
         verifyZeroInteractions(userPointRepository);
     }

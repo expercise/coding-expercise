@@ -28,11 +28,11 @@ public class SolutionRepositoryTest extends BaseSpringIntegrationTest {
         User author = new UserBuilder().persist(getEntityManager());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getEntityManager());
         User user = new UserBuilder().persist(getEntityManager());
-        Solution solution = new SolutionBuilder().programmingLanguage(ProgrammingLanguage.Python).challenge(challenge).solution("solution").user(user).persist(getEntityManager());
+        Solution solution = new SolutionBuilder().programmingLanguage(ProgrammingLanguage.Python2).challenge(challenge).solution("solution").user(user).persist(getEntityManager());
 
         flushAndClear();
 
-        Solution foundSolution = repository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python);
+        Solution foundSolution = repository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python2);
 
         assertThat(foundSolution, equalTo(solution));
     }
@@ -43,7 +43,7 @@ public class SolutionRepositoryTest extends BaseSpringIntegrationTest {
         Challenge challenge = new ChallengeBuilder().user(author).persist(getEntityManager());
         Challenge differentChallenge = new ChallengeBuilder().user(author).persist(getEntityManager());
         User user = new UserBuilder().persist(getEntityManager());
-        new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).solution("solution").user(user).persist(getEntityManager());
+        new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python2).solution("solution").user(user).persist(getEntityManager());
 
         flushAndClear();
 
@@ -57,7 +57,7 @@ public class SolutionRepositoryTest extends BaseSpringIntegrationTest {
         User author = new UserBuilder().persist(getEntityManager());
         Challenge challenge = new ChallengeBuilder().user(author).persist(getEntityManager());
         User user = new UserBuilder().persist(getEntityManager());
-        new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).solution("solution").user(user).persist(getEntityManager());
+        new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python2).solution("solution").user(user).persist(getEntityManager());
 
         flushAndClear();
 
@@ -72,7 +72,7 @@ public class SolutionRepositoryTest extends BaseSpringIntegrationTest {
         Challenge challenge = new ChallengeBuilder().user(author).persist(getEntityManager());
         User user1 = new UserBuilder().persist(getEntityManager());
         User user2 = new UserBuilder().persist(getEntityManager());
-        Solution solutionPython = new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python).solution("solution for py").user(user1).persist(getEntityManager());
+        Solution solutionPython = new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.Python2).solution("solution for py").user(user1).persist(getEntityManager());
         Solution solutionJs = new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.JavaScript).solution("solution for js").user(user1).persist(getEntityManager());
         new SolutionBuilder().challenge(challenge).programmingLanguage(ProgrammingLanguage.JavaScript).solution("solution for js - 2").user(user2).persist(getEntityManager());
 

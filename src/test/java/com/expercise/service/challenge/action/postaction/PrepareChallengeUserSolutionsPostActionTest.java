@@ -96,7 +96,7 @@ public class PrepareChallengeUserSolutionsPostActionTest {
 
         ArrayList<UserSolutionModel> userSolutionModels = new ArrayList<>();
         Solution solution1 = new SolutionBuilder().solution("my solution 1")
-                .programmingLanguage(ProgrammingLanguage.Python).createDate(DateUtils.toDateTimeWithNamedMonth("01 October 2012 13:43")).build();
+                .programmingLanguage(ProgrammingLanguage.Python2).createDate(DateUtils.toDateTimeWithNamedMonth("01 October 2012 13:43")).build();
         Solution solution2 = new SolutionBuilder().solution("my solution 2")
                 .programmingLanguage(ProgrammingLanguage.JavaScript).createDate(DateUtils.toDateTimeWithNamedMonth("14 October 2013 19:12")).build();
         userSolutionModels.add(UserSolutionModel.createFrom(solution1));
@@ -109,7 +109,7 @@ public class PrepareChallengeUserSolutionsPostActionTest {
         assertThat(context.getSolutionValidationResult().getUserSolutionModels().size(), equalTo(2));
 
         UserSolutionModel firstUserSolutionModel = context.getSolutionValidationResult().getUserSolutionModels().get(0);
-        assertThat(firstUserSolutionModel.getProgrammingLanguage(), equalTo("Python"));
+        assertThat(firstUserSolutionModel.getProgrammingLanguage(), equalTo("Python2"));
         assertThat(firstUserSolutionModel.getLanguageShortName(), equalTo("py"));
         assertThat(firstUserSolutionModel.getSolution(), equalTo("my solution 1"));
         assertThat(firstUserSolutionModel.getSolutionDate(), equalTo("01 October 2012 13:43"));

@@ -43,9 +43,9 @@ public class SolutionServiceTest {
         Challenge challenge = new ChallengeBuilder().buildWithRandomId();
         Solution solution = new SolutionBuilder().challenge(challenge).user(user).buildWithRandomId();
 
-        when(solutionRepository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python)).thenReturn(solution);
+        when(solutionRepository.findByChallengeAndUserAndProgrammingLanguage(challenge, user, ProgrammingLanguage.Python2)).thenReturn(solution);
 
-        Solution foundSolution = service.getSolutionBy(challenge, user, ProgrammingLanguage.Python);
+        Solution foundSolution = service.getSolutionBy(challenge, user, ProgrammingLanguage.Python2);
 
         assertThat(foundSolution, equalTo(solution));
     }

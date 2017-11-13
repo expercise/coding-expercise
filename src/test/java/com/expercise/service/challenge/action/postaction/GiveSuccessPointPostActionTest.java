@@ -54,7 +54,7 @@ public class GiveSuccessPointPostActionTest {
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setInterpreterResult(successResult);
         context.setChallenge(new ChallengeBuilder().id(1L).build());
-        context.setLanguage(ProgrammingLanguage.Python);
+        context.setLanguage(ProgrammingLanguage.Python2);
 
         when(authenticationService.isCurrentUserAuthenticated()).thenReturn(true);
         when(userPointService.canUserWinPoint(context.getChallenge(), context.getLanguage())).thenReturn(false);
@@ -103,7 +103,7 @@ public class GiveSuccessPointPostActionTest {
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
         context.setChallenge(new Challenge());
-        context.setLanguage(ProgrammingLanguage.Python);
+        context.setLanguage(ProgrammingLanguage.Python2);
         context.setInterpreterResult(successResult);
 
         User user = new UserBuilder().buildWithRandomId();
@@ -112,7 +112,7 @@ public class GiveSuccessPointPostActionTest {
 
         action.execute(context);
 
-        verify(userPointService).givePoint(context.getChallenge(), user, ProgrammingLanguage.Python);
+        verify(userPointService).givePoint(context.getChallenge(), user, ProgrammingLanguage.Python2);
     }
 
 }
