@@ -6,13 +6,13 @@
 <body layout:fragment="content" th:remove="tag">
     <div class="mainPage jumbotron">
         <!--/* Heading */-->
-        <h1 th:text="#{projectName}"></h1>
+        <h1 th:utext="#{projectName}"></h1>
         <h2 th:text="#{catchLine}"></h2>
         <hr/>
 
         <!--/* What's Expercise */-->
         <div>
-            <h3 th:text="#{whatIsExpercise.header}"></h3>
+            <h3 th:utext="#{whatIsExpercise.header}"></h3>
 
             <div class="row">
                 <div class="col-xs-12 col-md-6">
