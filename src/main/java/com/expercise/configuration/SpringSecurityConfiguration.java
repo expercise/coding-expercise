@@ -43,6 +43,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/forgotMyPassword/**",
                         "/start-coding/**",
                         "/challenges/eval",
+                        "/challenges/tags/**",
                         "/challenges/reset",
                         "/leaderBoard/**"
                 )

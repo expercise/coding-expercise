@@ -86,13 +86,10 @@
         <div class="col-xs-12">
             <div class="editorOptions">
                 <select id="languageSelection" name="languageSelection" class="form-control input-sm">
-                    <!--/* TODO ufuk & batu: allow only JavaScript until sandboxing completed for others
-                    <option th:each="each : ${programmingLanguages}"
-                            th:value="${each.getShortName()}"
-                            th:text="${each}">
-                    </option>
-                    */-->
-                    <option value="js">JavaScript (ECMAScript 5.1)</option>
+                    <option value="js">JavaScript (Node.js 8)</option>
+                    <option value="py2">Python 2</option>
+                    <option value="py3">Python 3</option>
+                    <option value="java">Java 8</option>
                 </select>
                 <div class="keyMapSelectionPanel checkbox hidden">
                     <input id="useVimKeyMapCheckBox" type="checkbox" name="useVimKeyMap" />
