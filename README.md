@@ -1,7 +1,7 @@
 coding-expercise
 ================
 
-Learn to code. Code to be legend.
+Learn to code. Code to make the dreams come true.
 
 http://coding.expercise.com
 

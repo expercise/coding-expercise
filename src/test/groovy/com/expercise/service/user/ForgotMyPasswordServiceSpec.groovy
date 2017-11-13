@@ -31,7 +31,7 @@ class ForgotMyPasswordServiceSpec extends Specification {
         given:
         User user = new User(id: 1L, email: "user@expercise.com", firstName: "Ahmet", lastName: "Mehmet")
         1 * tokenService.createTokenFor(user, TokenType.FORGOT_MY_PASSWORD) >> "token_123"
-        1 * urlService.createUrlFor("/forgotMyPassword/reset?token=token_123") >> "http://www.expercise.com/forgotMyPassword/reset?token=token_123"
+        1 * urlService.createUrlFor("/forgotMyPassword/reset?token=token_123") >> "http://coding.expercise.com/forgotMyPassword/reset?token=token_123"
 
         when:
         service.sendResetEmail(user)
@@ -45,7 +45,7 @@ class ForgotMyPasswordServiceSpec extends Specification {
 
         and: "verify email parameters"
         paramCaptor.user == user
-        paramCaptor.url == "http://www.expercise.com/forgotMyPassword/reset?token=token_123"
+        paramCaptor.url == "http://coding.expercise.com/forgotMyPassword/reset?token=token_123"
     }
 
     def "should check for valid token"() {
