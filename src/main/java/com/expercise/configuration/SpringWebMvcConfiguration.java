@@ -57,7 +57,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public SetLocaleInterceptor setLocaleInterceptor() {
         SetLocaleInterceptor interceptor = new SetLocaleInterceptor();
-        interceptor.setParamName("lingopref");
+        interceptor.setParamName("lang");
         return interceptor;
     }
 

@@ -83,7 +83,7 @@ expercise.CodeEditor = {
     changeMode: function (mode) {
         if (mode == "js") {
             this.mode = "javascript";
-        } else if (mode == "py") {
+        } else if (mode.startsWith("py")) {
             this.mode = "python";
         } else if (mode == "java") {
             this.mode = "text/x-java";

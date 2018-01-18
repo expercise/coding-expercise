@@ -10,13 +10,13 @@ class UrlServiceSpec extends Specification {
     MockHttpServletRequest mockHttpServletRequest
 
     def setup() {
-        service = new UrlService(rootUrl: "http://www.expercise.com")
+        service = new UrlService(rootUrl: "http://coding.expercise.com")
         mockHttpServletRequest = new MockHttpServletRequest()
     }
 
     def "should create url for specified path"() {
         expect:
-        "http://expercise.com/mypath" == service.createUrlFor("/mypath")
+        "http://coding.expercise.com/mypath" == service.createUrlFor("/mypath")
     }
 
     def "should create canonical url with request uri and root url, without www"() {
@@ -24,7 +24,7 @@ class UrlServiceSpec extends Specification {
         mockHttpServletRequest.setRequestURI("/tags")
 
         expect:
-        "http://expercise.com/tags" == service.getCanonical(mockHttpServletRequest)
+        "http://coding.expercise.com/tags" == service.getCanonical(mockHttpServletRequest)
     }
 
 }

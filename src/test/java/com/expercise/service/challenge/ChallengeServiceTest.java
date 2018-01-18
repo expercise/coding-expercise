@@ -49,6 +49,7 @@ public class ChallengeServiceTest {
         Challenge challenge = new ChallengeBuilder().id(1L).outputType(DataType.Text).user(user).build();
 
         when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.Python2)).thenReturn("def solution():");
+        when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.Python3)).thenReturn("def solution():");
         when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.JavaScript)).thenReturn("function solution() {}");
         when(signatureGeneratorService.generatorSignatureFor(challenge, ProgrammingLanguage.Java)).thenReturn("public class Solution { public Integer solution() {} }");
 
@@ -56,8 +57,9 @@ public class ChallengeServiceTest {
 
         Map<String, String> resultMap = service.prepareSignaturesMapFor(challenge);
 
-        assertThat(resultMap.size(), equalTo(3));
+        assertThat(resultMap.size(), equalTo(4));
         assertThat(resultMap.get(ProgrammingLanguage.Python2.getShortName()), equalTo("def solution():"));
+        assertThat(resultMap.get(ProgrammingLanguage.Python3.getShortName()), equalTo("def solution():"));
         assertThat(resultMap.get(ProgrammingLanguage.JavaScript.getShortName()), equalTo("function solution() {}"));
         assertThat(resultMap.get(ProgrammingLanguage.Java.getShortName()), equalTo("public class Solution { public Integer solution() {} }"));
     }

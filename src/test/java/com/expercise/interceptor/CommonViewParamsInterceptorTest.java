@@ -125,11 +125,11 @@ public class CommonViewParamsInterceptorTest {
 
     @Test
     public void shouldAddCanonicalUrlWithoutWWW() {
-        when(urlService.getCanonical(request)).thenReturn("http://expercise.com/");
+        when(urlService.getCanonical(request)).thenReturn("http://coding.expercise.com/");
 
         interceptor.postHandle(request, response, null, modelAndView);
 
-        assertThat(modelAndView.getModel(), hasEntry("canonical", (Object) "http://expercise.com/"));
+        assertThat(modelAndView.getModel(), hasEntry("canonical", (Object) "http://coding.expercise.com/"));
     }
 
 }

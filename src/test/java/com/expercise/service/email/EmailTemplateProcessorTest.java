@@ -25,7 +25,7 @@ public class EmailTemplateProcessorTest extends BaseSpringIntegrationTest {
     public void shouldRenderForgotMyPasswordEmail() {
         Map<String, Object> params = new HashMap<>();
         params.put("user", new UserBuilder().id(1L).email("user@expercise.com").firstName("Ahmet").lastName("Mehmet").build());
-        params.put("url", "http://www.expercise.com/resetUrl?token=123qwe");
+        params.put("url", "http://coding.expercise.com/resetUrl?token=123qwe");
 
         String renderedEmail = processor.createEmail(FORGOT_MY_PASSWORD_EMAIL, params);
 
