@@ -7,6 +7,7 @@ import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.*;
 import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 import com.expercise.utils.JsonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,19 @@ public class JavaScriptInterpreter extends Interpreter {
     protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
         for(TestCaseWithResult eachTestCaseWithResult : context.getTestCaseWithResults()) {
             TestCase eachTestCase = eachTestCaseWithResult.getTestCaseUnderTest();
-            String resultValue = makeFunctionCallAndGetResultValue(context.getSource(), eachTestCase);
-            processTestCase(eachTestCaseWithResult, resultValue);
+            InterpretResponse interpretResponse = wrapWithFunctionCallAndGetResult(context.getSource(), eachTestCase);
+            if (StringUtils.isNotBlank(interpretResponse.getStdErr())) {
+                eachTestCaseWithResult.setResultMessage(interpretResponse.getStdErr());
+            }
+            processTestCase(eachTestCaseWithResult, interpretResponse.getStdOut());
         }
         context.decideInterpreterResult();
     }
 
-    private String makeFunctionCallAndGetResultValue(String sourceCode, TestCase testCase) throws InterpreterException {
+    private InterpretResponse wrapWithFunctionCallAndGetResult(String sourceCode, TestCase testCase) throws InterpreterException {
         String params = testCase.getInputs().stream().map(TestCaseInputValue::getInputValue).collect(Collectors.joining(","));
-        sourceCode += "\nconsole.log(solution(" + params + "))";
-        InterpretResponse resp = interpreterClient.interpret(new InterpretRequest(sourceCode, ProgrammingLanguage.JavaScript.name()));
-        //todo: handle also stderr stream
-        return resp.getStdOut();
+        String sourceCodes = sourceCode + "\nconsole.log(solution(" + params + "))";
+        return interpreterClient.interpret(new InterpretRequest(sourceCodes, ProgrammingLanguage.JavaScript.name()));
     }
 
     private void processTestCase(TestCaseWithResult testCaseWithResult, String resultValue) {
@@ -67,8 +69,6 @@ public class JavaScriptInterpreter extends Interpreter {
         }
 
         testCaseWithResult.setTestCaseResult(testCaseResult);
-        testCaseWithResult.setResultMessage(OutputMessageAggregator.getOutputMessage());
-
     }
 
     private Collection<Object> convertCollectionToLiteral(Collection<Object> source) {
