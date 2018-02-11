@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 public class InterpreterTest {
 
     @Test
-    public void shouldLimitInterpretationTime() throws InterpreterException {
+    public void shouldLimitInterpretationTime() {
         InfiniteLoopTestInterpreter interpreter = new InfiniteLoopTestInterpreter();
 
         ChallengeEvaluationContext context = new ChallengeEvaluationContext();
