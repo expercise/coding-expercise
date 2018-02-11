@@ -33,7 +33,6 @@ public class JavaScriptInterpreter extends Interpreter {
                 eachTestCaseWithResult.setResultMessage(interpretResponse.getStdErr());
             }
             processTestCase(eachTestCaseWithResult, interpretResponse.getStdOut());
-            eachTestCaseWithResult.setResultMessage(interpretResponse.getStdErr());
         }
         context.decideInterpreterResult();
     }
@@ -45,8 +44,12 @@ public class JavaScriptInterpreter extends Interpreter {
     }
 
     private void processTestCase(TestCaseWithResult testCaseWithResult, String resultValue) {
-        TestCaseResult testCaseResult = TestCaseResult.FAILED;
+        if (StringUtils.isBlank(resultValue)) {
+            testCaseWithResult.setTestCaseResult(TestCaseResult.FAILED);
+            return;
+        }
 
+        TestCaseResult testCaseResult = TestCaseResult.FAILED;
         DataType outputType = testCaseWithResult.getTestCaseUnderTest().getOutputType();
         Object expectedJavaObject = outputType.toJavaObject(testCaseWithResult.getTestCaseUnderTest().getOutput());
         if (outputType == DataType.Integer) {
