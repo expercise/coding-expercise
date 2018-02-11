@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 
 public abstract class Interpreter {
 
-    private static final int TIMEOUT_AS_SECONDS = 10;
+    private static final int TIMEOUT_AS_SECONDS = 20;
 
     protected abstract void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException;
 
@@ -30,5 +30,4 @@ public abstract class Interpreter {
             executor.shutdownNow();
         }
     }
-
 }

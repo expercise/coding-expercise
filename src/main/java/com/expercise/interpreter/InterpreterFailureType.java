@@ -13,5 +13,4 @@ public enum InterpreterFailureType {
     public String getMessageKey() {
         return messageKey;
     }
-
 }

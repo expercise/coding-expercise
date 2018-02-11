@@ -57,5 +57,4 @@ public class TestCaseWithResult implements Serializable {
     public boolean isFailed() {
         return getTestCaseResult() == TestCaseResult.FAILED;
     }
-
 }
