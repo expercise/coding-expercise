@@ -2,7 +2,6 @@ package com.expercise.interpreter;
 
 import com.expercise.domain.challenge.ChallengeInputType;
 import com.expercise.domain.challenge.TestCase;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class TestCaseModel implements Serializable {
 
     private TestCaseResult testCaseResult;
 
-    private String resultMessage = StringUtils.EMPTY;
+    private String resultMessage;
 
     public TestCaseModel(TestCaseWithResult testCaseWithResult) {
         TestCase testCaseUnderTest = testCaseWithResult.getTestCaseUnderTest();

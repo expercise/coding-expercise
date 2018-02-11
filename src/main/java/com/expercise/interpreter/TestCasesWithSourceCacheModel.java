@@ -30,7 +30,7 @@ public class TestCasesWithSourceCacheModel implements Serializable {
 
     public void reset() {
         this.currentSourceCode = StringUtils.EMPTY;
-        this.testCaseResults.stream().forEach(t -> {
+        this.testCaseResults.forEach(t -> {
             t.setTestCaseResult(TestCaseResult.NEW);
             t.setActualValue(null);
             t.setResultMessage(StringUtils.EMPTY);

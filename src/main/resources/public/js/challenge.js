@@ -31,14 +31,9 @@ expercise.Challenge = {
                 requestData,
                 function (response) {
                     expercise.utils.resetLoadingState(loadingStateConfig);
-                    expercise.Challenge.resetConsole();
-                    var $resultsTextarea = $('#resultsTextarea');
-                    $resultsTextarea.val(response.consoleMessage);
                     expercise.assistant.speak({'message': response.result});
                     if (response.success) {
                         expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
-                    } else {
-                        $resultsTextarea.addClass('failedResult');
                     }
                     var model = response.testCasesWithSourceModel;
                     expercise.Challenge.populateSourceAndTestCaseState(model.currentSourceCode, model.testCaseModels);
@@ -88,7 +83,6 @@ expercise.Challenge = {
 
     reset: function () {
         expercise.Challenge.adjustProgrammingLanguage();
-        expercise.Challenge.resetConsole();
         expercise.Challenge.resetTestCases();
     },
 
@@ -211,15 +205,8 @@ expercise.Challenge = {
     },
 
     changeProgrammingLanguage: function (langName, solution) {
-        expercise.Challenge.resetConsole();
         expercise.CodeEditor.setSolution(solution);
         expercise.CodeEditor.changeMode(langName);
-    },
-
-    resetConsole: function () {
-        var $resultsTextarea = $('#resultsTextarea');
-        $resultsTextarea.val('');
-        $resultsTextarea.removeClass('failedResult');
     },
 
     resetTestCases: function () {
@@ -232,12 +219,8 @@ expercise.Challenge = {
             'challenges/reset',
             requestData,
             function (response) {
-                var $resultsTextarea = $('#resultsTextarea');
-                $resultsTextarea.val(response.result);
                 if (response.success) {
                     expercise.Challenge.populateUserSolutionTable(response.userSolutionModels);
-                } else {
-                    $resultsTextarea.addClass('failedResult');
                 }
                 expercise.Challenge.populateSourceAndTestCaseState(response.currentSourceCode, response.testCaseModels);
             }

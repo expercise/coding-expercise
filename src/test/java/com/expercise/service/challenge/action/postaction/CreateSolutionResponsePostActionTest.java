@@ -116,17 +116,17 @@ public class CreateSolutionResponsePostActionTest {
 
     @Test
     public void shouldCreateFailedResponseWhenInterpreterResultHasDescription() {
-        InterpreterResult failedResult = InterpreterResult.createFailedResult();
-        failedResult.setFailureType(InterpreterFailureType.SYNTAX_ERROR);
+        InterpreterResult failedResult = InterpreterResult.noResultFailedResult();
+        failedResult.setFailureType(InterpreterFailureType.NO_RESULT);
         context.setInterpreterResult(failedResult);
 
         when(messageService.getMessage("challenge.failed")).thenReturn("failed");
-        when(messageService.getMessage("interpreter.syntaxError")).thenReturn("Syntax Error");
+        when(messageService.getMessage("interpreter.noResult")).thenReturn("No Result Error");
 
         action.execute(context);
 
         assertFalse(context.getSolutionValidationResult().isSuccess());
-        assertThat(context.getSolutionValidationResult().getResult(), equalTo("Syntax Error. failed"));
+        assertThat(context.getSolutionValidationResult().getResult(), equalTo("No Result Error. failed"));
     }
 
 }

@@ -33,6 +33,7 @@ public class JavaScriptInterpreter extends Interpreter {
                 eachTestCaseWithResult.setResultMessage(interpretResponse.getStdErr());
             }
             processTestCase(eachTestCaseWithResult, interpretResponse.getStdOut());
+            eachTestCaseWithResult.setResultMessage(interpretResponse.getStdErr());
         }
         context.decideInterpreterResult();
     }

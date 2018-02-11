@@ -18,7 +18,6 @@ public interface PostEvaluationAction extends Prioritized {
         GIVE_SUCCESS_POINT,
         SAVE_USER_SOLUTION,
         PREPARE_CHALLENGE_USER_SOLUTIONS,
-        PREPARE_CONSOLE_MESSAGE_RESPONSE,
         NOTIFY_CHALLENGE_COMPLETED
 
     }
