@@ -25,7 +25,7 @@ public class JavaScriptInterpreter extends Interpreter {
     private InterpreterClient interpreterClient;
 
     @Override
-    protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
+    protected void interpretInternal(ChallengeEvaluationContext context) {
         for(TestCaseWithResult eachTestCaseWithResult : context.getTestCaseWithResults()) {
             TestCase eachTestCase = eachTestCaseWithResult.getTestCaseUnderTest();
             InterpretResponse interpretResponse = wrapWithFunctionCallAndGetResult(context.getSource(), eachTestCase);
@@ -37,7 +37,7 @@ public class JavaScriptInterpreter extends Interpreter {
         context.decideInterpreterResult();
     }
 
-    private InterpretResponse wrapWithFunctionCallAndGetResult(String sourceCode, TestCase testCase) throws InterpreterException {
+    private InterpretResponse wrapWithFunctionCallAndGetResult(String sourceCode, TestCase testCase) {
         String params = testCase.getInputs().stream().map(TestCaseInputValue::getInputValue).collect(Collectors.joining(","));
         String sourceCodes = sourceCode + "\nconsole.log(solution(" + params + "))";
         return interpreterClient.interpret(new InterpretRequest(sourceCodes, ProgrammingLanguage.JavaScript.name()));

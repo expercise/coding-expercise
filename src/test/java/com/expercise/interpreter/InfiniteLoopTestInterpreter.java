@@ -5,7 +5,7 @@ import com.expercise.service.challenge.model.ChallengeEvaluationContext;
 public class InfiniteLoopTestInterpreter extends Interpreter {
 
     @Override
-    protected void interpretInternal(ChallengeEvaluationContext context) throws InterpreterException {
+    protected void interpretInternal(ChallengeEvaluationContext context) {
         while (true) {
             // Infinite loop
         }
