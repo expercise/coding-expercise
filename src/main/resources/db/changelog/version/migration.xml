@@ -1,0 +1,415 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="baybatu (generated)" id="1518363220214-1">
+        <createSequence sequenceName="seq_challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-2">
+        <createSequence sequenceName="seq_challenge_input_type"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-3">
+        <createSequence sequenceName="seq_configuration"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-4">
+        <createSequence sequenceName="seq_quote"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-5">
+        <createSequence sequenceName="seq_remember_me_token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-6">
+        <createSequence sequenceName="seq_solution"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-7">
+        <createSequence sequenceName="seq_test_case"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-8">
+        <createSequence sequenceName="seq_test_case_input_value"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-9">
+        <createSequence sequenceName="seq_token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-10">
+        <createSequence sequenceName="seq_user_connection"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-11">
+        <createSequence sequenceName="seq_user_point"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-12">
+        <createSequence sequenceName="seq_users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-13">
+        <createTable tableName="challenge">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="approved" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="challenge_type" type="VARCHAR(255)"/>
+            <column name="create_date" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="output_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="point" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tags" type="VARCHAR(1024)"/>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-14">
+        <createTable tableName="challenge_descriptions">
+            <column name="challenge_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lingo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-15">
+        <createTable tableName="challenge_input_type">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="input_type" type="VARCHAR(255)"/>
+            <column name="challenge_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-16">
+        <createTable tableName="challenge_signatures">
+            <column name="challenge_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="signature" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lingo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-17">
+        <createTable tableName="challenge_titles">
+            <column name="challenge_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lingo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-18">
+        <createTable tableName="configuration">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-19">
+        <createTable tableName="quote">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-20">
+        <createTable tableName="quote_quote_in_multi_lingo">
+            <column name="quote_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lingo" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-21">
+        <createTable tableName="remember_me_token">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_used_time" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="series" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-22">
+        <createTable tableName="solution">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="programming_language" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="solution" type="VARCHAR(4096)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="challenge_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-23">
+        <createTable tableName="test_case">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="output" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="challenge_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-24">
+        <createTable tableName="test_case_input_value">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="input_value" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test_case_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-25">
+        <createTable tableName="token">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="token_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-26">
+        <createTable tableName="user_connection">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="access_token" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_name" type="VARCHAR(255)"/>
+            <column name="expire_time" type="BIGINT"/>
+            <column name="image_url" type="VARCHAR(512)"/>
+            <column name="profile_url" type="VARCHAR(512)"/>
+            <column name="provider_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="provider_user_id" type="VARCHAR(255)"/>
+            <column name="rank" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="refresh_token" type="VARCHAR(512)"/>
+            <column name="secret" type="VARCHAR(512)"/>
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-27">
+        <createTable tableName="user_point">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="given_date" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="point_amount" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="programming_language" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="challenge_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-28">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="lingo" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="social_image_url" type="VARCHAR(255)"/>
+            <column name="user_role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-29">
+        <createTable tableName="users_user_connections">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_connections_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-30">
+        <addPrimaryKey columnNames="challenge_id, lingo" constraintName="challenge_descriptions_pkey" tableName="challenge_descriptions"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-31">
+        <addPrimaryKey columnNames="id" constraintName="challenge_input_type_pkey" tableName="challenge_input_type"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-32">
+        <addPrimaryKey columnNames="id" constraintName="challenge_pkey" tableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-33">
+        <addPrimaryKey columnNames="challenge_id, lingo" constraintName="challenge_signatures_pkey" tableName="challenge_signatures"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-34">
+        <addPrimaryKey columnNames="challenge_id, lingo" constraintName="challenge_titles_pkey" tableName="challenge_titles"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-35">
+        <addPrimaryKey columnNames="id" constraintName="configuration_pkey" tableName="configuration"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-36">
+        <addPrimaryKey columnNames="id" constraintName="quote_pkey" tableName="quote"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-37">
+        <addPrimaryKey columnNames="quote_id, lingo" constraintName="quote_quote_in_multi_lingo_pkey" tableName="quote_quote_in_multi_lingo"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-38">
+        <addPrimaryKey columnNames="id" constraintName="remember_me_token_pkey" tableName="remember_me_token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-39">
+        <addPrimaryKey columnNames="id" constraintName="solution_pkey" tableName="solution"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-40">
+        <addPrimaryKey columnNames="id" constraintName="test_case_input_value_pkey" tableName="test_case_input_value"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-41">
+        <addPrimaryKey columnNames="id" constraintName="test_case_pkey" tableName="test_case"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-42">
+        <addPrimaryKey columnNames="id" constraintName="token_pkey" tableName="token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-43">
+        <addPrimaryKey columnNames="id" constraintName="user_connection_pkey" tableName="user_connection"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-44">
+        <addPrimaryKey columnNames="id" constraintName="user_point_pkey" tableName="user_point"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-45">
+        <addPrimaryKey columnNames="id" constraintName="users_pkey" tableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-46">
+        <addUniqueConstraint columnNames="name" constraintName="uk_c3pprgpekt3nw1vmv98sqjqce" tableName="configuration"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-47">
+        <addUniqueConstraint columnNames="user_connections_id" constraintName="uk_erq4sjsgb7yyhkyxffkjy2ujl" tableName="users_user_connections"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-48">
+        <addUniqueConstraint columnNames="user_id" constraintName="uk_g7im3j7f0g31yhl6qco2iboy5" tableName="token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-49">
+        <addUniqueConstraint columnNames="series" constraintName="uk_r894b1dliohl121aj02a5qjhj" tableName="remember_me_token"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-50">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="challenge_titles" constraintName="fk5by5505lr68plw6xj8n8dtes" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-51">
+        <addForeignKeyConstraint baseColumnNames="test_case_id" baseTableName="test_case_input_value" constraintName="fk5r55gidtedjm6sesqvqsaixlw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="test_case"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-52">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_user_connections" constraintName="fk6e4lx317rmcuw9a04oottosb4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-53">
+        <addForeignKeyConstraint baseColumnNames="quote_id" baseTableName="quote_quote_in_multi_lingo" constraintName="fk9e4m31k3elflv0db52wib7rjy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quote"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-54">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="challenge_input_type" constraintName="fkfcuiyxjbbeyxnylmrr6crhrvl" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-55">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="solution" constraintName="fkg873rijmxj0dnpa77m4f6vwsv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-56">
+        <addForeignKeyConstraint baseColumnNames="user_connections_id" baseTableName="users_user_connections" constraintName="fkhn58rqecagni6mnj7ylkoycpm" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_connection"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-57">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="token" constraintName="fkj8rfw4x0wjjyibfqq566j4qng" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-58">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_point" constraintName="fkl7fer3vdwhdrg5tj3rhwf130n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-59">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="user_point" constraintName="fkor0bblxlobeyvpxqqx6tfdayh" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-60">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="challenge" constraintName="fkq8acspc7u4hsl89y9sfq1hq27" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-61">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="challenge_descriptions" constraintName="fkqvshmmlr35vhnh4dntfcm01e0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-62">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="challenge_signatures" constraintName="fkqwao15fcsltvnsnav9w447nwy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-63">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="solution" constraintName="fkr8u0lfnm25d2jv0hola4py3w7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet author="baybatu (generated)" id="1518363220214-64">
+        <addForeignKeyConstraint baseColumnNames="challenge_id" baseTableName="test_case" constraintName="fkt54rn174umgrspgj491klrhkj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="challenge"/>
+    </changeSet>
+</databaseChangeLog>
