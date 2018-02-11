@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StartCodingController {
@@ -27,9 +28,9 @@ public class StartCodingController {
     @RequestMapping("/start-coding")
     public ModelAndView listTagsWithChallengeCounts() {
         if (userService.isNewbie()) {
-            Challenge defaultChallenge = challengeService.getDefaultChallenge();
-            if (defaultChallenge != null) {
-                return new ModelAndView("redirect:/challenges/" + defaultChallenge.getId() + "?newMember");
+            Optional<Challenge> defaultChallenge = challengeService.getDefaultChallenge();
+            if (defaultChallenge.isPresent()) {
+                return new ModelAndView("redirect:/challenges/" + defaultChallenge.get().getId() + "?newMember");
             }
         }
 

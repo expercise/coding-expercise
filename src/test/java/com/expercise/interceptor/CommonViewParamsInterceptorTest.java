@@ -1,7 +1,7 @@
 package com.expercise.interceptor;
 
 import com.expercise.domain.user.User;
-import com.expercise.service.configuration.ConfigurationService;
+import com.expercise.service.configuration.Configurations;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.service.util.UrlService;
 import com.expercise.testutils.builder.UserBuilder;
@@ -32,7 +32,7 @@ public class CommonViewParamsInterceptorTest {
     private CommonViewParamsInterceptor interceptor;
 
     @Mock
-    private ConfigurationService configurationService;
+    private Configurations configurations;
 
     @Mock
     private AuthenticationService authenticationService;
@@ -58,11 +58,11 @@ public class CommonViewParamsInterceptorTest {
     public void shouldAddGoogleAnalyticsApplicationKey() {
         String googleAnalyticsApplicationKey = TextUtils.randomAlphabetic(11);
 
-        when(configurationService.getGoogleAnalyticsApplicationKey()).thenReturn(googleAnalyticsApplicationKey);
+        when(configurations.getGoogleAnalyticsApplicationKey()).thenReturn(googleAnalyticsApplicationKey);
 
         interceptor.postHandle(request, response, null, modelAndView);
 
-        assertThat(modelAndView.getModel(), hasEntry("googleAnalyticsApplicationKey", (Object) googleAnalyticsApplicationKey));
+        assertThat(modelAndView.getModel(), hasEntry("googleAnalyticsApplicationKey", googleAnalyticsApplicationKey));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CommonViewParamsInterceptorTest {
     public void shouldAddIfDevelopmentEnvironment() {
         boolean developmentEnvironment = BooleanUtils.toBoolean(RandomUtils.nextInt(0, 2));
 
-        when(configurationService.isDevelopment()).thenReturn(developmentEnvironment);
+        when(configurations.isDevelopment()).thenReturn(developmentEnvironment);
 
         interceptor.postHandle(request, response, null, modelAndView);
 

@@ -1,6 +1,6 @@
 package com.expercise.interceptor;
 
-import com.expercise.service.configuration.ConfigurationService;
+import com.expercise.service.configuration.Configurations;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.service.util.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private ConfigurationService configurationService;
+    private Configurations configurations;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -34,8 +34,8 @@ public class CommonViewParamsInterceptor extends HandlerInterceptorAdapter {
         }
 
         modelAndView.addObject("buildId", buildId);
-        modelAndView.addObject("developmentEnvironment", configurationService.isDevelopment());
-        modelAndView.addObject("googleAnalyticsApplicationKey", configurationService.getGoogleAnalyticsApplicationKey());
+        modelAndView.addObject("developmentEnvironment", configurations.isDevelopment());
+        modelAndView.addObject("googleAnalyticsApplicationKey", configurations.getGoogleAnalyticsApplicationKey());
         modelAndView.addObject("currentUser", authenticationService.getCurrentUser());
         modelAndView.addObject("mobileClient", DeviceUtils.getCurrentDevice(request).isMobile() || DeviceUtils.getCurrentDevice(request).isTablet());
         modelAndView.addObject("canonical", urlService.getCanonical(request));

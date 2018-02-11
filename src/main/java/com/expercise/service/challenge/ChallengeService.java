@@ -7,19 +7,19 @@ import com.expercise.enums.ProgrammingLanguage;
 import com.expercise.interpreter.TestCasesWithSourceCacheModel;
 import com.expercise.interpreter.TestCasesWithSourceModel;
 import com.expercise.repository.challenge.ChallengeRepository;
-import com.expercise.service.configuration.ConfigurationService;
+import com.expercise.service.configuration.Configurations;
 import com.expercise.service.language.SignatureGeneratorService;
 import com.expercise.service.notification.SlackMessage;
 import com.expercise.service.notification.SlackNotificationService;
 import com.expercise.service.user.AuthenticationService;
 import com.expercise.service.util.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ChallengeService {
@@ -40,16 +40,13 @@ public class ChallengeService {
     private UserTestCaseStateService userTestCaseStateService;
 
     @Autowired
-    private ConfigurationService configurationService;
+    private Configurations configurations;
 
     @Autowired
     private SlackNotificationService slackNotificationService;
 
     @Autowired
     private UrlService urlService;
-
-    @Value("${coding-expercise.challenge-approval-strategy}")
-    private String challengeApprovalStrategy;
 
     public List<Challenge> findAllChallengesOfUser() {
         return challengeRepository.findByUserOrderByCreateDateDesc(authenticationService.getCurrentUser());
@@ -95,7 +92,7 @@ public class ChallengeService {
     }
 
     private void checkAndAutoApprove(Challenge challenge) {
-        if ("auto".equalsIgnoreCase(challengeApprovalStrategy)) {
+        if ("auto".equalsIgnoreCase(configurations.getChallengeApprovalStrategy())) {
             challenge.setApproved(true);
         }
     }
@@ -136,10 +133,7 @@ public class ChallengeService {
         return getUserStateFor(challenge, programmingLanguage);
     }
 
-    public Challenge getDefaultChallenge() {
-        return configurationService.getIdOfDefaultChallenge()
-                .map(this::findById)
-                .orElse(null);
+    public Optional<Challenge> getDefaultChallenge() {
+        return Optional.ofNullable(findById(configurations.getDefaultChallengeId()));
     }
-
 }

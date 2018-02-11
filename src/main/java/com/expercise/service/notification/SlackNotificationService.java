@@ -1,6 +1,6 @@
 package com.expercise.service.notification;
 
-import com.expercise.service.configuration.ConfigurationService;
+import com.expercise.service.configuration.Configurations;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +18,11 @@ public class SlackNotificationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SlackNotificationService.class);
 
     @Autowired
-    private ConfigurationService configurationService;
+    private Configurations configurations;
 
     @Async
     public void sendMessage(SlackMessage slackMessage) {
-        String slackIncomingWebhookUrl = configurationService.getSlackIncomingWebhookUrl();
+        String slackIncomingWebhookUrl = configurations.getSlackIncomingWebhookUrl();
 
         if (StringUtils.isBlank(slackIncomingWebhookUrl)) {
             LOGGER.warn("No slack incoming webhook url configured!");

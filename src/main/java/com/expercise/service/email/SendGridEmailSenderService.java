@@ -50,5 +50,4 @@ public class SendGridEmailSenderService implements EmailSenderService {
             LOGGER.error("Exception while sending email via SendGrid.", e);
         }
     }
-
 }
