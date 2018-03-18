@@ -1,4 +1,4 @@
-package com.expercise.configuration;
+package com.expercise.configuration.redis;
 
 import com.expercise.service.cache.JsonRedisTemplate;
 import com.expercise.service.cache.ObjectRedisTemplate;

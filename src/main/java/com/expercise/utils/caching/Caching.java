@@ -1,4 +1,4 @@
-package com.expercise.caching;
+package com.expercise.utils.caching;
 
 public interface Caching {
 

@@ -10,11 +10,7 @@ public final class EnvironmentUtils {
     }
 
     public static boolean isDevelopment(String environment) {
-        return "dev".equals(environment);
-    }
-
-    public static boolean isNotDevelopment(String environment) {
-        return !isDevelopment(environment);
+        return !isProduction(environment);
     }
 
 }

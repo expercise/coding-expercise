@@ -1,7 +1,7 @@
 package com.expercise.controller.caching;
 
-import com.expercise.caching.Caching;
-import com.expercise.caching.CachingSubject;
+import com.expercise.utils.caching.Caching;
+import com.expercise.utils.caching.CachingSubject;
 import com.expercise.controller.BaseManagementController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

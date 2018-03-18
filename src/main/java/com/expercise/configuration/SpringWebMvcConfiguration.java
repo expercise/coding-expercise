@@ -91,7 +91,7 @@ public class SpringWebMvcConfiguration extends WebMvcConfigurerAdapter {
         classLoaderTemplateResolver.setCharacterEncoding("UTF-8");
         classLoaderTemplateResolver.setTemplateMode("HTML5");
         classLoaderTemplateResolver.setOrder(1);
-        classLoaderTemplateResolver.setCacheable(EnvironmentUtils.isNotDevelopment(environment));
+        classLoaderTemplateResolver.setCacheable(EnvironmentUtils.isProduction(environment));
         return classLoaderTemplateResolver;
     }
 

@@ -11,8 +11,8 @@ import javax.persistence.PersistenceContext;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Transactional
 @ActiveProfiles(profiles = "test")
+@Transactional
 public abstract class BaseSpringIntegrationTest {
 
     @PersistenceContext

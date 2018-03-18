@@ -1,4 +1,4 @@
-package com.expercise.caching;
+package com.expercise.utils.caching;
 
 import com.expercise.service.challenge.SolutionCountService;
 import com.expercise.service.quote.QuoteService;

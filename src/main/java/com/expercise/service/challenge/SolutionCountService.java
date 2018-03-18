@@ -1,6 +1,6 @@
 package com.expercise.service.challenge;
 
-import com.expercise.caching.Caching;
+import com.expercise.utils.caching.Caching;
 import com.expercise.domain.challenge.Challenge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

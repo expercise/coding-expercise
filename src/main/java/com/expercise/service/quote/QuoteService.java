@@ -1,6 +1,6 @@
 package com.expercise.service.quote;
 
-import com.expercise.caching.Caching;
+import com.expercise.utils.caching.Caching;
 import com.expercise.domain.quote.Quote;
 import com.expercise.repository.quote.QuoteRepository;
 import com.expercise.utils.collection.RandomElement;

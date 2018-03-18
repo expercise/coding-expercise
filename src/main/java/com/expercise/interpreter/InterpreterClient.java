@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class InterpreterClient {
 
-    @Value("${interpreter.api.url}")
+    @Value("${coding-expercise.interpreter.api.url}")
     private String interpreterApiUrl;
 
     public InterpretResponse interpret(InterpretRequest interpretRequest) {
