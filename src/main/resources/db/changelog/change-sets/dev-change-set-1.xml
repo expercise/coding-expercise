@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="2018-03-19 21:50" author="baybatu" context="dev">
+        <comment>Test users :: all passwords are same : 123qwe</comment>
+        <sql>
+            INSERT INTO public.users (id, avatar, email, first_name, last_name, lingo, password, social_image_url, user_role)
+            VALUES (nextval('SEQ_USERS'), null, 'ataturk@expercise.com', 'Mustafa Kemal', 'Ataturk', 'Turkish', 'fbfb386efea67e816f2dda0a8c94a98eb203757aebb3f55f183755a192d44467', null, 'Admin');
+
+            INSERT INTO public.users (id, avatar, email, first_name, last_name, lingo, password, social_image_url, user_role)
+            VALUES (nextval('SEQ_USERS'), null, 'batu@expercise.com', 'Batuhan', 'Bayrakci', 'Turkish', 'fbfb386efea67e816f2dda0a8c94a98eb203757aebb3f55f183755a192d44467', null, 'Admin');
+
+            INSERT INTO public.users (id, avatar, email, first_name, last_name, lingo, password, social_image_url, user_role)
+            VALUES (nextval('SEQ_USERS'), null, 'ufuk@expercise.com', 'Ufuk', 'Uzun', 'Turkish', 'fbfb386efea67e816f2dda0a8c94a98eb203757aebb3f55f183755a192d44467', null, 'Admin');
+
+            INSERT INTO public.users (id, avatar, email, first_name, last_name, lingo, password, social_image_url, user_role)
+            VALUES (nextval('SEQ_USERS'), null, 'dennis@expercise.com', 'Dennis', 'Ritchie', 'English', 'fbfb386efea67e816f2dda0a8c94a98eb203757aebb3f55f183755a192d44467', null, 'User');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
