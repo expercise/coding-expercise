@@ -1,0 +1,19 @@
+deploy:
+  artifact: target/elasticbeanstalk-artifact.zip
+global:
+  application_name: coding-expercise
+  branch: null
+  default_ec2_keyname: coding-expercise
+  default_platform: Java 8
+  default_region: us-east-1
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application
+branch-defaults:
+  master:
+    environment: null
+    group_suffix: null

@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+
         <less.plugin.version>1.7.0.1.1</less.plugin.version>
         <yuicompressor.plugin.version>1.0.0</yuicompressor.plugin.version>
         <property.helper.plugin.version>2.0</property.helper.plugin.version>
@@ -40,6 +41,8 @@
         <postgresql.version>42.1.4</postgresql.version>
         <spring-session.version>1.3.1.RELEASE</spring-session.version>
         <embedded-redis.version>0.6</embedded-redis.version>
+
+        <elasticbeanstalk.artifact.name>elasticbeanstalk-artifact</elasticbeanstalk.artifact.name>
     </properties>
 
     <dependencies>
@@ -409,6 +412,37 @@
                                 ${project.build.directory}/classes/public/js/compressed-${build.id}.js
                             </output>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- ElasticBeanstalk artifact creation... -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>prepare</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${project.build.directory}/${elasticbeanstalk.artifact.name}/"/>
+                                <copy todir="${project.build.directory}/${elasticbeanstalk.artifact.name}/"
+                                      overwrite="false">
+                                    <fileset dir="${project.build.directory}/"
+                                             includes="${project.build.finalName}.jar"/>
+                                    <fileset dir="${project.basedir}/.elasticbeanstalk/" includes=".ebextensions/**"/>
+                                    <fileset dir="${project.basedir}/.elasticbeanstalk/" includes="Procfile"/>
+                                </copy>
+                                <zip compress="true"
+                                     destfile="${project.build.directory}/${elasticbeanstalk.artifact.name}.zip"
+                                     basedir="${project.build.directory}/${elasticbeanstalk.artifact.name}/"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
