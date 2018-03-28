@@ -8,7 +8,7 @@
     <groupId>com.expercise.coding</groupId>
     <artifactId>coding-expercise</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <name>coding-expercise</name>
 
     <parent>
